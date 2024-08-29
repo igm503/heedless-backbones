@@ -1,0 +1,32 @@
+<!-- <!doctype html> -->
+<!-- <head> -->
+<!--   <meta charset="utf-8"> -->
+<!--   <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<!-- </head> -->
+<!-- <body> -->
+<!--   {% autoescape off %} -->
+<!--   {{plot}} -->
+<!--   {% endautoescape %} -->
+<!-- </body> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Results</title>
+</head>
+<body>
+    <h1>Model Results</h1>
+    
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Update Plot</button>
+    </form>
+
+    {% if plot %}
+        {{ plot|safe }}
+    {% else %}
+        <p>Please select a dataset and task to display the plot.</p>
+    {% endif %}
+</body>
+</html>

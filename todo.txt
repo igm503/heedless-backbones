@@ -1,0 +1,28 @@
+models to add:
+
+- swin
+- swinv2
+- convnextv2
+- resnet
+- internimage
+- focalnet
+- ca-former
+- eva
+- eva-2
+- hiera
+- moganet
+- MVit
+- EfficientVit https://arxiv.org/pdf/2205.14756
+- Cswin
+- BiFormer
+- mamba out
+
+left in papers
+- transnext
+-- ade20k results
+- convnext
+-- ade20k results; swin vs convnext throughput on A100 gpu; convnext vs many other models on v100
+
+cross references
+- swin
+-- convnext paper has swin semantic seg with upernet on ade20k, plus cascade mask rcnn and mask rcnn on coco, plus imagenet a, r, and sk results
