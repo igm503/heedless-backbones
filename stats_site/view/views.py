@@ -1,6 +1,7 @@
 import random
 
 from django import forms
+from django.db.models.fields.related_lookups import In
 from django.shortcuts import render
 from django.views.generic import FormView
 from django.db.models import Prefetch
@@ -106,7 +107,6 @@ class DatasetTaskForm(forms.Form):
     def is_ready(self):
         values = list(self.cleaned_data.values())
         return None not in values and "" not in values
-            
 
 
 def plot_view(request):
@@ -133,7 +133,8 @@ def get_plot(plot_args):
 
         if x_type == "results" and y_type == "results":
             if x_dataset != y_dataset or x_task != y_task or x_head != y_head:
-                return None
+                data = get_multi_result_data(x_dataset, x_task, x_head, y_dataset, y_task, y_head)
+                plot = get_multi_plot(data, x_metric, y_metric, x_dataset.name, y_dataset.name)
             else:
                 data = get_single_result_data(x_dataset, x_task, x_head)
                 plot = get_single_plot(data, x_metric, y_metric, x_dataset.name)
@@ -153,57 +154,82 @@ def get_plot(plot_args):
     return plot
 
 
+def get_multi_result_data(x_dataset, x_task, x_head, y_dataset, y_task, y_head):
+    query = PretrainedBackbone.objects.select_related("family").select_related("backbone")
+    if x_task.name == TaskType.CLASSIFICATION.value:
+        query = filter_results(query, ClassificationResult, x_dataset).prefetch_related(
+            get_result_prefetch("x_results", ClassificationResult, x_dataset)
+        )
+    else:
+        query = filter_results(query, InstanceResult, x_dataset, x_task, x_head).prefetch_related(
+            get_result_prefetch("x_results", InstanceResult, x_dataset, x_task, x_head)
+        )
+    if y_task.name == TaskType.CLASSIFICATION.value:
+        query = filter_results(query, ClassificationResult, y_dataset).prefetch_related(
+            get_result_prefetch("y_results", ClassificationResult, y_dataset)
+        )
+    else:
+        query = filter_results(query, InstanceResult, y_dataset, y_task, y_head).prefetch_related(
+            get_result_prefetch("y_results", InstanceResult, y_dataset, y_task, y_head)
+        )
+    return query
+
+
 def get_all_results_data():
     return (
         PretrainedBackbone.objects.select_related("family")
         .select_related("backbone")
-        .prefetch_related(
-            Prefetch(
-                "classification_results",
-                queryset=ClassificationResult.objects.all(),
-                to_attr="_classification_results",
-            )
-        )
-        .prefetch_related(
-            Prefetch(
-                "instance_results",
-                queryset=InstanceResult.objects.all(),
-                to_attr="_instance_results",
-            )
-        )
+        .prefetch_related(get_result_prefetch("_classification_results", ClassificationResult))
+        .prefetch_related(get_result_prefetch("_instance_results", InstanceResult))
     )
 
 
 def get_single_result_data(dataset, task, head):
     query = PretrainedBackbone.objects.select_related("family").select_related("backbone")
     if task.name == TaskType.CLASSIFICATION.value:
-        data = query.filter(classification_results__dataset=dataset).prefetch_related(
-            Prefetch(
-                "classification_results",
-                queryset=ClassificationResult.objects.filter(dataset=dataset),
-                to_attr="filtered_results",
-            )
+        data = filter_results(query, ClassificationResult, dataset).prefetch_related(
+            get_result_prefetch("filtered_results", ClassificationResult, dataset)
         )
     else:
         if head:
-            data = query.filter(
-                instance_results__dataset=dataset, instance_results__head=head
-            ).prefetch_related(
-                Prefetch(
-                    "instance_results",
-                    queryset=InstanceResult.objects.filter(dataset=dataset, head=head),
-                    to_attr="filtered_results",
-                )
+            data = filter_results(query, InstanceResult, dataset, task, head).prefetch_related(
+                get_result_prefetch("filtered_results", InstanceResult, dataset, task, head)
             )
         else:
-            data = query.filter(instance_results__dataset=dataset).prefetch_related(
-                Prefetch(
-                    "instance_results",
-                    queryset=InstanceResult.objects.filter(dataset=dataset),
-                    to_attr="filtered_results",
-                )
+            data = filter_results(query, InstanceResult, dataset, task).prefetch_related(
+                get_result_prefetch("filtered_results", InstanceResult, dataset, task)
             )
     return data
+
+
+def filter_results(query, model, dataset=None, task=None, head=None, resolution=None):
+    if model == ClassificationResult:
+        filter_args = {
+            "classification_results__dataset": dataset,
+            "classification_results__resolution": resolution,
+        }
+    else:
+        filter_args = {
+            "instance_results__dataset": dataset,
+            "instance_results__instance_type": task,
+            "instance_results__head": head,
+            "instance_results__fine_tune_resolution": resolution,
+        }
+    filter_args = {k: v for k, v in filter_args.items() if v is not None}
+    return query.filter(**filter_args) if filter_args else query
+
+
+def get_result_prefetch(name, model, dataset=None, task=None, head=None, resolution=None):
+    filter_args = {
+        "dataset": dataset,
+        "instance_type": task,
+        "head": head,
+        "fine_tune_resolution": resolution,
+    }
+    filter_args = {k: v for k, v in filter_args.items() if v is not None}
+    queryset = model.objects.filter(**filter_args) if filter_args else model.objects.all()
+    lookup = "classification_results" if model == ClassificationResult else "instance_results"
+    return Prefetch(lookup, queryset=queryset, to_attr=name)
 
 
 def get_single_plot(pretrained_backbones, x_type, y_type, dataset_name):
@@ -250,6 +276,57 @@ def get_single_plot(pretrained_backbones, x_type, y_type, dataset_name):
 
     layout = go.Layout(
         title=f"{y_title} on {dataset_name}",
+        xaxis=dict(title=x_title),
+        yaxis=dict(title=y_title),
+        hovermode="closest",
+    )
+    fig = go.Figure(data=data, layout=layout)
+    return plot(fig, output_type="div", include_plotlyjs=True)
+
+
+def get_multi_plot(pretrained_backbones, x_type, y_type, x_dataset_name, y_dataset_name):
+    y_title = get_axis_title(y_type)
+    x_title = get_axis_title(x_type)
+    data = []
+    family_colors = {}
+    used_families = set()
+
+    for pb in pretrained_backbones:
+        x_values = []
+        y_values = []
+        hovers = []
+        for x_result in pb.x_results:
+            for y_result in pb.y_results:
+                x = getattr(x_result, x_type)
+                y = getattr(y_result, y_type)
+                hover = f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
+                x_values.append(x)
+                y_values.append(y)
+                hovers.append(hover)
+
+        if pb.family.name not in family_colors:
+            family_colors[pb.family.name] = (
+                f"rgba({random.randint(0,255)},{random.randint(0,255)},{random.randint(0,255)},0.8)"
+            )
+
+        show_legend = pb.family.name not in used_families
+        used_families.add(pb.family.name)
+
+        data.append(
+            go.Scatter(
+                x=x_values,
+                y=y_values,
+                mode="markers",
+                name=pb.family.name,
+                text=hovers,
+                hoverinfo="text",
+                marker=dict(size=10, color=family_colors[pb.family.name]),
+                showlegend=show_legend,
+            )
+        )
+
+    layout = go.Layout(
+        title=f"{y_title} on {y_dataset_name} vs. {x_title} on {x_dataset_name}",
         xaxis=dict(title=x_title),
         yaxis=dict(title=y_title),
         hovermode="closest",
