@@ -1,32 +1,278 @@
-<!-- <!doctype html> -->
-<!-- <head> -->
-<!--   <meta charset="utf-8"> -->
-<!--   <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-<!-- </head> -->
-<!-- <body> -->
-<!--   {% autoescape off %} -->
-<!--   {{plot}} -->
-<!--   {% endautoescape %} -->
-<!-- </body> -->
+{% load widget_tweaks %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Model Results</title>
-</head>
-<body>
-    <h1>Model Results</h1>
-    
-    <form method="get">
-        {{ form.as_p }}
-        <button type="submit">Update Plot</button>
-    </form>
+    <title>Model Results Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
 
-    {% if plot %}
-        {{ plot|safe }}
-    {% else %}
-        <p>Please select a dataset and task to display the plot.</p>
-    {% endif %}
+        /* .floating-plot { */
+        /*     border-radius: 5px !important; */
+        /*     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important; */
+        /*     transition: all 0.3s cubic-bezier(.25,.8,.25,1) !important; */
+        /*     padding: 20px; */
+        /* } */
+        /**/
+        /* .floating-plot:hover { */
+        /*     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22) !important; */
+        /*     transform: translateY(-5px) !important; */
+        /* } */
+        /**/
+        /* .plot-container { */
+        /*     padding: 20px; */
+        /* } */
+        /**/
+        /* .gradient-bg { */
+        /*     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+        /* } */
+
+        .container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            width: 100%;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .custom-select-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .custom-select-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: left;
+            padding: 0.5rem 1rem;
+            background-color: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 0.075rem;
+            cursor: pointer;
+        }
+
+        .custom-select-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-top: none;
+            border-radius: 0 0 0.375rem 0.375rem;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 10;
+            display: none;
+        }
+
+        .custom-select-option {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        .custom-select-option:hover {
+            background-color: #f3f4f6;
+        }
+
+        .custom-select-option.selected {
+            background-color: #e5e7eb;
+        }
+
+        .custom-select-arrow {
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #4b5563;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .custom-select-container.open .custom-select-arrow {
+            transform: rotate(180deg);
+        }
+
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <header class="gradient-bg text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold text-center">Model Results Dashboard</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        {% if plot %}
+            <div class="plot-container">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Results Visualization</h2>
+                {{ plot|safe }}
+            </div>
+        {% endif %}
+        <div class="bg-white rounded-lg shadow-xl p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Configure Your Plot</h2>
+            <form method="get" class="space-y-6">
+                <div id="y-axis-container" class="form-grid mb-4">
+                    {% for field in form %}
+                        {% if field.name|slice:":2" == "y_" %}
+                            <div>
+                                <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                                    {{ field.label }}
+                                </label>
+                                <div class="custom-select-container" data-field-name="{{ field.name }}">
+                                    <div class="custom-select-header">
+                                        <span class="custom-select-selected">Select an option</span>
+                                        <div class="custom-select-arrow"></div>
+                                    </div>
+                                    <div class="custom-select-options">
+                                        {% for choice in field.field.choices %}
+                                            <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div id="x-axis-container" class="form-grid">
+                    {% for field in form %}
+                        {% if field.name|slice:":2" == "x_" %}
+                            <div>
+                                <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                                    {{ field.label }}
+                                </label>
+                                <div class="custom-select-container" data-field-name="{{ field.name }}">
+                                    <div class="custom-select-header">
+                                        <span class="custom-select-selected">Select an option</span>
+                                        <div class="custom-select-arrow"></div>
+                                    </div>
+                                    <div class="custom-select-options">
+                                        {% for choice in field.field.choices %}
+                                            <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+        
+        {% if not plot %}
+            <div class="bg-white rounded-lg shadow-xl p-6 text-center">
+                <p class="text-gray-600">Please select options to display the visualization.</p>
+                <img src="/api/placeholder/400/300" alt="Placeholder graph" class="mx-auto mt-4 rounded-lg">
+            </div>
+        {% endif %}
+    </main>
+
+    <footer class="bg-gray-800 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>2024 Model Results Dashboard. </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const customSelects = document.querySelectorAll('.custom-select-container');
+            const form = document.querySelector('form');
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const yAxisContainer = document.getElementById('y-axis-container');
+            const xAxisContainer = document.getElementById('x-axis-container');
+            
+            function initializeSelect(select) {
+                const header = select.querySelector('.custom-select-header');
+                const options = select.querySelector('.custom-select-options');
+                const selectedSpan = select.querySelector('.custom-select-selected');
+                const hiddenInput = select.querySelector('input[type="hidden"]');
+
+                if (hiddenInput.value) {
+                    const selectedOption = options.querySelector(`[data-value="${hiddenInput.value}"]`);
+                    if (selectedOption) {
+                        selectedSpan.textContent = selectedOption.textContent;
+                        selectedOption.classList.add('selected');
+                    }
+                }
+
+                header.addEventListener('click', () => {
+                    select.classList.toggle('open');
+                    options.style.display = select.classList.contains('open') ? 'block' : 'none';
+                });
+
+                options.querySelectorAll('.custom-select-option').forEach(option => {
+                    option.addEventListener('click', () => {
+                        hiddenInput.value = option.dataset.value;
+                        selectedSpan.textContent = option.textContent;
+                        options.querySelectorAll('.custom-select-option').forEach(opt => opt.classList.toggle('selected', opt === option));
+                        select.classList.remove('open');
+                        options.style.display = 'none';
+                        loadingOverlay.style.display = 'flex';
+                        form.submit();
+                    });
+                });
+            }
+
+            customSelects.forEach(initializeSelect);
+
+            document.addEventListener('click', (event) => {
+                if (!event.target.closest('.custom-select-container')) {
+                    customSelects.forEach(select => {
+                        select.classList.remove('open');
+                        select.querySelector('.custom-select-options').style.display = 'none';
+                    });
+                }
+            });
+
+            // Set the grid template columns based on the number of y-axis options
+            const yAxisOptions = yAxisContainer.children.length;
+            yAxisContainer.style.gridTemplateColumns = `repeat(${yAxisOptions}, 1fr)`;
+            xAxisContainer.style.gridTemplateColumns = `repeat(${yAxisOptions}, 1fr)`;
+        });
+    </script>
 </body>
 </html>

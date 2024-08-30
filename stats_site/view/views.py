@@ -53,7 +53,7 @@ FIELD_ORDER = [
     "x_head",
 ]
 
-HIDDEN = forms.HiddenInput
+last_plot = None
 
 
 class DatasetTaskForm(forms.Form):
@@ -72,11 +72,13 @@ class DatasetTaskForm(forms.Form):
                     self.init_extras(args, axis)
 
         self.reorder_fields()
+        self.init_graph = False
 
     def init_defaults(self):
-        self.fields["y_task"] = forms.ModelChoiceField(queryset=Task.objects.all(), initial=1)
+        self.fields["y_task"] = forms.ModelChoiceField(queryset=Task.objects.all(), initial=4)
         self.fields["y_dataset"] = forms.ModelChoiceField(queryset=Dataset.objects.all(), initial=1)
         self.fields["y_metric"] = forms.ChoiceField(choices=CLASSIFICATION_METRICS, initial="top_1")
+        self.init_graph = True
 
     def init_extras(self, args, axis):
         self.fields[f"{axis}_task"] = forms.ModelChoiceField(
@@ -106,15 +108,29 @@ class DatasetTaskForm(forms.Form):
 
     def is_ready(self):
         values = list(self.cleaned_data.values())
-        return None not in values and "" not in values
+        return self.init_graph or (None not in values and "" not in values)
 
 
 def plot_view(request):
+    global last_plot
     form = DatasetTaskForm(request.GET or None)
-    plot = None
+    plot = last_plot
     if form.is_valid() and form.is_ready():
         plot = get_plot(form.cleaned_data)
+        last_plot = plot
+    elif not request.GET:
+        plot = get_default_plot()
+        last_plot = plot
     return render(request, "view/all.html", {"form": form, "plot": plot})
+
+
+def get_default_plot():
+    y_dataset = Dataset.objects.get(pk=1)
+    y_task = Task.objects.get(pk=4)
+    y_metric = "top_1"
+    data = get_single_result_data(y_dataset, y_task, None)
+    plot = get_single_plot(data, "gflops", y_metric, y_dataset.name)
+    return plot
 
 
 def get_plot(plot_args):
@@ -274,14 +290,8 @@ def get_single_plot(pretrained_backbones, x_type, y_type, dataset_name):
             )
         )
 
-    layout = go.Layout(
-        title=f"{y_title} on {dataset_name}",
-        xaxis=dict(title=x_title),
-        yaxis=dict(title=y_title),
-        hovermode="closest",
-    )
-    fig = go.Figure(data=data, layout=layout)
-    return plot(fig, output_type="div", include_plotlyjs=True)
+    title = f"{y_title} on {dataset_name}"
+    return get_plot_div(title, x_title, y_title, data)
 
 
 def get_multi_plot(pretrained_backbones, x_type, y_type, x_dataset_name, y_dataset_name):
@@ -299,15 +309,13 @@ def get_multi_plot(pretrained_backbones, x_type, y_type, x_dataset_name, y_datas
             for y_result in pb.y_results:
                 x = getattr(x_result, x_type)
                 y = getattr(y_result, y_type)
-                hover = f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
+                hover = f"<b>{pb.name}</b><br>Family: {pb.family.name}<br>{y_title}: {y:.2f}<br>{x_title}: {x:.2f}"
                 x_values.append(x)
                 y_values.append(y)
                 hovers.append(hover)
 
         if pb.family.name not in family_colors:
-            family_colors[pb.family.name] = (
-                f"rgba({random.randint(0,255)},{random.randint(0,255)},{random.randint(0,255)},0.8)"
-            )
+            family_colors[pb.family.name] = f"hsla({random.randint(0,360)},70%,50%,0.8)"
 
         show_legend = pb.family.name not in used_families
         used_families.add(pb.family.name)
@@ -320,19 +328,16 @@ def get_multi_plot(pretrained_backbones, x_type, y_type, x_dataset_name, y_datas
                 name=pb.family.name,
                 text=hovers,
                 hoverinfo="text",
-                marker=dict(size=10, color=family_colors[pb.family.name]),
+                marker=dict(
+                    size=10,
+                    color=family_colors[pb.family.name],
+                    line=dict(width=2, color="white"),
+                ),
                 showlegend=show_legend,
             )
         )
-
-    layout = go.Layout(
-        title=f"{y_title} on {y_dataset_name} vs. {x_title} on {x_dataset_name}",
-        xaxis=dict(title=x_title),
-        yaxis=dict(title=y_title),
-        hovermode="closest",
-    )
-    fig = go.Figure(data=data, layout=layout)
-    return plot(fig, output_type="div", include_plotlyjs=True)
+    title = f"{y_title} on {y_dataset_name} vs. {x_title} on {x_dataset_name}"
+    return get_plot_div(title, x_title, y_title, data)
 
 
 def get_axis_title(db_name):
@@ -391,15 +396,40 @@ def get_all_plot(pretrained_backbones, x_type, y_type):
             )
         )
 
+    title = f"{y_title} against {x_title}"
+    return get_plot_div(title, x_title, y_title, data)
+
+
+def get_plot_div(title, x_title, y_title, data):
     layout = go.Layout(
-        title=f"{y_title} against {x_title}",
-        xaxis=dict(title=x_title),
-        yaxis=dict(title=y_title),
+        title=dict(text=title, font=dict(size=24, color="#333")),
+        xaxis=dict(
+            title=x_title,
+            gridcolor="rgba(200,200,200,0.4)",
+            zerolinecolor="rgba(200,200,200,0.4)",
+        ),
+        yaxis=dict(
+            title=y_title,
+            gridcolor="rgba(200,200,200,0.4)",
+            zerolinecolor="rgba(200,200,200,0.4)",
+        ),
         hovermode="closest",
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="Arial, sans-serif", size=14, color="#333"),
+        legend=dict(
+            bgcolor="rgba(255,255,255,0.5)",
+            bordercolor="rgba(0,0,0,0.1)",
+            borderwidth=1,
+        ),
+        margin=dict(l=40, r=40, t=60, b=40),
     )
 
     fig = go.Figure(data=data, layout=layout)
-    return plot(fig, output_type="div", include_plotlyjs=True)
+    plot_div = plot(fig, output_type="div", include_plotlyjs=True, config={"responsive": True})
+    plot_div = plot_div.replace("<div", '<div class="floating-plot"', 1)
+
+    return plot_div
 
 
 def show_family(request, family):
