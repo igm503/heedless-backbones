@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6;
@@ -74,7 +74,7 @@
             background-color: #f3f4f6;
             border: 1px solid #d1d5db;
             border-top: none;
-            border-radius: 0 0 0.375rem 0.375rem;
+            border-radius: 0 0 0.075rem 0.075rem;
             max-height: 200px;
             overflow-y: auto;
             z-index: 10;
@@ -131,6 +131,69 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        #optionsContainer {
+            max-height: 0;
+            opacity: 0;
+            overflow: visible;
+            padding: 0;
+            border: 1px solid transparent;
+            border-top: none;
+            margin-top: -1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        #optionsContainer.show {
+            max-height: 1000px; /* Adjust based on your content */
+            opacity: 1;
+            padding: 1rem;
+            border-color: #d1d5db;
+            background-color: #f3f4f6;
+            border-radius: 0.075rem;
+            border-top: 0px solid #d1d5db;
+        }
+
+        #toggleOptions {
+            width: 100%;
+            background-color: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 0.075rem;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 500;
+            color: #4b5563;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+
+        #toggleOptions:hover {
+            background-color: #e5e7eb;
+        }
+
+        #toggleOptions:focus {
+            outline: none;
+            ring: 2px;
+            ring-offset: 2px;
+            ring-color: #6b7280;
+        }
+
+        #toggleOptions.active {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        #toggleOptions::after {
+            content: '\25BC';
+            float: right;
+            transition: transform 0.3s ease;
+        }
+
+        #toggleOptions.active::after {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -152,57 +215,61 @@
             </div>
         {% endif %}
         <div class="bg-white rounded-lg shadow-xl p-6 mb-8">
-            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Configure Your Plot</h2>
-            <form method="get" class="space-y-6">
-                <div id="y-axis-container" class="form-grid mb-4">
-                    {% for field in form %}
-                        {% if field.name|slice:":2" == "y_" %}
-                            <div>
-                                <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                                    {{ field.label }}
-                                </label>
-                                <div class="custom-select-container" data-field-name="{{ field.name }}">
-                                    <div class="custom-select-header">
-                                        <span class="custom-select-selected">Select an option</span>
-                                        <div class="custom-select-arrow"></div>
+            <button id="toggleOptions" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline mb-4">
+                Show Options
+            </button>
+            <div id="optionsContainer">
+                <form method="get" class="space-y-6">
+                    <div id="y-axis-container" class="form-grid mb-4">
+                        {% for field in form %}
+                            {% if field.name|slice:":2" == "y_" %}
+                                <div>
+                                    <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                                        {{ field.label }}
+                                    </label>
+                                    <div class="custom-select-container" data-field-name="{{ field.name }}">
+                                        <div class="custom-select-header">
+                                            <span class="custom-select-selected">Select an option</span>
+                                            <div class="custom-select-arrow"></div>
+                                        </div>
+                                        <div class="custom-select-options">
+                                            {% for choice in field.field.choices %}
+                                                <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
                                     </div>
-                                    <div class="custom-select-options">
-                                        {% for choice in field.field.choices %}
-                                            <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
-                                        {% endfor %}
-                                    </div>
-                                    <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
                                 </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div id="x-axis-container" class="form-grid">
-                    {% for field in form %}
-                        {% if field.name|slice:":2" == "x_" %}
-                            <div>
-                                <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                                    {{ field.label }}
-                                </label>
-                                <div class="custom-select-container" data-field-name="{{ field.name }}">
-                                    <div class="custom-select-header">
-                                        <span class="custom-select-selected">Select an option</span>
-                                        <div class="custom-select-arrow"></div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div id="x-axis-container" class="form-grid">
+                        {% for field in form %}
+                            {% if field.name|slice:":2" == "x_" %}
+                                <div>
+                                    <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                                        {{ field.label }}
+                                    </label>
+                                    <div class="custom-select-container" data-field-name="{{ field.name }}">
+                                        <div class="custom-select-header">
+                                            <span class="custom-select-selected">Select an option</span>
+                                            <div class="custom-select-arrow"></div>
+                                        </div>
+                                        <div class="custom-select-options">
+                                            {% for choice in field.field.choices %}
+                                                <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
                                     </div>
-                                    <div class="custom-select-options">
-                                        {% for choice in field.field.choices %}
-                                            <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
-                                        {% endfor %}
-                                    </div>
-                                    <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
                                 </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </form>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
         </div>
-        
+
         {% if not plot %}
             <div class="bg-white rounded-lg shadow-xl p-6 text-center">
                 <p class="text-gray-600">Please select options to display the visualization.</p>
@@ -225,6 +292,42 @@
             const yAxisContainer = document.getElementById('y-axis-container');
             const xAxisContainer = document.getElementById('x-axis-container');
             
+            // New code for toggle functionality
+            const toggleButton = document.getElementById('toggleOptions');
+            const optionsContainer = document.getElementById('optionsContainer');
+
+            function openOptionsContainer() {
+                optionsContainer.classList.add('show');
+                toggleButton.classList.add('active');
+                toggleButton.style.borderBottom = 'none';
+                toggleButton.textContent = 'Hide Options';
+                localStorage.setItem('optionsContainerOpen', 'true');
+            }
+
+            // Function to close the options container
+            function closeOptionsContainer() {
+                optionsContainer.classList.remove('show');
+                toggleButton.classList.remove('active');
+                toggleButton.style.borderBottom = '1px solid #d1d5db';
+                toggleButton.textContent = 'Show Options';
+                localStorage.setItem('optionsContainerOpen', 'false');
+            }
+
+            // Check localStorage on page load
+            if (localStorage.getItem('optionsContainerOpen') === 'true') {
+                openOptionsContainer();
+            } else {
+                closeOptionsContainer();
+            }
+
+            toggleButton.addEventListener('click', () => {
+                if (optionsContainer.classList.contains('show')) {
+                    closeOptionsContainer();
+                } else {
+                    openOptionsContainer();
+                }
+            });
+
             function initializeSelect(select) {
                 const header = select.querySelector('.custom-select-header');
                 const options = select.querySelector('.custom-select-options');
@@ -252,6 +355,7 @@
                         select.classList.remove('open');
                         options.style.display = 'none';
                         loadingOverlay.style.display = 'flex';
+                        localStorage.setItem('optionsContainerOpen', 'true');
                         form.submit();
                     });
                 });
