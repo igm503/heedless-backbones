@@ -1,12 +1,12 @@
 # [Coming Soon]
 
 # Heedless Backbones
+![Alt text](assets/plot_view.png?raw=true "Plot View")
 A simple web application for comparing computer vision backbones performance on classification and downstream tasks.
 
 ## The Problem
 Paperswithcode's basic data models and user interface aren't useful either for researchers or industry users interested in comparing the performance of different computer vision backbones for different tasks.
 
-![Alt text](assets/plot_view.png?raw=true "Plot View")
 
 ## WIP
 - Model Family Pages
