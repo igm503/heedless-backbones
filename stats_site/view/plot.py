@@ -67,7 +67,7 @@ class PlotRequest:
             if (
                 self.x_dataset == self.y_dataset
                 and self.x_task == self.y_task
-                and self.x_metric == self.y_metric
+                and self.x_head == self.y_head
             ):
                 self.query_type = PlotRequest.SINGLE
                 self.init_single_two_metric()
