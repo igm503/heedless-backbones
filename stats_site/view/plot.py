@@ -147,18 +147,57 @@ class PlotRequest:
         self.plot_args = PlotRequest.PlotArgs(x_attr=self.x_type, y_attr=self.y_type)
 
 
-def get_plot(request):
+def get_plot_data(request):
     queryset = PretrainedBackbone.objects.select_related("family").select_related("backbone")
     if request.query_type == PlotRequest.MULTI:
         queryset = filter_and_add_results(queryset, request.x_args, "x_results")
-        queryset = filter_and_add_results(queryset, request.y_args, "y_results")
-        return get_multi_plot(queryset, request.plot_args)
+        return filter_and_add_results(queryset, request.y_args, "y_results")
     elif request.query_type == PlotRequest.SINGLE:
-        queryset = filter_and_add_results(queryset, request.data_args, "filtered_results")
-        return get_single_plot(queryset, request.plot_args)
+        return filter_and_add_results(queryset, request.data_args, "filtered_results")
     else:
-        queryset = get_all_results_data(request.data_args)
-        return get_all_plot(queryset, request.plot_args)
+        return get_all_results_data(request.data_args)
+
+
+def get_plot(queryset, request):
+    plot_args = request.plot_args
+    if request.query_type == PlotRequest.MULTI:
+
+        def title_func(x_title, y_title):
+            return f"{y_title} on {plot_args.y_dataset.name} vs. {x_title} on {plot_args.x_dataset.name}"
+
+        return get_plot_object(queryset, plot_args, get_multi_plot_data, title_func)
+    elif request.query_type == PlotRequest.SINGLE:
+
+        def title_func(x_title, y_title):
+            return f"{y_title} on {plot_args.dataset.name}"
+
+        return get_plot_object(queryset, plot_args, get_single_plot_data, title_func)
+    else:
+
+        def title_func(x_title, y_title):
+            return f"{y_title} against {x_title}"
+
+        return get_plot_object(queryset, plot_args, get_all_plot_data, title_func)
+
+
+def get_table_data(queryset, request):
+    x_type = request.plot_args.x_attr
+    y_type = request.plot_args.y_attr
+    table_data = []
+    for pb in queryset:
+        params = pb.backbone.m_parameters
+        for result in pb.filtered_results:
+            x = params if x_type == "m_parameters" else getattr(result, x_type)
+            y = params if y_type == "m_parameters" else getattr(result, y_type)
+            row_data = {
+                "family": pb.family.name,
+                "backbone": pb.backbone.name,
+                "pretrain": pb.pretrain_dataset.name,
+                f"{x_type}": x,
+                f"{y_type}": y,
+            }
+            table_data.append(row_data)
+    return table_data
 
 
 def get_all_results_data(args):
@@ -343,29 +382,6 @@ def get_all_plot_data(pb, x_type, y_type, x_title, y_title):
     return x_values, y_values, hovers
 
 
-def get_single_plot(queryset, plot_args):
-    def title_func(x_title, y_title):
-        return f"{y_title} on {plot_args.dataset.name}"
-
-    return get_plot_object(queryset, plot_args, get_single_plot_data, title_func)
-
-
-def get_multi_plot(queryset, plot_args):
-    def title_func(x_title, y_title):
-        return (
-            f"{y_title} on {plot_args.y_dataset.name} vs. {x_title} on {plot_args.x_dataset.name}"
-        )
-
-    return get_plot_object(queryset, plot_args, get_multi_plot_data, title_func)
-
-
-def get_all_plot(queryset, plot_args):
-    def title_func(x_title, y_title):
-        return f"{y_title} against {x_title}"
-
-    return get_plot_object(queryset, plot_args, get_all_plot_data, title_func)
-
-
 def get_axis_title(db_name):
     return (
         AXIS_CHOICES.get(db_name)
@@ -389,37 +405,55 @@ def get_marker_configs(names):
 
 
 def get_plot_div(title, x_title, y_title, data):
+    font_settings = dict(
+        family="Inter, sans-serif",
+        color="black",
+    )
+
     layout = go.Layout(
-        title=dict(text=title, font=dict(size=24, color="black")),
+        title=dict(
+            text=f'<span style="letter-spacing: 0.05em;">{title}</span>',
+            font=dict(size=24, **font_settings),
+        ),
         xaxis=dict(
-            title=x_title,
+            title=dict(text=f'<span style="letter-spacing: 0.05em;">{x_title}</span>'),
             gridcolor="rgba(0,0,0,1)",
             linecolor="black",
             showline=True,
             zerolinecolor="black",
             zerolinewidth=1,
+            titlefont=font_settings,
+            tickfont=font_settings,
         ),
         yaxis=dict(
-            title=y_title,
+            title=dict(text=f'<span style="letter-spacing: 0.05em;">{y_title}</span>'),
             gridcolor="rgba(0,0,0,1)",
             linecolor="black",
             showline=True,
             zerolinecolor="black",
             zerolinewidth=1,
+            titlefont=font_settings,
+            tickfont=font_settings,
         ),
         hovermode="closest",
         plot_bgcolor="rgba(0,0,0,0)",
         paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Arial, sans-serif", size=14, color="black"),
+        font=font_settings,
         legend=dict(
             bgcolor="rgba(255,255,255,0)",
             bordercolor="black",
             borderwidth=1,
+            font=font_settings,
         ),
         margin=dict(l=40, r=40, t=60, b=40),
     )
 
     fig = go.Figure(data=data, layout=layout)
+
+    for trace in fig.data:
+        if "name" in trace:
+            trace.name = f'<span style="letter-spacing: 0.05em;">{trace.name}</span>'
+
     fig.add_shape(
         type="rect",
         xref="paper",
@@ -433,13 +467,12 @@ def get_plot_div(title, x_title, y_title, data):
             width=1,
         ),
     )
-    plot_div = plot(fig, output_type="div", include_plotlyjs=True, config={"responsive": True})
-    plot_div = plot_div.replace("<div", '<div class="floating-plot"', 1)
 
+    plot_div = plot(fig, output_type="div", include_plotlyjs=True, config={"responsive": True})
     return plot_div
 
 
-def get_default_plot():
+def get_defaults():
     plot_request = PlotRequest(
         {
             "y_axis": "results",
@@ -449,4 +482,9 @@ def get_default_plot():
             "y_metric": "top_1",
         }
     )
-    return get_plot(plot_request)
+    queryset = get_plot_data(plot_request)
+    plot = get_plot(queryset, plot_request)
+    table = get_table_data(queryset, plot_request)
+    table_headers = list(table[0].keys()) if table else []
+
+    return plot, table, table_headers

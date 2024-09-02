@@ -1,7 +1,7 @@
 from django import forms
 from django.shortcuts import render
 
-from .plot import get_default_plot, get_plot, PlotRequest
+from .plot import get_defaults, get_plot, PlotRequest, get_table_data, get_plot_data
 from .constants import AXIS_CHOICES, CLASSIFICATION_METRICS, INSTANCE_METRICS, FIELDS
 from .models import (
     Dataset,
@@ -13,7 +13,7 @@ from .models import (
 )
 
 
-last_plot = get_default_plot()
+last_plot, last_table, last_headers = get_defaults()
 
 
 class DatasetTaskForm(forms.Form):
@@ -82,139 +82,28 @@ class DatasetTaskForm(forms.Form):
 
 
 def plot_view(request):
-    global last_plot
+    global last_plot, last_table, last_headers
     plot = last_plot
+    table_data = last_table
+    table_headers = last_headers
     form = DatasetTaskForm(request.GET or None)
     if form.is_valid() and form.is_ready():
         plot_request = PlotRequest(form.cleaned_data)
-        plot = get_plot(plot_request)
+        queryset = get_plot_data(plot_request)
+        plot = get_plot(queryset, plot_request)
+        table_data = get_table_data(queryset, plot_request)
+        table_headers = list(table_data[0].keys()) if table_data else []
         last_plot = plot
-    return render(request, "view/all.html", {"form": form, "plot": plot})
-
-
-# def get_single_plot(pretrained_backbones, x_type, y_type, dataset_name):
-#     y_title = get_axis_title(y_type)
-#     x_title = get_axis_title(x_type)
-#     data = []
-#     families = {pb.family.name for pb in pretrained_backbones}
-#     marker_configs = get_marker_configs(families)
-#     seen_families = set()
-#
-#     for pb in pretrained_backbones:
-#         x_values = []
-#         y_values = []
-#         hovers = []
-#         params = pb.backbone.m_parameters
-#         for result in pb.filtered_results:
-#             x = params if x_type == "m_parameters" else getattr(result, x_type)
-#             y = params if y_type == "m_parameters" else getattr(result, y_type)
-#             hover = (
-#                 f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
-#             )
-#             x_values.append(x)
-#             y_values.append(y)
-#             hovers.append(hover)
-#
-#         show_legend = pb.family.name not in seen_families
-#         seen_families.add(pb.family.name)
-#
-#         data.append(
-#             go.Scatter(
-#                 x=x_values,
-#                 y=y_values,
-#                 mode="markers",
-#                 name=pb.family.name,
-#                 text=hovers,
-#                 hoverinfo="text",
-#                 marker=marker_configs[pb.family.name],
-#                 showlegend=show_legend,
-#             )
-#         )
-#
-#     title = f"{y_title} on {dataset_name}"
-#     return get_plot_div(title, x_title, y_title, data)
-#
-#
-# def get_multi_plot(pretrained_backbones, x_type, y_type, x_dataset, y_dataset):
-#     y_title = get_axis_title(y_type)
-#     x_title = get_axis_title(x_type)
-#     data = []
-#     families = {pb.family.name for pb in pretrained_backbones}
-#     marker_configs = get_marker_configs(families)
-#     seen_families = set()
-#
-#     for pb in pretrained_backbones:
-#         x_values = []
-#         y_values = []
-#         hovers = []
-#         for x_result in pb.x_results:
-#             for y_result in pb.y_results:
-#                 x = getattr(x_result, x_type)
-#                 y = getattr(y_result, y_type)
-#                 hover = f"<b>{pb.name}</b><br>Family: {pb.family.name}<br>{y_title}: {y:.2f}<br>{x_title}: {x:.2f}"
-#                 x_values.append(x)
-#                 y_values.append(y)
-#                 hovers.append(hover)
-#
-#         show_legend = pb.family.name not in seen_families
-#         seen_families.add(pb.family.name)
-#
-#         data.append(
-#             go.Scatter(
-#                 x=x_values,
-#                 y=y_values,
-#                 mode="markers",
-#                 name=pb.family.name,
-#                 text=hovers,
-#                 hoverinfo="text",
-#                 marker=marker_configs[pb.family.name],
-#                 showlegend=show_legend,
-#             )
-#         )
-#     title = f"{y_title} on {y_dataset.name} vs. {x_title} on {x_dataset.name}"
-#     return get_plot_div(title, x_title, y_title, data)
-#
-#
-# def get_all_plot(pretrained_backbones, x_type, y_type):
-#     y_title = get_axis_title(y_type)
-#     x_title = get_axis_title(x_type)
-#     data = []
-#     families = {pb.family.name for pb in pretrained_backbones}
-#     marker_configs = get_marker_configs(families)
-#     seen_families = set()
-#
-#     for pb in pretrained_backbones:
-#         x_values = []
-#         y_values = []
-#         hovers = []
-#         params = pb.backbone.m_parameters
-#         for results in [pb._instance_results, pb._classification_results]:
-#             for result in results:
-#                 x = params if x_type == "m_parameters" else getattr(result, x_type)
-#                 y = params if y_type == "m_parameters" else getattr(result, y_type)
-#                 hover = f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
-#                 x_values.append(x)
-#                 y_values.append(y)
-#                 hovers.append(hover)
-#
-#         show_legend = pb.family.name not in seen_families
-#         seen_families.add(pb.family.name)
-#
-#         data.append(
-#             go.Scatter(
-#                 x=x_values,
-#                 y=y_values,
-#                 mode="markers",
-#                 name=pb.family.name,
-#                 text=hovers,
-#                 hoverinfo="text",
-#                 marker=marker_configs[pb.family.name],
-#                 showlegend=show_legend,
-#             )
-#         )
-#
-# title = f"{y_title} against {x_title}"
-# return get_plot_div(title, x_title, y_title, data)
+    return render(
+        request,
+        "view/all.html",
+        {
+            "form": form,
+            "plot": plot,
+            "table_data": table_data,
+            "table_headers": table_headers,
+        },
+    )
 
 
 def show_family(request, family):

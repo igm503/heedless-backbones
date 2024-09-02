@@ -1,4 +1,5 @@
 {% load widget_tweaks %}
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,33 +8,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Model Results Dashboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 12px;
+            border-radius: 10px;
+            border-padding: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: black;
+            border-radius: 0px;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+
         }
 
-        /* .floating-plot { */
-        /*     border-radius: 5px !important; */
-        /*     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important; */
-        /*     transition: all 0.3s cubic-bezier(.25,.8,.25,1) !important; */
-        /*     padding: 20px; */
-        /* } */
-        /**/
-        /* .floating-plot:hover { */
-        /*     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22) !important; */
-        /*     transform: translateY(-5px) !important; */
-        /* } */
-        /**/
-        /* .plot-container { */
-        /*     padding: 20px; */
-        /* } */
-        /**/
-        /* .gradient-bg { */
-        /*     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
-        /* } */
+        table.dataTable thead .sorting,
+        table.dataTable thead .sorting_asc,
+        table.dataTable thead .sorting_desc {
+            background-image: none !important;
+            position: relative;
+            padding-right: 20px;
+        }
+
+        table.dataTable thead .sorting::after,
+        table.dataTable thead .sorting_asc::after,
+        table.dataTable thead .sorting_desc::after {
+            content: '';
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 10px solid #000000;
+        }
+
+        table.dataTable thead .sorting_asc::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        table.dataTable thead .sorting_desc::after {
+            transform: translateY(-50%);
+        }
+
+        table.dataTable thead th {
+            /* font-weight: 500; */
+            text-transform: uppercase;
+            padding: 0.75rem ;
+        }
+
+        table.dataTable thead th,
+        table.dataTable tbody td {
+            background-color: #f3f4f6;
+            text-align: left;
+            border: 1px solid black;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        table.dataTable thead th:last-child,
+        table.dataTable tbody td:last-child {
+            border-right: 1px solid black;
+        }
+
+        table.dataTable tbody tr:last-child td {
+            border-bottom: 1px solid black;
+        }
+
+        #sortableTable_filter {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            float: left;
+        }
+
+        #sortableTable_filter input[type="search"] {
+            text-align: left;
+            border: 1px solid black;
+            border-radius: 0;
+            padding: 0.5rem;
+        }
+
+        #sortableTable_filter input[type="search"]:focus {
+            outline: none;
+            border: 1px solid black;
+            box-shadow: none;
+        }
+        .table-container {
+            background-color: #f3f4f6;
+            /* padding: 1.5rem; */
+            /* overflow-x: false; */
+        }
 
         .container {
             max-width: 1200px;
@@ -58,11 +133,10 @@
         .custom-select-header {
             display: flex;
             justify-content: space-between;
-            align-items: left;
             padding: 0.5rem 1rem;
+            padding-top: 0.7rem;
             background-color: #f3f4f6;
             border: 1px solid #000000;
-            border-radius: 0.075rem;
             cursor: pointer;
         }
 
@@ -87,7 +161,7 @@
         }
 
         .custom-select-option:hover {
-            background-color: #f3f4f6;
+            background-color: #e5e7eb;
         }
 
         .custom-select-option.selected {
@@ -101,7 +175,6 @@
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
             border-top: 10px solid #000000;
-            /* transition: transform 0.2s ease-in-out; */
         }
 
         .custom-select-container.open .custom-select-arrow {
@@ -123,7 +196,7 @@
 
         .spinner {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
+            border-top: 4px solid #000000;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -138,27 +211,31 @@
         #optionsContainer {
             max-height: 0;
             opacity: 0;
-            overflow: visible;
+            overflow: hidden;
             padding: 0;
             border: 1px solid transparent;
             border-top: none;
             margin-top: -1px;
             position: relative;
             z-index: 1;
+            pointer-events: none;
         }
 
         #optionsContainer.show {
-            max-height: 1000px; /* Adjust based on your content */
+            max-height: 1000px;
             opacity: 1;
             padding: 1rem;
             border-color: #000000;
             background-color: #f3f4f6;
             border-radius: 0.075rem;
             border-top: 0px;
+            overflow: visible;
+            pointer-events: auto;
         }
 
         #toggleOptions {
             width: 100%;
+            margin-top: 2rem;
             background-color: #f3f4f6;
             border: 1px solid #000000;
             border-radius: 0.075rem;
@@ -176,13 +253,6 @@
             background-color: #e5e7eb;
         }
 
-        #toggleOptions:focus {
-            outline: none;
-            ring: 2px;
-            ring-offset: 2px;
-            ring-color: #6b7280;
-        }
-
         #toggleOptions.active {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
@@ -191,7 +261,6 @@
         #toggleOptions::after {
             content: '\25BC';
             float: right;
-            /* transition: transform 0.3s ease; */
         }
 
         #toggleOptions.active::after {
@@ -204,89 +273,127 @@
         <div class="spinner"></div>
     </div>
 
-    <header class="gradient-bg text-white py-6 shadow-lg">
-        <div class="container mx-auto px-4">
-            <h1 class="text-3xl font-bold text-center">Backbone Data</h1>
+    <header>
+        <div class="container">
+            <h1>Backbone Data</h1>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8">
-        {% if plot %}
-            <div class="plot-container">
-                {{ plot|safe }}
-            </div>
-        {% endif %}
-        <div class="bg-white rounded-lg shadow-xl p-6 mb-8">
-            <button id="toggleOptions" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline mb-4">
-                Show Options
-            </button>
-            <div id="optionsContainer">
-                <form method="get" class="space-y-6">
-                    <div id="y-axis-container" class="form-grid mb-4">
-                        {% for field in form %}
-                            {% if field.name|slice:":2" == "y_" %}
-                                <div>
-                                    <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                                        {{ field.label }}
-                                    </label>
-                                    <div class="custom-select-container" data-field-name="{{ field.name }}">
-                                        <div class="custom-select-header">
-                                            <span class="custom-select-selected">Select an option</span>
-                                            <div class="custom-select-arrow"></div>
-                                        </div>
-                                        <div class="custom-select-options">
-                                            {% for choice in field.field.choices %}
-                                                <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
-                                            {% endfor %}
-                                        </div>
-                                        <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    <div id="x-axis-container" class="form-grid">
-                        {% for field in form %}
-                            {% if field.name|slice:":2" == "x_" %}
-                                <div>
-                                    <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                                        {{ field.label }}
-                                    </label>
-                                    <div class="custom-select-container" data-field-name="{{ field.name }}">
-                                        <div class="custom-select-header">
-                                            <span class="custom-select-selected">Select an option</span>
-                                            <div class="custom-select-arrow"></div>
-                                        </div>
-                                        <div class="custom-select-options">
-                                            {% for choice in field.field.choices %}
-                                                <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
-                                            {% endfor %}
-                                        </div>
-                                        <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </form>
-            </div>
+    <main class="container">
+      {% if plot %}
+        <div class="plot-container">
+            {{ plot|safe }}
         </div>
-
-        {% if not plot %}
-            <div class="bg-white rounded-lg shadow-xl p-6 text-center">
-                <p class="text-gray-600">Please select options to display the visualization.</p>
-                <img src="/api/placeholder/400/300" alt="Placeholder graph" class="mx-auto mt-4 rounded-lg">
-            </div>
-        {% endif %}
+      {% endif %}
+      {% if not plot %}
+        <div>
+            <p>Please select options to display the visualization.</p>
+            <img src="/api/placeholder/400/300" alt="Placeholder graph">
+        </div>
+      {% endif %}
+      <div>
+          <button id="toggleOptions">
+              Plot Options
+          </button>
+          <div id="optionsContainer">
+              <form method="get">
+                  <div id="y-axis-container" class="form-grid">
+                      {% for field in form %}
+                          {% if field.name|slice:":2" == "y_" %}
+                              <div>
+                                  <label for="{{ field.id_for_label }}">
+                                      {{ field.label }}
+                                  </label>
+                                  <div class="custom-select-container" data-field-name="{{ field.name }}">
+                                      <div class="custom-select-header">
+                                          <span class="custom-select-selected">Select an option</span>
+                                          <div class="custom-select-arrow"></div>
+                                      </div>
+                                      <div class="custom-select-options">
+                                          {% for choice in field.field.choices %}
+                                              <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
+                                          {% endfor %}
+                                      </div>
+                                      <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+                                  </div>
+                              </div>
+                          {% endif %}
+                      {% endfor %}
+                  </div>
+                  <div id="x-axis-container" class="form-grid">
+                      {% for field in form %}
+                          {% if field.name|slice:":2" == "x_" %}
+                              <div>
+                                  <label for="{{ field.id_for_label }}">
+                                      {{ field.label }}
+                                  </label>
+                                  <div class="custom-select-container" data-field-name="{{ field.name }}">
+                                      <div class="custom-select-header">
+                                          <span class="custom-select-selected">Select an option</span>
+                                          <div class="custom-select-arrow"></div>
+                                      </div>
+                                      <div class="custom-select-options">
+                                          {% for choice in field.field.choices %}
+                                              <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
+                                          {% endfor %}
+                                      </div>
+                                      <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+                                  </div>
+                              </div>
+                          {% endif %}
+                      {% endfor %}
+                  </div>
+              </form>
+          </div>
+      </div>
+    {% if table_data and table_headers %}
+    <div class="table-container">
+        <table id="sortableTable">
+            <thead>
+                <tr>
+                    {% for header in table_headers %}
+                        <th>{{ header }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table_data %}
+                    <tr>
+                        {% for header in table_headers %}
+                          <td>{{ row|get_item:header }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
     </main>
 
-    <footer class="bg-gray-800 text-white py-4 mt-8">
-        <div class="container mx-auto px-4 text-center">
-            <p>2024 Model Results Dashboard. </p>
+    <footer>
+        <div class="container">
+            <p>2024 Model Results Dashboard.</p>
         </div>
     </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     <script>
+        let dataTable;
+
+        function initializeDataTable() {
+            if (dataTable) {
+                dataTable.destroy();
+            }
+            dataTable = $('#sortableTable').DataTable({
+                "paging": false,
+                "info": false,
+                "searching": true,
+                "language": {
+                    "search": "Filter:"
+                },
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const customSelects = document.querySelectorAll('.custom-select-container');
             const form = document.querySelector('form');
@@ -311,7 +418,7 @@
                 optionsContainer.classList.remove('show');
                 toggleButton.classList.remove('active');
                 toggleButton.style.borderBottom = '1px solid #000000';
-                toggleButton.textContent = 'Show Options';
+                toggleButton.textContent = 'Plot Options';
                 localStorage.setItem('optionsContainerOpen', 'false');
             }
 
@@ -378,6 +485,9 @@
             const yAxisOptions = yAxisContainer.children.length;
             yAxisContainer.style.gridTemplateColumns = `repeat(${yAxisOptions}, 1fr)`;
             xAxisContainer.style.gridTemplateColumns = `repeat(${yAxisOptions}, 1fr)`;
+
+            initializeDataTable();
+
         });
     </script>
 </body>
