@@ -19,10 +19,10 @@ models to add:
 
 left in papers
 - transnext
--- ade20k results
+-- ade20k results; coco dino results
 - convnext
--- ade20k results; swin vs convnext throughput on A100 gpu; convnext vs many other models on v100
+-- ade20k results; cascade mask rcnn throughput
 
-cross references
+leftover cross references
 - swin
--- convnext paper has swin semantic seg with upernet on ade20k, plus cascade mask rcnn and mask rcnn on coco, plus imagenet a, r, and sk results
+-- convnext paper has swin semantic seg with upernet on ade20k, plus cascade mask rcnn and mask rcnn on coco, plus imagenet a, r, and sk results, plus a100 inference throughput

@@ -9,6 +9,7 @@ from .models import (
     DownstreamHead,
     ClassificationResult,
     InstanceResult,
+    FPSMeasurement,
 )
 
 admin.site.register(Dataset)
@@ -19,3 +20,4 @@ admin.site.register(PretrainedBackbone)
 admin.site.register(DownstreamHead)
 admin.site.register(ClassificationResult)
 admin.site.register(InstanceResult)
+admin.site.register(FPSMeasurement)

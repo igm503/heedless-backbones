@@ -61,7 +61,7 @@
             align-items: left;
             padding: 0.5rem 1rem;
             background-color: #f3f4f6;
-            border: 1px solid #d1d5db;
+            border: 1px solid #000000;
             border-radius: 0.075rem;
             cursor: pointer;
         }
@@ -72,7 +72,7 @@
             left: 0;
             right: 0;
             background-color: #f3f4f6;
-            border: 1px solid #d1d5db;
+            border: 1px solid #000000;
             border-top: none;
             border-radius: 0 0 0.075rem 0.075rem;
             max-height: 200px;
@@ -91,14 +91,17 @@
         }
 
         .custom-select-option.selected {
-            background-color: #e5e7eb;
+            border-top: 1px solid #000000;
+            border-bottom: 1px solid #000000;
         }
 
         .custom-select-arrow {
+            margin-top: 0.25rem;
+            margin-bottom: 0.25rem;
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
-            border-top: 5px solid #4b5563;
-            transition: transform 0.2s ease-in-out;
+            border-top: 10px solid #000000;
+            /* transition: transform 0.2s ease-in-out; */
         }
 
         .custom-select-container.open .custom-select-arrow {
@@ -148,21 +151,21 @@
             max-height: 1000px; /* Adjust based on your content */
             opacity: 1;
             padding: 1rem;
-            border-color: #d1d5db;
+            border-color: #000000;
             background-color: #f3f4f6;
             border-radius: 0.075rem;
-            border-top: 0px solid #d1d5db;
+            border-top: 0px;
         }
 
         #toggleOptions {
             width: 100%;
             background-color: #f3f4f6;
-            border: 1px solid #d1d5db;
+            border: 1px solid #000000;
             border-radius: 0.075rem;
             padding: 0.75rem 1rem;
             text-align: left;
             font-weight: 500;
-            color: #4b5563;
+            color: #000000;
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
@@ -188,7 +191,7 @@
         #toggleOptions::after {
             content: '\25BC';
             float: right;
-            transition: transform 0.3s ease;
+            /* transition: transform 0.3s ease; */
         }
 
         #toggleOptions.active::after {
@@ -203,14 +206,13 @@
 
     <header class="gradient-bg text-white py-6 shadow-lg">
         <div class="container mx-auto px-4">
-            <h1 class="text-3xl font-bold text-center">Model Results Dashboard</h1>
+            <h1 class="text-3xl font-bold text-center">Backbone Data</h1>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
         {% if plot %}
             <div class="plot-container">
-                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Results Visualization</h2>
                 {{ plot|safe }}
             </div>
         {% endif %}
@@ -308,7 +310,7 @@
             function closeOptionsContainer() {
                 optionsContainer.classList.remove('show');
                 toggleButton.classList.remove('active');
-                toggleButton.style.borderBottom = '1px solid #d1d5db';
+                toggleButton.style.borderBottom = '1px solid #000000';
                 toggleButton.textContent = 'Show Options';
                 localStorage.setItem('optionsContainerOpen', 'false');
             }
