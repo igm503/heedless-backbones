@@ -2,7 +2,13 @@ from django import forms
 from django.shortcuts import render
 
 from .plot import get_defaults, get_plot, PlotRequest, get_table_data, get_plot_data
-from .constants import AXIS_CHOICES, CLASSIFICATION_METRICS, INSTANCE_METRICS, FIELDS
+from .constants import (
+    AXIS_CHOICES,
+    CLASSIFICATION_METRICS,
+    INSTANCE_METRICS,
+    FIELDS,
+    RESOLUTIONS,
+)
 from .models import (
     Dataset,
     DownstreamHead,
@@ -32,6 +38,7 @@ class DatasetTaskForm(forms.Form):
                     self.init_result_extras(args, axis)
                 elif args[f"{axis}_axis"] == "fps":
                     self.init_fps_extras(axis)
+        self.init_filters()
 
         self.reorder_fields()
         self.init_graph = False
@@ -72,12 +79,21 @@ class DatasetTaskForm(forms.Form):
             choices={name.value: name.value for name in Precision}, required=False
         )
 
+    def init_filters(self):
+        self.fields["_resolution"] = forms.ChoiceField(choices=RESOLUTIONS, required=False)
+        self.fields["_pretrain_dataset"] = forms.ModelChoiceField(
+            queryset=Dataset.objects.filter(pretrainedbackbone__isnull=False).distinct(),
+            required=False,
+        )
+
     def reorder_fields(self):
         field_names = list(self.fields.keys())
         self.order_fields(field_order=sorted(field_names, key=lambda x: FIELDS.index(x)))
 
     def is_ready(self):
-        values = list(self.cleaned_data.values())
+        values = [
+            v for k, v in self.cleaned_data.items() if k not in ["_pretrain_dataset", "_resolution"]
+        ]
         return self.init_graph or (None not in values and "" not in values)
 
 
@@ -91,8 +107,8 @@ def plot_view(request):
         plot_request = PlotRequest(form.cleaned_data)
         queryset = get_plot_data(plot_request)
         plot = get_plot(queryset, plot_request)
-        table_data = get_table_data(queryset, plot_request)
-        table_headers = list(table_data[0].keys()) if table_data else []
+        table_data, table_headers = get_table_data(queryset, plot_request)
+        print(table_data)
         last_plot = plot
     return render(
         request,

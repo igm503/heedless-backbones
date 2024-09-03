@@ -29,10 +29,11 @@ class PlotRequest:
         dataset: Dataset | None = None
         task: Task | None = None
         head: DownstreamHead | None = None
-        resolution: int | None = None
         gpu: str | None = None
         precision: str | None = None
         fps: bool = False
+        resolution: int | None = None
+        pretrain_dataset: Dataset | None = None
 
         def __post_init__(self):
             self.fps = self.gpu is not None and self.precision is not None
@@ -62,6 +63,16 @@ class PlotRequest:
         self.y_head = args.get("y_head")
         self.y_gpu = args.get("y_gpu")
         self.y_precision = args.get("y_precision")
+
+        self.resolution = args.get("_resolution")
+        self.resolution = int(self.resolution) if self.resolution else None
+        self.pretrain_dataset = args.get("_pretrain_dataset")
+
+        self.query_type = None
+        self.data_args = None
+        self.plot_args = None
+        self.x_args = None
+        self.y_args = None
 
         if self.y_type == "results" and self.x_type == "results":
             if (
@@ -93,11 +104,15 @@ class PlotRequest:
             task=self.x_task,
             head=self.x_head,
         )
+        if self.x_task.name == TaskType.CLASSIFICATION.value:
+            self.x_args.resolution = self.resolution
         self.y_args = PlotRequest.DataArgs(
             dataset=self.y_dataset,
             task=self.y_task,
             head=self.y_head,
         )
+        if self.y_task.name == TaskType.CLASSIFICATION.value:
+            self.y_args.resolution = self.resolution
 
     def init_single(self):
         if self.x_type == "results":
@@ -126,6 +141,8 @@ class PlotRequest:
                 y_attr=self.y_metric,
                 dataset=self.y_dataset,
             )
+        if self.data_args.task.name == TaskType.CLASSIFICATION.value:
+            self.data_args.resolution = self.resolution
 
     def init_single_two_metric(self):
         self.data_args = PlotRequest.DataArgs(
@@ -133,6 +150,8 @@ class PlotRequest:
             task=self.x_task,
             head=self.x_head,
         )
+        if self.x_task.name == TaskType.CLASSIFICATION.value:
+            self.data_args.resolution = self.resolution
         self.plot_args = PlotRequest.PlotArgs(
             x_attr=self.x_metric,
             y_attr=self.y_metric,
@@ -143,19 +162,22 @@ class PlotRequest:
         self.data_args = PlotRequest.DataArgs(
             gpu=self.x_gpu or self.y_gpu,
             precision=self.x_precision or self.y_precision,
+            resolution=self.resolution,
         )
         self.plot_args = PlotRequest.PlotArgs(x_attr=self.x_type, y_attr=self.y_type)
 
 
 def get_plot_data(request):
     queryset = PretrainedBackbone.objects.select_related("family").select_related("backbone")
+    if request.pretrain_dataset:
+        queryset = queryset.filter(pretrain_dataset=request.pretrain_dataset)
     if request.query_type == PlotRequest.MULTI:
         queryset = filter_and_add_results(queryset, request.x_args, "x_results")
         return filter_and_add_results(queryset, request.y_args, "y_results")
     elif request.query_type == PlotRequest.SINGLE:
         return filter_and_add_results(queryset, request.data_args, "filtered_results")
     else:
-        return get_all_results_data(request.data_args)
+        return get_all_results_data(queryset, request.data_args)
 
 
 def get_plot(queryset, request):
@@ -181,27 +203,64 @@ def get_plot(queryset, request):
 
 
 def get_table_data(queryset, request):
+    table_data = []
     x_type = request.plot_args.x_attr
     y_type = request.plot_args.y_attr
-    table_data = []
-    for pb in queryset:
-        params = pb.backbone.m_parameters
-        for result in pb.filtered_results:
-            x = params if x_type == "m_parameters" else getattr(result, x_type)
-            y = params if y_type == "m_parameters" else getattr(result, y_type)
-            row_data = {
-                "family": pb.family.name,
-                "backbone": pb.backbone.name,
-                "pretrain": pb.pretrain_dataset.name,
-                f"{x_type}": x,
-                f"{y_type}": y,
-            }
-            table_data.append(row_data)
-    return table_data
+    x_title = get_axis_title(x_type)
+    y_title = get_axis_title(y_type)
+    if request.query_type == PlotRequest.SINGLE:
+        for pb in queryset:
+            params = pb.backbone.m_parameters
+            for result in pb.filtered_results:
+                row_data = {
+                    "family": pb.family.name,
+                    "backbone": pb.backbone.name,
+                    "parameters (m)": params,
+                    "pretrain": pb.pretrain_dataset.name,
+                }
+                if x_type != "m_parameters":
+                    row_data[f"{x_title}"] = getattr(result, x_type)
+                if y_type != "m_parameters":
+                    row_data[f"{y_title}"] = getattr(result, y_type)
+                table_data.append(row_data)
+
+    elif request.query_type == PlotRequest.MULTI:
+        for pb in queryset:
+            params = pb.backbone.m_parameters
+            for x_result in pb.x_results:
+                for y_result in pb.y_results:
+                    x = getattr(x_result, x_type)
+                    y = getattr(y_result, y_type)
+                    row_data = {
+                        "family": pb.family.name,
+                        "backbone": pb.backbone.name,
+                        "parameters (m)": params,
+                        "pretrain": pb.pretrain_dataset.name,
+                        f"{x_title}": x,
+                        f"{y_title}": y,
+                    }
+                    table_data.append(row_data)
+    else:
+        for pb in queryset:
+            params = pb.backbone.m_parameters
+            for results in [pb._instance_results, pb._classification_results]:
+                for result in results:
+                    row_data = {
+                        "family": pb.family.name,
+                        "backbone": pb.backbone.name,
+                        "parameters (m)": params,
+                        "pretrain": pb.pretrain_dataset.name,
+                    }
+                    if x_type != "m_parameters":
+                        row_data[f"{x_title}"] = getattr(result, x_type)
+                    if y_type != "m_parameters":
+                        row_data[f"{y_title}"] = getattr(result, y_type)
+                    table_data.append(row_data)
+    table_headers = list(table_data[0].keys()) if table_data else []
+    return table_data, table_headers
 
 
-def get_all_results_data(args):
-    queryset = PretrainedBackbone.objects.select_related("family").select_related("backbone")
+def get_all_results_data(queryset, args):
     queryset = filter_by_classification(queryset, args)
     queryset = queryset.prefetch_related(get_instance_prefetch("_instance_results", args))
     return queryset.prefetch_related(get_classification_prefetch("_classification_results", args))
@@ -243,7 +302,6 @@ def filter_by_instance(query, args):
         "instance_results__dataset": args.dataset,
         "instance_results__instance_type": args.task,
         "instance_results__head": args.head,
-        "instance_results__fine_tune_resolution": args.resolution,  # not in db yet
         "instance_results__fps_measurements__gpu": args.gpu,
         "instance_results__fps_measurements__precision": args.precision,
     }
@@ -285,7 +343,7 @@ def get_instance_prefetch(name, args):
         "dataset": args.dataset,
         "instance_type": args.task,
         "head": args.head,
-        "resolution": args.resolution,
+        # "resolution": args.resolution,
     }
     filter_args = {k: v for k, v in filter_args.items() if v is not None}
     queryset = InstanceResult.objects.filter(**filter_args)
@@ -484,7 +542,6 @@ def get_defaults():
     )
     queryset = get_plot_data(plot_request)
     plot = get_plot(queryset, plot_request)
-    table = get_table_data(queryset, plot_request)
-    table_headers = list(table[0].keys()) if table else []
+    table, table_headers = get_table_data(queryset, plot_request)
 
     return plot, table, table_headers

@@ -29,6 +29,4 @@ leftover cross references
 
 
 Website:
- - x options follow y options, but if y options get narrower, then x options get squeezed and overflow
- - resolution filter
  - indication of how many models are available given different selections

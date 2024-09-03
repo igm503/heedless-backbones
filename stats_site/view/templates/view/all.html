@@ -23,6 +23,33 @@
             background-color: black;
             border-radius: 0px;
         }
+        
+        #y-axis-container > div:first-child > label {
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        #x-axis-container > div:first-child > label {
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        #x-axis-container > div:first-child > label::before {
+            content: "X";
+        }
+
+        #y-axis-container > div:first-child > label::before {
+            content: "Y";
+        }
+
+        #x-axis-container {
+            padding-top: 0.75rem;
+        }
+
+        .option-set-label {
+            text-transform: uppercase;
+            font-weight: 600;
+            padding-bottom: 0.75rem;
+            padding-top: 0.75rem;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -104,6 +131,7 @@
             border: 1px solid black;
             box-shadow: none;
         }
+
         .table-container {
             background-color: #f3f4f6;
             /* padding: 1.5rem; */
@@ -126,6 +154,7 @@
         }
 
         .custom-select-container {
+            padding-top: 0.5rem;
             position: relative;
             width: 100%;
         }
@@ -302,7 +331,7 @@
                           {% if field.name|slice:":2" == "y_" %}
                               <div>
                                   <label for="{{ field.id_for_label }}">
-                                      {{ field.label }}
+                                      {{ field.name|slice:"2:" }}
                                   </label>
                                   <div class="custom-select-container" data-field-name="{{ field.name }}">
                                       <div class="custom-select-header">
@@ -323,6 +352,34 @@
                   <div id="x-axis-container" class="form-grid">
                       {% for field in form %}
                           {% if field.name|slice:":2" == "x_" %}
+                              <div>
+                                  <label for="{{ field.id_for_label }}">
+                                      {{ field.name|slice:"2:" }}
+                                  </label>
+                                  <div class="custom-select-container" data-field-name="{{ field.name }}">
+                                      <div class="custom-select-header">
+                                          <span class="custom-select-selected">Select an option</span>
+                                          <div class="custom-select-arrow"></div>
+                                      </div>
+                                      <div class="custom-select-options">
+                                          {% for choice in field.field.choices %}
+                                              <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
+                                          {% endfor %}
+                                      </div>
+                                      <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+                                  </div>
+                              </div>
+                          {% endif %}
+                      {% endfor %}
+                  </div>
+                  <div class="option-set-label">
+                    <label>
+                      Filters
+                    </label>
+                  </div>
+                  <div id="filter-axis-container" class="form-grid">
+                      {% for field in form %}
+                          {% if field.name|slice:":1" == "_" %}
                               <div>
                                   <label for="{{ field.id_for_label }}">
                                       {{ field.label }}
@@ -401,7 +458,6 @@
             const yAxisContainer = document.getElementById('y-axis-container');
             const xAxisContainer = document.getElementById('x-axis-container');
             
-            // New code for toggle functionality
             const toggleButton = document.getElementById('toggleOptions');
             const optionsContainer = document.getElementById('optionsContainer');
 
@@ -413,7 +469,6 @@
                 localStorage.setItem('optionsContainerOpen', 'true');
             }
 
-            // Function to close the options container
             function closeOptionsContainer() {
                 optionsContainer.classList.remove('show');
                 toggleButton.classList.remove('active');
@@ -422,7 +477,6 @@
                 localStorage.setItem('optionsContainerOpen', 'false');
             }
 
-            // Check localStorage on page load
             if (localStorage.getItem('optionsContainerOpen') === 'true') {
                 openOptionsContainer();
             } else {
@@ -482,9 +536,11 @@
             });
 
             // Set the grid template columns based on the number of y-axis options
-            const yAxisOptions = yAxisContainer.children.length;
-            yAxisContainer.style.gridTemplateColumns = `repeat(${yAxisOptions}, 1fr)`;
-            xAxisContainer.style.gridTemplateColumns = `repeat(${yAxisOptions}, 1fr)`;
+            const yOptions = yAxisContainer.children.length;
+            const xOptions = xAxisContainer.children.length;
+            const numOptions = Math.max(yOptions, xOptions);
+            yAxisContainer.style.gridTemplateColumns = `repeat(${numOptions}, 1fr)`;
+            xAxisContainer.style.gridTemplateColumns = `repeat(${numOptions}, 1fr)`;
 
             initializeDataTable();
 

@@ -106,7 +106,7 @@ class InstanceResult(models.Model):
         related_name="instance_train",
     )
     train_epochs = models.IntegerField("training epochs", blank=True, null=True)
-    resolution = models.IntegerField()
+    # resolution = models.IntegerField()
     mAP = models.FloatField()
     AP50 = models.FloatField(null=True, blank=True)
     AP75 = models.FloatField(null=True, blank=True)

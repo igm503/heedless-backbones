@@ -21,6 +21,12 @@ INSTANCE_METRICS = {
     "mAPl": "mAP Large",
 }
 
+RESOLUTIONS = {
+   "": "----------",
+   "224": "224x224",
+   "384": "384x384",
+}
+
 FIELDS = [
     "y_axis",
     "y_task",
@@ -36,4 +42,6 @@ FIELDS = [
     "x_head",
     "x_gpu",
     "x_precision",
+    "_resolution",
+    "_pretrain_dataset",
 ]
