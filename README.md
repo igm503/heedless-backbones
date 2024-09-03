@@ -17,15 +17,15 @@ Paperswithcode's basic data models and user interface aren't useful either for r
 
 ## Completed
 - Dynamic Plotting
--- Result vs num params or GFLOPS
--- Result vs Result (Different Dataset or Metric)
--- Result vs Throughput
--- Resolution and Pretrain Dataset Filters 
+  - Result vs num params or GFLOPS
+  - Result vs Result (Different Dataset or Metric)
+  - Result vs Throughput
+  - Resolution and Pretrain Dataset Filters 
 - Accompanying Tables
 - Models Added:
--- ConvNeXt
--- TransNeXt
+  - [ConvNeXt](https://arxiv.org/abs/2201.03545)
+  - [TransNeXt](https://arxiv.org/abs/2311.17132)
 
 ## Updates
-9-2-2024: added resolution and pretraining dataset filters
-9-1-2024: added table on plot page
+- 9-2-2024: added resolution and pretraining dataset filters
+- 9-1-2024: added table on plot page
