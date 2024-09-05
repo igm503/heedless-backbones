@@ -1,0 +1,71 @@
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+  background-image: none !important;
+  position: relative;
+  padding-right: 20px;
+}
+
+table.dataTable thead .sorting::after,
+table.dataTable thead .sorting_asc::after,
+table.dataTable thead .sorting_desc::after {
+  content: '';
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 10px solid #000000;
+}
+
+table.dataTable thead .sorting_asc::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+table.dataTable thead .sorting_desc::after {
+  transform: translateY(-50%);
+}
+
+table.dataTable thead th {
+  /* font-weight: 500; */
+  text-transform: uppercase;
+  padding: 0.75rem;
+}
+
+table.dataTable thead th,
+table.dataTable tbody td {
+  background-color: #f3f4f6;
+  text-align: left;
+  border: 1px solid black;
+  border-right: none;
+  border-bottom: none;
+}
+
+table.dataTable thead th:last-child,
+table.dataTable tbody td:last-child {
+  border-right: 1px solid black;
+}
+
+table.dataTable tbody tr:last-child td {
+  border-bottom: 1px solid black;
+}
+
+#sortableTable_filter {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  float: left;
+}
+
+#sortableTable_filter input[type="search"] {
+  text-align: left;
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 0.5rem;
+}
+
+#sortableTable_filter input[type="search"]:focus {
+  outline: none;
+  border: 1px solid black;
+  box-shadow: none;
+}

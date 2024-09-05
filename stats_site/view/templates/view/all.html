@@ -1,550 +1,267 @@
 {% load widget_tweaks %}
 {% load custom_filters %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Model Results Dashboard</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 12px;
-            border-radius: 10px;
-            border-padding: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: black;
-            border-radius: 0px;
-        }
-        
-        #y-axis-container > div:first-child > label {
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-        #x-axis-container > div:first-child > label {
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-        #x-axis-container > div:first-child > label::before {
-            content: "X";
-        }
-
-        #y-axis-container > div:first-child > label::before {
-            content: "Y";
-        }
-
-        #x-axis-container {
-            padding-top: 0.75rem;
-        }
-
-        .option-set-label {
-            text-transform: uppercase;
-            font-weight: 600;
-            padding-bottom: 0.75rem;
-            padding-top: 0.75rem;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.05em;
-
-        }
-
-        table.dataTable thead .sorting,
-        table.dataTable thead .sorting_asc,
-        table.dataTable thead .sorting_desc {
-            background-image: none !important;
-            position: relative;
-            padding-right: 20px;
-        }
-
-        table.dataTable thead .sorting::after,
-        table.dataTable thead .sorting_asc::after,
-        table.dataTable thead .sorting_desc::after {
-            content: '';
-            position: absolute;
-            right: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 10px solid #000000;
-        }
-
-        table.dataTable thead .sorting_asc::after {
-            transform: translateY(-50%) rotate(180deg);
-        }
-
-        table.dataTable thead .sorting_desc::after {
-            transform: translateY(-50%);
-        }
-
-        table.dataTable thead th {
-            /* font-weight: 500; */
-            text-transform: uppercase;
-            padding: 0.75rem ;
-        }
-
-        table.dataTable thead th,
-        table.dataTable tbody td {
-            background-color: #f3f4f6;
-            text-align: left;
-            border: 1px solid black;
-            border-right: none;
-            border-bottom: none;
-        }
-
-        table.dataTable thead th:last-child,
-        table.dataTable tbody td:last-child {
-            border-right: 1px solid black;
-        }
-
-        table.dataTable tbody tr:last-child td {
-            border-bottom: 1px solid black;
-        }
-
-        #sortableTable_filter {
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            float: left;
-        }
-
-        #sortableTable_filter input[type="search"] {
-            text-align: left;
-            border: 1px solid black;
-            border-radius: 0;
-            padding: 0.5rem;
-        }
-
-        #sortableTable_filter input[type="search"]:focus {
-            outline: none;
-            border: 1px solid black;
-            box-shadow: none;
-        }
-
-        .table-container {
-            background-color: #f3f4f6;
-            /* padding: 1.5rem; */
-            /* overflow-x: false; */
-        }
-
-        .container {
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            width: 100%;
-        }
-
-        .form-grid {
-            display: grid;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .custom-select-container {
-            padding-top: 0.5rem;
-            position: relative;
-            width: 100%;
-        }
-
-        .custom-select-header {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 1rem;
-            padding-top: 0.7rem;
-            background-color: #f3f4f6;
-            border: 1px solid #000000;
-            cursor: pointer;
-        }
-
-        .custom-select-options {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background-color: #f3f4f6;
-            border: 1px solid #000000;
-            border-top: none;
-            border-radius: 0 0 0.075rem 0.075rem;
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 10;
-            display: none;
-        }
-
-        .custom-select-option {
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-        }
-
-        .custom-select-option:hover {
-            background-color: #e5e7eb;
-        }
-
-        .custom-select-option.selected {
-            border-top: 1px solid #000000;
-            border-bottom: 1px solid #000000;
-        }
-
-        .custom-select-arrow {
-            margin-top: 0.25rem;
-            margin-bottom: 0.25rem;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 10px solid #000000;
-        }
-
-        .custom-select-container.open .custom-select-arrow {
-            transform: rotate(180deg);
-        }
-
-        #loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #000000;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        #optionsContainer {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            padding: 0;
-            border: 1px solid transparent;
-            border-top: none;
-            margin-top: -1px;
-            position: relative;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        #optionsContainer.show {
-            max-height: 1000px;
-            opacity: 1;
-            padding: 1rem;
-            border-color: #000000;
-            background-color: #f3f4f6;
-            border-radius: 0.075rem;
-            border-top: 0px;
-            overflow: visible;
-            pointer-events: auto;
-        }
-
-        #toggleOptions {
-            width: 100%;
-            margin-top: 2rem;
-            background-color: #f3f4f6;
-            border: 1px solid #000000;
-            border-radius: 0.075rem;
-            padding: 0.75rem 1rem;
-            text-align: left;
-            font-weight: 500;
-            color: #000000;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            z-index: 2;
-        }
-
-        #toggleOptions:hover {
-            background-color: #e5e7eb;
-        }
-
-        #toggleOptions.active {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        #toggleOptions::after {
-            content: '\25BC';
-            float: right;
-        }
-
-        #toggleOptions.active::after {
-            transform: rotate(180deg);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model Results Dashboard</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/table.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/plot.css' %}">
+  <style>
+  </style>
 </head>
+
 <body class="min-h-screen">
-    <div id="loading-overlay">
-        <div class="spinner"></div>
+
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <header>
+    <div class="container">
+      <h1>Heedless Backbones</h1>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <div class="plot-container">
+      {{ plot|safe }}
     </div>
 
-    <header>
-        <div class="container">
-            <h1>Backbone Data</h1>
-        </div>
-    </header>
-
-    <main class="container">
-      {% if plot %}
-        <div class="plot-container">
-            {{ plot|safe }}
-        </div>
-      {% endif %}
-      {% if not plot %}
-        <div>
-            <p>Please select options to display the visualization.</p>
-            <img src="/api/placeholder/400/300" alt="Placeholder graph">
-        </div>
-      {% endif %}
-      <div>
-          <button id="toggleOptions">
-              Plot Options
-          </button>
-          <div id="optionsContainer">
-              <form method="get">
-                  <div id="y-axis-container" class="form-grid">
-                      {% for field in form %}
-                          {% if field.name|slice:":2" == "y_" %}
-                              <div>
-                                  <label for="{{ field.id_for_label }}">
-                                      {{ field.name|slice:"2:" }}
-                                  </label>
-                                  <div class="custom-select-container" data-field-name="{{ field.name }}">
-                                      <div class="custom-select-header">
-                                          <span class="custom-select-selected">Select an option</span>
-                                          <div class="custom-select-arrow"></div>
-                                      </div>
-                                      <div class="custom-select-options">
-                                          {% for choice in field.field.choices %}
-                                              <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
-                                          {% endfor %}
-                                      </div>
-                                      <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
-                                  </div>
-                              </div>
-                          {% endif %}
-                      {% endfor %}
-                  </div>
-                  <div id="x-axis-container" class="form-grid">
-                      {% for field in form %}
-                          {% if field.name|slice:":2" == "x_" %}
-                              <div>
-                                  <label for="{{ field.id_for_label }}">
-                                      {{ field.name|slice:"2:" }}
-                                  </label>
-                                  <div class="custom-select-container" data-field-name="{{ field.name }}">
-                                      <div class="custom-select-header">
-                                          <span class="custom-select-selected">Select an option</span>
-                                          <div class="custom-select-arrow"></div>
-                                      </div>
-                                      <div class="custom-select-options">
-                                          {% for choice in field.field.choices %}
-                                              <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
-                                          {% endfor %}
-                                      </div>
-                                      <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
-                                  </div>
-                              </div>
-                          {% endif %}
-                      {% endfor %}
-                  </div>
-                  <div class="option-set-label">
-                    <label>
-                      Filters
-                    </label>
-                  </div>
-                  <div id="filter-axis-container" class="form-grid">
-                      {% for field in form %}
-                          {% if field.name|slice:":1" == "_" %}
-                              <div>
-                                  <label for="{{ field.id_for_label }}">
-                                      {{ field.label }}
-                                  </label>
-                                  <div class="custom-select-container" data-field-name="{{ field.name }}">
-                                      <div class="custom-select-header">
-                                          <span class="custom-select-selected">Select an option</span>
-                                          <div class="custom-select-arrow"></div>
-                                      </div>
-                                      <div class="custom-select-options">
-                                          {% for choice in field.field.choices %}
-                                              <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
-                                          {% endfor %}
-                                      </div>
-                                      <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
-                                  </div>
-                              </div>
-                          {% endif %}
-                      {% endfor %}
-                  </div>
-              </form>
+    <div>
+      <button class="drawer" id="toggleOptions">
+        Plot Options
+      </button>
+      <div class="drawerContents" id="optionsContainer">
+        <form method="get">
+          <div id="y-axis-container" class="form-grid">
+            {% for field in form %}
+            {% if field.name|slice:":2" == "y_" %}
+            <div>
+              <label for="{{ field.id_for_label }}">
+                {{ field.name|slice:"2:" }}
+              </label>
+              <div class="custom-select-container" data-field-name="{{ field.name }}">
+                <div class="custom-select-header">
+                  <span class="custom-select-selected">Select an option</span>
+                  <div class="custom-select-arrow"></div>
+                </div>
+                <div class="custom-select-options">
+                  {% for choice in field.field.choices %}
+                  <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
+                  {% endfor %}
+                </div>
+                <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
           </div>
+          <div id="x-axis-container" class="form-grid">
+            {% for field in form %}
+            {% if field.name|slice:":2" == "x_" %}
+            <div>
+              <label for="{{ field.id_for_label }}">
+                {{ field.name|slice:"2:" }}
+              </label>
+              <div class="custom-select-container" data-field-name="{{ field.name }}">
+                <div class="custom-select-header">
+                  <span class="custom-select-selected">Select an option</span>
+                  <div class="custom-select-arrow"></div>
+                </div>
+                <div class="custom-select-options">
+                  {% for choice in field.field.choices %}
+                  <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
+                  {% endfor %}
+                </div>
+                <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+          <div class="option-set-label">
+            <label>
+              Filters
+            </label>
+          </div>
+          <div id="filter-axis-container" class="form-grid">
+            {% for field in form %}
+            {% if field.name|slice:":1" == "_" %}
+            <div>
+              <label for="{{ field.id_for_label }}">
+                {{ field.label }}
+              </label>
+              <div class="custom-select-container" data-field-name="{{ field.name }}">
+                <div class="custom-select-header">
+                  <span class="custom-select-selected">Select an option</span>
+                  <div class="custom-select-arrow"></div>
+                </div>
+                <div class="custom-select-options">
+                  {% for choice in field.field.choices %}
+                  <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
+                  {% endfor %}
+                </div>
+                <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </form>
       </div>
+    </div>
     {% if table_data and table_headers %}
     <div class="table-container">
-        <table id="sortableTable">
-            <thead>
-                <tr>
-                    {% for header in table_headers %}
-                        <th>{{ header }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in table_data %}
-                    <tr>
-                        {% for header in table_headers %}
-                          <td>{{ row|get_item:header }}</td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+      <table id="sortableTable">
+        <thead>
+          <tr>
+            {% for header in table_headers %}
+            <th>{{ header }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in table_data %}
+          <tr>
+            {% for header in table_headers %}
+            <td>{{ row|get_item:header }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
     {% endif %}
-    </main>
+  </main>
 
-    <footer>
-        <div class="container">
-            <p>2024 Model Results Dashboard.</p>
-        </div>
-    </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
-    <script>
-        let dataTable;
+  <footer>
+    <div class="container">
+      <p>2024 Model Results Dashboard.</p>
+    </div>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+  <script>
+    let dataTable;
 
-        function initializeDataTable() {
-            if (dataTable) {
-                dataTable.destroy();
-            }
-            dataTable = $('#sortableTable').DataTable({
-                "paging": false,
-                "info": false,
-                "searching": true,
-                "language": {
-                    "search": "Filter:"
-                },
-            });
+    function initializeDataTable() {
+      if (dataTable) {
+        dataTable.destroy();
+      }
+      dataTable = $('#sortableTable').DataTable({
+        "paging": false,
+        "info": false,
+        "searching": true,
+        "language": {
+          "search": "Filter:"
+        },
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const customSelects = document.querySelectorAll('.custom-select-container');
+      const form = document.querySelector('form');
+      const loadingOverlay = document.getElementById('loading-overlay');
+      const yAxisContainer = document.getElementById('y-axis-container');
+      const xAxisContainer = document.getElementById('x-axis-container');
+
+      const toggleButton = document.getElementById('toggleOptions');
+      const optionsContainer = document.getElementById('optionsContainer');
+
+      function openOptionsContainer() {
+        optionsContainer.classList.add('show');
+        toggleButton.classList.add('active');
+        toggleButton.style.borderBottom = 'none';
+        toggleButton.textContent = 'Hide Options';
+        localStorage.setItem('optionsContainerOpen', 'true');
+      }
+
+      function closeOptionsContainer() {
+        optionsContainer.classList.remove('show');
+        toggleButton.classList.remove('active');
+        toggleButton.style.borderBottom = '1px solid #000000';
+        toggleButton.textContent = 'Plot Options';
+        localStorage.setItem('optionsContainerOpen', 'false');
+      }
+
+      if (localStorage.getItem('optionsContainerOpen') === 'true') {
+        openOptionsContainer();
+      } else {
+        closeOptionsContainer();
+      }
+
+      toggleButton.addEventListener('click', () => {
+        if (optionsContainer.classList.contains('show')) {
+          closeOptionsContainer();
+        } else {
+          openOptionsContainer();
+        }
+      });
+
+      function initializeSelect(select) {
+        const header = select.querySelector('.custom-select-header');
+        const options = select.querySelector('.custom-select-options');
+        const selectedSpan = select.querySelector('.custom-select-selected');
+        const hiddenInput = select.querySelector('input[type="hidden"]');
+
+        if (hiddenInput.value) {
+          const selectedOption = options.querySelector(`[data-value="${hiddenInput.value}"]`);
+          if (selectedOption) {
+            selectedSpan.textContent = selectedOption.textContent;
+            selectedOption.classList.add('selected');
+          }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const customSelects = document.querySelectorAll('.custom-select-container');
-            const form = document.querySelector('form');
-            const loadingOverlay = document.getElementById('loading-overlay');
-            const yAxisContainer = document.getElementById('y-axis-container');
-            const xAxisContainer = document.getElementById('x-axis-container');
-            
-            const toggleButton = document.getElementById('toggleOptions');
-            const optionsContainer = document.getElementById('optionsContainer');
-
-            function openOptionsContainer() {
-                optionsContainer.classList.add('show');
-                toggleButton.classList.add('active');
-                toggleButton.style.borderBottom = 'none';
-                toggleButton.textContent = 'Hide Options';
-                localStorage.setItem('optionsContainerOpen', 'true');
-            }
-
-            function closeOptionsContainer() {
-                optionsContainer.classList.remove('show');
-                toggleButton.classList.remove('active');
-                toggleButton.style.borderBottom = '1px solid #000000';
-                toggleButton.textContent = 'Plot Options';
-                localStorage.setItem('optionsContainerOpen', 'false');
-            }
-
-            if (localStorage.getItem('optionsContainerOpen') === 'true') {
-                openOptionsContainer();
-            } else {
-                closeOptionsContainer();
-            }
-
-            toggleButton.addEventListener('click', () => {
-                if (optionsContainer.classList.contains('show')) {
-                    closeOptionsContainer();
-                } else {
-                    openOptionsContainer();
-                }
-            });
-
-            function initializeSelect(select) {
-                const header = select.querySelector('.custom-select-header');
-                const options = select.querySelector('.custom-select-options');
-                const selectedSpan = select.querySelector('.custom-select-selected');
-                const hiddenInput = select.querySelector('input[type="hidden"]');
-
-                if (hiddenInput.value) {
-                    const selectedOption = options.querySelector(`[data-value="${hiddenInput.value}"]`);
-                    if (selectedOption) {
-                        selectedSpan.textContent = selectedOption.textContent;
-                        selectedOption.classList.add('selected');
-                    }
-                }
-
-                header.addEventListener('click', () => {
-                    select.classList.toggle('open');
-                    options.style.display = select.classList.contains('open') ? 'block' : 'none';
-                });
-
-                options.querySelectorAll('.custom-select-option').forEach(option => {
-                    option.addEventListener('click', () => {
-                        hiddenInput.value = option.dataset.value;
-                        selectedSpan.textContent = option.textContent;
-                        options.querySelectorAll('.custom-select-option').forEach(opt => opt.classList.toggle('selected', opt === option));
-                        select.classList.remove('open');
-                        options.style.display = 'none';
-                        loadingOverlay.style.display = 'flex';
-                        localStorage.setItem('optionsContainerOpen', 'true');
-                        form.submit();
-                    });
-                });
-            }
-
-            customSelects.forEach(initializeSelect);
-
-            document.addEventListener('click', (event) => {
-                if (!event.target.closest('.custom-select-container')) {
-                    customSelects.forEach(select => {
-                        select.classList.remove('open');
-                        select.querySelector('.custom-select-options').style.display = 'none';
-                    });
-                }
-            });
-
-            // Set the grid template columns based on the number of y-axis options
-            const yOptions = yAxisContainer.children.length;
-            const xOptions = xAxisContainer.children.length;
-            const numOptions = Math.max(yOptions, xOptions);
-            yAxisContainer.style.gridTemplateColumns = `repeat(${numOptions}, 1fr)`;
-            xAxisContainer.style.gridTemplateColumns = `repeat(${numOptions}, 1fr)`;
-
-            initializeDataTable();
-
+        header.addEventListener('click', () => {
+          select.classList.toggle('open');
+          options.style.display = select.classList.contains('open') ? 'block' : 'none';
         });
-    </script>
+
+        options.querySelectorAll('.custom-select-option').forEach(option => {
+          option.addEventListener('click', () => {
+            hiddenInput.value = option.dataset.value;
+            selectedSpan.textContent = option.textContent;
+            options.querySelectorAll('.custom-select-option').forEach(opt => opt.classList.toggle('selected', opt === option));
+            select.classList.remove('open');
+            options.style.display = 'none';
+            loadingOverlay.style.display = 'flex';
+            localStorage.setItem('optionsContainerOpen', 'true');
+            form.submit();
+          });
+        });
+      }
+
+      customSelects.forEach(initializeSelect);
+
+      document.addEventListener('click', (event) => {
+        if (!event.target.closest('.custom-select-container')) {
+          customSelects.forEach(select => {
+            select.classList.remove('open');
+            select.querySelector('.custom-select-options').style.display = 'none';
+          });
+        }
+      });
+
+      // Set the grid template columns based on the number of y-axis options
+      const yOptions = yAxisContainer.children.length;
+      const xOptions = xAxisContainer.children.length;
+      const numOptions = Math.max(yOptions, xOptions);
+      yAxisContainer.style.gridTemplateColumns = `repeat(${numOptions}, 1fr)`;
+      xAxisContainer.style.gridTemplateColumns = `repeat(${numOptions}, 1fr)`;
+
+      initializeDataTable();
+
+    });
+  </script>
 </body>
+
 </html>

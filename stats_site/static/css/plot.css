@@ -1,0 +1,21 @@
+#y-axis-container>div:first-child>label {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+#x-axis-container>div:first-child>label {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+#x-axis-container>div:first-child>label::before {
+  content: "X";
+}
+
+#y-axis-container>div:first-child>label::before {
+  content: "Y";
+}
+
+#x-axis-container {
+  padding-top: 0.75rem;
+}
