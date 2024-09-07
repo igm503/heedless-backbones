@@ -20,13 +20,31 @@
   <div id="loading-overlay">
     <div class="spinner"></div>
   </div>
+
+  <header class="top-bar">
+    <div class="container">
+      <h1 class="site-title">
+        <a class="site-title" href="/view">Heedless Backbones</a>
+      </h1>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/page1">Backbones</a></li>
+          <li><a href="/page2">Heads</a></li>
+          <li><a href="/page3">Datasets</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
   {% block content %}
   {% endblock %}
+
   <footer>
     <div class="container">
       <p>2024 Model Results Dashboard.</p>
     </div>
   </footer>
+
   <script>
     let dataTable, classificationDataTable, detectionDataTable, instanceDataTable;
 

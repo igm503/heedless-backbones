@@ -27,6 +27,48 @@ body {
   width: 100%;
 }
 
+.top-bar {
+  border: 1px solid #000000;
+  padding: 1rem 0;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+}
+
+.top-bar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.site-title {
+  font-size: 2.0rem;
+  color: #000000 !important;
+  margin: 0;
+}
+
+.main-nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.main-nav li {
+  margin-left: 1rem;
+}
+
+.main-nav a {
+  text-transform: uppercase;
+  color: #333;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
 .spinner {
   border: 4px solid #f3f3f3;
   border-top: 4px solid #000000;

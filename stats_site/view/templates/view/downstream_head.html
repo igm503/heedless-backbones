@@ -5,18 +5,15 @@
 {% load table_tag %}
 
 {% block content %}
-<header>
-  <div class="container">
-    <h1>{{ downstream_head.name }}</h1>
-    <h2>
-      <a href="{{ downstream_head.paper }}">Paper</a>
-      |
-      <a href="{{ downstream_head.github }}">GitHub</a>
-    </h2>
-  </div>
-</header>
+
 
 <main class="container">
+  <h1>{{ downstream_head.name }}</h1>
+  <h2>
+    <a href="{{ downstream_head.paper }}">Paper</a>
+    |
+    <a href="{{ downstream_head.github }}">GitHub</a>
+  </h2>
 
   <div class="plot-container">
     {{ plot|safe }}
