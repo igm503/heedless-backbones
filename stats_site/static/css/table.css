@@ -51,20 +51,20 @@ table.dataTable tbody tr:last-child td {
   border-bottom: 1px solid black;
 }
 
-#sortableTable_filter {
+.dataTables_filter {
   margin-top: 2rem;
   margin-bottom: 1rem;
-  float: left;
+  float: left !important;
 }
 
-#sortableTable_filter input[type="search"] {
+.dataTables_filter input[type="search"] {
   text-align: left;
   border: 1px solid black;
   border-radius: 0;
   padding: 0.5rem;
 }
 
-#sortableTable_filter input[type="search"]:focus {
+.dataTables_filter input[type="search"]:focus {
   outline: none;
   border: 1px solid black;
   box-shadow: none;

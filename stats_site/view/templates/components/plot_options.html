@@ -1,0 +1,50 @@
+<div>
+  <button class="drawer" id="toggleOptions">
+    Plot Options
+  </button>
+  <div class="drawerContents" id="optionsContainer">
+    <form method="get" action="{{ request.path }}">
+      <div id="y-axis-container" class="form-grid">
+        {% for field in form %}
+        {% if field.name|slice:":2" == "y_" %}
+        <div>
+          <label for="{{ field.id_for_label }}">
+            {{ field.name|slice:"2:" }}
+          </label>
+          {% include "components/custom_select.html" with field=field %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      <div id="x-axis-container" class="form-grid">
+        {% for field in form %}
+        {% if field.name|slice:":2" == "x_" %}
+        <div>
+          <label for="{{ field.id_for_label }}">
+            {{ field.name|slice:"2:" }}
+          </label>
+          {% include "components/custom_select.html" with field=field %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      <div class="option-set-label">
+        <label>
+          Filters
+        </label>
+      </div>
+      <div id="filter-axis-container" class="form-grid">
+        {% for field in form %}
+        {% if field.name|slice:":1" == "_" %}
+        <div>
+          <label for="{{ field.id_for_label }}">
+            {{ field.label }}
+          </label>
+          {% include "components/custom_select.html" with field=field %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </form>
+  </div>
+</div>

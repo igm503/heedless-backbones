@@ -1,0 +1,165 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heedless Backbones</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/table.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/plot.css' %}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+</head>
+
+<body class="min-h-screen">
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+  {% block content %}
+  {% endblock %}
+  <footer>
+    <div class="container">
+      <p>2024 Model Results Dashboard.</p>
+    </div>
+  </footer>
+  <script>
+    let dataTable, classificationDataTable, detectionDataTable, instanceDataTable;
+
+    function initializeDataTable() {
+      const tables = [
+        {selector: '.sortableTable', variable: 'dataTable', searching: true},
+        {selector: '.classificationTable', variable: 'classificationDataTable', searching: false},
+        {selector: '.detectionTable', variable: 'detectionDataTable', searching: false},
+        {selector: '.instanceTable', variable: 'instanceDataTable', searching: false}
+      ];
+
+      tables.forEach(table => {
+        const element = $(table.selector);
+        if (element.length) {
+          if (window[table.variable]) {
+            window[table.variable].destroy();
+          }
+          window[table.variable] = element.DataTable({
+            "paging": false,
+            "info": false,
+            "searching": table.searching,
+            "language": {
+              "search": "Filter:"
+            },
+          });
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const customSelects = document.querySelectorAll('.custom-select-container');
+      const form = document.querySelector('form');
+      const loadingOverlay = document.getElementById('loading-overlay');
+      const yAxisContainer = document.getElementById('y-axis-container');
+      const xAxisContainer = document.getElementById('x-axis-container');
+
+      const buttonConfigs = [
+        {id: 'toggleOptions', containerId: 'optionsContainer', text: 'Plot Options'},
+        {id: 'toggleClassification', containerId: 'classificationTableContainer', text: 'Classification Results'},
+        {id: 'toggleDetection', containerId: 'detectionTableContainer', text: 'Detection Results'},
+        {id: 'toggleInstance', containerId: 'instanceTableContainer', text: 'Instance Results'}
+      ];
+
+      function setupToggle(config) {
+        const button = document.getElementById(config.id);
+        const container = document.getElementById(config.containerId);
+
+        if (!button || !container) {
+          return;
+        }
+
+        const storageKey = config.containerId + 'Open';
+
+        function toggleContainer(show) {
+          container.classList.toggle('show', show);
+          button.classList.toggle('active', show);
+          button.style.borderBottom = show ? 'none' : '1px solid #000000';
+          button.textContent = show ? 'Hide ' + config.text : config.text;
+          localStorage.setItem(storageKey, show.toString());
+        }
+
+        const storedState = localStorage.getItem(storageKey);
+        if (storedState !== null) {
+          toggleContainer(storedState === 'true');
+        }
+
+        button.addEventListener('click', () => {
+          toggleContainer(!container.classList.contains('show'));
+        });
+      }
+
+      buttonConfigs.forEach(setupToggle);
+
+      function initializeSelect(select) {
+        const header = select.querySelector('.custom-select-header');
+        const options = select.querySelector('.custom-select-options');
+        const selectedSpan = select.querySelector('.custom-select-selected');
+        const hiddenInput = select.querySelector('input[type="hidden"]');
+
+        if (hiddenInput.value) {
+          const selectedOption = options.querySelector(`[data-value="${hiddenInput.value}"]`);
+          if (selectedOption) {
+            selectedSpan.textContent = selectedOption.textContent;
+            selectedOption.classList.add('selected');
+          }
+        }
+
+        header.addEventListener('click', () => {
+          select.classList.toggle('open');
+          options.style.display = select.classList.contains('open') ? 'block' : 'none';
+        });
+
+        options.querySelectorAll('.custom-select-option').forEach(option => {
+          option.addEventListener('click', () => {
+            hiddenInput.value = option.dataset.value;
+            selectedSpan.textContent = option.textContent;
+            options.querySelectorAll('.custom-select-option').forEach(opt => opt.classList.toggle('selected', opt === option));
+            select.classList.remove('open');
+            options.style.display = 'none';
+            if (loadingOverlay) {
+              loadingOverlay.style.display = 'flex';
+            }
+            localStorage.setItem('optionsContainerOpen', 'true');
+            form.submit();
+          });
+        });
+      }
+
+      customSelects.forEach(initializeSelect);
+
+      document.addEventListener('click', (event) => {
+        if (!event.target.closest('.custom-select-container')) {
+          customSelects.forEach(select => {
+            select.classList.remove('open');
+            const options = select.querySelector('.custom-select-options');
+            if (options) {
+              options.style.display = 'none';
+            }
+          });
+        }
+      });
+
+      if (yAxisContainer && xAxisContainer) {
+        const yOptions = yAxisContainer.children.length;
+        const xOptions = xAxisContainer.children.length;
+        const numOptions = Math.max(yOptions, xOptions);
+        yAxisContainer.style.gridTemplateColumns = `repeat(${numOptions}, 1fr)`;
+        xAxisContainer.style.gridTemplateColumns = `repeat(${numOptions}, 1fr)`;
+      }
+
+      initializeDataTable();
+    });
+  </script>
+</body>
+
+</html>

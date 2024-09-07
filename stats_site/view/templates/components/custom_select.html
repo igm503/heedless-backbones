@@ -1,0 +1,12 @@
+<div class="custom-select-container" data-field-name="{{ field.name }}">
+  <div class="custom-select-header">
+    <span class="custom-select-selected">Select an option</span>
+    <div class="custom-select-arrow"></div>
+  </div>
+  <div class="custom-select-options">
+    {% for choice in field.field.choices %}
+    <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
+    {% endfor %}
+  </div>
+  <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+</div>
