@@ -8,12 +8,15 @@
 
 
 <main class="container">
-  <h1>{{ downstream_head.name }}</h1>
-  <h2>
-    <a href="{{ downstream_head.paper }}">Paper</a>
-    |
-    <a href="{{ downstream_head.github }}">GitHub</a>
-  </h2>
+
+  <header class="title-bar">
+    <h1>{{ downstream_head.name }}</h1>
+    <div class="links">
+      <a href="{{ downstream_head.paper }}">Paper</a>
+      |
+      <a href="{{ downstream_head.github }}">GitHub</a>
+    </div>
+  </header>
 
   <div class="plot-container">
     {{ plot|safe }}

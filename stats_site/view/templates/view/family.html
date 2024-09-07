@@ -5,18 +5,18 @@
 {% load table_tag %}
 
 {% block content %}
-<header>
-  <div class="container">
+
+
+<main class="container">
+
+  <header class="title-bar">
     <h1>{{ family.name }} Family</h1>
-    <h2>
+    <div class="links">
       <a href="{{ family.paper }}">Paper</a>
       |
       <a href="{{ family.github }}">GitHub</a>
-    </h2>
-  </div>
-</header>
-
-<main class="container">
+    </div>
+  </header>
 
   <div class="plot-container">
     {{ plot|safe }}
