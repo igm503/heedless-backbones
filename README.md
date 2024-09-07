@@ -8,8 +8,7 @@ A simple web application for comparing computer vision backbones performance on 
 Paperswithcode's basic data models and user interface aren't useful either for researchers or industry users interested in comparing the performance of different computer vision backbones for different tasks.
 
 ## WIP
-- Model Family Pages
-- Dataset Pages (might just link to website)
+- Dataset Pages
 - Host the Website
 - Add Semantic Segmentation as a downstream task
 - Add More Backbones
@@ -22,10 +21,12 @@ Paperswithcode's basic data models and user interface aren't useful either for r
   - Result vs Throughput
   - Resolution and Pretrain Dataset Filters 
 - Accompanying Tables
+- Model Family Pages
 - Models Added:
   - [ConvNeXt](https://arxiv.org/abs/2201.03545)
   - [TransNeXt](https://arxiv.org/abs/2311.17132)
 
 ## Updates
+- 9-4-2024: added model family page
 - 9-2-2024: added resolution and pretraining dataset filters
 - 9-1-2024: added table on plot page

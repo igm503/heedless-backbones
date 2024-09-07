@@ -1,5 +1,6 @@
 import random
 from dataclasses import dataclass
+from collections import defaultdict
 
 from django.db.models import Prefetch, Exists, OuterRef, F, Value, Subquery, FloatField
 from django.db.models.functions import Coalesce
@@ -16,6 +17,7 @@ from .models import (
     PretrainedBackbone,
     FPSMeasurement,
     TaskType,
+    PretrainMethod,
 )
 
 
@@ -167,8 +169,147 @@ class PlotRequest:
         self.plot_args = PlotRequest.PlotArgs(x_attr=self.x_type, y_attr=self.y_type)
 
 
-def get_plot_data(request):
+def get_family_instance_data(family_name, instance_type):
+    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
+    queryset = queryset.filter(family__name=family_name)
+    queryset = queryset.prefetch_related(
+        Prefetch(
+            "instance_results",
+            queryset=InstanceResult.objects.select_related("dataset").filter(
+                instance_type__name=instance_type.value
+            ),
+            to_attr="results",
+        )
+    )
+
+    eval_datasets = set()
+    for pb in queryset:
+        for result in pb.results:
+            dataset = result.dataset.name
+            if "ImageNet" in dataset:
+                dataset = dataset.replace("ImageNet", "IN")
+            eval_datasets.add(f"{dataset}")
+
+    data = []
+    for eval_dataset in eval_datasets:
+        table_data = []
+        for pb in queryset:
+            pt_dataset = pb.pretrain_dataset.name
+            if "ImageNet" in pt_dataset:
+                pt_dataset = pt_dataset.replace("ImageNet", "IN")
+            pretrain_method = pb.pretrain_method
+            if pretrain_method == PretrainMethod.SUPERVISED.value:
+                pretrain_method = "Sup."
+            pretraining = f"{pt_dataset} : {pretrain_method} : {pb.pretrain_epochs}"
+            for result in pb.results:
+                if eval_dataset != result.dataset.name:
+                    continue
+                dataset = result.dataset.name
+                row = {
+                    "backbone": pb.backbone.name,
+                    "pretraining": pretraining,
+                    "_source": pb.github,
+                    "head": result.head.name,
+                    "epochs": result.train_epochs,
+                    "gflops": result.gflops,
+                    "mAP": result.mAP if result.mAP else "-",
+                    "AP50": result.AP50 if result.AP50 else "-",
+                    "AP75": result.AP75 if result.AP75 else "-",
+                    "mAPs": result.mAPs if result.mAPs else "-",
+                    "mAPm": result.mAPm if result.mAPm else "-",
+                    "mAPl": result.mAPl if result.mAPl else "-",
+                }
+                table_data.append(row)
+
+        if table_data:
+            table_headers = [key for key in table_data[0].keys() if "_source" not in key]
+        else:
+            table_headers = []
+
+        data.append(
+            {
+                "name": eval_dataset,
+                "data": table_data,
+                "headers": table_headers,
+            }
+        )
+
+    return data
+
+
+def get_family_classification(family_name):
+    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
+    queryset = queryset.filter(family__name=family_name)
+    queryset = queryset.prefetch_related(
+        Prefetch(
+            "classification_results",
+            queryset=ClassificationResult.objects.select_related("dataset", "fine_tune_dataset"),
+            to_attr="results",
+        )
+    )
+
+    eval_datasets = set()
+    for pb in queryset:
+        for result in pb.results:
+            dataset = result.dataset.name
+            if "ImageNet" in dataset:
+                dataset = dataset.replace("ImageNet", "IN")
+            eval_datasets.add(f"{dataset}")
+
+    table_data = []
+    for pb in queryset:
+        params = pb.backbone.m_parameters
+        result_finetunes = defaultdict(dict)
+        for result in pb.results:
+            ft_dataset = result.fine_tune_dataset.name if result.fine_tune_dataset else None
+            if ft_dataset is not None and "ImageNet" in ft_dataset:
+                ft_dataset = ft_dataset.replace("ImageNet", "IN")
+            dataset = result.dataset.name
+            if "ImageNet" in dataset:
+                dataset = dataset.replace("ImageNet", "IN")
+            finetune = f"{ft_dataset} : {result.fine_tune_epochs} : {result.fine_tune_resolution}"
+            top1 = result.top_1 if result.top_1 else "-"
+            top5 = result.top_5 if result.top_5 else "-"
+            result_finetunes[finetune]["gflops"] = f"{result.gflops}"
+            result_finetunes[finetune][f"{dataset}"] = f"{top1}/{top5}"
+            result_finetunes[finetune][f"{dataset}_source"] = f"{result.paper}"
+
+        pt_dataset = pb.pretrain_dataset.name
+        if "ImageNet" in pt_dataset:
+            pt_dataset = pt_dataset.replace("ImageNet", "IN")
+        pretrain_method = pb.pretrain_method
+        if pretrain_method == PretrainMethod.SUPERVISED.value:
+            pretrain_method = "Sup."
+        pretraining = f"{pt_dataset} : {pretrain_method} : {pb.pretrain_epochs}"
+        for finetune, results in result_finetunes.items():
+            if finetune == "None : None : None":
+                finetune = finetune.replace("None", "----")
+            row = {
+                "backbone": pb.backbone.name,
+                "params (m)": params,
+                "pretraining": pretraining,
+                "finetuning": finetune,
+                "_source": pb.github,
+            }
+            row.update(results)
+            for dataset in eval_datasets:
+                if dataset not in row:
+                    row[dataset] = "-/-"
+            table_data.append(row)
+
+    if table_data:
+        table_headers = [key for key in table_data[0].keys() if "_source" not in key]
+    else:
+        table_headers = []
+
+    return table_data, table_headers
+
+
+def get_plot_data(request, family_name=None):
     queryset = PretrainedBackbone.objects.select_related("family").select_related("backbone")
+    if family_name:
+        queryset = queryset.filter(family__name=family_name)
+        print(queryset)
     if request.pretrain_dataset:
         queryset = queryset.filter(pretrain_dataset=request.pretrain_dataset)
     if request.query_type == PlotRequest.MULTI:
@@ -530,7 +671,7 @@ def get_plot_div(title, x_title, y_title, data):
     return plot_div
 
 
-def get_defaults():
+def get_defaults(family_name=None):
     plot_request = PlotRequest(
         {
             "y_axis": "results",
@@ -540,7 +681,7 @@ def get_defaults():
             "y_metric": "top_1",
         }
     )
-    queryset = get_plot_data(plot_request)
+    queryset = get_plot_data(plot_request, family_name=family_name)
     plot = get_plot(queryset, plot_request)
     table, table_headers = get_table_data(queryset, plot_request)
 

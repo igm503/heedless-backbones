@@ -1,7 +1,15 @@
 from django import forms
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
-from .plot import get_defaults, get_plot, PlotRequest, get_table_data, get_plot_data
+from .plot import (
+    get_defaults,
+    get_family_classification,
+    get_family_instance_data,
+    get_plot,
+    PlotRequest,
+    get_table_data,
+    get_plot_data,
+)
 from .constants import (
     AXIS_CHOICES,
     CLASSIFICATION_METRICS,
@@ -10,6 +18,8 @@ from .constants import (
     RESOLUTIONS,
 )
 from .models import (
+    BackboneFamily,
+    Backbone,
     Dataset,
     DownstreamHead,
     Task,
@@ -19,7 +29,8 @@ from .models import (
 )
 
 
-last_plot, last_table, last_headers = get_defaults()
+plot, table, headers = get_defaults()
+family_plot, family_table, family_headers = None, None, None
 
 
 class DatasetTaskForm(forms.Form):
@@ -98,32 +109,59 @@ class DatasetTaskForm(forms.Form):
 
 
 def plot_view(request):
-    global last_plot, last_table, last_headers
-    plot = last_plot
-    table_data = last_table
-    table_headers = last_headers
+    global plot, table, headers
     form = DatasetTaskForm(request.GET or None)
     if form.is_valid() and form.is_ready():
         plot_request = PlotRequest(form.cleaned_data)
         queryset = get_plot_data(plot_request)
         plot = get_plot(queryset, plot_request)
-        table_data, table_headers = get_table_data(queryset, plot_request)
-        print(table_data)
-        last_plot = plot
+        table, headers = get_table_data(queryset, plot_request)
     return render(
         request,
         "view/all.html",
         {
             "form": form,
             "plot": plot,
-            "table_data": table_data,
-            "table_headers": table_headers,
+            "table_data": table,
+            "table_headers": headers,
         },
     )
 
 
-def show_family(request, family):
-    pass
+def show_family(request, family_name):
+    global family_plot, family_table, family_headers
+    try:
+        family = BackboneFamily.objects.get(name=family_name)
+    except BackboneFamily.DoesNotExist:
+        backbone = get_object_or_404(Backbone, name=family_name)
+        family = backbone.family
+    form = DatasetTaskForm(request.GET or None)
+    if form.is_valid() and form.is_ready():
+        plot_request = PlotRequest(form.cleaned_data)
+        queryset = get_plot_data(plot_request, family_name=family.name)
+        family_plot = get_plot(queryset, plot_request)
+        family_table, family_headers = get_table_data(queryset, plot_request)
+    else:
+        family_plot, family_table, family_headers = get_defaults(family_name=family.name)
+    class_table, class_headers = get_family_classification(family.name)
+    det_data = get_family_instance_data(family.name, TaskType.DETECTION)
+    instance_data = get_family_instance_data(family.name, TaskType.INSTANCE_SEG)
+
+    return render(
+        request,
+        "view/family.html",
+        {
+            "family_name": family.name,
+            "form": form,
+            "plot": family_plot,
+            "table_data": family_table,
+            "table_headers": family_headers,
+            "classification_data": class_table,
+            "classification_headers": class_headers,
+            "detection_data": det_data,
+            "instance_data": instance_data,
+        },
+    )
 
 
 def show_dataset(request, dataset):

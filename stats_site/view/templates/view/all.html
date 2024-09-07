@@ -10,9 +10,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Model Results Dashboard</title>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/table.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/plot.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
   <style>
   </style>
 </head>
@@ -132,7 +132,13 @@
           {% for row in table_data %}
           <tr>
             {% for header in table_headers %}
-            <td>{{ row|get_item:header }}</td>
+            <td>
+              {% if header == 'family' %}
+              <a href="{% url 'backbone_family' row|get_item:header %}" target="_blank">{{ row|get_item:header }}</a>
+              {% else %}
+              {{ row|get_item:header }}
+              {% endif %}
+            </td>
             {% endfor %}
           </tr>
           {% endfor %}

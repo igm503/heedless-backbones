@@ -187,3 +187,17 @@ body {
 .custom-select-container.open .custom-select-arrow {
   transform: rotate(180deg);
 }
+
+html body a {
+  color: #004080 !important;
+  text-decoration: none !important;
+}
+
+html body a:hover {
+  color: #004080 !important;
+  font-weight: bold !important;
+}
+
+a:active {
+  color: #002040 !important;
+}

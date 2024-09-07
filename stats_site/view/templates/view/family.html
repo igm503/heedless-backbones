@@ -40,7 +40,7 @@
         Plot Options
       </button>
       <div class="drawerContents" id="optionsContainer">
-        <form method="get">
+        <form method="get" action="{{ request.path }}">
           <div id="y-axis-container" class="form-grid">
             {% for field in form %}
             {% if field.name|slice:":2" == "y_" %}
@@ -140,6 +140,120 @@
       </table>
     </div>
     {% endif %}
+    {% if classification_data and classification_headers %}
+    <button class="drawer" id="toggleClassification">
+      Classification Results
+    </button>
+    <div class="table-container drawerContents" id="classificationTableContainer">
+      <table id="classificationTable">
+        <thead>
+          <tr>
+            {% for header in classification_headers %}
+            <th>{{ header }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in classification_data %}
+          <tr>
+            {% for header in classification_headers %}
+            <td>
+              {% with source_header=header|add:"_source" %}
+              {% if row|get_item:source_header %}
+              <a href="{{ row|get_item:source_header }}" target="_blank">{{ row|get_item:header }}</a>
+              {% elif header == 'backbone' %}
+              <a href="{{ row|get_item:'_source' }}" target="_blank">{{ row|get_item:header }}</a>
+              {% else %}
+              {{ row|get_item:header }}
+              {% endif %}
+              {% endwith %}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+
+
+    {% if detection_data %}
+    <button class="drawer" id="toggleDetection">
+      Object Detection Results
+    </button>
+    <div class="table-container drawerContents" id="detectionTableContainer">
+      {% for dataset in detection_data %}
+      <h3>{{ dataset.name }}</h3>
+      <table class="detectionTable">
+        <thead>
+          <tr>
+            {% for header in dataset.headers %}
+            <th>{{ header }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in dataset.data %}
+          <tr>
+            {% for header in dataset.headers %}
+            <td>
+              {% with source_header=header|add:"_source" %}
+              {% if row|get_item:source_header %}
+              <a href="{{ row|get_item:source_header }}" target="_blank">{{ row|get_item:header }}</a>
+              {% elif header == 'backbone' %}
+              <a href="{{ row|get_item:'_source' }}" target="_blank">{{ row|get_item:header }}</a>
+              {% else %}
+              {{ row|get_item:header }}
+              {% endif %}
+              {% endwith %}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if instance_data %}
+    <button class="drawer" id="toggleInstance">
+      Instance Segmentation Results
+    </button>
+    <div class="table-container drawerContents" id="instanceTableContainer">
+      {% for dataset in instance_data %}
+      <h3>{{ dataset.name }}</h3>
+      <table class="instanceTable">
+        <thead>
+          <tr>
+            {% for header in dataset.headers %}
+            <th>{{ header }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in dataset.data %}
+          <tr>
+            {% for header in dataset.headers %}
+            <td>
+              {% with source_header=header|add:"_source" %}
+              {% if row|get_item:source_header %}
+              <a href="{{ row|get_item:source_header }}" target="_blank">{{ row|get_item:header }}</a>
+              {% elif header == 'backbone' %}
+              <a href="{{ row|get_item:'_source' }}" target="_blank">{{ row|get_item:header }}</a>
+              {% else %}
+              {{ row|get_item:header }}
+              {% endif %}
+              {% endwith %}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endfor %}
+    </div>
+    {% endif %}
   </main>
 
   <footer>
@@ -152,6 +266,9 @@
     src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
   <script>
     let dataTable;
+    let classificationDataTable;
+    let detectionDataTable;
+    let instanceDataTable;
 
     function initializeDataTable() {
       if (dataTable) {
@@ -165,6 +282,33 @@
           "search": "Filter:"
         },
       });
+
+      if (classificationDataTable) {
+        classificationDataTable.destroy();
+      }
+      classificationDataTable = $('#classificationTable').DataTable({
+        "paging": false,
+        "info": false,
+        "searching": false,
+      });
+
+      if (detectionDataTable) {
+        detectionDataTable.destroy();
+      }
+      detectionDataTable = $('.detectionTable').DataTable({
+        "paging": false,
+        "info": false,
+        "searching": false,
+      })
+
+      if (instanceDataTable) {
+        instanceDataTable.destroy();
+      }
+      instanceDataTable = $('.instanceTable').DataTable({
+        "paging": false,
+        "info": false,
+        "searching": false,
+      })
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -174,38 +318,33 @@
       const yAxisContainer = document.getElementById('y-axis-container');
       const xAxisContainer = document.getElementById('x-axis-container');
 
-      const toggleButton = document.getElementById('toggleOptions');
-      const optionsContainer = document.getElementById('optionsContainer');
+      const buttonConfigs = [
+        {id: 'toggleOptions', containerId: 'optionsContainer', text: 'Plot Options'},
+        {id: 'toggleClassification', containerId: 'classificationTableContainer', text: 'Classification Results'},
+        {id: 'toggleDetection', containerId: 'detectionTableContainer', text: 'Detection Results'},
+        {id: 'toggleInstance', containerId: 'instanceTableContainer', text: 'Instance Results'}
+      ];
 
-      function openOptionsContainer() {
-        optionsContainer.classList.add('show');
-        toggleButton.classList.add('active');
-        toggleButton.style.borderBottom = 'none';
-        toggleButton.textContent = 'Hide Options';
-        localStorage.setItem('optionsContainerOpen', 'true');
-      }
+      function setupToggle(config) {
+        const button = document.getElementById(config.id);
+        const container = document.getElementById(config.containerId);
 
-      function closeOptionsContainer() {
-        optionsContainer.classList.remove('show');
-        toggleButton.classList.remove('active');
-        toggleButton.style.borderBottom = '1px solid #000000';
-        toggleButton.textContent = 'Plot Options';
-        localStorage.setItem('optionsContainerOpen', 'false');
-      }
-
-      if (localStorage.getItem('optionsContainerOpen') === 'true') {
-        openOptionsContainer();
-      } else {
-        closeOptionsContainer();
-      }
-
-      toggleButton.addEventListener('click', () => {
-        if (optionsContainer.classList.contains('show')) {
-          closeOptionsContainer();
-        } else {
-          openOptionsContainer();
+        function toggleContainer(show) {
+          container.classList.toggle('show', show);
+          button.classList.toggle('active', show);
+          button.style.borderBottom = show ? 'none' : '1px solid #000000';
+          button.textContent = show ? 'Hide ' + config.text : config.text;
+          localStorage.setItem(config.containerId + 'Open', show.toString());
         }
-      });
+
+        toggleContainer(localStorage.getItem(config.storageKey) === 'true');
+
+        button.addEventListener('click', () => {
+          toggleContainer(!container.classList.contains('show'));
+        });
+      }
+
+      buttonConfigs.forEach(setupToggle);
 
       function initializeSelect(select) {
         const header = select.querySelector('.custom-select-header');
@@ -251,7 +390,6 @@
         }
       });
 
-      // Set the grid template columns based on the number of y-axis options
       const yOptions = yAxisContainer.children.length;
       const xOptions = xAxisContainer.children.length;
       const numOptions = Math.max(yOptions, xOptions);
