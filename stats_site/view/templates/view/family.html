@@ -25,7 +25,12 @@
 
   <header>
     <div class="container">
-      <h1>{{ family_name }} Family</h1>
+      <h1>{{ family.name }} Family</h1>
+      <h2>
+        <a href="{{ family.paper }}">Paper</a>
+        |
+        <a href="{{ family.github }}">GitHub</a>
+      </h2>
     </div>
   </header>
 
@@ -118,6 +123,7 @@
         </form>
       </div>
     </div>
+
     {% if table_data and table_headers %}
     <div class="table-container">
       <table id="sortableTable">
@@ -140,6 +146,7 @@
       </table>
     </div>
     {% endif %}
+
     {% if classification_data and classification_headers %}
     <button class="drawer" id="toggleClassification">
       Classification Results
@@ -176,7 +183,6 @@
     </div>
     {% endif %}
 
-
     {% if detection_data %}
     <button class="drawer" id="toggleDetection">
       Object Detection Results
@@ -197,15 +203,17 @@
           <tr>
             {% for header in dataset.headers %}
             <td>
-              {% with source_header=header|add:"_source" %}
-              {% if row|get_item:source_header %}
-              <a href="{{ row|get_item:source_header }}" target="_blank">{{ row|get_item:header }}</a>
+              {% if header|slice:":2" == "mA" %}
+              <a href="{{ row|get_item:'result_source' }}" target="_blank">{{ row|get_item:header }}</a>
+              {% elif header|slice:":2" == "AP" %}
+              <a href="{{ row|get_item:'result_source' }}" target="_blank">{{ row|get_item:header }}</a>
               {% elif header == 'backbone' %}
               <a href="{{ row|get_item:'_source' }}" target="_blank">{{ row|get_item:header }}</a>
+              {% elif header == 'head' %}
+              <a href="{% url 'downstream_head' row|get_item:header %}" target="_blank">{{ row|get_item:header }}</a>
               {% else %}
               {{ row|get_item:header }}
               {% endif %}
-              {% endwith %}
             </td>
             {% endfor %}
           </tr>
@@ -236,15 +244,17 @@
           <tr>
             {% for header in dataset.headers %}
             <td>
-              {% with source_header=header|add:"_source" %}
-              {% if row|get_item:source_header %}
-              <a href="{{ row|get_item:source_header }}" target="_blank">{{ row|get_item:header }}</a>
+              {% if header|slice:":2" == "mA" %}
+              <a href="{{ row|get_item:'result_source' }}" target="_blank">{{ row|get_item:header }}</a>
+              {% elif header|slice:":2" == "AP" %}
+              <a href="{{ row|get_item:'result_source' }}" target="_blank">{{ row|get_item:header }}</a>
               {% elif header == 'backbone' %}
               <a href="{{ row|get_item:'_source' }}" target="_blank">{{ row|get_item:header }}</a>
+              {% elif header == 'head' %}
+              <a href="{% url 'downstream_head' row|get_item:header %}" target="_blank">{{ row|get_item:header }}</a>
               {% else %}
               {{ row|get_item:header }}
               {% endif %}
-              {% endwith %}
             </td>
             {% endfor %}
           </tr>
@@ -261,6 +271,7 @@
       <p>2024 Model Results Dashboard.</p>
     </div>
   </footer>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script type="text/javascript" charset="utf8"
     src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
@@ -328,16 +339,17 @@
       function setupToggle(config) {
         const button = document.getElementById(config.id);
         const container = document.getElementById(config.containerId);
+        const storageKey = config.containerId + 'Open';
 
         function toggleContainer(show) {
           container.classList.toggle('show', show);
           button.classList.toggle('active', show);
           button.style.borderBottom = show ? 'none' : '1px solid #000000';
           button.textContent = show ? 'Hide ' + config.text : config.text;
-          localStorage.setItem(config.containerId + 'Open', show.toString());
+          localStorage.setItem(storageKey, show.toString());
         }
 
-        toggleContainer(localStorage.getItem(config.storageKey) === 'true');
+        toggleContainer(localStorage.getItem(storageKey) === 'true');
 
         button.addEventListener('click', () => {
           toggleContainer(!container.classList.contains('show'));

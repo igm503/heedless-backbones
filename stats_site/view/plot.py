@@ -168,6 +168,73 @@ class PlotRequest:
         )
         self.plot_args = PlotRequest.PlotArgs(x_attr=self.x_type, y_attr=self.y_type)
 
+def get_head_instance_data(head_name, instance_type):
+    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
+    queryset = queryset.prefetch_related(
+        Prefetch(
+            "instance_results",
+            queryset=InstanceResult.objects.select_related("dataset").filter(
+                instance_type__name=instance_type.value,
+                head__name=head_name,
+            ),
+            to_attr="results",
+        )
+    )
+
+    eval_datasets = set()
+    for pb in queryset:
+        for result in pb.results:
+            dataset = result.dataset.name
+            if "ImageNet" in dataset:
+                dataset = dataset.replace("ImageNet", "IN")
+            eval_datasets.add(f"{dataset}")
+
+    data = []
+    for eval_dataset in eval_datasets:
+        table_data = []
+        for pb in queryset:
+            pt_dataset = pb.pretrain_dataset.name
+            if "ImageNet" in pt_dataset:
+                pt_dataset = pt_dataset.replace("ImageNet", "IN")
+            pretrain_method = pb.pretrain_method
+            if pretrain_method == PretrainMethod.SUPERVISED.value:
+                pretrain_method = "Sup."
+            pretraining = f"{pt_dataset} : {pretrain_method} : {pb.pretrain_epochs}"
+            for result in pb.results:
+                if eval_dataset != result.dataset.name:
+                    continue
+                dataset = result.dataset.name
+                row = {
+                    "backbone": pb.backbone.name,
+                    "pretraining": pretraining,
+                    "_source": pb.github,
+                    "head": result.head.name,
+                    "epochs": result.train_epochs,
+                    "gflops": result.gflops,
+                    "mAP": result.mAP if result.mAP else "-",
+                    "AP50": result.AP50 if result.AP50 else "-",
+                    "AP75": result.AP75 if result.AP75 else "-",
+                    "mAPs": result.mAPs if result.mAPs else "-",
+                    "mAPm": result.mAPm if result.mAPm else "-",
+                    "mAPl": result.mAPl if result.mAPl else "-",
+                    "result_source": result.paper,
+                }
+                table_data.append(row)
+
+        if table_data:
+            table_headers = [key for key in table_data[0].keys() if "_source" not in key]
+        else:
+            table_headers = []
+
+        data.append(
+            {
+                "name": eval_dataset,
+                "data": table_data,
+                "headers": table_headers,
+            }
+        )
+
+    return data
 
 def get_family_instance_data(family_name, instance_type):
     queryset = PretrainedBackbone.objects.select_related("family", "backbone")
@@ -218,6 +285,7 @@ def get_family_instance_data(family_name, instance_type):
                     "mAPs": result.mAPs if result.mAPs else "-",
                     "mAPm": result.mAPm if result.mAPm else "-",
                     "mAPl": result.mAPl if result.mAPl else "-",
+                    "result_source": result.paper,
                 }
                 table_data.append(row)
 
@@ -306,10 +374,9 @@ def get_family_classification(family_name):
 
 
 def get_plot_data(request, family_name=None):
-    queryset = PretrainedBackbone.objects.select_related("family").select_related("backbone")
+    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
     if family_name:
         queryset = queryset.filter(family__name=family_name)
-        print(queryset)
     if request.pretrain_dataset:
         queryset = queryset.filter(pretrain_dataset=request.pretrain_dataset)
     if request.query_type == PlotRequest.MULTI:
@@ -343,7 +410,8 @@ def get_plot(queryset, request):
         return get_plot_object(queryset, plot_args, get_all_plot_data, title_func)
 
 
-def get_table_data(queryset, request):
+def get_table_data(queryset, request, include_family=True):
+    print(include_family)
     table_data = []
     x_type = request.plot_args.x_attr
     y_type = request.plot_args.y_attr
@@ -353,12 +421,14 @@ def get_table_data(queryset, request):
         for pb in queryset:
             params = pb.backbone.m_parameters
             for result in pb.filtered_results:
-                row_data = {
-                    "family": pb.family.name,
-                    "backbone": pb.backbone.name,
-                    "parameters (m)": params,
-                    "pretrain": pb.pretrain_dataset.name,
-                }
+                row_data = {}
+                if include_family:
+                    row_data["family"] = pb.family.name
+                else:
+                    row_data["_source"] = pb.github
+                row_data["backbone"] = pb.backbone.name
+                row_data["parameters (m)"] = params
+                row_data["pretrain"] = pb.pretrain_dataset.name
                 if x_type != "m_parameters":
                     row_data[f"{x_title}"] = getattr(result, x_type)
                 if y_type != "m_parameters":
@@ -372,32 +442,36 @@ def get_table_data(queryset, request):
                 for y_result in pb.y_results:
                     x = getattr(x_result, x_type)
                     y = getattr(y_result, y_type)
-                    row_data = {
-                        "family": pb.family.name,
-                        "backbone": pb.backbone.name,
-                        "parameters (m)": params,
-                        "pretrain": pb.pretrain_dataset.name,
-                        f"{x_title}": x,
-                        f"{y_title}": y,
-                    }
+                    row_data = {}
+                    if include_family:
+                        row_data["family"] = pb.family.name
+                    else:
+                        row_data["_source"] = pb.github
+                    row_data["backbone"] = pb.backbone.name
+                    row_data["parameters (m)"] = params
+                    row_data["pretrain"] = pb.pretrain_dataset.name
+                    row_data[f"{x_title}"] = x
+                    row_data[f"{y_title}"] = y
                     table_data.append(row_data)
     else:
         for pb in queryset:
             params = pb.backbone.m_parameters
             for results in [pb._instance_results, pb._classification_results]:
                 for result in results:
-                    row_data = {
-                        "family": pb.family.name,
-                        "backbone": pb.backbone.name,
-                        "parameters (m)": params,
-                        "pretrain": pb.pretrain_dataset.name,
-                    }
+                    row_data = {}
+                    if include_family:
+                        row_data["family"] = pb.family.name
+                    else:
+                        row_data["_source"] = pb.github
+                    row_data["backbone"] = pb.backbone.name
+                    row_data["parameters (m)"] = params
+                    row_data["pretrain"] = pb.pretrain_dataset.name
                     if x_type != "m_parameters":
                         row_data[f"{x_title}"] = getattr(result, x_type)
                     if y_type != "m_parameters":
                         row_data[f"{y_title}"] = getattr(result, y_type)
                     table_data.append(row_data)
-    table_headers = list(table_data[0].keys()) if table_data else []
+    table_headers = list(table_data[-1].keys()) if table_data else []
     return table_data, table_headers
 
 
@@ -671,18 +745,34 @@ def get_plot_div(title, x_title, y_title, data):
     return plot_div
 
 
-def get_defaults(family_name=None):
-    plot_request = PlotRequest(
-        {
-            "y_axis": "results",
-            "x_axis": "gflops",
-            "y_dataset": Dataset.objects.get(pk=1),
-            "y_task": Task.objects.get(pk=4),
-            "y_metric": "top_1",
-        }
-    )
+def get_defaults(family_name=None, head=None):
+    if head:
+        tasks = head.tasks.all()
+        first_task = tasks.first()
+        datasets = Dataset.objects.filter(tasks__in=tasks).distinct().all()
+        first_dataset = datasets.filter(tasks=first_task).all()[1]
+        plot_request = PlotRequest(
+            {
+                "y_axis": "results",
+                "x_axis": "gflops",
+                "y_dataset": first_dataset,
+                "y_task": first_task,
+                "y_head": head,
+                "y_metric": "mAP",
+            }
+        )
+    else:
+        plot_request = PlotRequest(
+            {
+                "y_axis": "results",
+                "x_axis": "gflops",
+                "y_dataset": Dataset.objects.get(pk=1),
+                "y_task": Task.objects.get(pk=4),
+                "y_metric": "top_1",
+            }
+        )
     queryset = get_plot_data(plot_request, family_name=family_name)
     plot = get_plot(queryset, plot_request)
-    table, table_headers = get_table_data(queryset, plot_request)
+    table, table_headers = get_table_data(queryset, plot_request, include_family=family_name is None)
 
     return plot, table, table_headers

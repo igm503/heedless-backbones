@@ -5,6 +5,7 @@ from .plot import (
     get_defaults,
     get_family_classification,
     get_family_instance_data,
+    get_head_instance_data,
     get_plot,
     PlotRequest,
     get_table_data,
@@ -38,6 +39,12 @@ class DatasetTaskForm(forms.Form):
     x_axis = forms.ChoiceField(choices=AXIS_CHOICES, initial="gflops")
 
     def __init__(self, *args, **kwargs):
+        if "head" in kwargs:
+            self.head = kwargs["head"]
+            del kwargs["head"]
+        else:
+            self.head = False
+
         super().__init__(*args, **kwargs)
 
         args = args[0]
@@ -55,15 +62,36 @@ class DatasetTaskForm(forms.Form):
         self.init_graph = False
 
     def init_defaults(self):
-        self.fields["y_task"] = forms.ModelChoiceField(queryset=Task.objects.all(), initial=4)
-        self.fields["y_dataset"] = forms.ModelChoiceField(queryset=Dataset.objects.all(), initial=1)
-        self.fields["y_metric"] = forms.ChoiceField(choices=CLASSIFICATION_METRICS, initial="top_1")
-        self.init_graph = True
+        if not self.head:
+            self.fields["y_task"] = forms.ModelChoiceField(queryset=Task.objects.all(), initial=4)
+            self.fields["y_dataset"] = forms.ModelChoiceField(
+                queryset=Dataset.objects.all(), initial=1
+            )
+            self.fields["y_metric"] = forms.ChoiceField(
+                choices=CLASSIFICATION_METRICS, initial="top_1"
+            )
+            self.init_graph = True
+        else:
+            tasks = self.head.tasks.all()
+            first_task = tasks.first()
+            datasets = Dataset.objects.filter(tasks__in=tasks).distinct().all()
+            first_dataset = datasets.filter(tasks=first_task).all()[1]
+            self.fields["y_task"] = forms.ModelChoiceField(queryset=tasks, initial=first_task.pk)
+            self.fields["y_dataset"] = forms.ModelChoiceField(
+                queryset=datasets,
+                initial=first_dataset.pk,
+            )
+            self.fields["y_metric"] = forms.ChoiceField(choices=INSTANCE_METRICS, initial="mAP")
+            self.init_graph = True
 
     def init_result_extras(self, args, axis):
-        self.fields[f"{axis}_task"] = forms.ModelChoiceField(
-            queryset=Task.objects.all(), required=False
-        )
+        if self.head:
+            tasks = self.head.tasks.all()
+            self.fields[f"{axis}_task"] = forms.ModelChoiceField(queryset=tasks, required=False)
+        else:
+            self.fields[f"{axis}_task"] = forms.ModelChoiceField(
+                queryset=Task.objects.all(), required=False
+            )
         if args.get(f"{axis}_task"):
             task_name = Task.objects.get(pk=args[f"{axis}_task"]).name
             self.fields[f"{axis}_dataset"] = forms.ModelChoiceField(
@@ -77,10 +105,11 @@ class DatasetTaskForm(forms.Form):
                 self.fields[f"{axis}_metric"] = forms.ChoiceField(
                     choices=INSTANCE_METRICS, required=False
                 )
-                self.fields[f"{axis}_head"] = forms.ModelChoiceField(
-                    queryset=DownstreamHead.objects.filter(tasks__name=task_name),
-                    required=False,
-                )
+                if not self.head:
+                    self.fields[f"{axis}_head"] = forms.ModelChoiceField(
+                        queryset=DownstreamHead.objects.filter(tasks__name=task_name),
+                        required=False,
+                    )
 
     def init_fps_extras(self, axis):
         self.fields[f"{axis}_gpu"] = forms.ChoiceField(
@@ -140,7 +169,7 @@ def show_family(request, family_name):
         plot_request = PlotRequest(form.cleaned_data)
         queryset = get_plot_data(plot_request, family_name=family.name)
         family_plot = get_plot(queryset, plot_request)
-        family_table, family_headers = get_table_data(queryset, plot_request)
+        family_table, family_headers = get_table_data(queryset, plot_request, include_family=False)
     else:
         family_plot, family_table, family_headers = get_defaults(family_name=family.name)
     class_table, class_headers = get_family_classification(family.name)
@@ -151,7 +180,7 @@ def show_family(request, family_name):
         request,
         "view/family.html",
         {
-            "family_name": family.name,
+            "family": family,
             "form": form,
             "plot": family_plot,
             "table_data": family_table,
@@ -164,9 +193,41 @@ def show_family(request, family_name):
     )
 
 
+def show_downstream_head(request, downstream_head_name):
+    global head_plot, head_table, head_headers
+    head = get_object_or_404(DownstreamHead, name=downstream_head_name)
+    form = DatasetTaskForm(request.GET or None, head=head)
+    if form.is_valid() and form.is_ready():
+        form.cleaned_data["x_head"] = head
+        form.cleaned_data["y_head"] = head
+        plot_request = PlotRequest(form.cleaned_data)
+        queryset = get_plot_data(plot_request)
+        head_plot = get_plot(queryset, plot_request)
+        head_table, head_headers = get_table_data(queryset, plot_request)
+    else:
+        head_plot, head_table, head_headers = get_defaults(head=head)
+    head_tasks = [task.name for task in head.tasks.all()]
+    det_data = None
+    instance_data = None
+    if TaskType.DETECTION.value in head_tasks:
+        det_data = get_head_instance_data(head.name, TaskType.DETECTION)
+    if TaskType.INSTANCE_SEG.value in head_tasks:
+        instance_data = get_head_instance_data(head.name, TaskType.INSTANCE_SEG)
+
+    return render(
+        request,
+        "view/downstream_head.html",
+        {
+            "downstream_head": head,
+            "form": form,
+            "plot": head_plot,
+            "table_data": head_table,
+            "table_headers": head_headers,
+            "detection_data": det_data,
+            "instance_data": instance_data,
+        },
+    )
+
+
 def show_dataset(request, dataset):
-    pass
-
-
-def show_downstream_head(request, downstream_head):
     pass
