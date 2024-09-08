@@ -5,7 +5,7 @@
   </div>
   <div class="custom-select-options">
     {% for choice in field.field.choices %}
-    <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1 }}</div>
+    <div class="custom-select-option" data-value="{{ choice.0 }}">{{ choice.1|safe }}</div>
     {% endfor %}
   </div>
   <input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">

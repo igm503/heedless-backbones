@@ -250,3 +250,24 @@ html body a:hover {
 a:active {
   color: #002040 !important;
 }
+
+.supsub {
+  display: inline-block;
+}
+
+.supsub sup,
+.supsub sub {
+  position: relative;
+  display: block;
+  font-size: .6em;
+  line-height: 0.6;
+}
+
+.supsub sub {
+  top: .4em;
+}
+
+sub,
+sup {
+  font-size: .6em;
+}

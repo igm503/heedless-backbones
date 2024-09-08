@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+{% load custom_filters %}
+{% load table_tag %}
+
+{% block content %}
+
+
+<main class="container">
+
+  <header class="title-bar">
+    <h1>{{ dataset.name }} Dataset</h1>
+    <div class="links">
+      <a href="{{ dataset.website }}">Website</a>
+    </div>
+  </header>
+
+  <div class="plot-container">
+    {{ plot|safe }}
+  </div>
+
+  {% include "components/plot_options.html" %}
+
+  {% if table %}
+  {% render_table "sortableTable" table %}
+  {% endif %}
+
+  {% if classification_table %}
+  <button class="drawer" id="toggleClassification">
+    Classification Results
+  </button>
+  <div class="table-container drawerContents" id="classificationTableContainer">
+    {% render_table "classificationTable" classification_table %}
+  </div>
+  {% endif %}
+
+  {% if detection_table %}
+  <button class="drawer" id="toggleDetection">
+    Object Detection Results
+  </button>
+  <div class="table-container drawerContents" id="detectionTableContainer">
+    {% render_table "detectionTable" detection_table %}
+  </div>
+  {% endif %}
+
+  {% if instance_table %}
+  <button class="drawer" id="toggleInstance">
+    Instance Segmentation Results
+  </button>
+  <div class="table-container drawerContents" id="instanceTableContainer">
+    {% render_table "instanceTable" instance_table %}
+  </div>
+  {% endif %}
+
+</main>
+
+{% endblock %}

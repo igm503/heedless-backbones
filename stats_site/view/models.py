@@ -51,6 +51,7 @@ class Task(models.Model):
 class Dataset(models.Model):
     name = models.CharField(max_length=100)
     tasks = models.ManyToManyField(Task)
+    eval = models.BooleanField()
     website = models.URLField()
 
     def __str__(self):

@@ -8,7 +8,13 @@ from django.urls import reverse
 from plotly.offline import plot
 import plotly.graph_objs as go
 
-from .constants import CLASSIFICATION_METRICS, INSTANCE_METRICS, AXIS_CHOICES
+from .constants import (
+    CLASSIFICATION_METRICS,
+    INSTANCE_METRICS,
+    AXIS_CHOICES,
+    INSTANCE_SEG_METRICS,
+    DETECTION_METRICS,
+)
 from .models import (
     Dataset,
     DownstreamHead,
@@ -45,6 +51,8 @@ class PlotRequest:
     class PlotArgs:
         x_attr: str
         y_attr: str
+        x_task: str | None = None
+        y_task: str | None = None
         dataset: Dataset | None = None
         x_dataset: Dataset | None = None
         y_dataset: Dataset | None = None
@@ -101,6 +109,8 @@ class PlotRequest:
             y_attr=self.y_metric,
             x_dataset=self.x_dataset,
             y_dataset=self.y_dataset,
+            x_task=self.x_task,
+            y_task=self.y_task,
         )
         self.x_args = PlotRequest.DataArgs(
             dataset=self.x_dataset,
@@ -130,6 +140,7 @@ class PlotRequest:
                 x_attr=self.x_metric,
                 y_attr=self.y_type,
                 dataset=self.x_dataset,
+                x_task=self.x_task,
             )
         else:
             self.data_args = PlotRequest.DataArgs(
@@ -143,6 +154,7 @@ class PlotRequest:
                 x_attr=self.x_type,
                 y_attr=self.y_metric,
                 dataset=self.y_dataset,
+                y_task=self.y_task,
             )
         if self.data_args.task.name == TaskType.CLASSIFICATION.value:
             self.data_args.resolution = self.resolution
@@ -159,6 +171,8 @@ class PlotRequest:
             x_attr=self.x_metric,
             y_attr=self.y_metric,
             dataset=self.x_dataset,
+            x_task=self.x_task,
+            y_task=self.y_task,
         )
 
     def init_none(self):
@@ -188,12 +202,20 @@ def get_head_instance_table(head_name, instance_type):
         for result in pb.results:
             eval_datasets.add(f"{result.dataset.name}")
 
+    result_keys = (
+        DETECTION_METRICS
+        if instance_type.value == TaskType.DETECTION.value
+        else INSTANCE_SEG_METRICS
+    )
+
     data = []
     for eval_dataset in eval_datasets:
         rows = []
         links = []
         for pb in queryset:
             pt_dataset = pb.pretrain_dataset.name
+            if "ImageNet" in pt_dataset:
+                pt_dataset = pt_dataset.replace("ImageNet", "IN")
             pretrain_method = pb.pretrain_method
             if pretrain_method == PretrainMethod.SUPERVISED.value:
                 pretrain_method = "Sup."
@@ -208,36 +230,116 @@ def get_head_instance_table(head_name, instance_type):
                     "head": result.head.name,
                     "epochs": result.train_epochs,
                     "gflops": result.gflops,
-                    "mAP": result.mAP if result.mAP else "-",
-                    "AP50": result.AP50 if result.AP50 else "-",
-                    "AP75": result.AP75 if result.AP75 else "-",
-                    "mAPs": result.mAPs if result.mAPs else "-",
-                    "mAPm": result.mAPm if result.mAPm else "-",
-                    "mAPl": result.mAPl if result.mAPl else "-",
+                    result_keys["mAP"]: result.mAP if result.mAP else "&mdash;",
+                    result_keys["AP50"]: result.AP50 if result.AP50 else "&mdash;",
+                    result_keys["AP75"]: result.AP75 if result.AP75 else "&mdash;",
+                    result_keys["mAPs"]: result.mAPs if result.mAPs else "&mdash;",
+                    result_keys["mAPm"]: result.mAPm if result.mAPm else "&mdash;",
+                    result_keys["mAPl"]: result.mAPl if result.mAPl else "&mdash;",
                 }
                 rows.append(row)
                 row_links = {
                     "family": reverse("backbone_family", args=[pb.family.name]),
                     "head": result.head.github,
-                    "mAP": result.paper,
-                    "AP50": result.paper,
-                    "AP75": result.paper,
-                    "mAPs": result.paper,
-                    "mAPm": result.paper,
-                    "mAPl": result.paper,
                 }
+                if result.mAP:
+                    row_links[result_keys["mAP"]] = result.paper
+                if result.AP50:
+                    row_links[result_keys["AP50"]] = result.paper
+                if result.AP75:
+                    row_links[result_keys["AP75"]] = result.paper
+                if result.mAPs:
+                    row_links[result_keys["mAPs"]] = result.paper
+                if result.mAPm:
+                    row_links[result_keys["mAPm"]] = result.paper
+                if result.mAPl:
+                    row_links[result_keys["mAPl"]] = result.paper
                 links.append(row_links)
 
         headers = list(rows[0].keys()) if rows else []
 
-        data.append({
-            "name": eval_dataset,
-            "headers": headers,
-            "rows": rows,
-            "links": links,
-        })
+        data.append(
+            {
+                "name": eval_dataset,
+                "headers": headers,
+                "rows": rows,
+                "links": links,
+            }
+        )
 
     return data
+
+
+def get_dataset_instance_table(dataset_name, instance_type):
+    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
+    queryset = queryset.prefetch_related(
+        Prefetch(
+            "instance_results",
+            queryset=InstanceResult.objects.select_related("dataset").filter(
+                instance_type__name=instance_type.value,
+                dataset__name=dataset_name,
+            ),
+            to_attr="results",
+        )
+    )
+
+    result_keys = (
+        DETECTION_METRICS
+        if instance_type.value == TaskType.DETECTION.value
+        else INSTANCE_SEG_METRICS
+    )
+
+    rows = []
+    links = []
+    for pb in queryset:
+        pt_dataset = pb.pretrain_dataset.name
+        if "ImageNet" in pt_dataset:
+            pt_dataset = pt_dataset.replace("ImageNet", "IN")
+        pretrain_method = pb.pretrain_method
+        if pretrain_method == PretrainMethod.SUPERVISED.value:
+            pretrain_method = "Sup."
+        pretraining = f"{pt_dataset} : {pretrain_method} : {pb.pretrain_epochs}"
+        for result in pb.results:
+            row = {
+                "family": pb.family.name,
+                "backbone": pb.backbone.name,
+                "pretraining": pretraining,
+                "head": result.head.name,
+                "epochs": result.train_epochs,
+                "gflops": result.gflops,
+                result_keys["mAP"]: result.mAP if result.mAP else "&mdash;",
+                result_keys["AP50"]: result.AP50 if result.AP50 else "&mdash;",
+                result_keys["AP75"]: result.AP75 if result.AP75 else "&mdash;",
+                result_keys["mAPs"]: result.mAPs if result.mAPs else "&mdash;",
+                result_keys["mAPm"]: result.mAPm if result.mAPm else "&mdash;",
+                result_keys["mAPl"]: result.mAPl if result.mAPl else "&mdash;",
+            }
+            rows.append(row)
+            row_links = {
+                "family": reverse("backbone_family", args=[pb.family.name]),
+                "head": reverse("downstream_head", args=[result.head.name]),
+            }
+            if result.mAP:
+                row_links[result_keys["mAP"]] = result.paper
+            if result.AP50:
+                row_links[result_keys["AP50"]] = result.paper
+            if result.AP75:
+                row_links[result_keys["AP75"]] = result.paper
+            if result.mAPs:
+                row_links[result_keys["mAPs"]] = result.paper
+            if result.mAPm:
+                row_links[result_keys["mAPm"]] = result.paper
+            if result.mAPl:
+                row_links[result_keys["mAPl"]] = result.paper
+            links.append(row_links)
+
+    headers = list(rows[0].keys()) if rows else []
+
+    return {
+        "headers": headers,
+        "rows": rows,
+        "links": links,
+    }
 
 
 def get_family_instance_table(family_name, instance_type):
@@ -253,6 +355,12 @@ def get_family_instance_table(family_name, instance_type):
         )
     )
 
+    result_keys = (
+        DETECTION_METRICS
+        if instance_type.value == TaskType.DETECTION.value
+        else INSTANCE_SEG_METRICS
+    )
+
     eval_datasets = set()
     for pb in queryset:
         for result in pb.results:
@@ -264,6 +372,8 @@ def get_family_instance_table(family_name, instance_type):
         links = []
         for pb in queryset:
             pt_dataset = pb.pretrain_dataset.name
+            if "ImageNet" in pt_dataset:
+                pt_dataset = pt_dataset.replace("ImageNet", "IN")
             pretrain_method = pb.pretrain_method
             if pretrain_method == PretrainMethod.SUPERVISED.value:
                 pretrain_method = "Sup."
@@ -277,34 +387,43 @@ def get_family_instance_table(family_name, instance_type):
                     "head": result.head.name,
                     "epochs": result.train_epochs,
                     "gflops": result.gflops,
-                    "mAP": result.mAP if result.mAP else "-",
-                    "AP50": result.AP50 if result.AP50 else "-",
-                    "AP75": result.AP75 if result.AP75 else "-",
-                    "mAPs": result.mAPs if result.mAPs else "-",
-                    "mAPm": result.mAPm if result.mAPm else "-",
-                    "mAPl": result.mAPl if result.mAPl else "-",
+                    result_keys["mAP"]: result.mAP if result.mAP else "&mdash;",
+                    result_keys["AP50"]: result.AP50 if result.AP50 else "&mdash;",
+                    result_keys["AP75"]: result.AP75 if result.AP75 else "&mdash;",
+                    result_keys["mAPs"]: result.mAPs if result.mAPs else "&mdash;",
+                    result_keys["mAPm"]: result.mAPm if result.mAPm else "&mdash;",
+                    result_keys["mAPl"]: result.mAPl if result.mAPl else "&mdash;",
                 }
                 rows.append(row)
                 row_links = {
                     "backbone": pb.github,
                     "head": reverse("downstream_head", args=[result.head.name]),
-                    "mAP": result.paper,
-                    "AP50": result.paper,
-                    "AP75": result.paper,
-                    "mAPs": result.paper,
-                    "mAPm": result.paper,
-                    "mAPl": result.paper,
                 }
+                if result.mAP:
+                    row_links[result_keys["mAP"]] = result.paper
+                if result.AP50:
+                    row_links[result_keys["AP50"]] = result.paper
+                if result.AP75:
+                    row_links[result_keys["AP75"]] = result.paper
+                if result.mAPs:
+                    row_links[result_keys["mAPs"]] = result.paper
+                if result.mAPm:
+                    row_links[result_keys["mAPm"]] = result.paper
+                if result.mAPl:
+                    row_links[result_keys["mAPl"]] = result.paper
+
                 links.append(row_links)
 
         headers = list(rows[0].keys()) if rows else []
 
-        data.append({
-            "name": eval_dataset,
-            "headers": headers,
-            "rows": rows,
-            "links": links,
-        })
+        data.append(
+            {
+                "name": eval_dataset,
+                "headers": headers,
+                "rows": rows,
+                "links": links,
+            }
+        )
 
     return data
 
@@ -315,9 +434,7 @@ def get_family_classification_table(family_name):
     queryset = queryset.prefetch_related(
         Prefetch(
             "classification_results",
-            queryset=ClassificationResult.objects.select_related(
-                "dataset", "fine_tune_dataset"
-            ),
+            queryset=ClassificationResult.objects.select_related("dataset", "fine_tune_dataset"),
             to_attr="results",
         )
     )
@@ -336,20 +453,19 @@ def get_family_classification_table(family_name):
         params = pb.backbone.m_parameters
         result_finetunes = defaultdict(lambda: defaultdict(dict))
         for result in pb.results:
-            ft_dataset = (
-                result.fine_tune_dataset.name if result.fine_tune_dataset else None
-            )
+            ft_dataset = result.fine_tune_dataset.name if result.fine_tune_dataset else None
             if ft_dataset is not None and "ImageNet" in ft_dataset:
                 ft_dataset = ft_dataset.replace("ImageNet", "IN")
             dataset = result.dataset.name
             if "ImageNet" in dataset:
                 dataset = dataset.replace("ImageNet", "IN")
             finetune = f"{ft_dataset} : {result.fine_tune_epochs} : {result.fine_tune_resolution}"
-            top1 = result.top_1 if result.top_1 else "-"
-            top5 = result.top_5 if result.top_5 else "-"
+            top1 = result.top_1 if result.top_1 else "&mdash;"
+            top5 = result.top_5 if result.top_5 else "&mdash;"
             result_finetunes[finetune]["row"]["gflops"] = f"{result.gflops}"
             result_finetunes[finetune]["row"][f"{dataset}"] = f"{top1}/{top5}"
-            result_finetunes[finetune]["links"][f"{dataset}"] = f"{result.paper}"
+            if result.top_1 or result.top_5:
+                result_finetunes[finetune]["links"][f"{dataset}"] = f"{result.paper}"
 
         pt_dataset = pb.pretrain_dataset.name
         if "ImageNet" in pt_dataset:
@@ -360,7 +476,7 @@ def get_family_classification_table(family_name):
         pretraining = f"{pt_dataset} : {pretrain_method} : {pb.pretrain_epochs}"
         for finetune, results in result_finetunes.items():
             if finetune == "None : None : None":
-                finetune = finetune.replace("None", "----")
+                finetune = finetune.replace("None", "&mdash;")
             row = {
                 "backbone": pb.backbone.name,
                 "params (m)": params,
@@ -370,10 +486,74 @@ def get_family_classification_table(family_name):
             row.update(results["row"])
             for dataset in eval_datasets:
                 if dataset not in row:
-                    row[dataset] = "-/-"
+                    row[dataset] = "&mdash;/&mdash;"
             rows.append(row)
             row_links = {"backbone": pb.github}
             row_links.update(results["links"])
+            links.append(row_links)
+
+    headers = list(rows[0].keys()) if rows else []
+
+    return {
+        "headers": headers,
+        "rows": rows,
+        "links": links,
+    }
+
+
+def get_dataset_classification_table(dataset_name):
+    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
+    queryset = queryset.prefetch_related(
+        Prefetch(
+            "classification_results",
+            queryset=ClassificationResult.objects.select_related(
+                "dataset", "fine_tune_dataset"
+            ).filter(dataset__name=dataset_name),
+            to_attr="results",
+        )
+    )
+
+    rows = []
+    links = []
+    for pb in queryset:
+        pt_dataset = pb.pretrain_dataset.name
+        if "ImageNet" in pt_dataset:
+            pt_dataset = pt_dataset.replace("ImageNet", "IN")
+        pretrain_method = pb.pretrain_method
+        if pretrain_method == PretrainMethod.SUPERVISED.value:
+            pretrain_method = "Sup."
+        pretraining = f"{pt_dataset} : {pretrain_method} : {pb.pretrain_epochs}"
+        params = pb.backbone.m_parameters
+        for result in pb.results:
+            ft_dataset = result.fine_tune_dataset.name if result.fine_tune_dataset else None
+            if ft_dataset is not None and "ImageNet" in ft_dataset:
+                ft_dataset = ft_dataset.replace("ImageNet", "IN")
+            finetune = f"{ft_dataset} : {result.fine_tune_epochs} : {result.fine_tune_resolution}"
+            if finetune == "None : None : None":
+                finetune = finetune.replace("None", "&mdash;")
+            dataset = result.dataset.name
+            if "ImageNet" in dataset:
+                dataset = dataset.replace("ImageNet", "IN")
+            top1 = result.top_1 if result.top_1 else "&mdash;"
+            top5 = result.top_5 if result.top_5 else "&mdash;"
+            row = {
+                "family": pb.family.name,
+                "backbone": pb.backbone.name,
+                "params (m)": params,
+                "pretraining": pretraining,
+                "finetuning": finetune,
+                "gflops": result.gflops,
+                "top-1": top1,
+                "top-5": top5,
+            }
+            row_links = {
+                "family": reverse("backbone_family", args=[pb.family.name]),
+            }
+            if result.top_1:
+                row_links["top-1"] = result.paper
+            if result.top_5:
+                row_links["top-5"] = result.paper
+            rows.append(row)
             links.append(row_links)
 
     headers = list(rows[0].keys()) if rows else []
@@ -423,12 +603,15 @@ def get_plot(queryset, request):
 
 
 def get_table(queryset, request, page=""):
+    plot_args = request.plot_args
+    x_type = plot_args.x_attr
+    y_type = plot_args.y_attr
+    x_task = plot_args.x_task.name if plot_args.x_task else None
+    y_task = plot_args.y_task.name if plot_args.y_task else None
+    x_title = get_axis_title(x_type, x_task)
+    y_title = get_axis_title(y_type, y_task)
     rows = []
     links = []
-    x_type = request.plot_args.x_attr
-    y_type = request.plot_args.y_attr
-    x_title = get_axis_title(x_type)
-    y_title = get_axis_title(y_type)
     if request.query_type == PlotRequest.SINGLE:
         for pb in queryset:
             params = pb.backbone.m_parameters
@@ -439,9 +622,7 @@ def get_table(queryset, request, page=""):
                     row_links["backbone"] = pb.github
                 else:
                     row["family"] = pb.family.name
-                    row_links["family"] = reverse(
-                        "backbone_family", args=[pb.family.name]
-                    )
+                    row_links["family"] = reverse("backbone_family", args=[pb.family.name])
                 row["backbone"] = pb.backbone.name
                 row["parameters (m)"] = params
                 row["pretrain"] = pb.pretrain_dataset.name
@@ -450,9 +631,7 @@ def get_table(queryset, request, page=""):
                     if page == "downstream_head":
                         row_links["head"] = result.head.github
                     else:
-                        row_links["head"] = reverse(
-                            "downstream_head", args=[result.head.name]
-                        )
+                        row_links["head"] = reverse("downstream_head", args=[result.head.name])
                 if x_type != "m_parameters":
                     row[f"{x_title}"] = getattr(result, x_type)
                     row_links[f"{x_title}"] = result.paper
@@ -469,27 +648,39 @@ def get_table(queryset, request, page=""):
                 for y_result in pb.y_results:
                     x = getattr(x_result, x_type)
                     y = getattr(y_result, y_type)
+                    if x_title == y_title:
+                        if y_result.dataset.name != x_result.dataset.name:
+                            x_title = f"{x_title} ({x_result.dataset.name})"
+                            y_title = f"{y_title} ({y_result.dataset.name})"
+                        elif y_result.head.name != x_result.head.name:
+                            x_title = f"{x_title} ({x_result.head.name})"
+                            y_title = f"{y_title} ({y_result.head.name})"
+                        else:
+                            x_title = f"{x_title} (x)"
+                            y_title = f"{y_title} (y)"
                     row = {}
                     row_links = {}
                     if page == "backbone_family":
                         row_links["backbone"] = pb.github
                     else:
                         row["family"] = pb.family.name
-                        row_links["family"] = reverse(
-                            "backbone_family", args=[pb.family.name]
-                        )
+                        row_links["family"] = reverse("backbone_family", args=[pb.family.name])
                     row["backbone"] = pb.backbone.name
                     row["parameters (m)"] = params
                     row["pretrain"] = pb.pretrain_dataset.name
+                    y_head = y_result.head.name if hasattr(y_result, "head") else False
                     if hasattr(x_result, "head"):
-                        row["head"] = x_result.head.name
+                        head_key = "x head" if y_head else "head"
+                        row[head_key] = x_result.head.name
                         if page == "downstream_head":
-                            row_links["head"] = x_result.head.github
+                            row_links[head_key] = x_result.head.github
                         else:
-                            row_links["head"] = reverse(
+                            row_links[head_key] = reverse(
                                 "downstream_head", args=[x_result.head.name]
                             )
-                    if hasattr(y_result, "head") and y_result.head != x_result.head:
+                    row[f"{x_title}"] = x
+                    row_links[f"{x_title}"] = x_result.paper
+                    if y_head:
                         row["y head"] = y_result.head.name
                         if page == "downstream_head":
                             row_links["y head"] = y_result.head.github
@@ -497,14 +688,8 @@ def get_table(queryset, request, page=""):
                             row_links["y head"] = reverse(
                                 "downstream_head", args=[y_result.head.name]
                             )
-                        row["x head"] = row["head"]
-                        row_links["x head"] = row_links["head"]
-                        del row["head"]
-                        del row_links["head"]
 
-                    row[f"{x_title}"] = x
                     row[f"{y_title}"] = y
-                    row_links[f"{x_title}"] = x_result.paper
                     row_links[f"{y_title}"] = y_result.paper
                     rows.append(row)
                     links.append(row_links)
@@ -519,9 +704,7 @@ def get_table(queryset, request, page=""):
                         row_links["backbone"] = pb.github
                     else:
                         row["family"] = pb.family.name
-                        row_links["family"] = reverse(
-                            "backbone_family", args=[pb.family.name]
-                        )
+                        row_links["family"] = reverse("backbone_family", args=[pb.family.name])
                     row["backbone"] = pb.backbone.name
                     row["parameters (m)"] = params
                     row["pretrain"] = pb.pretrain_dataset.name
@@ -543,12 +726,8 @@ def get_table(queryset, request, page=""):
 
 def get_all_results_data(queryset, args):
     queryset = filter_by_classification(queryset, args)
-    queryset = queryset.prefetch_related(
-        get_instance_prefetch("_instance_results", args)
-    )
-    return queryset.prefetch_related(
-        get_classification_prefetch("_classification_results", args)
-    )
+    queryset = queryset.prefetch_related(get_instance_prefetch("_instance_results", args))
+    return queryset.prefetch_related(get_classification_prefetch("_classification_results", args))
 
 
 def filter_and_add_results(queryset, args, to_attr):
@@ -571,9 +750,7 @@ def filter_by_classification(query, args):
             Exists(
                 ClassificationResult.objects.filter(
                     pretrainedbackbone=OuterRef("pk"),
-                    pretrainedbackbone__backbone__fps_measurements__resolution=F(
-                        "resolution"
-                    ),
+                    pretrainedbackbone__backbone__fps_measurements__resolution=F("resolution"),
                     pretrainedbackbone__backbone__fps_measurements__gpu=args.gpu,
                     pretrainedbackbone__backbone__fps_measurements__precision=args.precision,
                 )
@@ -612,9 +789,7 @@ def get_classification_prefetch(name, args):
             fps=Coalesce(
                 Subquery(
                     FPSMeasurement.objects.filter(
-                        backbone__pretrainedbackbone__classification_results=OuterRef(
-                            "pk"
-                        ),
+                        backbone__pretrainedbackbone__classification_results=OuterRef("pk"),
                         resolution=OuterRef("resolution"),
                         gpu=args.gpu,
                         precision=args.precision,
@@ -657,8 +832,10 @@ def get_instance_prefetch(name, args):
 
 
 def get_plot_object(pbs, plot_args, get_pb_data, title_func):
-    y_title = get_axis_title(plot_args.y_attr)
-    x_title = get_axis_title(plot_args.x_attr)
+    x_task = plot_args.x_task.name if plot_args.x_task else None
+    y_task = plot_args.y_task.name if plot_args.y_task else None
+    y_title = get_axis_title(plot_args.y_attr, y_task)
+    x_title = get_axis_title(plot_args.x_attr, x_task)
     title = title_func(x_title, y_title)
     data = []
     families = {pb.family.name for pb in pbs}
@@ -666,9 +843,7 @@ def get_plot_object(pbs, plot_args, get_pb_data, title_func):
     seen_families = set()
 
     for pb in pbs:
-        x, y, hovers = get_pb_data(
-            pb, plot_args.x_attr, plot_args.y_attr, x_title, y_title
-        )
+        x, y, hovers = get_pb_data(pb, plot_args.x_attr, plot_args.y_attr, x_title, y_title)
 
         show_legend = pb.family.name not in seen_families
         seen_families.add(pb.family.name)
@@ -722,19 +897,26 @@ def get_all_plot_data(pb, x_type, y_type, x_title, y_title):
         for result in results:
             x = params if x_type == "m_parameters" else getattr(result, x_type)
             y = params if y_type == "m_parameters" else getattr(result, y_type)
-            hover = f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
+            hover = (
+                f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
+            )
             x_values.append(x)
             y_values.append(y)
             hovers.append(hover)
     return x_values, y_values, hovers
 
 
-def get_axis_title(db_name):
-    return (
-        AXIS_CHOICES.get(db_name)
-        or INSTANCE_METRICS.get(db_name)
-        or CLASSIFICATION_METRICS.get(db_name)
-    )
+def get_axis_title(db_name, instance_type=None):
+    if db_name in INSTANCE_METRICS:
+        if instance_type is None:
+            title = INSTANCE_METRICS[db_name]
+        elif instance_type == TaskType.DETECTION.value:
+            title = DETECTION_METRICS[db_name]
+        elif instance_type == TaskType.INSTANCE_SEG.value:
+            title = INSTANCE_SEG_METRICS[db_name]
+    else:
+        title = AXIS_CHOICES.get(db_name) or CLASSIFICATION_METRICS.get(db_name)
+    return title
 
 
 def get_marker_configs(names):
@@ -745,9 +927,7 @@ def get_marker_configs(names):
     marker_configs = {}
     for name in names:
         color = f"hsla({hue},70%,50%,0.8)"
-        marker_configs[name] = dict(
-            size=10, line=dict(width=0, color="black"), color=color
-        )
+        marker_configs[name] = dict(size=10, line=dict(width=0, color="black"), color=color)
         hue += hue_increment
         hue %= 360
     return marker_configs
@@ -817,35 +997,54 @@ def get_plot_div(title, x_title, y_title, data):
         ),
     )
 
-    plot_div = plot(
-        fig, output_type="div", include_plotlyjs=True, config={"responsive": True}
-    )
+    plot_div = plot(fig, output_type="div", include_plotlyjs=True, config={"responsive": True})
     return plot_div
 
 
-def get_defaults(family_name=None, head=None):
+def get_defaults(family_name=None, head=None, dataset=None):
     if head:
         tasks = head.tasks.all()
         first_task = tasks.first()
         datasets = Dataset.objects.filter(tasks__in=tasks).distinct().all()
         first_dataset = datasets.filter(tasks=first_task).all()[1]
-        plot_request = PlotRequest({
-            "y_axis": "results",
-            "x_axis": "gflops",
-            "y_dataset": first_dataset,
-            "y_task": first_task,
-            "y_head": head,
-            "y_metric": "mAP",
-        })
+        plot_request = PlotRequest(
+            {
+                "y_axis": "results",
+                "y_task": first_task,
+                "y_dataset": first_dataset,
+                "y_head": head,
+                "y_metric": "mAP",
+                "x_axis": "gflops",
+            }
+        )
         page = "downstream_head"
+    elif dataset:
+        tasks = dataset.tasks.all()
+        first_task = tasks.first()
+        if first_task.name == TaskType.CLASSIFICATION.value:
+            metric = "top_1"
+        else:
+            metric = "mAP"
+        plot_request = PlotRequest(
+            {
+                "y_axis": "results",
+                "y_task": first_task,
+                "y_dataset": dataset,
+                "y_metric": metric,
+                "x_axis": "gflops",
+            }
+        )
+        page = "dataset"
     else:
-        plot_request = PlotRequest({
-            "y_axis": "results",
-            "x_axis": "gflops",
-            "y_dataset": Dataset.objects.get(pk=1),
-            "y_task": Task.objects.get(pk=4),
-            "y_metric": "top_1",
-        })
+        plot_request = PlotRequest(
+            {
+                "y_axis": "results",
+                "y_dataset": Dataset.objects.get(pk=1),
+                "y_task": Task.objects.get(pk=4),
+                "y_metric": "top_1",
+                "x_axis": "gflops",
+            }
+        )
         page = "backbone_family" if family_name else ""
     queryset = get_plot_data(plot_request, family_name=family_name)
     plot = get_plot(queryset, plot_request)

@@ -7,24 +7,42 @@ AXIS_CHOICES = {
 
 CLASSIFICATION_METRICS = {
     "": "----------",
-    "top_1": "Top-1 Accuracy",
-    "top_5": "Top-5 Accuracy",
+    "top_1": "Top-1",
+    "top_5": "Top-5",
 }
 
 INSTANCE_METRICS = {
     "": "----------",
     "mAP": "mAP",
-    "AP50": "AP@50",
-    "AP75": "AP@75",
-    "mAPs": "mAP Small",
-    "mAPm": "mAP Medium",
-    "mAPl": "mAP Large",
+    "AP50": "AP<sub>50</sub>",
+    "AP75": "AP<sub>75</sub>",
+    "mAPs": "mAP<sub>s</sub>",
+    "mAPm": "mAP<sub>m</sub>",
+    "mAPl": "mAP<sub>l</sub>",
+}
+
+INSTANCE_SEG_METRICS = {
+    "mAP": "mAP<sup>m</sup>",
+    "AP50": "AP<span class='supsub'><sup>m</sup><sub>50</sub></span>",
+    "AP75": "AP<span class='supsub'><sup>m</sup><sub>75</sub></span>",
+    "mAPs": "mAP<span class='supsub'><sup>m</sup><sub>s</sub></span>",
+    "mAPm": "mAP<span class='supsub'><sup>m</sup><sub>m</sub></span>",
+    "mAPl": "mAP<span class='supsub'><sup>m</sup><sub>l</sub></span>",
+}
+
+DETECTION_METRICS = {
+    "mAP": "mAP<sup>b</sup>",
+    "AP50": "AP<span class='supsub'><sup>b</sup><sub>50</sub></span>",
+    "AP75": "AP<span class='supsub'><sup>b</sup><sub>75</sub></span>",
+    "mAPs": "mAP<span class='supsub'><sup>b</sup><sub>s</sub></span>",
+    "mAPm": "mAP<span class='supsub'><sup>b</sup><sub>m</sub></span>",
+    "mAPl": "mAP<span class='supsub'><sup>b</sup><sub>l</sub></span>",
 }
 
 RESOLUTIONS = {
-   "": "----------",
-   "224": "224x224",
-   "384": "384x384",
+    "": "----------",
+    "224": "224x224",
+    "384": "384x384",
 }
 
 FIELDS = [
