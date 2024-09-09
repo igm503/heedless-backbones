@@ -30,6 +30,7 @@ from .models import (
     TaskType,
     GPU,
     Precision,
+    PretrainMethod,
 )
 
 
@@ -174,6 +175,11 @@ class PlotForm(forms.Form):
             queryset=Dataset.objects.filter(pretrainedbackbone__isnull=False).distinct(),
             required=False,
         )
+        pretrain_methods = {name.value: name.value for name in PretrainMethod}
+        pretrain_methods[""] = "----------"
+        self.fields["_pretrain_method"] = forms.ChoiceField(
+            choices=pretrain_methods, required=False
+        )
 
     def init_legend(self, args):
         group_attrs = LIMITED_LEGEND_ATTRIBUTES.copy()
@@ -207,6 +213,7 @@ class PlotForm(forms.Form):
             if k
             not in [
                 "_pretrain_dataset",
+                "_pretrain_method",
                 "x_resolution",
                 "y_resolution",
                 "x_head",

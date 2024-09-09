@@ -42,7 +42,6 @@ class PlotRequest:
         precision: str | None = None
         fps: bool = False
         resolution: int | None = None
-        pretrain_dataset: Dataset | None = None
 
         def __post_init__(self):
             self.fps = self.gpu is not None and self.precision is not None
@@ -82,6 +81,7 @@ class PlotRequest:
         self.y_resolution = int(self.y_resolution) if self.y_resolution else None
 
         self.pretrain_dataset = args.get("_pretrain_dataset")
+        self.pretrain_method = args.get("_pretrain_method")
 
         self.query_type = None
         self.data_args = None
@@ -186,7 +186,6 @@ class PlotRequest:
         self.data_args = PlotRequest.DataArgs(
             gpu=self.x_gpu or self.y_gpu,
             precision=self.x_precision or self.y_precision,
-            pretrain_dataset=self.pretrain_dataset,
         )
         self.plot_args = PlotRequest.PlotArgs(x_attr=self.x_type, y_attr=self.y_type)
 
@@ -578,6 +577,8 @@ def get_plot_data(request, family_name=None):
         queryset = queryset.filter(family__name=family_name)
     if request.pretrain_dataset:
         queryset = queryset.filter(pretrain_dataset=request.pretrain_dataset)
+    if request.pretrain_method:
+        queryset = queryset.filter(pretrain_method=request.pretrain_method)
     if request.query_type == PlotRequest.MULTI:
         queryset = filter_and_add_results(queryset, request.x_args, "x_results")
         return filter_and_add_results(queryset, request.y_args, "y_results")
@@ -861,13 +862,15 @@ def get_plot_object(pbs, plot_args, plot_type, title_func):
                     group_key = pb.family.name
                 x = get_value(pb, result, x_type)
                 y = get_value(pb, result, y_type)
-                hover = f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
+                hover = f"Model: {pb.name}<br>{y_title}: {y}<br>{x_title}: {x}"
                 grouped_data[group_key]["x"].append(x)
                 grouped_data[group_key]["y"].append(y)
                 grouped_data[group_key]["hovers"].append(hover)
                 group_keys.add(group_key)
 
     elif plot_type == PlotRequest.MULTI:
+        x_title += f" ({plot_args.x_dataset})"
+        y_title += f" ({plot_args.y_dataset})"
         for pb in pbs:
             for x_result in pb.x_results:
                 for y_result in pb.y_results:
@@ -883,7 +886,7 @@ def get_plot_object(pbs, plot_args, plot_type, title_func):
                         group_key = pb.family.name
                     x = get_value(pb, x_result, x_type)
                     y = get_value(pb, y_result, y_type)
-                    hover = f"<b>{pb.name}</b><br>Family: {pb.family.name}<br>{y_title}: {y:.2f}<br>{x_title}: {x:.2f}"
+                    hover = f"<b>{pb.name}</b><br>{y_title}: {y}<br>{x_title}: {x}"
                     grouped_data[group_key]["x"].append(x)
                     grouped_data[group_key]["y"].append(y)
                     grouped_data[group_key]["hovers"].append(hover)
@@ -902,7 +905,7 @@ def get_plot_object(pbs, plot_args, plot_type, title_func):
                         group_key = pb.family.name
                     x = get_value(pb, result, x_type)
                     y = get_value(pb, result, y_type)
-                    hover = f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
+                    hover = f"Model: {pb.name}<br>{y_title}: {y}<br>{x_title}: {x}"
                     grouped_data[group_key]["x"].append(x)
                     grouped_data[group_key]["y"].append(y)
                     grouped_data[group_key]["hovers"].append(hover)
@@ -1040,6 +1043,12 @@ def get_plot_div(title, x_title, y_title, data):
             font=font_settings,
         ),
         margin=dict(l=40, r=40, t=60, b=40),
+        modebar=dict(
+            bgcolor="rgba(0,0,0,0)",
+            activecolor="#005080",
+            color="black",
+            remove=["lasso", "reset", "select"],
+        ),
     )
 
     fig = go.Figure(data=data, layout=layout)

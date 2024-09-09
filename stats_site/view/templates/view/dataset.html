@@ -31,7 +31,7 @@
     Classification Results
   </button>
   <div class="table-container drawerContents" id="classificationTableContainer">
-    {% render_table "classificationTable" classification_table %}
+    {% render_table "classificationDatasetTable" classification_table %}
   </div>
   {% endif %}
 
@@ -40,7 +40,7 @@
     Object Detection Results
   </button>
   <div class="table-container drawerContents" id="detectionTableContainer">
-    {% render_table "detectionTable" detection_table %}
+    {% render_table "detectionDatasetTable" detection_table %}
   </div>
   {% endif %}
 
@@ -49,7 +49,7 @@
     Instance Segmentation Results
   </button>
   <div class="table-container drawerContents" id="instanceTableContainer">
-    {% render_table "instanceTable" instance_table %}
+    {% render_table "instanceDatasetTable" instance_table %}
   </div>
   {% endif %}
 

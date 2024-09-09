@@ -33,7 +33,7 @@
     Classification Results
   </button>
   <div class="table-container drawerContents" id="classificationTableContainer">
-    {% render_table "classificationTable" classification_table %}
+    {% render_table "classificationFamilyTable" classification_table %}
   </div>
   {% endif %}
 
@@ -44,7 +44,7 @@
   <div class="table-container drawerContents" id="detectionTableContainer">
     {% for detection_table in detection_tables %}
     <h3><a href="{% url "dataset" detection_table.name %}">{{ detection_table.name }}</a></h3>
-    {% render_table "detectionTable" detection_table %}
+    {% render_table "detectionFamilyTable" detection_table %}
     {% endfor %}
   </div>
   {% endif %}
@@ -56,7 +56,7 @@
   <div class="table-container drawerContents" id="instanceTableContainer">
     {% for instance_table in instance_tables %}
     <h3><a href="{% url "dataset" instance_table.name %}">{{ instance_table.name }}</a></h3>
-    {% render_table "instanceTable" instance_table %}
+    {% render_table "instanceFamilyTable" instance_table %}
     {% endfor %}
   </div>
   {% endif %}

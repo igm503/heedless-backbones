@@ -51,9 +51,14 @@
     function initializeDataTable() {
       const tables = [
         {selector: '.sortableTable', variable: 'dataTable', searching: true},
-        {selector: '.classificationTable', variable: 'classificationDataTable', searching: false},
-        {selector: '.detectionTable', variable: 'detectionDataTable', searching: false},
-        {selector: '.instanceTable', variable: 'instanceDataTable', searching: false}
+        {selector: '.classificationFamilyTable', variable: 'classificationDataTable', searching: false, order: [[2, "asc"], [1, "asc"], [3, "asc"]]},
+        {selector: '.classificationDatasetTable', variable: 'classificationDataTable', searching: false, order: [[6, "desc"], [7, "desc"]]},
+        {selector: '.detectionFamilyTable', variable: 'detectionDataTable', searching: false, order: [[2, "asc"], [1, "asc"], [4, "asc"]]},
+        {selector: '.detectionDatasetTable', variable: 'detectionDataTable', searching: false, order: [[6, "desc"], [7, "desc"]]},
+        {selector: '.detectionHeadTable', variable: 'detectionDataTable', searching: false, order: [[6, "desc"], [7, "desc"]]},
+        {selector: '.instanceFamilyTable', variable: 'instanceDataTable', searching: false, order: [[2, "asc"], [1, "asc"], [4, "asc"]]},
+        {selector: '.instanceDatasetTable', variable: 'instanceDataTable', searching: false, order: [[6, "desc"], [7, "desc"]]},
+        {selector: '.instanceHeadTable', variable: 'instanceDataTable', searching: false, order: [[6, "desc"], [7, "desc"]]},
       ];
 
       tables.forEach(table => {
@@ -62,6 +67,7 @@
           if (window[table.variable]) {
             window[table.variable].destroy();
           }
+          let indexLastColumn = element.find('tr')[0].cells.length - 1;
           window[table.variable] = element.DataTable({
             "paging": false,
             "info": false,
@@ -69,6 +75,7 @@
             "language": {
               "search": "Filter:"
             },
+            "order": table.order ? table.order : [[indexLastColumn, 'desc']]
           });
         }
       });
