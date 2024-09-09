@@ -19,7 +19,9 @@ Paperswithcode's basic data models and user interface aren't useful either for r
   - Result vs num params or GFLOPS
   - Result vs Result (Different Dataset or Metric)
   - Result vs Throughput
-  - Resolution and Pretrain Dataset Filters 
+  - Result vs Pub Date
+  - Downstream Head, Resolution, and Pretrain Dataset Filters 
+  - Legend Customization
 - Accompanying Tables
 - Model Family Pages
 - Downstream Head Pages
@@ -28,7 +30,7 @@ Paperswithcode's basic data models and user interface aren't useful either for r
   - [TransNeXt](https://arxiv.org/abs/2311.17132)
 
 ## Updates
-- 9-8-2024: added legend customization for plots;
+- 9-8-2024: added legend customization for plots; pub date axis option
 - 9-7-2024: added dataset page; added title bar; improved links and table gen
 - 9-6-2024: added downstream head page
 - 9-4-2024: added model family page

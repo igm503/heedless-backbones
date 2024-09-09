@@ -2,6 +2,7 @@ AXIS_CHOICES = {
     "results": "Results",
     "m_parameters": "Parameters (M)",
     "fps": "Images / Second",
+    "pub_date": "Publication Date",
 }
 
 AXIS_WITH_GFLOPS = {
@@ -9,6 +10,7 @@ AXIS_WITH_GFLOPS = {
     "m_parameters": "Parameters (M)",
     "fps": "Images / Second",
     "gflops": "GFLOPs",
+    "pub_date": "Publication Date",
 }
 
 CLASSIFICATION_METRICS = {

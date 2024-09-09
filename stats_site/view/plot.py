@@ -638,10 +638,10 @@ def get_table(queryset, request, page=""):
                     else:
                         row_links["head"] = reverse("downstream_head", args=[result.head.name])
                 if x_type != "m_parameters":
-                    row[f"{x_title}"] = getattr(result, x_type)
+                    row[f"{x_title}"] = get_value(pb, result, x_type)
                     row_links[f"{x_title}"] = result.paper
                 if y_type != "m_parameters":
-                    row[f"{y_title}"] = getattr(result, y_type)
+                    row[f"{y_title}"] = get_value(pb, result, y_type)
                     row_links[f"{y_title}"] = result.paper
                 rows.append(row)
                 links.append(row_links)
@@ -714,10 +714,10 @@ def get_table(queryset, request, page=""):
                     row["parameters (m)"] = params
                     row["pretrain"] = pb.pretrain_dataset.name
                     if x_type != "m_parameters":
-                        row[f"{x_title}"] = getattr(result, x_type)
+                        row[f"{x_title}"] = get_value(pb, result, x_type)
                         row_links[f"{x_title}"] = result.paper
                     if y_type != "m_parameters":
-                        row[f"{y_title}"] = getattr(result, y_type)
+                        row[f"{y_title}"] = get_value(pb, result, y_type)
                         row_links[f"{y_title}"] = result.paper
                     rows.append(row)
                     links.append(row_links)
@@ -852,7 +852,6 @@ def get_plot_object(pbs, plot_args, plot_type, title_func):
 
     if plot_type == PlotRequest.SINGLE:
         for pb in pbs:
-            params = pb.backbone.m_parameters
             for result in pb.filtered_results:
                 if plot_args.group_by:
                     group_key = get_group_key(pb, result, plot_args.group_by)
@@ -860,8 +859,8 @@ def get_plot_object(pbs, plot_args, plot_type, title_func):
                         group_key += " / " + get_group_key(pb, result, plot_args.group_by_second)
                 else:
                     group_key = pb.family.name
-                x = params if x_type == "m_parameters" else getattr(result, x_type)
-                y = params if y_type == "m_parameters" else getattr(result, y_type)
+                x = get_value(pb, result, x_type)
+                y = get_value(pb, result, y_type)
                 hover = f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
                 grouped_data[group_key]["x"].append(x)
                 grouped_data[group_key]["y"].append(y)
@@ -882,8 +881,8 @@ def get_plot_object(pbs, plot_args, plot_type, title_func):
                             )
                     else:
                         group_key = pb.family.name
-                    x = getattr(x_result, x_type)
-                    y = getattr(y_result, y_type)
+                    x = get_value(pb, x_result, x_type)
+                    y = get_value(pb, y_result, y_type)
                     hover = f"<b>{pb.name}</b><br>Family: {pb.family.name}<br>{y_title}: {y:.2f}<br>{x_title}: {x:.2f}"
                     grouped_data[group_key]["x"].append(x)
                     grouped_data[group_key]["y"].append(y)
@@ -891,7 +890,6 @@ def get_plot_object(pbs, plot_args, plot_type, title_func):
                     group_keys.add(group_key)
     else:
         for pb in pbs:
-            params = pb.backbone.m_parameters
             for results in [pb._instance_results, pb._classification_results]:
                 for result in results:
                     if plot_args.group_by:
@@ -902,8 +900,8 @@ def get_plot_object(pbs, plot_args, plot_type, title_func):
                             )
                     else:
                         group_key = pb.family.name
-                    x = params if x_type == "m_parameters" else getattr(result, x_type)
-                    y = params if y_type == "m_parameters" else getattr(result, y_type)
+                    x = get_value(pb, result, x_type)
+                    y = get_value(pb, result, y_type)
                     hover = f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
                     grouped_data[group_key]["x"].append(x)
                     grouped_data[group_key]["y"].append(y)
@@ -926,6 +924,15 @@ def get_plot_object(pbs, plot_args, plot_type, title_func):
     ]
 
     return get_plot_div(title, x_title, y_title, data)
+
+
+def get_value(pb, result, attr):
+    if attr == "m_parameters":
+        return pb.backbone.m_parameters
+    elif attr == "pub_date":
+        return pb.family.pub_date
+    else:
+        return getattr(result, attr)
 
 
 def get_two_result_group_key(pb, x_result, y_result, attr):
