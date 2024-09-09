@@ -1,14 +1,21 @@
 AXIS_CHOICES = {
     "results": "Results",
-    "gflops": "GFLOPs",
     "m_parameters": "Parameters (M)",
     "fps": "Images / Second",
+}
+
+AXIS_WITH_GFLOPS = {
+    "results": "Results",
+    "m_parameters": "Parameters (M)",
+    "fps": "Images / Second",
+    "gflops": "GFLOPs",
 }
 
 CLASSIFICATION_METRICS = {
     "": "----------",
     "top_1": "Top-1",
     "top_5": "Top-5",
+    "gflops": "GFLOPs",
 }
 
 INSTANCE_METRICS = {
@@ -19,6 +26,7 @@ INSTANCE_METRICS = {
     "mAPs": "mAP<sub>s</sub>",
     "mAPm": "mAP<sub>m</sub>",
     "mAPl": "mAP<sub>l</sub>",
+    "gflops": "GFLOPs",
 }
 
 INSTANCE_SEG_METRICS = {
@@ -28,6 +36,7 @@ INSTANCE_SEG_METRICS = {
     "mAPs": "mAP<span class='supsub'><sup>m</sup><sub>s</sub></span>",
     "mAPm": "mAP<span class='supsub'><sup>m</sup><sub>m</sub></span>",
     "mAPl": "mAP<span class='supsub'><sup>m</sup><sub>l</sub></span>",
+    "gflops": "GFLOPs",
 }
 
 DETECTION_METRICS = {
@@ -37,6 +46,7 @@ DETECTION_METRICS = {
     "mAPs": "mAP<span class='supsub'><sup>b</sup><sub>s</sub></span>",
     "mAPm": "mAP<span class='supsub'><sup>b</sup><sub>m</sub></span>",
     "mAPl": "mAP<span class='supsub'><sup>b</sup><sub>l</sub></span>",
+    "gflops": "GFLOPs",
 }
 
 RESOLUTIONS = {
@@ -45,12 +55,29 @@ RESOLUTIONS = {
     "384": "384x384",
 }
 
+LIMITED_LEGEND_ATTRIBUTES = {
+    "": "----------",
+    "family.name": "Family",
+    "pretrain_dataset.name": "Pretrain Dataset",
+    "pretrain_method": "Pretrain Method",
+}
+
+CLASSIFICATION_LEGEND_ATTRIBUTES = {
+    "classification.resolution": "Classification Resolution",
+}
+
+INSTANCE_LEGEND_ATTRIBUTES = {
+    "instance.head.name": "Downstream Head",
+    "instance.train_epochs": "Downstream Training Epochs",
+}
+
 FIELDS = [
     "y_axis",
     "y_task",
     "y_dataset",
     "y_metric",
     "y_head",
+    "y_resolution",
     "y_gpu",
     "y_precision",
     "x_axis",
@@ -58,8 +85,10 @@ FIELDS = [
     "x_dataset",
     "x_metric",
     "x_head",
+    "x_resolution",
     "x_gpu",
     "x_precision",
-    "_resolution",
     "_pretrain_dataset",
+    "legend_attribute",
+    "legend_attribute_(second)",
 ]

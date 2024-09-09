@@ -56,6 +56,8 @@ class PlotRequest:
         dataset: Dataset | None = None
         x_dataset: Dataset | None = None
         y_dataset: Dataset | None = None
+        group_by: str | None = None
+        group_by_second: str | None = None
 
     def __init__(self, args):
         self.y_type = args["y_axis"]
@@ -67,6 +69,8 @@ class PlotRequest:
         self.x_head = args.get("x_head")
         self.x_gpu = args.get("x_gpu")
         self.x_precision = args.get("x_precision")
+        self.x_resolution = args.get("x_resolution")
+        self.x_resolution = int(self.x_resolution) if self.x_resolution else None
 
         self.y_dataset = args.get("y_dataset")
         self.y_task = args.get("y_task")
@@ -74,9 +78,9 @@ class PlotRequest:
         self.y_head = args.get("y_head")
         self.y_gpu = args.get("y_gpu")
         self.y_precision = args.get("y_precision")
+        self.y_resolution = args.get("y_resolution")
+        self.y_resolution = int(self.y_resolution) if self.y_resolution else None
 
-        self.resolution = args.get("_resolution")
-        self.resolution = int(self.resolution) if self.resolution else None
         self.pretrain_dataset = args.get("_pretrain_dataset")
 
         self.query_type = None
@@ -90,6 +94,7 @@ class PlotRequest:
                 self.x_dataset == self.y_dataset
                 and self.x_task == self.y_task
                 and self.x_head == self.y_head
+                and self.x_resolution == self.y_resolution
             ):
                 self.query_type = PlotRequest.SINGLE
                 self.init_single_two_metric()
@@ -102,6 +107,9 @@ class PlotRequest:
         else:
             self.query_type = PlotRequest.NONE
             self.init_none()
+
+        self.plot_args.group_by = args.get("legend_attribute")
+        self.plot_args.group_by_second = args.get("legend_attribute_(second)")
 
     def init_multi(self):
         self.plot_args = PlotRequest.PlotArgs(
@@ -118,14 +126,14 @@ class PlotRequest:
             head=self.x_head,
         )
         if self.x_task.name == TaskType.CLASSIFICATION.value:
-            self.x_args.resolution = self.resolution
+            self.x_args.resolution = self.x_resolution
         self.y_args = PlotRequest.DataArgs(
             dataset=self.y_dataset,
             task=self.y_task,
             head=self.y_head,
         )
         if self.y_task.name == TaskType.CLASSIFICATION.value:
-            self.y_args.resolution = self.resolution
+            self.y_args.resolution = self.y_resolution
 
     def init_single(self):
         if self.x_type == "results":
@@ -133,6 +141,7 @@ class PlotRequest:
                 dataset=self.x_dataset,
                 task=self.x_task,
                 head=self.x_head,
+                resolution=self.x_resolution,
                 gpu=self.y_gpu,
                 precision=self.y_precision,
             )
@@ -147,6 +156,7 @@ class PlotRequest:
                 dataset=self.y_dataset,
                 task=self.y_task,
                 head=self.y_head,
+                resolution=self.y_resolution,
                 gpu=self.x_gpu,
                 precision=self.x_precision,
             )
@@ -156,17 +166,14 @@ class PlotRequest:
                 dataset=self.y_dataset,
                 y_task=self.y_task,
             )
-        if self.data_args.task.name == TaskType.CLASSIFICATION.value:
-            self.data_args.resolution = self.resolution
 
     def init_single_two_metric(self):
         self.data_args = PlotRequest.DataArgs(
             dataset=self.x_dataset,
             task=self.x_task,
             head=self.x_head,
+            resolution=self.x_resolution,
         )
-        if self.x_task.name == TaskType.CLASSIFICATION.value:
-            self.data_args.resolution = self.resolution
         self.plot_args = PlotRequest.PlotArgs(
             x_attr=self.x_metric,
             y_attr=self.y_metric,
@@ -179,7 +186,7 @@ class PlotRequest:
         self.data_args = PlotRequest.DataArgs(
             gpu=self.x_gpu or self.y_gpu,
             precision=self.x_precision or self.y_precision,
-            resolution=self.resolution,
+            pretrain_dataset=self.pretrain_dataset,
         )
         self.plot_args = PlotRequest.PlotArgs(x_attr=self.x_type, y_attr=self.y_type)
 
@@ -587,19 +594,17 @@ def get_plot(queryset, request):
         def title_func(x_title, y_title):
             return f"{y_title} on {plot_args.y_dataset.name} vs. {x_title} on {plot_args.x_dataset.name}"
 
-        return get_plot_object(queryset, plot_args, get_multi_plot_data, title_func)
     elif request.query_type == PlotRequest.SINGLE:
 
         def title_func(x_title, y_title):
             return f"{y_title} on {plot_args.dataset.name}"
 
-        return get_plot_object(queryset, plot_args, get_single_plot_data, title_func)
     else:
 
         def title_func(x_title, y_title):
             return f"{y_title} against {x_title}"
 
-        return get_plot_object(queryset, plot_args, get_all_plot_data, title_func)
+    return get_plot_object(queryset, plot_args, request.query_type, title_func)
 
 
 def get_table(queryset, request, page=""):
@@ -831,79 +836,130 @@ def get_instance_prefetch(name, args):
     return Prefetch("instance_results", queryset=queryset, to_attr=name)
 
 
-def get_plot_object(pbs, plot_args, get_pb_data, title_func):
+def get_plot_object(pbs, plot_args, plot_type, title_func):
     x_task = plot_args.x_task.name if plot_args.x_task else None
     y_task = plot_args.y_task.name if plot_args.y_task else None
-    y_title = get_axis_title(plot_args.y_attr, y_task)
-    x_title = get_axis_title(plot_args.x_attr, x_task)
+    x_type = plot_args.x_attr
+    y_type = plot_args.y_attr
+    y_title = get_axis_title(y_type, y_task)
+    x_title = get_axis_title(x_type, x_task)
     title = title_func(x_title, y_title)
-    data = []
-    families = {pb.family.name for pb in pbs}
-    marker_configs = get_marker_configs(families)
-    seen_families = set()
 
-    for pb in pbs:
-        x, y, hovers = get_pb_data(pb, plot_args.x_attr, plot_args.y_attr, x_title, y_title)
+    from collections import defaultdict
 
-        show_legend = pb.family.name not in seen_families
-        seen_families.add(pb.family.name)
+    grouped_data = defaultdict(lambda: defaultdict(list))
+    group_keys = set()
 
-        data.append(
-            go.Scatter(
-                x=x,
-                y=y,
-                mode="markers",
-                name=pb.family.name,
-                text=hovers,
-                hoverinfo="text",
-                marker=marker_configs[pb.family.name],
-                showlegend=show_legend,
-            )
+    if plot_type == PlotRequest.SINGLE:
+        for pb in pbs:
+            params = pb.backbone.m_parameters
+            for result in pb.filtered_results:
+                if plot_args.group_by:
+                    group_key = get_group_key(pb, result, plot_args.group_by)
+                    if plot_args.group_by_second:
+                        group_key += " / " + get_group_key(pb, result, plot_args.group_by_second)
+                else:
+                    group_key = pb.family.name
+                x = params if x_type == "m_parameters" else getattr(result, x_type)
+                y = params if y_type == "m_parameters" else getattr(result, y_type)
+                hover = f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
+                grouped_data[group_key]["x"].append(x)
+                grouped_data[group_key]["y"].append(y)
+                grouped_data[group_key]["hovers"].append(hover)
+                group_keys.add(group_key)
+
+    elif plot_type == PlotRequest.MULTI:
+        for pb in pbs:
+            for x_result in pb.x_results:
+                for y_result in pb.y_results:
+                    if plot_args.group_by:
+                        group_key = get_two_result_group_key(
+                            pb, x_result, y_result, plot_args.group_by
+                        )
+                        if plot_args.group_by_second:
+                            group_key += " / " + get_two_result_group_key(
+                                pb, x_result, y_result, plot_args.group_by_second
+                            )
+                    else:
+                        group_key = pb.family.name
+                    x = getattr(x_result, x_type)
+                    y = getattr(y_result, y_type)
+                    hover = f"<b>{pb.name}</b><br>Family: {pb.family.name}<br>{y_title}: {y:.2f}<br>{x_title}: {x:.2f}"
+                    grouped_data[group_key]["x"].append(x)
+                    grouped_data[group_key]["y"].append(y)
+                    grouped_data[group_key]["hovers"].append(hover)
+                    group_keys.add(group_key)
+    else:
+        for pb in pbs:
+            params = pb.backbone.m_parameters
+            for results in [pb._instance_results, pb._classification_results]:
+                for result in results:
+                    if plot_args.group_by:
+                        group_key = get_group_key(pb, result, plot_args.group_by)
+                        if plot_args.group_by_second:
+                            group_key += " / " + get_group_key(
+                                pb, result, plot_args.group_by_second
+                            )
+                    else:
+                        group_key = pb.family.name
+                    x = params if x_type == "m_parameters" else getattr(result, x_type)
+                    y = params if y_type == "m_parameters" else getattr(result, y_type)
+                    hover = f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
+                    grouped_data[group_key]["x"].append(x)
+                    grouped_data[group_key]["y"].append(y)
+                    grouped_data[group_key]["hovers"].append(hover)
+                    group_keys.add(group_key)
+
+    marker_configs = get_marker_configs(group_keys)
+
+    data = [
+        go.Scatter(
+            x=group_data["x"],
+            y=group_data["y"],
+            mode="markers",
+            name=str(group_key),
+            text=group_data["hovers"],
+            hoverinfo="text",
+            marker=marker_configs[group_key],
         )
+        for group_key, group_data in grouped_data.items()
+    ]
 
     return get_plot_div(title, x_title, y_title, data)
 
 
-def get_single_plot_data(pb, x_type, y_type, x_title, y_title):
-    x_values, y_values, hovers = [], [], []
-    params = pb.backbone.m_parameters
-    for result in pb.filtered_results:
-        x = params if x_type == "m_parameters" else getattr(result, x_type)
-        y = params if y_type == "m_parameters" else getattr(result, y_type)
-        hover = f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
-        x_values.append(x)
-        y_values.append(y)
-        hovers.append(hover)
-    return x_values, y_values, hovers
+def get_two_result_group_key(pb, x_result, y_result, attr):
+    attrs = attr.split(".")
+    if attrs[0] == "classification":
+        assert type(x_result) is ClassificationResult or type(y_result) is ClassificationResult
+        if type(x_result) is ClassificationResult:
+            return get_nested_attr(x_result, attrs[1:])
+        elif type(y_result) is ClassificationResult:
+            return get_nested_attr(y_result, attrs[1:])
+    elif attrs[0] == "instance":
+        assert type(x_result) is InstanceResult or type(y_result) is InstanceResult
+        if type(x_result) is InstanceResult:
+            return get_nested_attr(x_result, attrs[1:])
+        elif type(y_result) is InstanceResult:
+            return get_nested_attr(y_result, attrs[1:])
+    return get_nested_attr(pb, attrs)
 
 
-def get_multi_plot_data(pb, x_type, y_type, x_title, y_title):
-    x_values, y_values, hovers = [], [], []
-    for x_result in pb.x_results:
-        for y_result in pb.y_results:
-            x = getattr(x_result, x_type)
-            y = getattr(y_result, y_type)
-            hover = f"<b>{pb.name}</b><br>Family: {pb.family.name}<br>{y_title}: {y:.2f}<br>{x_title}: {x:.2f}"
-            x_values.append(x)
-            y_values.append(y)
-            hovers.append(hover)
-    return x_values, y_values, hovers
+def get_group_key(pb, result, attr):
+    attrs = attr.split(".")
+    if attrs[0] == "classification":
+        assert type(result) is ClassificationResult
+        return get_nested_attr(result, attrs[1:])
+    elif attrs[0] == "instance":
+        assert type(result) is InstanceResult
+        return get_nested_attr(result, attrs[1:])
+    return get_nested_attr(pb, attrs)
 
 
-def get_all_plot_data(pb, x_type, y_type, x_title, y_title):
-    x_values, y_values, hovers = [], [], []
-    params = pb.backbone.m_parameters
-    for results in [pb._instance_results, pb._classification_results]:
-        for result in results:
-            x = params if x_type == "m_parameters" else getattr(result, x_type)
-            y = params if y_type == "m_parameters" else getattr(result, y_type)
-            hover = (
-                f"Model: {pb.name}<br>Family: {pb.family.name}<br>{y_title}: {y}<br>{x_title}: {x}"
-            )
-            x_values.append(x)
-            y_values.append(y)
-            hovers.append(hover)
-    return x_values, y_values, hovers
+def get_nested_attr(obj, attr_path):
+    for attr in attr_path:
+        obj = getattr(obj, attr)
+    return str(obj)
 
 
 def get_axis_title(db_name, instance_type=None):
@@ -914,6 +970,8 @@ def get_axis_title(db_name, instance_type=None):
             title = DETECTION_METRICS[db_name]
         elif instance_type == TaskType.INSTANCE_SEG.value:
             title = INSTANCE_SEG_METRICS[db_name]
+        else:
+            title = db_name  # this shouldn't happen
     else:
         title = AXIS_CHOICES.get(db_name) or CLASSIFICATION_METRICS.get(db_name)
     return title
@@ -1001,53 +1059,8 @@ def get_plot_div(title, x_title, y_title, data):
     return plot_div
 
 
-def get_defaults(family_name=None, head=None, dataset=None):
-    if head:
-        tasks = head.tasks.all()
-        first_task = tasks.first()
-        datasets = Dataset.objects.filter(tasks__in=tasks).distinct().all()
-        first_dataset = datasets.filter(tasks=first_task).all()[1]
-        plot_request = PlotRequest(
-            {
-                "y_axis": "results",
-                "y_task": first_task,
-                "y_dataset": first_dataset,
-                "y_head": head,
-                "y_metric": "mAP",
-                "x_axis": "gflops",
-            }
-        )
-        page = "downstream_head"
-    elif dataset:
-        tasks = dataset.tasks.all()
-        first_task = tasks.first()
-        if first_task.name == TaskType.CLASSIFICATION.value:
-            metric = "top_1"
-        else:
-            metric = "mAP"
-        plot_request = PlotRequest(
-            {
-                "y_axis": "results",
-                "y_task": first_task,
-                "y_dataset": dataset,
-                "y_metric": metric,
-                "x_axis": "gflops",
-            }
-        )
-        page = "dataset"
-    else:
-        plot_request = PlotRequest(
-            {
-                "y_axis": "results",
-                "y_dataset": Dataset.objects.get(pk=1),
-                "y_task": Task.objects.get(pk=4),
-                "y_metric": "top_1",
-                "x_axis": "gflops",
-            }
-        )
-        page = "backbone_family" if family_name else ""
-    queryset = get_plot_data(plot_request, family_name=family_name)
+def get_plot_and_table(plot_request, page=""):
+    queryset = get_plot_data(plot_request)
     plot = get_plot(queryset, plot_request)
-    table = get_table(queryset, plot_request, page)
-
+    table = get_table(queryset, plot_request, page=page)
     return plot, table

@@ -28,6 +28,7 @@ Paperswithcode's basic data models and user interface aren't useful either for r
   - [TransNeXt](https://arxiv.org/abs/2311.17132)
 
 ## Updates
+- 9-8-2024: added legend customization for plots;
 - 9-7-2024: added dataset page; added title bar; improved links and table gen
 - 9-6-2024: added downstream head page
 - 9-4-2024: added model family page

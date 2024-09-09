@@ -45,6 +45,23 @@
         {% endif %}
         {% endfor %}
       </div>
+      <div class="option-set-label">
+        <label>
+          Legend
+        </label>
+      </div>
+      <div id="filter-axis-container" class="form-grid">
+        {% for field in form %}
+        {% if field.name|slice:":6" == "legend" %}
+        <div>
+          <label for="{{ field.id_for_label }}">
+            {{ field.label }}
+          </label>
+          {% include "components/custom_select.html" with field=field %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
     </form>
   </div>
 </div>
