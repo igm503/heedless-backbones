@@ -59,6 +59,7 @@
         {selector: '.instanceFamilyTable', variable: 'instanceDataTable', searching: false, order: [[2, "asc"], [1, "asc"], [4, "asc"]]},
         {selector: '.instanceDatasetTable', variable: 'instanceDataTable', searching: false, order: [[6, "desc"], [7, "desc"]]},
         {selector: '.instanceHeadTable', variable: 'instanceDataTable', searching: false, order: [[6, "desc"], [7, "desc"]]},
+        {selector: '.DatasetTable', variable: 'instanceDataTable', searching: false, order: [[1, "desc"]]},
       ];
 
       tables.forEach(table => {
@@ -88,28 +89,25 @@
       const yAxisContainer = document.getElementById('y-axis-container');
       const xAxisContainer = document.getElementById('x-axis-container');
 
-      const buttonConfigs = [
-        {id: 'toggleOptions', containerId: 'optionsContainer', text: 'Plot Options'},
-        {id: 'toggleClassification', containerId: 'classificationTableContainer', text: 'Classification Results'},
-        {id: 'toggleDetection', containerId: 'detectionTableContainer', text: 'Detection Results'},
-        {id: 'toggleInstance', containerId: 'instanceTableContainer', text: 'Instance Results'}
-      ];
+      const buttons = document.querySelectorAll('.drawer');
 
-      function setupToggle(config) {
-        const button = document.getElementById(config.id);
-        const container = document.getElementById(config.containerId);
+      buttons.forEach(button => {
+        const containerId = button.dataset.container;
+        const container = document.getElementById(containerId);
+        const text = button.dataset.text;
 
-        if (!button || !container) {
+        if (!container) {
+          console.warn(`Container ${containerId} not found for button ${button.id}`);
           return;
         }
 
-        const storageKey = config.containerId + 'Open';
+        const storageKey = containerId + 'Open';
 
         function toggleContainer(show) {
           container.classList.toggle('show', show);
           button.classList.toggle('active', show);
           button.style.borderBottom = show ? 'none' : '1px solid #000000';
-          button.textContent = show ? 'Hide ' + config.text : config.text;
+          button.textContent = show ? 'Hide ' + text : text;
           localStorage.setItem(storageKey, show.toString());
         }
 
@@ -121,9 +119,7 @@
         button.addEventListener('click', () => {
           toggleContainer(!container.classList.contains('show'));
         });
-      }
-
-      buttonConfigs.forEach(setupToggle);
+      });
 
       function initializeSelect(select) {
         const header = select.querySelector('.custom-select-header');

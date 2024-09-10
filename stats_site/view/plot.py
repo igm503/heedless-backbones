@@ -245,7 +245,7 @@ def get_head_instance_table(head_name, instance_type):
                 }
                 rows.append(row)
                 row_links = {
-                    "family": reverse("backbone_family", args=[pb.family.name]),
+                    "family": reverse("family", args=[pb.family.name]),
                     "head": result.head.github,
                 }
                 if result.mAP:
@@ -322,8 +322,8 @@ def get_dataset_instance_table(dataset_name, instance_type):
             }
             rows.append(row)
             row_links = {
-                "family": reverse("backbone_family", args=[pb.family.name]),
-                "head": reverse("downstream_head", args=[result.head.name]),
+                "family": reverse("family", args=[pb.family.name]),
+                "head": reverse("head", args=[result.head.name]),
             }
             if result.mAP:
                 row_links[result_keys["mAP"]] = result.paper
@@ -403,7 +403,7 @@ def get_family_instance_table(family_name, instance_type):
                 rows.append(row)
                 row_links = {
                     "backbone": pb.github,
-                    "head": reverse("downstream_head", args=[result.head.name]),
+                    "head": reverse("head", args=[result.head.name]),
                 }
                 if result.mAP:
                     row_links[result_keys["mAP"]] = result.paper
@@ -553,7 +553,7 @@ def get_dataset_classification_table(dataset_name):
                 "top-5": top5,
             }
             row_links = {
-                "family": reverse("backbone_family", args=[pb.family.name]),
+                "family": reverse("family", args=[pb.family.name]),
             }
             if result.top_1:
                 row_links["top-1"] = result.paper
@@ -588,26 +588,6 @@ def get_plot_data(request, family_name=None):
         return get_all_results_data(queryset, request.data_args)
 
 
-def get_plot(queryset, request):
-    plot_args = request.plot_args
-    if request.query_type == PlotRequest.MULTI:
-
-        def title_func(x_title, y_title):
-            return f"{y_title} on {plot_args.y_dataset.name} vs. {x_title} on {plot_args.x_dataset.name}"
-
-    elif request.query_type == PlotRequest.SINGLE:
-
-        def title_func(x_title, y_title):
-            return f"{y_title} on {plot_args.dataset.name}"
-
-    else:
-
-        def title_func(x_title, y_title):
-            return f"{y_title} against {x_title}"
-
-    return get_plot_object(queryset, plot_args, request.query_type, title_func)
-
-
 def get_table(queryset, request, page=""):
     plot_args = request.plot_args
     x_type = plot_args.x_attr
@@ -624,20 +604,20 @@ def get_table(queryset, request, page=""):
             for result in pb.filtered_results:
                 row = {}
                 row_links = {}
-                if page == "backbone_family":
+                if page == "family":
                     row_links["backbone"] = pb.github
                 else:
                     row["family"] = pb.family.name
-                    row_links["family"] = reverse("backbone_family", args=[pb.family.name])
+                    row_links["family"] = reverse("family", args=[pb.family.name])
                 row["backbone"] = pb.backbone.name
                 row["parameters (m)"] = params
                 row["pretrain"] = pb.pretrain_dataset.name
                 if hasattr(result, "head"):
                     row["head"] = result.head.name
-                    if page == "downstream_head":
+                    if page == "head":
                         row_links["head"] = result.head.github
                     else:
-                        row_links["head"] = reverse("downstream_head", args=[result.head.name])
+                        row_links["head"] = reverse("head", args=[result.head.name])
                 if x_type != "m_parameters":
                     row[f"{x_title}"] = get_value(pb, result, x_type)
                     row_links[f"{x_title}"] = result.paper
@@ -666,11 +646,11 @@ def get_table(queryset, request, page=""):
                             y_title = f"{y_title} (y)"
                     row = {}
                     row_links = {}
-                    if page == "backbone_family":
+                    if page == "family":
                         row_links["backbone"] = pb.github
                     else:
                         row["family"] = pb.family.name
-                        row_links["family"] = reverse("backbone_family", args=[pb.family.name])
+                        row_links["family"] = reverse("family", args=[pb.family.name])
                     row["backbone"] = pb.backbone.name
                     row["parameters (m)"] = params
                     row["pretrain"] = pb.pretrain_dataset.name
@@ -678,22 +658,18 @@ def get_table(queryset, request, page=""):
                     if hasattr(x_result, "head"):
                         head_key = "x head" if y_head else "head"
                         row[head_key] = x_result.head.name
-                        if page == "downstream_head":
+                        if page == "head":
                             row_links[head_key] = x_result.head.github
                         else:
-                            row_links[head_key] = reverse(
-                                "downstream_head", args=[x_result.head.name]
-                            )
+                            row_links[head_key] = reverse("head", args=[x_result.head.name])
                     row[f"{x_title}"] = x
                     row_links[f"{x_title}"] = x_result.paper
                     if y_head:
                         row["y head"] = y_result.head.name
-                        if page == "downstream_head":
+                        if page == "head":
                             row_links["y head"] = y_result.head.github
                         else:
-                            row_links["y head"] = reverse(
-                                "downstream_head", args=[y_result.head.name]
-                            )
+                            row_links["y head"] = reverse("head", args=[y_result.head.name])
 
                     row[f"{y_title}"] = y
                     row_links[f"{y_title}"] = y_result.paper
@@ -706,11 +682,11 @@ def get_table(queryset, request, page=""):
                 for result in results:
                     row = {}
                     row_links = {}
-                    if page == "backbone_family":
+                    if page == "family":
                         row_links["backbone"] = pb.github
                     else:
                         row["family"] = pb.family.name
-                        row_links["family"] = reverse("backbone_family", args=[pb.family.name])
+                        row_links["family"] = reverse("family", args=[pb.family.name])
                     row["backbone"] = pb.backbone.name
                     row["parameters (m)"] = params
                     row["pretrain"] = pb.pretrain_dataset.name
@@ -837,22 +813,21 @@ def get_instance_prefetch(name, args):
     return Prefetch("instance_results", queryset=queryset, to_attr=name)
 
 
-def get_plot_object(pbs, plot_args, plot_type, title_func):
+def get_plot(queryset, request):
+    plot_args = request.plot_args
     x_task = plot_args.x_task.name if plot_args.x_task else None
     y_task = plot_args.y_task.name if plot_args.y_task else None
     x_type = plot_args.x_attr
     y_type = plot_args.y_attr
     y_title = get_axis_title(y_type, y_task)
     x_title = get_axis_title(x_type, x_task)
-    title = title_func(x_title, y_title)
-
-    from collections import defaultdict
 
     grouped_data = defaultdict(lambda: defaultdict(list))
     group_keys = set()
 
-    if plot_type == PlotRequest.SINGLE:
-        for pb in pbs:
+    if request.query_type == PlotRequest.SINGLE:
+        title = f"{y_title} on {plot_args.dataset.name}"
+        for pb in queryset:
             for result in pb.filtered_results:
                 if plot_args.group_by:
                     group_key = get_group_key(pb, result, plot_args.group_by)
@@ -868,10 +843,13 @@ def get_plot_object(pbs, plot_args, plot_type, title_func):
                 grouped_data[group_key]["hovers"].append(hover)
                 group_keys.add(group_key)
 
-    elif plot_type == PlotRequest.MULTI:
+    elif request.query_type == PlotRequest.MULTI:
         x_title += f" ({plot_args.x_dataset})"
         y_title += f" ({plot_args.y_dataset})"
-        for pb in pbs:
+        title = (
+            f"{y_title} on {plot_args.y_dataset.name} vs. {x_title} on {plot_args.x_dataset.name}"
+        )
+        for pb in queryset:
             for x_result in pb.x_results:
                 for y_result in pb.y_results:
                     if plot_args.group_by:
@@ -886,13 +864,14 @@ def get_plot_object(pbs, plot_args, plot_type, title_func):
                         group_key = pb.family.name
                     x = get_value(pb, x_result, x_type)
                     y = get_value(pb, y_result, y_type)
-                    hover = f"<b>{pb.name}</b><br>{y_title}: {y}<br>{x_title}: {x}"
+                    hover = f"Model: {pb.name}<br>{y_title}: {y}<br>{x_title}: {x}"
                     grouped_data[group_key]["x"].append(x)
                     grouped_data[group_key]["y"].append(y)
                     grouped_data[group_key]["hovers"].append(hover)
                     group_keys.add(group_key)
     else:
-        for pb in pbs:
+        title = f"{y_title} against {x_title}"
+        for pb in queryset:
             for results in [pb._instance_results, pb._classification_results]:
                 for result in results:
                     if plot_args.group_by:
@@ -983,7 +962,7 @@ def get_axis_title(db_name, instance_type=None):
         else:
             title = db_name  # this shouldn't happen
     else:
-        title = AXIS_CHOICES.get(db_name) or CLASSIFICATION_METRICS.get(db_name)
+        title = AXIS_CHOICES.get(db_name, "") or CLASSIFICATION_METRICS.get(db_name, "")
     return title
 
 

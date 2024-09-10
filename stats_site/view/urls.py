@@ -1,10 +1,13 @@
 from django.urls import path
 
-from .views import show_all, show_family, show_dataset, show_downstream_head
+from .views import all, dataset, family, head, list_datasets, list_families, list_heads
 
 urlpatterns = [
-    path('', show_all, name='all'),
-    path("<str:family_name>/", show_family, name="backbone_family"),
-    path("datasets/<str:dataset_name>/", show_dataset, name="dataset"),
-    path("heads/<str:downstream_head_name>/", show_downstream_head, name="downstream_head"),
+    path("", all, name="all"),
+    path("families/", list_families, name="list_families"),
+    path("families/<str:family_name>/", family, name="family"),
+    path("datasets", list_datasets, name="list_datasets"),
+    path("datasets/<str:dataset_name>/", dataset, name="dataset"),
+    path("heads/", list_heads, name="list_heads"),
+    path("heads/<str:head_name>/", head, name="head"),
 ]

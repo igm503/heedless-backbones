@@ -27,7 +27,8 @@
   {% endif %}
 
   {% if classification_table %}
-  <button class="drawer" id="toggleClassification">
+  <button class="drawer" id="toggleClassification" data-container="classificationTableContainer"
+    data-text="Classification Results">
     Classification Results
   </button>
   <div class="table-container drawerContents" id="classificationTableContainer">
@@ -36,7 +37,8 @@
   {% endif %}
 
   {% if detection_table %}
-  <button class="drawer" id="toggleDetection">
+  <button class="drawer" id="toggleDetection" data-container="detectionTableContainer"
+    data-text="Object Detection Results">
     Object Detection Results
   </button>
   <div class="table-container drawerContents" id="detectionTableContainer">
@@ -45,7 +47,8 @@
   {% endif %}
 
   {% if instance_table %}
-  <button class="drawer" id="toggleInstance">
+  <button class="drawer" id="toggleInstance" data-container="instanceTableContainer"
+    data-text="Instance Segmentation Results">
     Instance Segmentation Results
   </button>
   <div class="table-container drawerContents" id="instanceTableContainer">

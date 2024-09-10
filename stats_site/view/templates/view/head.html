@@ -10,11 +10,11 @@
 <main class="container">
 
   <header class="title-bar">
-    <h1>{{ downstream_head.name }}</h1>
+    <h1>{{ head.name }}</h1>
     <div class="links">
-      <a href="{{ downstream_head.paper }}">Paper</a>
+      <a href="{{ head.paper }}">Paper</a>
       |
-      <a href="{{ downstream_head.github }}">GitHub</a>
+      <a href="{{ head.github }}">GitHub</a>
     </div>
   </header>
 
@@ -29,7 +29,8 @@
   {% endif %}
 
   {% if detection_tables %}
-  <button class="drawer" id="toggleDetection">
+  <button class="drawer" id="toggleDetection" data-container="detectionTableContainer"
+    data-text="Object Detection Results">
     Object Detection Results
   </button>
   <div class="table-container drawerContents" id="detectionTableContainer">
@@ -41,7 +42,8 @@
   {% endif %}
 
   {% if instance_tables %}
-  <button class="drawer" id="toggleInstance">
+  <button class="drawer" id="toggleInstance" data-container="instanceTableContainer"
+    data-text="Instance Segmentation Results">
     Instance Segmentation Results
   </button>
   <div class="table-container drawerContents" id="instanceTableContainer">

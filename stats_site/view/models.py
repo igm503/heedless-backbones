@@ -42,33 +42,41 @@ class Precision(Enum):
 
 
 class Task(models.Model):
+    objects = models.Manager()
+
     name = models.CharField(max_length=100, choices={name.value: name.value for name in TaskType})
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Dataset(models.Model):
+    objects = models.Manager()
+
     name = models.CharField(max_length=100)
     tasks = models.ManyToManyField(Task)
     eval = models.BooleanField()
     website = models.URLField()
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class DownstreamHead(models.Model):
+    objects = models.Manager()
+
     name = models.CharField(max_length=100)
     tasks = models.ManyToManyField(Task)
     paper = models.URLField(blank=True)
     github = models.URLField(blank=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class FPSMeasurement(models.Model):
+    objects = models.Manager()
+
     backbone_name = models.CharField(max_length=100)
     resolution = models.IntegerField()
     fps = models.FloatField()
@@ -97,6 +105,8 @@ class FPSMeasurement(models.Model):
 
 
 class InstanceResult(models.Model):
+    objects = models.Manager()
+
     pretrained_backbone_name = models.CharField(max_length=100)
     head = models.ForeignKey(DownstreamHead, on_delete=models.CASCADE)
     dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE)
@@ -136,6 +146,8 @@ class InstanceResult(models.Model):
 
 
 class ClassificationResult(models.Model):
+    objects = models.Manager()
+
     pretrained_backbone_name = models.CharField(max_length=100)
     dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE)
     resolution = models.IntegerField()
@@ -170,6 +182,8 @@ class ClassificationResult(models.Model):
 
 
 class BackboneFamily(models.Model):
+    objects = models.Manager()
+
     name = models.CharField(max_length=100)
     model_type = models.CharField(
         "model type",
@@ -181,20 +195,24 @@ class BackboneFamily(models.Model):
     github = models.URLField(blank=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Backbone(models.Model):
+    objects = models.Manager()
+
     name = models.CharField(max_length=100)
     family = models.ForeignKey(BackboneFamily, on_delete=models.CASCADE)
     m_parameters = models.FloatField("parameters (M)")
     fps_measurements = models.ManyToManyField(FPSMeasurement, blank=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class PretrainedBackbone(models.Model):
+    objects = models.Manager()
+
     name = models.CharField(max_length=100)
     backbone = models.ForeignKey(Backbone, on_delete=models.CASCADE)
     family = models.ForeignKey(BackboneFamily, on_delete=models.CASCADE)
@@ -212,4 +230,4 @@ class PretrainedBackbone(models.Model):
     github = models.URLField(blank=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
