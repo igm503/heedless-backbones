@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+{% load custom_filters %}
+{% load table_tag %}
+
+{% block content %}
+
+
+<main class="container">
+
+  <header class="title-bar">
+    <h1>Downstream Task Heads</h1>
+  </header>
+
+  {% if heads %}
+  {% for task_name, task_heads in heads.items %}
+  {% with task_id=task_name|lower|slugify %}
+  <button class="drawer" id="toggle{{ task_id }}" data-container="{{ task_id }}TableContainer"
+    data-text="{{ task_name }}">
+    {{ task_name }}
+  </button>
+  <div class="table-container drawerContents" id="{{ task_id }}TableContainer">
+    {% render_table "HeadTable" task_heads %}
+  </div>
+  {% endwith %}
+  {% endfor %}
+  {% endif %}
+
+</main>
+
+{% endblock %}

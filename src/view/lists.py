@@ -1,20 +1,14 @@
 from collections import defaultdict
 
-from django.db.models import Count, Q, Subquery, OuterRef, Max, Prefetch
-from django.db.models.functions import Coalesce
+from django.db.models import Count, Subquery, OuterRef, Max, Prefetch
 from django.urls import reverse
 
 from .models import (
     BackboneFamily,
-    Backbone,
     Dataset,
     DownstreamHead,
     Task,
     TaskType,
-    PretrainMethod,
-    ModelType,
-    GPU,
-    Precision,
     ClassificationResult,
     InstanceResult,
 )
@@ -113,9 +107,109 @@ def get_dataset_lists():
     return lists
 
 
-def get_family_list():
-    pass
-
-
 def get_head_lists():
-    pass
+    heads = (
+        DownstreamHead.objects.filter()
+        .prefetch_related(Prefetch("tasks", Task.objects.all(), "_tasks"))
+        .annotate(
+            detection_result_count=Subquery(
+                InstanceResult.objects.filter(
+                    head=OuterRef("pk"), instance_type__name=TaskType.DETECTION.value
+                )
+                .values("head")
+                .annotate(count=Count("id"))
+                .values("count")
+            ),
+            instance_seg_result_count=Subquery(
+                InstanceResult.objects.filter(
+                    head=OuterRef("pk"),
+                    instance_type__name=TaskType.INSTANCE_SEG.value,
+                )
+                .values("head")
+                .annotate(count=Count("id"))
+                .values("count")
+            ),
+            latest_detection_family_date=Subquery(
+                InstanceResult.objects.filter(
+                    head=OuterRef("pk"), instance_type__name=TaskType.DETECTION.value
+                )
+                .values("head")
+                .annotate(latest_date=Max("pretrainedbackbone__family__pub_date"))
+                .values("latest_date")
+            ),
+            latest_instance_seg_family_date=Subquery(
+                InstanceResult.objects.filter(
+                    head=OuterRef("pk"),
+                    instance_type__name=TaskType.INSTANCE_SEG.value,
+                )
+                .values("head")
+                .annotate(latest_date=Max("pretrainedbackbone__family__pub_date"))
+                .values("latest_date")
+            ),
+        )
+        .all()
+    )
+
+    lists = defaultdict(lambda: defaultdict(list))
+    for head in heads:
+        for task in head._tasks:
+            if task.name == TaskType.DETECTION.value:
+                num_results = head.detection_result_count
+                last_result = head.latest_detection_family_date
+            elif task.name == TaskType.INSTANCE_SEG.value:
+                num_results = head.instance_seg_result_count
+                last_result = head.latest_instance_seg_family_date
+            else:
+                num_results = 0
+                last_result = 0
+            if not num_results:
+                continue
+            row = {
+                "name": head.name,
+                "# results": num_results,
+                "last result": last_result,
+                "github": "link",
+                "paper": "link",
+            }
+            links = {
+                "name": reverse("head", args=[head.name]),
+                "github": head.github,
+                "paper": head.paper,
+            }
+            lists[task.name]["rows"].append(row)
+            lists[task.name]["links"].append(links)
+    for task, lis in lists.items():
+        if lis["rows"]:
+            lists[task]["headers"] = list(lis["rows"][0].keys())
+        else:
+            lists[task]["headers"] = []
+    lists = {k: dict(v) for k, v in lists.items()}
+    return lists
+
+
+def get_family_list():
+    families = BackboneFamily.objects.all()
+
+    rows = []
+    row_links = []
+    for family in families:
+        row = {
+            "name": family.name,
+            "model type": family.model_type,
+            "pretraining method": family.pretrain_method,
+            "hierarchical": family.hierarchical,
+            "publication date": family.pub_date,
+            "github": "link",
+            "paper": "link",
+        }
+        links = {
+            "name": reverse("family", args=[family.name]),
+            "github": family.github,
+            "paper": family.paper,
+        }
+        rows.append(row)
+        row_links.append(links)
+
+    headers = list(rows[0].keys()) if rows else []
+
+    return {"rows": rows, "links": row_links, "headers": headers}

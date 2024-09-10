@@ -15,6 +15,8 @@ from .constants import (
     AXIS_CHOICES,
     AXIS_WITH_GFLOPS,
     CLASSIFICATION_METRICS,
+    IMAGENET_C_METRICS,
+    IMAGENET_C_BAR_METRICS,
     INSTANCE_METRICS,
     FIELDS,
     RESOLUTIONS,
@@ -150,9 +152,24 @@ class PlotForm(forms.Form):
                     required=False,
                 )
             if task_name == TaskType.CLASSIFICATION.value:
-                self.fields[f"{axis}_metric"] = forms.ChoiceField(
-                    choices=CLASSIFICATION_METRICS, required=False
-                )
+                if args.get(f"{axis}_dataset"):
+                    dataset_name = Dataset.objects.get(pk=args[f"{axis}_dataset"]).name
+                    if dataset_name == "ImageNet-C":
+                        self.fields[f"{axis}_metric"] = forms.ChoiceField(
+                            choices=IMAGENET_C_METRICS, required=False
+                        )
+                    elif dataset_name == "ImageNet-C-bar":
+                        self.fields[f"{axis}_metric"] = forms.ChoiceField(
+                            choices=IMAGENET_C_BAR_METRICS, required=False
+                        )
+                    else:
+                        self.fields[f"{axis}_metric"] = forms.ChoiceField(
+                            choices=CLASSIFICATION_METRICS, required=False
+                        )
+                else:
+                    self.fields[f"{axis}_metric"] = forms.ChoiceField(
+                        choices=CLASSIFICATION_METRICS, required=False
+                    )
                 self.fields[f"{axis}_resolution"] = forms.ChoiceField(
                     choices=RESOLUTIONS, required=False
                 )
@@ -256,7 +273,9 @@ def family(request, family_name):
     form = PlotForm(request.GET or get_default_request(family=family))
     if form.is_valid() and form.is_ready():
         plot_request = PlotRequest(form.cleaned_data)
-        family_plot, family_table = get_plot_and_table(plot_request, page="family")
+        family_plot, family_table = get_plot_and_table(
+            plot_request, page="family", family_name=family_name
+        )
     class_table = get_family_classification_table(family.name)
     det_tables = get_family_instance_table(family.name, TaskType.DETECTION)
     instance_tables = get_family_instance_table(family.name, TaskType.INSTANCE_SEG)
@@ -342,23 +361,22 @@ def dataset(request, dataset_name):
     )
 
 
-def list_datasets(request):
+def datasets(request):
     global dataset_lists
     if dataset_lists is None:
         dataset_lists = get_dataset_lists()
-    print(dataset_lists)
-    return render(request, "view/all_datasets.html", {"datasets": dataset_lists})
+    return render(request, "view/datasets.html", {"datasets": dataset_lists})
 
 
-def list_families(request):
+def families(request):
     global family_list
     if family_list is None:
         family_list = get_family_list()
-    return render(request, "view/all_families.html", {"families": family_list})
+    return render(request, "view/families.html", {"families": family_list})
 
 
-def list_heads(request):
+def heads(request):
     global head_lists
     if head_lists is None:
         head_lists = get_head_lists()
-    return render(request, "view/all_heads.html", {"heads": head_lists})
+    return render(request, "view/heads.html", {"heads": head_lists})

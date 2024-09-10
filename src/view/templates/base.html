@@ -24,13 +24,13 @@
   <header class="top-bar">
     <div class="container">
       <h1 class="site-title">
-        <a class="site-title" href="/view">Heedless Backbones</a>
+        <a class="site-title" href={% url "all" %}>Heedless Backbones</a>
       </h1>
       <nav class="main-nav">
         <ul>
-          <li><a href="/page1">Backbones</a></li>
-          <li><a href="/page2">Heads</a></li>
-          <li><a href="/page3">Datasets</a></li>
+          <li><a href={% url "families" %}>Backbones</a></li>
+          <li><a href={% url "heads" %}>Heads</a></li>
+          <li><a href={% url "datasets" %}>Datasets</a></li>
         </ul>
       </nav>
     </div>
@@ -46,7 +46,7 @@
   </footer>
 
   <script>
-    let dataTable, classificationDataTable, detectionDataTable, instanceDataTable;
+    let dataTable, classificationDataTable, detectionDataTable, instanceDataTable, datasetTable, headTable, familyTable;
 
     function initializeDataTable() {
       const tables = [
@@ -59,7 +59,9 @@
         {selector: '.instanceFamilyTable', variable: 'instanceDataTable', searching: false, order: [[2, "asc"], [1, "asc"], [4, "asc"]]},
         {selector: '.instanceDatasetTable', variable: 'instanceDataTable', searching: false, order: [[6, "desc"], [7, "desc"]]},
         {selector: '.instanceHeadTable', variable: 'instanceDataTable', searching: false, order: [[6, "desc"], [7, "desc"]]},
-        {selector: '.DatasetTable', variable: 'instanceDataTable', searching: false, order: [[1, "desc"]]},
+        {selector: '.DatasetTable', variable: 'datasetTable', searching: false, order: [[1, "desc"]]},
+        {selector: '.HeadTable', variable: 'headTable', searching: false, order: [[1, "desc"]]},
+        {selector: '.FamilyTable', variable: 'familyTable', searching: false, order: [[4, "desc"]]},
       ];
 
       tables.forEach(table => {

@@ -10,11 +10,13 @@ class PretrainMethod(Enum):
     CONTRASTIVE = "CL"
 
 
-class ModelType(Enum):
-    CNN = "CNN"
-    TRANSFORMER = "Transformer"
-    SSM = "SSM"
-    HYBRID = "Hybrid"
+class TokenMixer(Enum):
+    ATTN = "Attention"
+    CONV = "Convolution"
+    LSTM = "LSTM"
+    SSM = "State Space Model"
+    ATTN_CONV = "Attn + Conv"
+    CONV_SSM = "Conv + SSM"
 
 
 class TaskType(Enum):
@@ -188,7 +190,13 @@ class BackboneFamily(models.Model):
     model_type = models.CharField(
         "model type",
         max_length=100,
-        choices={name.value: name.value for name in ModelType},
+        choices={name.value: name.value for name in TokenMixer},
+    )
+    hierarchical = models.BooleanField()
+    pretrain_method = models.CharField(
+        "pretraining method",
+        max_length=100,
+        choices={name.value: name.value for name in PretrainMethod},
     )
     pub_date = models.DateField("publication date")
     paper = models.URLField(blank=True)

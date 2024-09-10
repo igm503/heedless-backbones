@@ -9,6 +9,8 @@ from plotly.offline import plot
 import plotly.graph_objs as go
 
 from .constants import (
+    IMAGENET_C_METRICS,
+    IMAGENET_C_BAR_METRICS,
     CLASSIFICATION_METRICS,
     INSTANCE_METRICS,
     AXIS_CHOICES,
@@ -451,6 +453,8 @@ def get_family_classification_table(family_name):
             dataset = result.dataset.name
             if "ImageNet" in dataset:
                 dataset = dataset.replace("ImageNet", "IN")
+            if "-C" in dataset:
+                dataset += "&darr;"
             eval_datasets.add(f"{dataset}")
 
     rows = []
@@ -465,6 +469,8 @@ def get_family_classification_table(family_name):
             dataset = result.dataset.name
             if "ImageNet" in dataset:
                 dataset = dataset.replace("ImageNet", "IN")
+            if "-C" in dataset:
+                dataset += "&darr;"
             finetune = f"{ft_dataset} : {result.fine_tune_epochs} : {result.fine_tune_resolution}"
             top1 = result.top_1 if result.top_1 else "&mdash;"
             top5 = result.top_5 if result.top_5 else "&mdash;"
@@ -518,6 +524,12 @@ def get_dataset_classification_table(dataset_name):
             to_attr="results",
         )
     )
+    if "ImageNet-C" in dataset_name:
+        top1_str = "top-1&darr;"
+        top5_str = "top-5&darr;"
+    else:
+        top1_str = "top-1"
+        top5_str = "top-5"
 
     rows = []
     links = []
@@ -537,9 +549,6 @@ def get_dataset_classification_table(dataset_name):
             finetune = f"{ft_dataset} : {result.fine_tune_epochs} : {result.fine_tune_resolution}"
             if finetune == "None : None : None":
                 finetune = finetune.replace("None", "&mdash;")
-            dataset = result.dataset.name
-            if "ImageNet" in dataset:
-                dataset = dataset.replace("ImageNet", "IN")
             top1 = result.top_1 if result.top_1 else "&mdash;"
             top5 = result.top_5 if result.top_5 else "&mdash;"
             row = {
@@ -549,16 +558,16 @@ def get_dataset_classification_table(dataset_name):
                 "pretraining": pretraining,
                 "finetuning": finetune,
                 "gflops": result.gflops,
-                "top-1": top1,
-                "top-5": top5,
+                top1_str: top1,
+                top5_str: top5,
             }
             row_links = {
                 "family": reverse("family", args=[pb.family.name]),
             }
             if result.top_1:
-                row_links["top-1"] = result.paper
+                row_links[top1_str] = result.paper
             if result.top_5:
-                row_links["top-5"] = result.paper
+                row_links[top5_str] = result.paper
             rows.append(row)
             links.append(row_links)
 
@@ -594,8 +603,8 @@ def get_table(queryset, request, page=""):
     y_type = plot_args.y_attr
     x_task = plot_args.x_task.name if plot_args.x_task else None
     y_task = plot_args.y_task.name if plot_args.y_task else None
-    x_title = get_axis_title(x_type, x_task)
-    y_title = get_axis_title(y_type, y_task)
+    x_title = get_axis_title(x_type, x_task, plot_args.x_dataset or plot_args.dataset)
+    y_title = get_axis_title(y_type, y_task, plot_args.y_dataset or plot_args.dataset)
     rows = []
     links = []
     if request.query_type == PlotRequest.SINGLE:
@@ -819,8 +828,10 @@ def get_plot(queryset, request):
     y_task = plot_args.y_task.name if plot_args.y_task else None
     x_type = plot_args.x_attr
     y_type = plot_args.y_attr
-    y_title = get_axis_title(y_type, y_task)
-    x_title = get_axis_title(x_type, x_task)
+    x_title = get_axis_title(x_type, x_task, plot_args.x_dataset or plot_args.dataset)
+    y_title = get_axis_title(y_type, y_task, plot_args.y_dataset or plot_args.dataset)
+    x_title = x_title.split("&")[0]
+    y_title = y_title.split("&")[0]
 
     grouped_data = defaultdict(lambda: defaultdict(list))
     group_keys = set()
@@ -951,7 +962,7 @@ def get_nested_attr(obj, attr_path):
     return str(obj)
 
 
-def get_axis_title(db_name, instance_type=None):
+def get_axis_title(db_name, instance_type=None, dataset=None):
     if db_name in INSTANCE_METRICS:
         if instance_type is None:
             title = INSTANCE_METRICS[db_name]
@@ -961,8 +972,18 @@ def get_axis_title(db_name, instance_type=None):
             title = INSTANCE_SEG_METRICS[db_name]
         else:
             title = db_name  # this shouldn't happen
+    elif db_name in CLASSIFICATION_METRICS:
+        if dataset is not None:
+            if dataset.name == "ImageNet-C":
+                title = IMAGENET_C_METRICS[db_name]
+            elif dataset.name == "ImageNet-C-bar":
+                title = IMAGENET_C_BAR_METRICS[db_name]
+            else:
+                title = CLASSIFICATION_METRICS[db_name]
+        else:
+            title = CLASSIFICATION_METRICS[db_name]
     else:
-        title = AXIS_CHOICES.get(db_name, "") or CLASSIFICATION_METRICS.get(db_name, "")
+        title = AXIS_CHOICES.get(db_name, "")
     return title
 
 
@@ -1054,8 +1075,8 @@ def get_plot_div(title, x_title, y_title, data):
     return plot_div
 
 
-def get_plot_and_table(plot_request, page=""):
-    queryset = get_plot_data(plot_request)
+def get_plot_and_table(plot_request, page="", family_name=None):
+    queryset = get_plot_data(plot_request, family_name)
     plot = get_plot(queryset, plot_request)
     table = get_table(queryset, plot_request, page=page)
     return plot, table

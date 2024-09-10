@@ -237,14 +237,15 @@ body {
   transform: rotate(180deg);
 }
 
-html body a {
+a {
   color: #004080 !important;
   text-decoration: none !important;
 }
 
-html body a:hover {
+a:hover {
   color: #004080 !important;
   font-weight: bold !important;
+  cursor: pointer !important;
 }
 
 a:active {

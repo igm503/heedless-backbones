@@ -20,6 +20,18 @@ CLASSIFICATION_METRICS = {
     "gflops": "GFLOPs",
 }
 
+IMAGENET_C_METRICS = {
+    "": "----------",
+    "top_1": "mCE&darr;",
+    "gflops": "GFLOPs",
+}
+
+IMAGENET_C_BAR_METRICS = {
+    "": "----------",
+    "top_1": "CE&darr;",
+    "gflops": "GFLOPs",
+}
+
 INSTANCE_METRICS = {
     "": "----------",
     "mAP": "mAP",

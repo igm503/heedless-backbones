@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+{% load custom_filters %}
+{% load table_tag %}
+
+{% block content %}
+
+
+<main class="container">
+
+  <header class="title-bar">
+    <h1>Backbone Families</h1>
+  </header>
+
+  {% if families %}
+  {% render_table "FamilyTable" families %}
+  {% endif %}
+
+</main>
+
+{% endblock %}
