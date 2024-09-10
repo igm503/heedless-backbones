@@ -44,7 +44,7 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
   - [TransNeXt](https://arxiv.org/abs/2311.17132)
 
 ## Updates
-- 9-9-2024: added list pages (models, heads, datasets);
+- 9-9-2024: added list pages (models, heads, datasets); added postgresql sql dump to repo
 - 9-8-2024: added legend customization for plots; pub date axis option; pretrain method filter; table order defaults
 - 9-7-2024: added dataset page; added title bar; improved links and table gen
 - 9-6-2024: added downstream head page
