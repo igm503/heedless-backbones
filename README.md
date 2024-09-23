@@ -25,6 +25,9 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
 - Host the Website
 - Add Semantic Segmentation as a downstream task
 - Add More Backbones
+- Comparison of Heads
+- Comparison of Pretraining Datasets
+- Better Handling of Queries with no Results
 
 ## Completed
 - Dynamic Plotting
@@ -42,8 +45,13 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
 - Models Added:
   - [ConvNeXt](https://arxiv.org/abs/2201.03545)
   - [TransNeXt](https://arxiv.org/abs/2311.17132)
+  - [Swin](https://arxiv.org/abs/2103.14030)
+  - [DeiT III](https://arxiv.org/abs/2204.07118)
+  - [ConvNextV2](https://arxiv.org/abs/2301.00808)
+  - [ResNet (RSB)](https://arxiv.org/abs/2110.00476)
 
 ## Updates
+- 9-22-2024: added several models; more train info in tables; refactor plot and table gen; bug fixes
 - 9-9-2024: added list pages (models, heads, datasets); added postgresql sql dump to repo
 - 9-8-2024: added legend customization for plots; pub date axis option; pretrain method filter; table order defaults
 - 9-7-2024: added dataset page; added title bar; improved links and table gen

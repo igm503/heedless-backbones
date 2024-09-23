@@ -1,9 +1,6 @@
 models to add:
 
-- swin
 - swinv2
-- convnextv2
-- resnet
 - internimage
 - focalnet
 - ca-former
@@ -21,12 +18,19 @@ left in papers
 - transnext
 -- ade20k results; coco dino results
 - convnext
--- ade20k results; cascade mask rcnn throughput
+-- ade20k results
+- swin
+-- ade20k results; coco HTC++ results
+- deit iii
+-- ade20k results; cifar, and a couple other classification results
+- convnextv2
+-- ade20k results
+
+left in github
 
 leftover cross references
 - swin
--- convnext paper has swin semantic seg with upernet on ade20k, plus cascade mask rcnn and mask rcnn on coco, plus imagenet a, r, and sk results, plus a100 inference throughput
+-- convnext paper has swin semantic seg with upernet on ade20k
 
-
-Website:
- - indication of how many models are available given different selections
+- efficientNetv2
+-- deit iii paper has throughput on v100 amp, imagenetv2

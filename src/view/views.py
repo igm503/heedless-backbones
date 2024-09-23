@@ -2,9 +2,8 @@ from django import forms
 from django.shortcuts import get_object_or_404, render
 
 from .lists import get_family_list, get_head_lists, get_dataset_lists
-from .plot import (
-    PlotRequest,
-    get_plot_and_table,
+from .plot import PlotRequest, get_plot_and_table
+from .tables import (
     get_family_classification_table,
     get_family_instance_table,
     get_head_instance_table,
@@ -196,8 +195,9 @@ class PlotForm(forms.Form):
             queryset=Dataset.objects.filter(pretrainedbackbone__isnull=False).distinct(),
             required=False,
         )
-        pretrain_methods = {name.value: name.value for name in PretrainMethod}
-        pretrain_methods[""] = "----------"
+        pretrain_methods = {"": "----------"}
+        for name in PretrainMethod:
+            pretrain_methods[name.value] = name.value
         self.fields["_pretrain_method"] = forms.ChoiceField(
             choices=pretrain_methods, required=False
         )
@@ -219,9 +219,11 @@ class PlotForm(forms.Form):
                 self.fields["legend_attribute_(second)"] = forms.ChoiceField(
                     choices=second_group_attrs, required=False
                 )
-            if args.get("legend_attribute_(second)"):
-                del group_attrs[args["legend_attribute_(second)"]]
-        self.fields["legend_attribute"] = forms.ChoiceField(choices=group_attrs, required=False)
+            if second := args.get("legend_attribute_(second)"):
+                if second in group_attrs:
+                    del group_attrs[args["legend_attribute_(second)"]]
+        del group_attrs[""]
+        self.fields["legend_attribute"] = forms.ChoiceField(choices=group_attrs, required=True)
 
     def reorder_fields(self):
         field_names = list(self.fields.keys())

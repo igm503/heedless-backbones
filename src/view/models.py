@@ -119,7 +119,14 @@ class InstanceResult(models.Model):
         related_name="instance_train",
     )
     train_epochs = models.IntegerField("training epochs", blank=True, null=True)
-    # resolution = models.IntegerField()
+    intermediate_train_dataset = models.ForeignKey(
+        Dataset,
+        on_delete=models.CASCADE,
+        related_name="intermediate_instance_train",
+        blank=True,
+        null=True,
+    )
+    intermediate_train_epochs = models.IntegerField("intermediate training epochs", blank=True, null=True)
     mAP = models.FloatField()
     AP50 = models.FloatField(null=True, blank=True)
     AP75 = models.FloatField(null=True, blank=True)
@@ -162,6 +169,19 @@ class ClassificationResult(models.Model):
     )
     fine_tune_epochs = models.IntegerField("fine-tuning epochs", blank=True, null=True)
     fine_tune_resolution = models.IntegerField("fine-tuning resolution", blank=True, null=True)
+    intermediate_fine_tune_dataset = models.ForeignKey(
+        Dataset,
+        on_delete=models.CASCADE,
+        related_name="intermediate_classification_fine_tune",
+        blank=True,
+        null=True,
+    )
+    intermediate_fine_tune_epochs = models.IntegerField(
+        "intermediate fine-tuning epochs", blank=True, null=True
+    )
+    intermediate_fine_tune_resolution = models.IntegerField(
+        "intermediate fine-tuning resolution", blank=True, null=True
+    )
     # MCE for Imagenet-C, CE for Imagenet-C-bar
     top_1 = models.FloatField("top-1", null=True, blank=True)
     top_5 = models.FloatField("top-5", null=True, blank=True)
@@ -213,6 +233,8 @@ class Backbone(models.Model):
     family = models.ForeignKey(BackboneFamily, on_delete=models.CASCADE)
     m_parameters = models.FloatField("parameters (M)")
     fps_measurements = models.ManyToManyField(FPSMeasurement, blank=True)
+    paper = models.URLField(blank=True)
+    github = models.URLField(blank=True)
 
     def __str__(self):
         return str(self.name)

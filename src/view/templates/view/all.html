@@ -21,7 +21,10 @@
 
   {% if table %}
   {% render_table "sortableTable" table %}
+  {% else %}
+  <h2>No Results</h2>
   {% endif %}
+
 </main>
 </body>
 {% endblock %}

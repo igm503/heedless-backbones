@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 14.11 (Homebrew)
--- Dumped by pg_dump version 14.11 (Homebrew)
+-- Dumped by pg_dump version 14.13 (Homebrew)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -299,7 +299,9 @@ CREATE TABLE public.view_backbone (
     id bigint NOT NULL,
     name character varying(100) NOT NULL,
     m_parameters double precision NOT NULL,
-    family_id bigint NOT NULL
+    family_id bigint NOT NULL,
+    github character varying(200) NOT NULL,
+    paper character varying(200) NOT NULL
 );
 
 
@@ -394,7 +396,10 @@ CREATE TABLE public.view_classificationresult (
     dataset_id bigint NOT NULL,
     fine_tune_dataset_id bigint,
     pretrained_backbone_name character varying(100) NOT NULL,
-    resolution integer NOT NULL
+    resolution integer NOT NULL,
+    intermediate_fine_tune_dataset_id bigint,
+    intermediate_fine_tune_epochs integer,
+    intermediate_fine_tune_resolution integer
 );
 
 
@@ -576,7 +581,9 @@ CREATE TABLE public.view_instanceresult (
     head_id bigint NOT NULL,
     train_dataset_id bigint NOT NULL,
     pretrained_backbone_name character varying(100) NOT NULL,
-    instance_type_id bigint NOT NULL
+    instance_type_id bigint NOT NULL,
+    intermediate_train_dataset_id bigint,
+    intermediate_train_epochs integer
 );
 
 
@@ -1097,6 +1104,502 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 247	2024-09-09 22:21:07.18911-05	1	TransNeXt	2	[{"changed": {"fields": ["Model type"]}}]	14	1
 248	2024-09-09 22:33:50.158922-05	1	TransNeXt	2	[]	14	1
 249	2024-09-09 22:33:52.518602-05	2	ConvNeXt	2	[]	14	1
+250	2024-09-10 00:31:57.332235-05	3	Swin	1	[{"added": {}}]	14	1
+251	2024-09-10 00:43:04.272941-05	10	Swin-T	1	[{"added": {}}]	10	1
+252	2024-09-10 00:43:16.696634-05	11	Swin-S	1	[{"added": {}}]	10	1
+253	2024-09-10 00:43:28.711455-05	12	Swin-B	1	[{"added": {}}]	10	1
+254	2024-09-10 00:43:43.312161-05	13	Swin-L	1	[{"added": {}}]	10	1
+255	2024-09-10 00:45:27.84297-05	24	Swin-T/V100/224/FP32/	1	[{"added": {}}]	15	1
+256	2024-09-10 00:45:31.92015-05	10	Swin-T	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+257	2024-09-10 00:46:03.304873-05	25	Swin-S/V100/224/FP32/	1	[{"added": {}}]	15	1
+258	2024-09-10 00:46:05.59158-05	11	Swin-S	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+259	2024-09-10 00:46:38.657955-05	26	Swin-B/V100/224/FP32/	1	[{"added": {}}]	15	1
+260	2024-09-10 00:47:01.022125-05	27	Swin-B/V100/384/FP32/	1	[{"added": {}}]	15	1
+261	2024-09-10 00:47:04.318303-05	12	Swin-B	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+262	2024-09-10 00:47:29.580356-05	28	Swin-L/V100/384/FP32/	1	[{"added": {}}]	15	1
+263	2024-09-10 00:47:32.060244-05	13	Swin-L	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+264	2024-09-10 00:49:36.268379-05	29	Swin-T/V100/384/FP32/	1	[{"added": {}}]	15	1
+265	2024-09-10 00:49:43.454205-05	10	Swin-T	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+266	2024-09-10 00:50:39.086763-05	30	Swin-S/V100/384/FP32/	1	[{"added": {}}]	15	1
+267	2024-09-10 00:50:41.04294-05	11	Swin-S	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+268	2024-09-10 00:52:16.432173-05	31	Swin-T/A100/224/TF32/	1	[{"added": {}}]	15	1
+269	2024-09-10 00:52:21.719191-05	10	Swin-T	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+270	2024-09-10 00:52:45.360636-05	32	Swin-S/A100/224/TF32/	1	[{"added": {}}]	15	1
+271	2024-09-10 00:52:48.810231-05	11	Swin-S	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+272	2024-09-10 00:53:15.278291-05	33	Swin-B/A100/224/TF32/	1	[{"added": {}}]	15	1
+273	2024-09-10 00:53:36.920546-05	34	Swin-B/A100/384/TF32/	1	[{"added": {}}]	15	1
+274	2024-09-10 00:53:40.414579-05	12	Swin-B	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+275	2024-09-10 00:54:06.973424-05	35	Swin-L/A100/224/TF32/	1	[{"added": {}}]	15	1
+276	2024-09-10 00:54:25.068426-05	36	Swin-L/A100/384/TF32/	1	[{"added": {}}]	15	1
+277	2024-09-10 00:54:35.876806-05	13	Swin-L	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+278	2024-09-10 00:59:38.47409-05	14	Swin-T-IN1k	1	[{"added": {}}]	9	1
+279	2024-09-10 01:00:20.470128-05	15	Swin-T-IN22k	1	[{"added": {}}]	9	1
+280	2024-09-10 01:00:53.283714-05	16	Swin-B-IN1k	1	[{"added": {}}]	9	1
+281	2024-09-10 01:01:23.419628-05	17	Swin-B-IN22k	1	[{"added": {}}]	9	1
+282	2024-09-10 01:02:52.665196-05	18	Swin-S-IN1k	1	[{"added": {}}]	9	1
+283	2024-09-10 01:03:35.775209-05	19	Swin-S-IN22k	1	[{"added": {}}]	9	1
+284	2024-09-10 01:04:51.539596-05	20	Swin-L-IN22k	1	[{"added": {}}]	9	1
+285	2024-09-10 01:07:27.679396-05	78	Swin-T-IN1k/ImageNet-1k/	1	[{"added": {}}]	8	1
+286	2024-09-10 01:08:29.45176-05	79	Swin-S-IN1k/ImageNet-1k/	1	[{"added": {}}]	8	1
+287	2024-09-10 01:08:56.991921-05	80	Swin-B-IN1k/ImageNet-1k/	1	[{"added": {}}]	8	1
+288	2024-09-10 01:10:03.772509-05	81	Swin-B-IN1k/ImageNet-1k/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+289	2024-09-10 01:10:51.614627-05	82	Swin-B-IN22k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+290	2024-09-10 01:11:17.854747-05	83	Swin-B-IN22k/ImageNet-1k/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+291	2024-09-10 01:12:29.32619-05	84	Swin-L-IN22k/ImageNet-1k/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+292	2024-09-10 01:14:06.542883-05	85	Swin-L-IN22k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+293	2024-09-10 01:15:47.018177-05	78	Swin-T-IN1k/ImageNet-1k/	2	[{"changed": {"fields": ["Top-5", "Paper"]}}]	8	1
+294	2024-09-10 01:17:24.68504-05	79	Swin-S-IN1k/ImageNet-1k/	2	[{"changed": {"fields": ["Top-1", "Top-5", "Paper"]}}]	8	1
+295	2024-09-10 01:17:45.758282-05	78	Swin-T-IN1k/ImageNet-1k/	2	[]	8	1
+296	2024-09-10 01:18:38.260084-05	86	Swin-T-IN22k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+297	2024-09-10 01:19:07.472896-05	87	Swin-S-IN22k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+298	2024-09-10 01:19:21.1982-05	80	Swin-B-IN1k/ImageNet-1k/	2	[{"changed": {"fields": ["Top-5", "Paper"]}}]	8	1
+299	2024-09-10 01:19:45.781041-05	81	Swin-B-IN1k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Top-5", "Paper"]}}]	8	1
+300	2024-09-10 01:20:20.028093-05	83	Swin-B-IN22k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Top-5", "Paper"]}}]	8	1
+301	2024-09-10 01:20:47.959899-05	82	Swin-B-IN22k/ImageNet-1k/ImageNet-1k/224/	2	[{"changed": {"fields": ["Top-5", "Paper"]}}]	8	1
+302	2024-09-10 01:21:10.403539-05	84	Swin-L-IN22k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Top-5", "Paper"]}}]	8	1
+303	2024-09-10 01:21:30.192433-05	85	Swin-L-IN22k/ImageNet-1k/ImageNet-1k/224/	2	[{"changed": {"fields": ["Top-5"]}}]	8	1
+304	2024-09-10 01:24:46.254919-05	37	Swin-L/V100/224/FP32/	1	[{"added": {}}]	15	1
+305	2024-09-10 01:24:50.533837-05	13	Swin-L	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+306	2024-09-10 01:25:37.488558-05	14	Swin-T-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+307	2024-09-10 01:26:15.084553-05	15	Swin-T-IN22k	2	[{"changed": {"fields": ["Classification results", "Paper"]}}]	9	1
+308	2024-09-10 01:26:44.29526-05	18	Swin-S-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+309	2024-09-10 01:26:55.602955-05	19	Swin-S-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+310	2024-09-10 01:27:11.704939-05	16	Swin-B-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+311	2024-09-10 01:27:29.601168-05	17	Swin-B-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+312	2024-09-10 01:27:47.287255-05	20	Swin-L-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+313	2024-09-10 01:31:47.038994-05	18	Swin-S-IN1k	2	[]	9	1
+314	2024-09-10 01:32:04.05112-05	79	Swin-S-IN1k/ImageNet-1k/	2	[]	8	1
+315	2024-09-10 01:34:55.083285-05	20	Swin-L-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+316	2024-09-10 01:35:16.545577-05	17	Swin-B-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+317	2024-09-10 01:35:23.819832-05	16	Swin-B-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+318	2024-09-10 01:51:54.946676-05	22	Swin-S-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+319	2024-09-10 01:53:09.838067-05	23	Swin-S-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+320	2024-09-10 01:53:16.927898-05	22	Swin-S-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Gflops"]}}]	7	1
+321	2024-09-10 01:58:55.529101-05	38	Swin-T/A100/1280/TF32/	1	[{"added": {}}]	15	1
+322	2024-09-10 01:59:22.670689-05	24	Swin-T-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+323	2024-09-10 02:00:21.042815-05	25	Swin-T-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+324	2024-09-10 02:00:32.142577-05	38	Swin-T/A100/1280/TF32/	2	[]	15	1
+325	2024-09-11 19:55:31.302205-05	38	Swin-T/Mask-RCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+326	2024-09-11 19:56:37.673764-05	39	Swin-T/CascadeMaskRCNN/A100/1280/TF32/	1	[{"added": {}}]	15	1
+327	2024-09-11 19:57:05.294245-05	40	Swin-S/CascaseMaskRCNN/A100/1280/TF32/	1	[{"added": {}}]	15	1
+328	2024-09-11 19:58:02.725774-05	41	Swin-B/CascadeMaskRCNN/A100/1280/TF32/	1	[{"added": {}}]	15	1
+329	2024-09-11 19:58:12.537192-05	40	Swin-S/CascaseMaskRCNN/A100/1280/TF32/	2	[]	15	1
+330	2024-09-11 19:58:30.118677-05	42	Swin-L/CascadeMaskRCNN/A100/1280/TF32/	1	[{"added": {}}]	15	1
+331	2024-09-11 19:58:41.371205-05	40	Swin-S/CascadeMaskRCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+332	2024-09-12 00:02:38.7727-05	26	Swin-T/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+333	2024-09-12 00:03:52.710793-05	27	Swin-T/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+334	2024-09-12 00:04:34.755815-05	28	Swin-S/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+335	2024-09-12 00:05:09.455141-05	29	Swin-S/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+336	2024-09-12 00:05:52.702371-05	30	Swin-B/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+337	2024-09-12 00:06:36.30146-05	31	Swin-B/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+338	2024-09-12 00:07:24.757559-05	26	Swin-T-IN1k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+339	2024-09-12 00:07:30.785776-05	27	Swin-T-IN1k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+340	2024-09-12 00:07:36.002517-05	28	Swin-S-IN1k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+398	2024-09-18 11:18:39.468567-05	49	ViT-S (DeiT III)/V100/224/AMP/	1	[{"added": {}}]	15	1
+341	2024-09-12 00:07:42.098155-05	29	Swin-S-IN1k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+342	2024-09-12 00:07:48.500742-05	30	Swin-B-IN1k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+343	2024-09-12 00:07:52.749214-05	31	Swin-B-IN1k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+344	2024-09-12 00:08:32.779117-05	32	Swin-B-IN22k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+345	2024-09-12 00:09:12.883224-05	33	Swin-B-IN22k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+346	2024-09-12 00:10:12.08917-05	34	ConvNeXt-Large-IN22k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+347	2024-09-12 00:11:36.639217-05	35	Swin-L-IN22k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+348	2024-09-12 00:23:31.453993-05	14	Swin-T-IN1k	2	[{"changed": {"fields": ["Instance results"]}}]	9	1
+349	2024-09-12 00:23:45.232685-05	18	Swin-S-IN1k	2	[{"changed": {"fields": ["Instance results"]}}]	9	1
+350	2024-09-12 00:23:57.862248-05	16	Swin-B-IN1k	2	[{"changed": {"fields": ["Instance results"]}}]	9	1
+351	2024-09-12 00:24:05.313776-05	17	Swin-B-IN22k	2	[{"changed": {"fields": ["Instance results"]}}]	9	1
+352	2024-09-12 00:24:28.656449-05	20	Swin-L-IN22k	2	[{"changed": {"fields": ["Instance results"]}}]	9	1
+353	2024-09-12 00:24:40.303691-05	18	Swin-S-IN1k	2	[{"changed": {"fields": ["Instance results"]}}]	9	1
+354	2024-09-12 00:24:59.484238-05	34	Swin-L-IN22k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+355	2024-09-12 00:25:29.481594-05	20	Swin-L-IN22k	2	[{"changed": {"fields": ["Instance results"]}}]	9	1
+356	2024-09-12 00:26:23.304861-05	43	ConvNext-T/Mask-RCNN/A100/1280/TF32/	1	[{"added": {}}]	15	1
+357	2024-09-12 00:26:49.273939-05	44	ConvNeXt-Tiny/Cascade-Mask-RCNN/A100/1280/TF32/	1	[{"added": {}}]	15	1
+358	2024-09-12 00:27:08.122252-05	45	ConvNeXt-Small/Cascade-Mask-RCNN/A100/1280/TF32/	1	[{"added": {}}]	15	1
+359	2024-09-12 00:27:32.517311-05	46	ConvNeXt-Base/Cascade-Mask-RCNN/A100/1280/TF32/	1	[{"added": {}}]	15	1
+360	2024-09-12 00:27:55.037494-05	47	ConvNeXt-Large/Cascade-Mask-RCNN/A100/1280/TF32/	1	[{"added": {}}]	15	1
+361	2024-09-12 00:28:12.144797-05	48	ConvNeXt-ExtraLarge/Cascade-Mask-RCNN/A100/1280/TF32/	1	[{"added": {}}]	15	1
+362	2024-09-12 00:41:45.868088-05	9	ConvNeXt-Large-IN22k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+363	2024-09-12 00:41:58.061738-05	10	ConvNeXt-Large-IN22k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+364	2024-09-12 00:42:10.068828-05	20	ConvNeXt-ExtraLarge-IN22k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+365	2024-09-12 00:42:15.779842-05	20	ConvNeXt-ExtraLarge-IN22k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[]	7	1
+366	2024-09-12 00:42:23.261858-05	21	ConvNeXt-ExtraLarge-IN22k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+367	2024-09-12 00:42:56.645947-05	11	ConvNeXt-Base-IN1k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+368	2024-09-12 00:43:03.184321-05	12	ConvNeXt-Base-IN1k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+369	2024-09-12 00:43:11.47503-05	14	ConvNeXt-Base-IN22k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+370	2024-09-12 00:43:23.517224-05	14	ConvNeXt-Base-IN22k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[]	7	1
+371	2024-09-12 00:43:30.74664-05	13	ConvNeXt-Base-IN22k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+372	2024-09-12 00:44:59.120991-05	36	ConvNeXt-Small-IN1k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+373	2024-09-12 00:45:09.775172-05	15	ConvNeXt-Small-IN1k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+374	2024-09-12 00:45:19.905642-05	16	ConvNeXt-Tiny-IN1k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+375	2024-09-12 00:45:34.663-05	17	ConvNeXt-Tiny-IN1k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+376	2024-09-12 00:45:50.028103-05	18	ConvNeXt-Tiny-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+377	2024-09-12 00:45:59.501655-05	19	ConvNeXt-Tiny-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+378	2024-09-12 00:46:15.388516-05	36	ConvNeXt-S-IN1k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+379	2024-09-12 00:51:51.657855-05	79	Swin-S-IN1k/ImageNet-1k/	2	[]	8	1
+380	2024-09-12 00:53:51.863069-05	18	Swin-S-IN1k	2	[]	9	1
+381	2024-09-12 01:04:19.836722-05	88	Swin-T/ImageNet-C/	1	[{"added": {}}]	8	1
+382	2024-09-12 01:04:46.955748-05	89	Swin-T-IN1k/ImageNet-A/	1	[{"added": {}}]	8	1
+383	2024-09-12 01:05:04.753914-05	90	Swin-T-IN1k/ImageNet-R/	1	[{"added": {}}]	8	1
+384	2024-09-12 01:05:22.923766-05	91	Swin-T-IN1k/ImageNet-Sketch/	1	[{"added": {}}]	8	1
+385	2024-09-12 01:05:29.963139-05	88	Swin-T-IN1k/ImageNet-C/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+386	2024-09-12 01:06:08.13098-05	92	Swin-B-IN1k/ImageNet-C/	1	[{"added": {}}]	8	1
+387	2024-09-12 01:06:27.139459-05	93	Swin-B-IN1k/ImageNet-A/	1	[{"added": {}}]	8	1
+388	2024-09-12 01:06:44.186048-05	94	Swin-B-IN1k/ImageNet-R/	1	[{"added": {}}]	8	1
+389	2024-09-12 01:07:02.552743-05	95	Swin-B-IN1k/ImageNet-Sketch/	1	[{"added": {}}]	8	1
+390	2024-09-12 01:08:18.373782-05	14	Swin-T-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+391	2024-09-12 01:08:38.411176-05	16	Swin-B-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+392	2024-09-12 01:14:48.713551-05	94	Swin-B-IN1k/ImageNet-R/	2	[{"changed": {"fields": ["Gflops"]}}]	8	1
+393	2024-09-18 11:15:11.06069-05	4	DeiT III	1	[{"added": {}}]	14	1
+394	2024-09-18 11:16:16.541296-05	14	ViT-S (DeiT III)	1	[{"added": {}}]	10	1
+395	2024-09-18 11:16:34.508231-05	15	ViT-B (DeiT III)	1	[{"added": {}}]	10	1
+396	2024-09-18 11:17:06.44792-05	16	ViT-L (DeiT III)	1	[{"added": {}}]	10	1
+397	2024-09-18 11:17:47.140225-05	17	ViT-H (DeiT III)	1	[{"added": {}}]	10	1
+399	2024-09-18 11:19:00.117053-05	50	ViT-S (DeiT III)/V100/384/AMP/	1	[{"added": {}}]	15	1
+400	2024-09-18 11:19:13.783967-05	51	ViT-B (DeiT III)/V100/224/AMP/	1	[{"added": {}}]	15	1
+401	2024-09-18 11:19:23.823585-05	52	ViT-B (DeiT III)/V100/384/AMP/	1	[{"added": {}}]	15	1
+402	2024-09-18 11:19:34.889696-05	53	ViT-L (DeiT III)/V100/224/AMP/	1	[{"added": {}}]	15	1
+403	2024-09-18 11:19:54.620654-05	54	ViT-L (DeiT III)/V100/384/AMP/	1	[{"added": {}}]	15	1
+404	2024-09-18 11:20:17.18183-05	55	ViT-H (DeiT III)/V100/224/AMP/	1	[{"added": {}}]	15	1
+405	2024-09-18 11:20:48.817921-05	56	Swin-T/V100/224/AMP/	1	[{"added": {}}]	15	1
+406	2024-09-18 11:21:08.764596-05	57	Swin-S/V100/224/AMP/	1	[{"added": {}}]	15	1
+407	2024-09-18 11:21:20.347886-05	58	Swin-B/V100/224/AMP/	1	[{"added": {}}]	15	1
+408	2024-09-18 11:21:32.206406-05	59	Swin-B/V100/384/AMP/	1	[{"added": {}}]	15	1
+409	2024-09-18 11:31:06.491408-05	60	ConvNeXt-B/V100/224/AMP/	1	[{"added": {}}]	15	1
+410	2024-09-18 11:31:17.187554-05	60	ConvNeXt-B/V100/224/AMP/	2	[]	15	1
+411	2024-09-18 11:31:33.654354-05	61	ConvNeXt-B/V100/384/AMP/	1	[{"added": {}}]	15	1
+412	2024-09-18 11:31:45.661821-05	62	ConvNeXt-L/V100/224/AMP/	1	[{"added": {}}]	15	1
+413	2024-09-18 11:32:08.112506-05	63	ConvNeXt-L/V100/384/AMP/	1	[{"added": {}}]	15	1
+414	2024-09-18 11:32:20.397879-05	48	ConvNeXt-XL/Cascade-Mask-RCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+415	2024-09-18 11:32:26.221818-05	47	ConvNeXt-L/Cascade-Mask-RCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+416	2024-09-18 11:33:39.618472-05	46	ConvNeXt-B/Cascade-Mask-RCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+417	2024-09-18 11:33:47.382163-05	45	ConvNeXt-S/Cascade-Mask-RCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+418	2024-09-18 11:33:54.806762-05	44	ConvNeXt-T/Cascade-Mask-RCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+419	2024-09-18 11:34:04.293969-05	23	ConvNeXt-L/A100/384/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+420	2024-09-18 11:34:09.915803-05	1	TransNeXt-B/V100/224/FP16/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+421	2024-09-18 11:34:15.3091-05	2	TransNeXt-S/V100/224/FP16/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+422	2024-09-18 11:34:21.314004-05	3	TransNeXt-T/V100/224/FP16/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+423	2024-09-18 11:34:27.09642-05	4	TransNeXt-T/V100/224/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+424	2024-09-18 11:34:37.119852-05	6	ConvNeXt-T/V100/224/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+425	2024-09-18 11:34:48.299346-05	7	ConvNeXt-T/V100/384/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+426	2024-09-18 11:34:53.704876-05	8	ConvNeXt-S/V100/224/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+427	2024-09-18 11:34:58.485945-05	9	ConvNeXt-S/V100/384/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+428	2024-09-18 11:35:03.244848-05	10	ConvNeXt-B/V100/224/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+429	2024-09-18 11:35:07.75592-05	11	ConvNeXt-B/V100/384/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+430	2024-09-18 11:35:12.4342-05	12	ConvNeXt-L/V100/224/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+431	2024-09-18 11:35:16.879475-05	13	ConvNeXt-L/V100/384/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+432	2024-09-18 11:35:22.473296-05	14	ConvNeXt-XL/V100/224/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+433	2024-09-18 11:35:29.134254-05	15	ConvNeXt-XL/V100/384/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+434	2024-09-18 11:35:34.222586-05	16	ConvNeXt-XL/A100/224/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+435	2024-09-18 11:35:39.354646-05	17	ConvNeXt-XL/A100/384/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+436	2024-09-18 11:35:44.410401-05	18	ConvNeXt-T/A100/224/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+437	2024-09-18 11:35:48.831112-05	19	ConvNeXt-S/A100/224/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+438	2024-09-18 11:35:53.295266-05	20	ConvNeXt-B/A100/224/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+439	2024-09-18 11:35:58.077539-05	21	ConvNeXt-B/A100/384/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+440	2024-09-18 11:36:03.299565-05	22	ConvNeXt-L/A100/224/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+441	2024-09-18 11:36:41.053738-05	9	ConvNeXt-XL	2	[{"changed": {"fields": ["Name"]}}]	10	1
+442	2024-09-18 11:36:45.712415-05	8	ConvNeXt-L	2	[{"changed": {"fields": ["Name"]}}]	10	1
+443	2024-09-18 11:36:49.439693-05	7	ConvNeXt-B	2	[{"changed": {"fields": ["Name"]}}]	10	1
+444	2024-09-18 11:36:53.782741-05	6	ConvNeXt-S	2	[{"changed": {"fields": ["Name"]}}]	10	1
+445	2024-09-18 11:36:57.609962-05	5	ConvNeXt-T	2	[{"changed": {"fields": ["Name"]}}]	10	1
+446	2024-09-18 11:37:01.907116-05	4	TransNeXt-B	2	[{"changed": {"fields": ["Name"]}}]	10	1
+447	2024-09-18 11:37:06.211247-05	3	TransNeXt-S	2	[{"changed": {"fields": ["Name"]}}]	10	1
+448	2024-09-18 11:37:10.2138-05	2	TransNeXt-T	2	[{"changed": {"fields": ["Name"]}}]	10	1
+449	2024-09-18 11:37:14.947089-05	1	TransNeXt-Micro	2	[]	10	1
+450	2024-09-18 11:37:30.731602-05	2	TransNeXt-T-IN1K/ImageNet-1k/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+451	2024-09-18 11:37:39.235263-05	77	TransNeXt-S-IN1K/ImageNet-V2/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+452	2024-09-18 11:37:46.528507-05	76	TransNeXt-S-IN1K/ImageNet-Sketch/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+453	2024-09-18 11:37:52.828559-05	75	TransNeXt-S-IN1K/ImageNet-R/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+454	2024-09-18 11:38:01.93767-05	3	TransNeXt-S-IN1K/ImageNet-1k/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+455	2024-09-18 11:44:07.31258-05	74	TransNeXt-S-IN1K/ImageNet-A/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+456	2024-09-18 11:44:14.208175-05	73	TransNeXt-S-IN1K/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+457	2024-09-18 11:44:20.118981-05	72	TransNeXt-B-IN1k/ImageNet-V2/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+458	2024-09-18 11:44:25.167241-05	71	TransNeXt-B-IN1k/ImageNet-Sketch/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+459	2024-09-18 11:44:59.038723-05	70	TransNeXt-B-IN1k/ImageNet-R/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+460	2024-09-18 11:45:05.130847-05	69	TransNeXt-B-IN1k/ImageNet-A/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+461	2024-09-18 11:45:10.693532-05	68	TransNeXt-B-IN1k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+570	2024-09-18 12:07:42.889489-05	25	ViT-L (DeiT III)-IN1k	1	[{"added": {}}]	9	1
+462	2024-09-18 11:45:16.201283-05	67	TransNeXt-B-IN1k/ImageNet-V2/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+463	2024-09-18 11:45:22.782634-05	66	TransNeXt-B-IN1k/ImageNet-Sketch/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+464	2024-09-18 11:45:28.281524-05	65	TransNeXt-B-IN1k/ImageNet-R/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+465	2024-09-18 11:45:35.338885-05	64	TransNeXt-B-IN1k/ImageNet-A/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+466	2024-09-18 11:45:40.54591-05	63	TransNeXt-B-IN1k/ImageNet-C/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+467	2024-09-18 11:45:46.628098-05	62	TransNeXt-S-IN1K/ImageNet-V2/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+468	2024-09-18 11:45:53.010264-05	60	TransNeXt-S-IN1K/ImageNet-R/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+469	2024-09-18 11:45:58.127263-05	61	TransNeXt-S-IN1K/ImageNet-Sketch/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+470	2024-09-18 11:46:05.058769-05	53	TransNeXt-T-IN1K/ImageNet-C/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+471	2024-09-18 11:46:11.949285-05	59	TransNeXt-S-IN1K/ImageNet-A/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+472	2024-09-18 11:46:19.203528-05	54	TransNeXt-T-IN1K/ImageNet-A/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+473	2024-09-18 11:46:25.498514-05	58	TransNeXt-S-IN1K/ImageNet-C/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+474	2024-09-18 11:46:32.09167-05	57	TransNeXt-T-IN1K/ImageNet-V2/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+475	2024-09-18 11:46:38.705666-05	56	TransNeXt-T-IN1K/ImageNet-Sketch/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+476	2024-09-18 11:46:45.591663-05	55	TransNeXt-T-IN1K/ImageNet-R/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+477	2024-09-18 11:46:53.64297-05	47	ConvNeXt-XL-IN22k/ImageNet-Sketch/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+478	2024-09-18 11:47:00.760625-05	4	TransNeXt-B-IN1k/ImageNet-1k/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+479	2024-09-18 11:47:07.409576-05	5	ConvNeXt-L-IN1k/ImageNet-1k/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+480	2024-09-18 11:47:12.968263-05	8	ConvNeXt-L-IN1k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+481	2024-09-18 11:47:17.722641-05	9	ConvNeXt-L-IN22k/ImageNet-1k/ImageNet-1k/224/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+482	2024-09-18 11:47:24.971257-05	10	ConvNeXt-L-IN22k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+483	2024-09-18 11:47:30.27411-05	11	ConvNeXt-B-IN1k/ImageNet-1k/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+484	2024-09-18 11:47:35.348516-05	12	ConvNeXt-B-IN1k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+485	2024-09-18 11:47:40.592331-05	13	ConvNeXt-B-IN22k/ImageNet-1k/ImageNet-1k/224/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+486	2024-09-18 11:47:45.978616-05	14	ConvNeXt-B-IN22k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+487	2024-09-18 11:47:51.384013-05	15	ConvNeXt-S-IN1k/ImageNet-1k/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+488	2024-09-18 11:47:56.696187-05	16	ConvNeXt-S-IN22k/ImageNet-1k/ImageNet-1k/224/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+489	2024-09-18 11:48:02.449129-05	17	ConvNeXt-S-IN22k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+490	2024-09-18 11:48:08.134139-05	18	ConvNeXt-T-IN1k/ImageNet-1k/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+491	2024-09-18 11:48:13.517953-05	19	ConvNeXt-T-IN22k/ImageNet-1k/ImageNet-1k/224/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+492	2024-09-18 11:48:18.258366-05	20	ConvNeXt-T-IN22k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+493	2024-09-18 11:48:23.227957-05	21	ConvNeXt-T-IN1k/ImageNet-C/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+494	2024-09-18 11:48:27.662683-05	22	ConvNeXt-T-IN1k/ImageNet-C-bar/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+495	2024-09-18 11:48:32.236341-05	23	ConvNeXt-T-IN1k/ImageNet-A/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+496	2024-09-18 11:48:36.835002-05	24	ConvNeXt-T-IN1k/ImageNet-R/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+497	2024-09-18 11:48:41.667153-05	25	ConvNeXt-T-IN1k/ImageNet-Sketch/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+498	2024-09-18 11:48:47.188628-05	46	ConvNeXt-XL-IN22k/ImageNet-R/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+499	2024-09-18 11:48:53.100321-05	45	ConvNeXt-XL-IN22k/ImageNet-A/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+500	2024-09-18 11:49:00.443037-05	44	ConvNeXt-XL-IN22k/ImageNet-C-bar/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+501	2024-09-18 11:49:05.97106-05	43	ConvNeXt-XL-IN22k/ImageNet-C/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+502	2024-09-18 11:49:11.787432-05	41	ConvNeXt-XL-IN22k/ImageNet-1k/ImageNet-1k/224/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+503	2024-09-18 11:49:19.509753-05	40	ConvNeXt-L-IN22k/ImageNet-Sketch/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+504	2024-09-18 11:49:25.544658-05	39	ConvNeXt-L-IN22k/ImageNet-R/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+505	2024-09-18 11:49:31.316535-05	42	ConvNeXt-XL-IN22k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+506	2024-09-18 11:49:37.784736-05	38	ConvNeXt-L-IN22k/ImageNet-A/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+507	2024-09-18 11:49:43.09722-05	26	ConvNeXt-B-IN1k/ImageNet-C/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+508	2024-09-18 11:49:47.972177-05	27	ConvNeXt-B-IN1k/ImageNet-C-bar/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+509	2024-09-18 11:49:53.522121-05	28	ConvNeXt-B-IN1k/ImageNet-A/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+510	2024-09-18 11:49:58.78239-05	29	ConvNeXt-B-IN1k/ImageNet-R/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+511	2024-09-18 11:50:04.456195-05	30	ConvNeXt-B-IN1k/ImageNet-Sketch/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+512	2024-09-18 11:50:10.479992-05	31	ConvNeXt-B-IN22k/ImageNet-C/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+513	2024-09-18 11:50:15.94178-05	32	ConvNeXt-B-IN22k/ImageNet-C-bar/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+571	2024-09-18 12:08:10.694324-05	26	ViT-L (DeiT III)-IN22k	1	[{"added": {}}]	9	1
+514	2024-09-18 11:50:20.928704-05	33	ConvNeXt-B-IN22k/ImageNet-A/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+515	2024-09-18 11:50:26.320918-05	34	ConvNeXt-B-IN22k/ImageNet-R/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+516	2024-09-18 11:50:31.559047-05	35	ConvNeXt-B-IN22k/ImageNet-Sketch/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+517	2024-09-18 11:50:37.677409-05	36	ConvNeXt-L-IN22k/ImageNet-C/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+518	2024-09-18 11:50:43.794696-05	37	ConvNeXt-L-IN22k/ImageNet-C-bar/ImageNet-1k/384/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+519	2024-09-18 11:51:02.090576-05	3	TransNeXt-T-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/12/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+520	2024-09-18 11:51:06.893001-05	4	TransNeXt-T-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/12/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+521	2024-09-18 11:51:12.434554-05	5	TransNeXt-S-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/12/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+522	2024-09-18 11:51:17.337477-05	6	TransNeXt-S-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/12/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+523	2024-09-18 11:51:23.092448-05	7	TransNeXt-B-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/12/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+524	2024-09-18 11:51:30.223534-05	8	TransNeXt-B-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/12/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+525	2024-09-18 11:51:36.954624-05	9	ConvNeXt-L-IN22k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+526	2024-09-18 11:51:42.754466-05	10	ConvNeXt-L-IN22k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+527	2024-09-18 11:51:48.75573-05	11	ConvNeXt-B-IN1k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+528	2024-09-18 11:51:54.192383-05	12	ConvNeXt-B-IN1k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+529	2024-09-18 11:51:58.97454-05	13	ConvNeXt-B-IN22k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+530	2024-09-18 11:52:03.766584-05	14	ConvNeXt-B-IN22k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+531	2024-09-18 11:52:09.45165-05	15	ConvNeXt-S-IN1k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+532	2024-09-18 11:52:14.643538-05	16	ConvNeXt-T-IN1k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+533	2024-09-18 11:52:20.774293-05	18	ConvNeXt-T-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+534	2024-09-18 11:52:26.597051-05	17	ConvNeXt-T-IN1k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+535	2024-09-18 11:52:32.180808-05	19	ConvNeXt-T-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+536	2024-09-18 11:52:40.090088-05	21	ConvNeXt-XL-IN22k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+537	2024-09-18 11:52:45.554797-05	20	ConvNeXt-XL-IN22k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	7	1
+538	2024-09-18 11:53:01.017803-05	13	ConvNeXt-XL-IN22k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+539	2024-09-18 11:53:05.602405-05	12	ConvNeXt-T-IN22k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+540	2024-09-18 11:53:10.370717-05	11	ConvNeXt-T-IN1k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+541	2024-09-18 11:53:16.498212-05	10	ConvNeXt-S-IN22k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+542	2024-09-18 11:53:20.848162-05	9	ConvNeXt-S-IN1k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+543	2024-09-18 11:53:26.051519-05	8	ConvNeXt-B-IN22k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+544	2024-09-18 11:53:30.62915-05	7	ConvNeXt-B-IN1k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+545	2024-09-18 11:53:36.286937-05	6	ConvNeXt-L-IN22k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+546	2024-09-18 11:53:41.057606-05	5	ConvNeXt-L-IN1k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+547	2024-09-18 11:53:45.140922-05	4	TransNeXt-B-IN1k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+548	2024-09-18 11:53:49.815073-05	3	TransNeXt-S-IN1k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+549	2024-09-18 11:53:55.545129-05	2	TransNeXt-T-IN1k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+550	2024-09-18 11:53:59.472342-05	1	TransNeXt-Micro-IN1k	2	[]	9	1
+551	2024-09-18 11:54:58.598842-05	10	Swin-T	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+552	2024-09-18 11:55:13.636306-05	11	Swin-S	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+553	2024-09-18 11:55:27.098473-05	12	Swin-B	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+554	2024-09-18 11:56:01.567131-05	7	ConvNeXt-B	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+555	2024-09-18 11:56:11.524423-05	8	ConvNeXt-L	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+556	2024-09-18 11:56:52.659861-05	14	ViT-S (DeiT III)	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+557	2024-09-18 11:57:00.838088-05	15	ViT-B (DeiT III)	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+558	2024-09-18 11:57:07.863622-05	16	ViT-L (DeiT III)	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+559	2024-09-18 11:57:12.81928-05	17	ViT-H (DeiT III)	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+560	2024-09-18 11:59:45.223254-05	64	Swin-L/V100/224/AMP/	1	[{"added": {}}]	15	1
+561	2024-09-18 11:59:56.691319-05	65	Swin-L/V100/384/AMP/	1	[{"added": {}}]	15	1
+562	2024-09-18 12:00:28.627989-05	66	ConvNeXt-XL/V100/224/AMP/	1	[{"added": {}}]	15	1
+563	2024-09-18 12:01:09.786267-05	67	ConvNeXt-XL/V100/384/AMP/	1	[{"added": {}}]	15	1
+564	2024-09-18 12:01:23.248838-05	9	ConvNeXt-XL	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+565	2024-09-18 12:01:43.184354-05	13	Swin-L	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+566	2024-09-18 12:06:15.276115-05	21	ViT-S (DeiT III)-IN1k	1	[{"added": {}}]	9	1
+567	2024-09-18 12:06:35.45818-05	22	ViT-S (DeiT III)-IN22k	1	[{"added": {}}]	9	1
+568	2024-09-18 12:06:55.636642-05	23	ViT-B (DeiT III)-IN1k	1	[{"added": {}}]	9	1
+569	2024-09-18 12:07:14.560049-05	24	ViT-B (DeiT III)-IN22k	1	[{"added": {}}]	9	1
+572	2024-09-18 12:08:29.370423-05	27	ViT-H (DeiT III)-IN1k	1	[{"added": {}}]	9	1
+573	2024-09-18 12:08:48.336959-05	28	ViT-H (DeiT III)-IN22k	1	[{"added": {}}]	9	1
+574	2024-09-18 12:13:22.376576-05	96	ViT-S (DeiT III)-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+575	2024-09-18 12:15:36.2753-05	97	ViT-S (DeiT III)-IN1k/ImageNet-V2/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+576	2024-09-18 12:16:00.615844-05	98	ViT-S (DeiT III)-IN1k/ImageNet-1k/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+577	2024-09-18 12:16:21.575554-05	99	ViT-S (DeiT III)-IN1k/ImageNet-V2/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+578	2024-09-18 12:16:55.803575-05	100	ViT-B (DeiT III)-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+579	2024-09-18 12:17:18.616713-05	101	ViT-B (DeiT III)-IN1k/ImageNet-V2/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+580	2024-09-18 12:17:48.365025-05	102	ViT-B (DeiT III)-IN1k/ImageNet-1k/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+581	2024-09-18 12:18:12.096387-05	103	ViT-B (DeiT III)-IN1k/ImageNet-V2/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+582	2024-09-18 12:18:39.87471-05	104	ViT-L (DeiT III)-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+583	2024-09-18 12:18:59.352995-05	105	ViT-L (DeiT III)-IN1k/ImageNet-V2/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+584	2024-09-18 12:19:25.683141-05	106	ViT-L (DeiT III)-IN1k/ImageNet-1k/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+585	2024-09-18 12:19:47.846213-05	107	ViT-L (DeiT III)-IN1k/ImageNet-V2/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+586	2024-09-18 12:20:09.354237-05	108	ViT-H (DeiT III)-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+587	2024-09-18 12:20:33.801837-05	109	ViT-H (DeiT III)-IN1k/ImageNet-V2/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+588	2024-09-18 12:21:25.098163-05	110	ViT-S (DeiT III)-IN22k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+589	2024-09-18 12:21:43.089491-05	111	ViT-S (DeiT III)-IN22k/ImageNet-V2/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+590	2024-09-18 12:22:12.572188-05	112	ViT-B (DeiT III)-IN22k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+591	2024-09-18 12:22:31.782567-05	113	ViT-B (DeiT III)-IN22k/ImageNet-V2/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+592	2024-09-18 12:22:54.516632-05	114	ViT-B (DeiT III)-IN22k/ImageNet-1k/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+593	2024-09-18 12:23:14.723089-05	115	ViT-B (DeiT III)-IN22k/ImageNet-V2/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+594	2024-09-18 12:23:36.812984-05	116	ViT-L (DeiT III)-IN22k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+595	2024-09-18 12:24:13.668785-05	117	ViT-L (DeiT III)-IN22k/ImageNet-V2/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+596	2024-09-18 12:24:45.232003-05	118	ViT-L (DeiT III)-IN22k/ImageNet-1k/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+597	2024-09-18 12:25:06.587601-05	119	ViT-L (DeiT III)-IN22k/ImageNet-V2/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+598	2024-09-18 12:25:31.208482-05	120	ViT-H (DeiT III)-IN22k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+599	2024-09-18 12:25:55.790916-05	121	ViT-H (DeiT III)-IN22k/ImageNet-V2/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+600	2024-09-18 12:26:49.023017-05	21	ViT-S (DeiT III)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+601	2024-09-18 12:27:25.860442-05	22	ViT-S (DeiT III)-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+602	2024-09-18 12:28:19.78502-05	22	ViT-S (DeiT III)-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+603	2024-09-18 12:29:08.842072-05	23	ViT-B (DeiT III)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+604	2024-09-18 12:29:26.039807-05	24	ViT-B (DeiT III)-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+605	2024-09-18 12:29:48.689614-05	25	ViT-L (DeiT III)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+606	2024-09-18 12:30:07.802448-05	26	ViT-L (DeiT III)-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+607	2024-09-18 12:30:23.529145-05	27	ViT-H (DeiT III)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+608	2024-09-18 12:30:33.980379-05	28	ViT-H (DeiT III)-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+609	2024-09-18 12:33:56.607942-05	25	ViT-L (DeiT III)-IN1k	2	[{"changed": {"fields": ["Pretrain dataset"]}}]	9	1
+610	2024-09-18 12:37:07.847382-05	21	ViT-S (DeiT III)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+611	2024-09-18 12:39:22.034567-05	26	ViT-L (DeiT III)-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+612	2024-09-18 12:45:20.695961-05	122	Swin-T-IN1k/ImageNet-V2/	1	[{"added": {}}]	8	1
+613	2024-09-18 12:45:37.327164-05	123	Swin-B-IN1k/ImageNet-V2/	1	[{"added": {}}]	8	1
+614	2024-09-18 12:46:33.103763-05	124	ConvNeXt-B-IN1k/ImageNet-V2/	1	[{"added": {}}]	8	1
+615	2024-09-18 12:47:07.954949-05	125	ConvNeXt-B-IN1k/ImageNet-V2/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+616	2024-09-18 12:47:35.840471-05	126	ConvNeXt-L-IN1k/ImageNet-V2/	1	[{"added": {}}]	8	1
+617	2024-09-18 12:48:25.623644-05	127	ConvNeXt-L-IN1k/ImageNet-V2/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+618	2024-09-18 12:49:23.002622-05	128	Swin-B-IN22k/ImageNet-V2/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+619	2024-09-18 12:49:50.030742-05	129	Swin-B-IN22k/ImageNet-V2/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+620	2024-09-18 12:50:18.096591-05	130	Swin-L-IN22k/ImageNet-V2/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+621	2024-09-18 12:50:41.85797-05	131	Swin-L-IN22k/ImageNet-V2/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+622	2024-09-18 12:51:22.30937-05	132	ConvNeXt-B-IN22k/ImageNet-V2/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+623	2024-09-18 12:51:43.087286-05	133	ConvNeXt-B-IN22k/ImageNet-V2/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+624	2024-09-18 12:52:07.364139-05	134	ConvNeXt-L-IN22k/ImageNet-V2/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+625	2024-09-18 12:52:52.907667-05	135	ConvNeXt-L-IN22k/ImageNet-V2/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+626	2024-09-18 12:53:15.648754-05	136	ConvNeXt-XL-IN22k/ImageNet-V2/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+627	2024-09-18 12:54:14.937973-05	137	ConvNeXt-XL-IN22k/ImageNet-V2/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+628	2024-09-18 12:54:57.495682-05	14	Swin-T-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+629	2024-09-18 12:57:47.224018-05	123	Swin-S-IN1k/ImageNet-V2/	2	[{"changed": {"fields": ["Pretrained backbone name"]}}]	8	1
+630	2024-09-18 12:58:21.458702-05	18	Swin-S-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+631	2024-09-18 12:59:08.694281-05	17	Swin-B-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+632	2024-09-18 12:59:34.131108-05	20	Swin-L-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+633	2024-09-18 13:02:25.198472-05	7	ConvNeXt-B-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+634	2024-09-18 13:03:09.637842-05	5	ConvNeXt-L-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+635	2024-09-18 13:03:57.753751-05	5	ConvNeXt-L-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+636	2024-09-18 13:05:09.953638-05	8	ConvNeXt-B-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+637	2024-09-18 13:06:50.201139-05	6	ConvNeXt-L-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+638	2024-09-18 13:07:15.697988-05	13	ConvNeXt-XL-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+639	2024-09-18 13:23:24.352788-05	5	ResNet (RSB)	1	[{"added": {}}]	14	1
+640	2024-09-18 13:24:21.12386-05	18	ResNet-18 (RSB)	1	[{"added": {}}]	10	1
+641	2024-09-18 13:24:33.963855-05	19	ResNet-34 (RSB)	1	[{"added": {}}]	10	1
+642	2024-09-18 13:24:44.378726-05	20	ResNet-50 (RSB)	1	[{"added": {}}]	10	1
+643	2024-09-18 13:24:56.070865-05	21	ResNet-101 (RSB)	1	[{"added": {}}]	10	1
+644	2024-09-18 13:25:09.465152-05	22	ResNet-152 (RSB)	1	[{"added": {}}]	10	1
+645	2024-09-18 13:26:07.51055-05	29	ResNet-18 (RSB)-IN1k	1	[{"added": {}}]	9	1
+646	2024-09-18 13:26:24.313808-05	30	ResNet-34 (RSB)-IN1k	1	[{"added": {}}]	9	1
+647	2024-09-18 13:26:40.711155-05	31	ResNet-50 (RSB)-IN1k	1	[{"added": {}}]	9	1
+648	2024-09-18 13:26:59.945033-05	32	ResNet-101 (RSB)-IN1k	1	[{"added": {}}]	9	1
+649	2024-09-18 13:27:15.863234-05	33	ResNet-152 (RSB)	1	[{"added": {}}]	9	1
+650	2024-09-18 13:27:25.036885-05	33	ResNet-152 (RSB)-IN1k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+651	2024-09-18 13:28:12.497202-05	68	ResNet-18 (RSB)/V100/224/FP16/	1	[{"added": {}}]	15	1
+652	2024-09-18 13:28:27.185778-05	69	ResNet-34 (RSB)/V100/224/FP16/	1	[{"added": {}}]	15	1
+653	2024-09-18 13:28:41.956948-05	70	ResNet-50 (RSB)/V100/224/FP16/	1	[{"added": {}}]	15	1
+654	2024-09-18 13:28:58.407423-05	71	ResNet-101 (RSB)/V100/224/FP16/	1	[{"added": {}}]	15	1
+655	2024-09-18 13:29:40.623887-05	72	ResNet-152 (RSB)/V100/224/FP16/	1	[{"added": {}}]	15	1
+656	2024-09-18 13:29:49.674805-05	22	ResNet-152 (RSB)	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+657	2024-09-18 13:29:54.128496-05	21	ResNet-101 (RSB)	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+658	2024-09-18 13:30:00.321638-05	20	ResNet-50 (RSB)	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+659	2024-09-18 13:30:05.056845-05	19	ResNet-34 (RSB)	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+660	2024-09-18 13:30:10.044296-05	18	ResNet-18 (RSB)	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+661	2024-09-18 13:32:16.239894-05	73	ResNet-50 (RSB)/V100/224/AMP/	1	[{"added": {}}]	15	1
+662	2024-09-18 13:32:35.551894-05	74	ResNet-101 (RSB)/V100/224/AMP/	1	[{"added": {}}]	15	1
+663	2024-09-18 13:33:01.778907-05	75	ResNet-152 (RSB)/V100/224/AMP/	1	[{"added": {}}]	15	1
+664	2024-09-18 13:33:23.039568-05	20	ResNet-50 (RSB)	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+665	2024-09-18 13:33:27.911315-05	21	ResNet-101 (RSB)	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+666	2024-09-18 13:33:32.436973-05	22	ResNet-152 (RSB)	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+667	2024-09-18 13:34:26.620859-05	138	ResNet-18 (RSB)-IN1k/ImageNet-1k/	1	[{"added": {}}]	8	1
+668	2024-09-18 13:41:22.092211-05	139	ResNet-18 (RSB)-IN1k/ImageNet-V2/	1	[{"added": {}}]	8	1
+669	2024-09-18 13:42:01.707729-05	13	ImageNet-ReaL	1	[{"added": {}}]	13	1
+670	2024-09-18 13:42:29.220671-05	140	ResNet-18 (RSB)-IN1k/ImageNet-ReaL/	1	[{"added": {}}]	8	1
+671	2024-09-18 13:42:59.092718-05	141	ResNet-34 (RSB)-IN1k/ImageNet-1k/	1	[{"added": {}}]	8	1
+672	2024-09-18 13:43:23.11167-05	142	ResNet-34 (RSB)-IN1k/ImageNet-ReaL/	1	[{"added": {}}]	8	1
+673	2024-09-18 13:43:44.625389-05	143	ResNet-34 (RSB)-IN1k/ImageNet-V2/	1	[{"added": {}}]	8	1
+674	2024-09-18 13:44:08.186166-05	144	ResNet-50 (RSB)-IN1k/ImageNet-1k/	1	[{"added": {}}]	8	1
+675	2024-09-18 13:44:23.865649-05	145	ResNet-50 (RSB)-IN1k/ImageNet-ReaL/	1	[{"added": {}}]	8	1
+676	2024-09-18 13:44:41.390095-05	146	ResNet-50 (RSB)-IN1k/ImageNet-V2/	1	[{"added": {}}]	8	1
+677	2024-09-18 13:45:08.05183-05	147	ResNet-101 (RSB)-IN1k/ImageNet-1k/	1	[{"added": {}}]	8	1
+678	2024-09-18 13:45:32.103026-05	148	ResNet-101 (RSB)-IN1k/ImageNet-ReaL/	1	[{"added": {}}]	8	1
+679	2024-09-18 13:45:52.31208-05	149	ResNet-101 (RSB)-IN1k/ImageNet-V2/	1	[{"added": {}}]	8	1
+680	2024-09-18 13:46:23.054168-05	150	ResNet-152 (RSB)-IN1k/ImageNet-1k/	1	[{"added": {}}]	8	1
+681	2024-09-18 13:46:39.757698-05	151	ResNet-152 (RSB)-IN1k/ImageNet-ReaL/	1	[{"added": {}}]	8	1
+682	2024-09-18 13:46:59.532299-05	152	ResNet-152 (RSB)-IN1k/ImageNet-V2/	1	[{"added": {}}]	8	1
+683	2024-09-18 13:47:34.56399-05	29	ResNet-18 (RSB)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+684	2024-09-18 13:47:49.99873-05	30	ResNet-34 (RSB)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+685	2024-09-18 13:48:04.210031-05	31	ResNet-50 (RSB)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+686	2024-09-18 13:48:20.821663-05	32	ResNet-101 (RSB)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+687	2024-09-18 13:48:34.373162-05	33	ResNet-152 (RSB)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+688	2024-09-18 13:51:43.647167-05	29	ResNet-18 (RSB)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+689	2024-09-18 13:51:52.263674-05	30	ResNet-34 (RSB)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+690	2024-09-18 13:52:00.601105-05	31	ResNet-50 (RSB)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+691	2024-09-18 13:52:08.601828-05	32	ResNet-101 (RSB)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+692	2024-09-18 13:52:19.522706-05	33	ResNet-152 (RSB)-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+693	2024-09-18 13:56:29.42862-05	144	ResNet-50 (RSB)-IN1k/ImageNet-1k/	2	[{"changed": {"fields": ["Gflops"]}}]	8	1
+694	2024-09-18 14:14:07.531406-05	6	ConvNeXt V2	1	[{"added": {}}]	14	1
+695	2024-09-18 14:14:58.8037-05	23	ConvNeXt V2-A	1	[{"added": {}}]	10	1
+696	2024-09-18 14:15:15.657454-05	24	ConvNeXt V2-F	1	[{"added": {}}]	10	1
+697	2024-09-18 14:15:36.162836-05	25	ConvNeXt V2-P	1	[{"added": {}}]	10	1
+698	2024-09-18 14:15:44.319581-05	26	ConvNeXt V2-N	1	[{"added": {}}]	10	1
+699	2024-09-18 14:15:57.989461-05	27	ConvNeXt V2-T	1	[{"added": {}}]	10	1
+700	2024-09-18 14:16:10.585177-05	28	ConvNeXt V2-B	1	[{"added": {}}]	10	1
+701	2024-09-18 14:16:34.462372-05	29	ConvNeXt V2-L	1	[{"added": {}}]	10	1
+702	2024-09-18 14:16:43.777992-05	30	ConvNeXt V2-H	1	[{"added": {}}]	10	1
+703	2024-09-22 12:23:49.590826-05	153	ConvNeXt V2-H-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+704	2024-09-22 12:27:26.881425-05	37	ConvNeXt V2-H-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+705	2024-09-22 12:28:03.32604-05	38	ConvNeXt V2-H-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+706	2024-09-22 12:28:09.056581-05	34	ConvNeXt V2-H-IN1k	1	[{"added": {}}]	9	1
+707	2024-09-22 12:30:31.213038-05	154	ConvNeXt-V2-L-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+708	2024-09-22 12:31:18.452171-05	39	ConvNeXt-V2-L-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+709	2024-09-22 12:32:15.920065-05	40	ConvNeXt-V2-L-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+710	2024-09-22 12:32:19.867987-05	35	ConvNeXt-V2-L-IN1k	1	[{"added": {}}]	9	1
+711	2024-09-22 12:33:17.158882-05	155	ConvNeXt V2-B-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+712	2024-09-22 12:53:30.259782-05	41	ConvNeXt V2-B-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+713	2024-09-22 12:54:06.951744-05	42	ConvNeXt V2-B-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	1	[{"added": {}}]	7	1
+714	2024-09-22 12:54:23.572656-05	36	ConvNeXt V2-B-IN1k	1	[{"added": {}}]	9	1
+715	2024-09-22 12:55:50.460637-05	156	ConvNeXt V2-B-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+716	2024-09-22 12:55:54.044735-05	37	ConvNeXt V2-T-IN1k	1	[{"added": {}}]	9	1
+717	2024-09-22 12:58:10.191954-05	157	ConvNeXt V2-N-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+718	2024-09-22 12:58:14.969788-05	38	ConvNeXt V2-N-IN1k	1	[{"added": {}}]	9	1
+719	2024-09-22 13:00:39.380317-05	158	ConvNeXt V2-P-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+720	2024-09-22 13:00:43.808366-05	39	ConvNeXt V2-P-IN1k	1	[{"added": {}}]	9	1
+721	2024-09-22 13:01:45.105785-05	159	ConvNeXt V2-F-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+722	2024-09-22 13:01:49.934711-05	40	ConvNeXt V2-F-IN1k	1	[{"added": {}}]	9	1
+723	2024-09-22 13:02:38.710603-05	160	ConvNeXt V2-A-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+724	2024-09-22 13:02:52.133533-05	41	ConvNeXt V2-A-IN1k	1	[{"added": {}}]	9	1
+725	2024-09-22 13:02:58.863698-05	41	ConvNeXt V2-A-IN1k	2	[]	9	1
+726	2024-09-22 13:03:04.540325-05	40	ConvNeXt V2-F-IN1k	2	[]	9	1
+727	2024-09-22 13:03:12.807341-05	39	ConvNeXt V2-P-IN1k	2	[]	9	1
+728	2024-09-22 13:03:17.597598-05	38	ConvNeXt V2-N-IN1k	2	[]	9	1
+729	2024-09-22 13:19:28.674498-05	161	ConvNeXt V2-N-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+730	2024-09-22 13:20:30.485819-05	162	ConvNeXt V2-N-IN1k/ImageNet-1k/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+731	2024-09-22 13:20:32.772323-05	38	ConvNeXt V2-N-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+732	2024-09-22 13:21:26.630303-05	163	ConvNeXt V2-T-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+733	2024-09-22 13:21:59.763407-05	164	ConvNeXt V2-T-IN1k/ImageNet-1k/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+734	2024-09-22 13:22:02.331213-05	37	ConvNeXt V2-T-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+735	2024-09-22 13:22:53.568109-05	165	ConvNeXt V2-B-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+736	2024-09-22 13:23:30.724976-05	166	ConvNeXt V2-B-IN1k/ImageNet-1k/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+737	2024-09-22 13:23:36.798114-05	36	ConvNeXt V2-B-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+738	2024-09-22 13:24:13.38918-05	167	ConvNeXt V2-L-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+739	2024-09-22 13:24:46.839404-05	168	ConvNeXt V2-L-IN1k/ImageNet-1k/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+740	2024-09-22 13:25:04.610321-05	35	ConvNeXt V2-L-IN1k	2	[{"changed": {"fields": ["Name", "Classification results"]}}]	9	1
+741	2024-09-22 13:25:52.073804-05	169	ConvNeXt V2-H-IN1k/ImageNet-1k/ImageNet-1k/384/	1	[{"added": {}}]	8	1
+742	2024-09-22 13:26:23.292721-05	170	ConvNeXt V2-H-IN1k/ImageNet-1k/ImageNet-1k/512/	1	[{"added": {}}]	8	1
+743	2024-09-22 13:26:26.787367-05	34	ConvNeXt V2-H-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
+744	2024-09-22 13:31:58.329314-05	162	ConvNeXt V2-N-IN1k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Resolution"]}}]	8	1
+745	2024-09-22 23:00:48.031309-05	39	ConvNeXt-V2-L-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[]	7	1
 \.
 
 
@@ -1160,6 +1663,9 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 30	view	0012_dataset_eval	2024-09-07 23:23:01.213306-05
 31	view	0013_backbonefamily_pretrain_method_and_more	2024-09-09 22:20:22.926349-05
 32	view	0014_backbonefamily_hierarchical	2024-09-09 22:24:28.101072-05
+33	view	0015_classificationresult_intermediate_fine_tune_dataset_and_more	2024-09-22 13:16:30.922005-05
+34	view	0016_instanceresult_intermediate_train_dataset_and_more	2024-09-22 22:10:56.292233-05
+35	view	0017_backbone_github_backbone_paper	2024-09-23 00:19:00.408655-05
 \.
 
 
@@ -1171,6 +1677,7 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 886n43gay6ekgvfutwfeqx8tbfgc8dbz	.eJxVjEsOAiEQBe_C2hCaX6tL956BNNDIqIFkmFkZ766TzEK3r6reSwRalxrWwXOYsjgLEIffLVJ6cNtAvlO7dZl6W-Ypyk2ROx3y2jM_L7v7d1Bp1G_tGCG6lKxnQ8zgUdlyQkhknE5asbdgoysFuWTQTPGosVinPWprFIr3B-noN5w:1sfpWr:cOwGWhH-GxRQAChnQgQxcx8r64S4rShrkq6zX5kP1o4	2024-09-01 18:41:45.372254-05
 2izjyuu93flfv42br5wtcv7yn629ogjn	.eJxVjEsOAiEQBe_C2hCaX6tL956BNNDIqIFkmFkZ766TzEK3r6reSwRalxrWwXOYsjgLEIffLVJ6cNtAvlO7dZl6W-Ypyk2ROx3y2jM_L7v7d1Bp1G_tGCG6lKxnQ8zgUdlyQkhknE5asbdgoysFuWTQTPGosVinPWprFIr3B-noN5w:1sgEG6:P-If1l3MC70dEDuv10zWHIf8yZJfymut6jOpEU0W-RA	2024-09-02 21:06:06.284377-05
 fiuyyum8s80xghfwkab6oqxdd9kyoar1	.eJxVjEsOAiEQBe_C2hCaX6tL956BNNDIqIFkmFkZ766TzEK3r6reSwRalxrWwXOYsjgLEIffLVJ6cNtAvlO7dZl6W-Ypyk2ROx3y2jM_L7v7d1Bp1G_tGCG6lKxnQ8zgUdlyQkhknE5asbdgoysFuWTQTPGosVinPWprFIr3B-noN5w:1skuej:eK6KdrFgMgj9ZiWibrI23CxKz-62DpYHlkcy4qDXiu4	2024-09-15 19:10:53.290302-05
+14rc71exn3pbpysbjsrqfhay2yxqrjaq	.eJxVjEsOAiEQBe_C2hCaX6tL956BNNDIqIFkmFkZ766TzEK3r6reSwRalxrWwXOYsjgLEIffLVJ6cNtAvlO7dZl6W-Ypyk2ROx3y2jM_L7v7d1Bp1G_tGCG6lKxnQ8zgUdlyQkhknE5asbdgoysFuWTQTPGosVinPWprFIr3B-noN5w:1sqHvf:Zc90gLHDdJEuJVLSX8rm6__AVxSgk6rez69vIe_LOJw	2024-09-30 15:02:35.425418-05
 \.
 
 
@@ -1178,16 +1685,37 @@ fiuyyum8s80xghfwkab6oqxdd9kyoar1	.eJxVjEsOAiEQBe_C2hCaX6tL956BNNDIqIFkmFkZ766TzE
 -- Data for Name: view_backbone; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.view_backbone (id, name, m_parameters, family_id) FROM stdin;
-4	TransNeXt-Base	89.7	1
-3	TransNeXt-Small	49.7	1
-2	TransNeXt-Tiny	28.2	1
-1	TransNeXt-Micro	12.8	1
-9	ConvNeXt-ExtraLarge	350	2
-5	ConvNeXt-Tiny	29	2
-6	ConvNeXt-Small	50	2
-7	ConvNeXt-Base	89	2
-8	ConvNeXt-Large	198	2
+COPY public.view_backbone (id, name, m_parameters, family_id, github, paper) FROM stdin;
+9	ConvNeXt-XL	350	2		
+13	Swin-L	197	3		
+19	ResNet-34 (RSB)	21.8	5		
+18	ResNet-18 (RSB)	11.7	5		
+20	ResNet-50 (RSB)	25.6	5		
+21	ResNet-101 (RSB)	44.5	5		
+22	ResNet-152 (RSB)	60.2	5		
+23	ConvNeXt V2-A	3.7	6		
+24	ConvNeXt V2-F	5.2	6		
+25	ConvNeXt V2-P	9.1	6		
+26	ConvNeXt V2-N	15.6	6		
+27	ConvNeXt V2-T	28.6	6		
+28	ConvNeXt V2-B	89	6		
+29	ConvNeXt V2-L	198	6		
+30	ConvNeXt V2-H	660	6		
+6	ConvNeXt-S	50	2		
+5	ConvNeXt-T	29	2		
+4	TransNeXt-B	89.7	1		
+3	TransNeXt-S	49.7	1		
+2	TransNeXt-T	28.2	1		
+1	TransNeXt-Micro	12.8	1		
+10	Swin-T	29	3		
+11	Swin-S	50	3		
+12	Swin-B	88	3		
+7	ConvNeXt-B	89	2		
+8	ConvNeXt-L	198	2		
+14	ViT-S (DeiT III)	22	4		
+15	ViT-B (DeiT III)	86.6	4		
+16	ViT-L (DeiT III)	304.4	4		
+17	ViT-H (DeiT III)	632.1	4		
 \.
 
 
@@ -1219,6 +1747,47 @@ COPY public.view_backbone_fps_measurements (id, backbone_id, fpsmeasurement_id) 
 21	7	21
 22	8	22
 23	8	23
+24	10	24
+25	11	25
+26	12	26
+27	12	27
+28	13	28
+29	10	29
+30	11	30
+31	10	31
+32	11	32
+33	12	33
+34	12	34
+35	13	35
+36	13	36
+37	13	37
+38	10	56
+39	11	57
+40	12	58
+41	12	59
+42	7	60
+43	7	61
+44	8	62
+45	8	63
+46	14	49
+47	14	50
+48	15	51
+49	15	52
+50	16	53
+51	16	54
+52	17	55
+53	9	66
+54	9	67
+55	13	64
+56	13	65
+57	22	72
+58	21	71
+59	20	70
+60	19	69
+61	18	68
+62	20	73
+63	21	74
+64	22	75
 \.
 
 
@@ -1229,6 +1798,10 @@ COPY public.view_backbone_fps_measurements (id, backbone_id, fpsmeasurement_id) 
 COPY public.view_backbonefamily (id, name, model_type, pub_date, paper, github, pretrain_method, hierarchical) FROM stdin;
 1	TransNeXt	Attn + Conv	2023-11-28	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt?tab=readme-ov-file	Supervised	t
 2	ConvNeXt	Convolution	2022-01-10	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	Supervised	t
+3	Swin	Attention	2021-03-25	https://doi.org/10.48550/arXiv.2103.14030	https://github.com/microsoft/Swin-Transformer	Supervised	t
+4	DeiT III	Attention	2022-04-14	https://doi.org/10.48550/arXiv.2204.07118	https://github.com/facebookresearch/deit/blob/main/README_revenge.md	Supervised	f
+5	ResNet (RSB)	Convolution	2021-10-01	https://doi.org/10.48550/arXiv.2110.00476	https://github.com/huggingface/pytorch-image-models	Supervised	t
+6	ConvNeXt V2	Convolution	2023-01-02	https://doi.org/10.48550/arXiv.2301.00808	https://github.com/facebookresearch/ConvNeXt-V2	FCMAE	t
 \.
 
 
@@ -1236,82 +1809,175 @@ COPY public.view_backbonefamily (id, name, model_type, pub_date, paper, github, 
 -- Data for Name: view_classificationresult; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolution, top_1, top_5, gflops, paper, github, dataset_id, fine_tune_dataset_id, pretrained_backbone_name, resolution) FROM stdin;
-16	30	224	84.6	\N	8.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-Small-IN22k	224
-1	\N	\N	82.5	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt?tab=readme-ov-file	1	\N	TransNeXt-Micro-IN1K	224
-2	\N	\N	84	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	TransNeXt-Tiny-IN1K	224
-3	\N	\N	84.7	\N	10.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	TransNeXt-Small-IN1K	224
-4	\N	\N	84.8	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	TransNeXt-Base-IN1k	224
-5	\N	\N	84.3	\N	34.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	\N	ConvNeXt-Large-IN1k	224
-8	30	384	85.5	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-Large-IN1k	384
-11	\N	\N	83.8	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	\N	ConvNeXt-Base-IN1k	224
-35	30	384	51.6	\N	45.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	9	1	ConvNeXt-Base-IN22k	384
-48	\N	\N	50.8	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	TransNeXt-Micro-IN1K	224
-49	\N	\N	29.9	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	7	\N	TransNeXt-Micro-IN1K	224
-12	30	384	85.1	\N	45	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-Base-IN1k	384
-13	30	224	85.8	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-Base-IN22k	224
-14	30	384	86.8	\N	45.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-Base-IN22k	384
-10	30	384	87.5	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-Large-IN22k	384
-15	\N	\N	83.1	\N	8.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	\N	ConvNeXt-Small-IN1k	224
-17	30	384	85.8	\N	25.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-Small-IN22k	384
-18	\N	\N	82.1	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	\N	ConvNeXt-Tiny-IN1k	224
-19	30	224	82.9	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-Tiny-IN22k	224
-20	30	384	84.1	\N	13.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-Tiny-IN22k	384
-21	\N	\N	53.2	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	10	\N	ConvNeXt-Tiny-IN1k	224
-22	\N	\N	40	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	11	\N	ConvNeXt-Tiny-IN1k	224
-23	\N	\N	24.2	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	\N	ConvNeXt-Tiny-IN1k	224
-24	\N	\N	47.2	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	\N	ConvNeXt-Tiny-IN1k	224
-25	\N	\N	33.8	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	9	\N	ConvNeXt-Tiny-IN1k	224
-26	\N	\N	46.8	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	10	\N	ConvNeXt-Base-IN1k	224
-27	\N	\N	34.4	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	11	\N	ConvNeXt-Base-IN1k	224
-28	\N	\N	36.7	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	\N	ConvNeXt-Base-IN1k	224
-29	\N	\N	51.3	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	\N	ConvNeXt-Base-IN1k	224
-30	\N	\N	38.2	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	9	\N	ConvNeXt-Base-IN1k	224
-31	30	384	43.1	\N	45.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	10	1	ConvNeXt-Base-IN22k	384
-32	30	384	30.7	\N	45.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	11	1	ConvNeXt-Base-IN22k	384
-33	30	384	62.3	\N	45.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	1	ConvNeXt-Base-IN22k	384
-34	30	384	64.9	\N	45.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	1	ConvNeXt-Base-IN22k	384
-36	30	384	40.2	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	10	1	ConvNeXt-Large-IN22k	384
-37	30	384	29.9	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	11	1	ConvNeXt-Large-IN22k	384
-38	30	384	65.5	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	1	ConvNeXt-Large-IN22k	384
-40	30	384	52.8	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	9	1	ConvNeXt-Large-IN22k	384
-9	30	224	86.6	\N	34.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-Large-IN22k	224
-44	30	384	27.1	\N	179	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	11	1	ConvNeXt-ExtraLarge-IN22k	384
-43	30	384	38.8	\N	179	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	10	1	ConvNeXt-ExtraLarge-IN22k	384
-42	30	384	87.8	\N	179	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-ExtraLarge-IN22k	384
-41	30	224	87	\N	60.9	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-ExtraLarge-IN22k	224
-50	\N	\N	45.8	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	\N	TransNeXt-Micro-IN1K	224
-51	\N	\N	33	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	9	\N	TransNeXt-Micro-IN1K	224
-52	\N	\N	72.6	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	\N	TransNeXt-Micro-IN1K	224
-53	\N	\N	46.5	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	TransNeXt-Tiny-IN1K	224
-54	\N	\N	39.9	\N	5.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	7	\N	TransNeXt-Tiny-IN1K	224
-55	\N	\N	49.6	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	\N	TransNeXt-Tiny-IN1K	224
-56	\N	\N	37.6	\N	5.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	9	\N	TransNeXt-Tiny-IN1K	224
-57	\N	\N	73.8	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	\N	TransNeXt-Tiny-IN1K	224
-39	30	384	66.7	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	1	ConvNeXt-Large-IN22k	384
-58	\N	\N	43.9	\N	10.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	10	\N	TransNeXt-Small-IN1K	224
-59	\N	\N	47.1	\N	10.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	7	\N	TransNeXt-Small-IN1K	224
-60	\N	\N	52.5	\N	10.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	8	\N	TransNeXt-Small-IN1K	224
-61	\N	\N	39.7	\N	10.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	9	\N	TransNeXt-Small-IN1K	224
-62	\N	\N	74.8	\N	10.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	12	\N	TransNeXt-Small-IN1K	224
-63	\N	\N	43.5	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	TransNeXt-Base-IN1k	224
-64	\N	\N	50.6	\N	18.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	7	\N	TransNeXt-Base-IN1k	224
-65	\N	\N	53.9	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	\N	TransNeXt-Base-IN1k	224
-66	\N	\N	41.4	\N	18.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	9	\N	TransNeXt-Base-IN1k	224
-67	\N	\N	75.1	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	\N	TransNeXt-Base-IN1k	224
-77	5	384	76.8	\N	32.1	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	1	TransNeXt-Small-IN1K	384
-76	5	384	43.2	\N	32.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	9	1	TransNeXt-Small-IN1K	384
-47	30	384	55	\N	179	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	9	1	ConvNeXt-ExtraLarge-IN22k	384
-75	5	384	56.4	\N	32.1	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	1	TransNeXt-Small-IN1K	384
-74	5	384	58.3	\N	32.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	7	1	TransNeXt-Small-IN1K	384
-70	5	384	57.7	\N	56.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	8	1	TransNeXt-Base-IN1k	384
-73	5	384	86	\N	32.1	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	1	TransNeXt-Small-IN1K	384
-72	5	384	77	\N	56.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	12	1	TransNeXt-Base-IN1k	384
-71	5	384	44.7	\N	56.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	9	1	TransNeXt-Base-IN1k	384
-46	30	384	68.2	\N	179	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	1	ConvNeXt-ExtraLarge-IN22k	384
-69	5	384	61.6	\N	56.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	7	1	TransNeXt-Base-IN1k	384
-68	5	384	86.2	\N	56.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	1	1	TransNeXt-Base-IN1k	384
-45	30	384	69.3	\N	179	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	1	ConvNeXt-ExtraLarge-IN22k	384
+COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolution, top_1, top_5, gflops, paper, github, dataset_id, fine_tune_dataset_id, pretrained_backbone_name, resolution, intermediate_fine_tune_dataset_id, intermediate_fine_tune_epochs, intermediate_fine_tune_resolution) FROM stdin;
+87	30	224	83.2	97	8.7	https://github.com/microsoft/Swin-Transformer		1	1	Swin-S-IN22k	224	\N	\N	\N
+81	30	384	84.5	97	47	https://github.com/microsoft/Swin-Transformer		1	1	Swin-B-IN1k	384	\N	\N	\N
+84	30	384	87.3	98.2	103.9	https://github.com/microsoft/Swin-Transformer		1	1	Swin-L-IN22k	384	\N	\N	\N
+90	\N	\N	41.3	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545		8	\N	Swin-T-IN1k	224	\N	\N	\N
+93	\N	\N	35.8	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545		7	\N	Swin-B-IN1k	224	\N	\N	\N
+53	\N	\N	46.5	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	TransNeXt-T-IN1K	224	\N	\N	\N
+16	30	224	84.6	\N	8.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-S-IN22k	224	\N	\N	\N
+98	20	384	83.4	\N	15.5			1	1	ViT-S (DeiT III)-IN1k	384	\N	\N	\N
+101	20	224	73.6	\N	17.5			12	1	ViT-B (DeiT III)-IN1k	224	\N	\N	\N
+104	20	224	84.9	\N	61.6			1	1	ViT-L (DeiT III)-IN1k	224	\N	\N	\N
+107	20	384	76.6	\N	191.2			12	1	ViT-L (DeiT III)-IN1k	384	\N	\N	\N
+110	50	224	83.1	\N	4.6			1	1	ViT-S (DeiT III)-IN22k	224	\N	\N	\N
+113	50	224	76.5	\N	17.6			12	1	ViT-B (DeiT III)-IN22k	224	\N	\N	\N
+116	50	224	87	\N	61.6			1	1	ViT-L (DeiT III)-IN22k	224	\N	\N	\N
+119	50	384	79.1	\N	191.2			12	1	ViT-L (DeiT III)-IN22k	384	\N	\N	\N
+122	\N	\N	69.5	\N	4.5	https://doi.org/10.48550/arXiv.2204.07118		12	\N	Swin-T-IN1k	224	\N	\N	\N
+126	\N	\N	74	\N	34.4	https://doi.org/10.48550/arXiv.2204.07118		12	\N	ConvNeXt-L-IN1k	224	\N	\N	\N
+129	30	384	76.3	\N	47	https://doi.org/10.48550/arXiv.2204.07118		12	1	Swin-B-IN22k	384	\N	\N	\N
+132	30	224	75.6	\N	15.4	https://doi.org/10.48550/arXiv.2204.07118		12	1	ConvNeXt-B-IN22k	224	\N	\N	\N
+135	30	384	77.7	\N	101	https://doi.org/10.48550/arXiv.2204.07118		12	1	ConvNeXt-L-IN22k	384	\N	\N	\N
+138	\N	\N	71.5	\N	1.8			1	\N	ResNet-18 (RSB)-IN1k	224	\N	\N	\N
+141	\N	\N	76.4	\N	3.7			1	\N	ResNet-34 (RSB)-IN1k	224	\N	\N	\N
+147	\N	\N	81.5	\N	7.9			1	\N	ResNet-101 (RSB)-IN1k	224	\N	\N	\N
+150	\N	\N	82	\N	11.6			1	\N	ResNet-152 (RSB)-IN1k	224	\N	\N	\N
+144	\N	\N	80.4	\N	4.1			1	\N	ResNet-50 (RSB)-IN1k	224	\N	\N	\N
+153	50	224	86.3	\N	115			1	1	ConvNeXt V2-H-IN1k	224	\N	\N	\N
+156	300	224	83	\N	4.47			1	1	ConvNeXt V2-B-IN1k	224	\N	\N	\N
+159	600	224	78.5	\N	0.78			1	1	ConvNeXt V2-F-IN1k	224	\N	\N	\N
+164	90	384	85.1	\N	13.1			1	1	ConvNeXt V2-T-IN1k	384	2	90	384
+166	30	384	87.7	\N	45.2			1	1	ConvNeXt V2-B-IN1k	384	2	90	384
+168	30	384	88.2	\N	101.1			1	1	ConvNeXt V2-L-IN1k	384	2	90	384
+170	30	512	88.9	\N	600.8			1	1	ConvNeXt V2-H-IN1k	512	2	90	512
+162	90	384	83.4	\N	7.21			1	1	ConvNeXt V2-N-IN1k	384	2	90	384
+1	\N	\N	82.5	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt?tab=readme-ov-file	1	\N	TransNeXt-Micro-IN1K	224	\N	\N	\N
+163	90	224	83.9	\N	4.47			1	1	ConvNeXt V2-T-IN1k	224	2	90	224
+78	\N	\N	81.3	95.5	4.5	https://github.com/microsoft/Swin-Transformer		1	\N	Swin-T-IN1k	224	\N	\N	\N
+82	30	224	85.2	97.5	15.4	https://github.com/microsoft/Swin-Transformer		1	1	Swin-B-IN22k	224	\N	\N	\N
+85	30	224	86.3	97.9	34.5	https://github.com/microsoft/Swin-Transformer		1	1	Swin-L-IN22k	224	\N	\N	\N
+91	\N	\N	29.1	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545		9	\N	Swin-T-IN1k	224	\N	\N	\N
+88	\N	\N	62	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545		10	\N	Swin-T-IN1k	224	\N	\N	\N
+94	\N	\N	46.6	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545		8	\N	Swin-B-IN1k	224	\N	\N	\N
+2	\N	\N	84	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	TransNeXt-T-IN1K	224	\N	\N	\N
+3	\N	\N	84.7	\N	10.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	TransNeXt-S-IN1K	224	\N	\N	\N
+4	\N	\N	84.8	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	TransNeXt-B-IN1k	224	\N	\N	\N
+5	\N	\N	84.3	\N	34.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	\N	ConvNeXt-L-IN1k	224	\N	\N	\N
+8	30	384	85.5	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-L-IN1k	384	\N	\N	\N
+11	\N	\N	83.8	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	\N	ConvNeXt-B-IN1k	224	\N	\N	\N
+35	30	384	51.6	\N	45.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	9	1	ConvNeXt-B-IN22k	384	\N	\N	\N
+96	20	224	81.4	\N	4.6			1	1	ViT-S (DeiT III)-IN1k	224	\N	\N	\N
+99	20	384	73.1	\N	15.5			12	1	ViT-S (DeiT III)-IN1k	384	\N	\N	\N
+102	20	384	85	\N	55.5			1	1	ViT-B (DeiT III)-IN1k	384	\N	\N	\N
+105	20	224	75.1	\N	61.6			12	1	ViT-L (DeiT III)-IN1k	224	\N	\N	\N
+108	20	224	85.2	\N	167.4			1	1	ViT-H (DeiT III)-IN1k	224	\N	\N	\N
+111	50	224	73.8	\N	4.6			12	1	ViT-S (DeiT III)-IN22k	224	\N	\N	\N
+114	50	384	86.7	\N	55.5			1	1	ViT-B (DeiT III)-IN22k	384	\N	\N	\N
+117	50	224	78.6	\N	61.6			12	1	ViT-L (DeiT III)-IN22k	224	\N	\N	\N
+120	50	224	87.2	\N	167.4			1	1	ViT-H (DeiT III)-IN22k	224	\N	\N	\N
+127	30	384	75.3	\N	101			12	1	ConvNeXt-L-IN1k	384	\N	\N	\N
+130	30	224	76.3	\N	34.5	https://doi.org/10.48550/arXiv.2204.07118		12	1	Swin-L-IN22k	224	\N	\N	\N
+133	30	384	76.6	\N	45.1	https://doi.org/10.48550/arXiv.2204.07118		12	1	ConvNeXt-B-IN22k	384	\N	\N	\N
+136	30	224	77	\N	60.9	https://doi.org/10.48550/arXiv.2204.07118		12	1	ConvNeXt-XL-IN22k	224	\N	\N	\N
+123	\N	\N	71.8	\N	8.7	https://doi.org/10.48550/arXiv.2204.07118		12	\N	Swin-S-IN1k	224	\N	\N	\N
+139	\N	\N	59.4	\N	1.8			12	\N	ResNet-18 (RSB)-IN1k	224	\N	\N	\N
+142	\N	\N	83.4	\N	3.7			13	\N	ResNet-34 (RSB)-IN1k	224	\N	\N	\N
+145	\N	\N	85.7	\N	4.1			13	\N	ResNet-50 (RSB)-IN1k	224	\N	\N	\N
+148	\N	\N	86.3	\N	7.9			13	\N	ResNet-101 (RSB)-IN1k	224	\N	\N	\N
+151	\N	\N	86.4	\N	11.6			13	\N	ResNet-152 (RSB)-IN1k	224	\N	\N	\N
+154	100	224	85.8	\N	34.4			1	1	ConvNeXt-V2-L-IN1k	224	\N	\N	\N
+157	600	224	81.9	\N	2.45			1	1	ConvNeXt V2-N-IN1k	224	\N	\N	\N
+160	600	224	76.7	\N	0.55			1	1	ConvNeXt V2-A-IN1k	224	\N	\N	\N
+165	30	224	86.8	\N	15.4			1	1	ConvNeXt V2-B-IN1k	224	2	90	224
+167	30	224	87.3	\N	34.4			1	1	ConvNeXt V2-L-IN1k	224	2	90	224
+169	30	384	88.7	\N	337.9			1	1	ConvNeXt V2-H-IN1k	384	2	90	384
+48	\N	\N	50.8	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	TransNeXt-Micro-IN1K	224	\N	\N	\N
+49	\N	\N	29.9	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	7	\N	TransNeXt-Micro-IN1K	224	\N	\N	\N
+50	\N	\N	45.8	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	\N	TransNeXt-Micro-IN1K	224	\N	\N	\N
+51	\N	\N	33	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	9	\N	TransNeXt-Micro-IN1K	224	\N	\N	\N
+52	\N	\N	72.6	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	\N	TransNeXt-Micro-IN1K	224	\N	\N	\N
+42	30	384	87.8	\N	179	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-XL-IN22k	384	\N	\N	\N
+79	\N	\N	83.2	96.2	8.7	https://github.com/microsoft/Swin-Transformer		1	\N	Swin-S-IN1k	224	\N	\N	\N
+54	\N	\N	39.9	\N	5.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	7	\N	TransNeXt-T-IN1K	224	\N	\N	\N
+57	\N	\N	73.8	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	\N	TransNeXt-T-IN1K	224	\N	\N	\N
+56	\N	\N	37.6	\N	5.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	9	\N	TransNeXt-T-IN1K	224	\N	\N	\N
+55	\N	\N	49.6	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	\N	TransNeXt-T-IN1K	224	\N	\N	\N
+9	30	224	86.6	\N	34.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-L-IN22k	224	\N	\N	\N
+10	30	384	87.5	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-L-IN22k	384	\N	\N	\N
+12	30	384	85.1	\N	45	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-B-IN1k	384	\N	\N	\N
+13	30	224	85.8	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-B-IN22k	224	\N	\N	\N
+14	30	384	86.8	\N	45.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-B-IN22k	384	\N	\N	\N
+15	\N	\N	83.1	\N	8.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	\N	ConvNeXt-S-IN1k	224	\N	\N	\N
+17	30	384	85.8	\N	25.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-S-IN22k	384	\N	\N	\N
+18	\N	\N	82.1	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	\N	ConvNeXt-T-IN1k	224	\N	\N	\N
+19	30	224	82.9	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-T-IN22k	224	\N	\N	\N
+20	30	384	84.1	\N	13.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-T-IN22k	384	\N	\N	\N
+21	\N	\N	53.2	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	10	\N	ConvNeXt-T-IN1k	224	\N	\N	\N
+22	\N	\N	40	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	11	\N	ConvNeXt-T-IN1k	224	\N	\N	\N
+23	\N	\N	24.2	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	\N	ConvNeXt-T-IN1k	224	\N	\N	\N
+24	\N	\N	47.2	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	\N	ConvNeXt-T-IN1k	224	\N	\N	\N
+25	\N	\N	33.8	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	9	\N	ConvNeXt-T-IN1k	224	\N	\N	\N
+44	30	384	27.1	\N	179	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	11	1	ConvNeXt-XL-IN22k	384	\N	\N	\N
+43	30	384	38.8	\N	179	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	10	1	ConvNeXt-XL-IN22k	384	\N	\N	\N
+41	30	224	87	\N	60.9	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	1	1	ConvNeXt-XL-IN22k	224	\N	\N	\N
+40	30	384	52.8	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	9	1	ConvNeXt-L-IN22k	384	\N	\N	\N
+39	30	384	66.7	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	1	ConvNeXt-L-IN22k	384	\N	\N	\N
+38	30	384	65.5	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	1	ConvNeXt-L-IN22k	384	\N	\N	\N
+26	\N	\N	46.8	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	10	\N	ConvNeXt-B-IN1k	224	\N	\N	\N
+27	\N	\N	34.4	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	11	\N	ConvNeXt-B-IN1k	224	\N	\N	\N
+28	\N	\N	36.7	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	\N	ConvNeXt-B-IN1k	224	\N	\N	\N
+29	\N	\N	51.3	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	\N	ConvNeXt-B-IN1k	224	\N	\N	\N
+30	\N	\N	38.2	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	9	\N	ConvNeXt-B-IN1k	224	\N	\N	\N
+31	30	384	43.1	\N	45.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	10	1	ConvNeXt-B-IN22k	384	\N	\N	\N
+32	30	384	30.7	\N	45.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	11	1	ConvNeXt-B-IN22k	384	\N	\N	\N
+33	30	384	62.3	\N	45.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	1	ConvNeXt-B-IN22k	384	\N	\N	\N
+34	30	384	64.9	\N	45.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	1	ConvNeXt-B-IN22k	384	\N	\N	\N
+36	30	384	40.2	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	10	1	ConvNeXt-L-IN22k	384	\N	\N	\N
+37	30	384	29.9	\N	101	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	11	1	ConvNeXt-L-IN22k	384	\N	\N	\N
+124	\N	\N	73.4	\N	15.4			12	\N	ConvNeXt-B-IN1k	224	\N	\N	\N
+86	30	224	80.9	96	4.5	https://github.com/microsoft/Swin-Transformer		1	1	Swin-T-IN22k	224	\N	\N	\N
+80	\N	\N	83.5	96.5	15.4	https://github.com/microsoft/Swin-Transformer		1	\N	Swin-B-IN1k	224	\N	\N	\N
+83	30	384	86.4	98	47	https://github.com/microsoft/Swin-Transformer		1	1	Swin-B-IN22k	384	\N	\N	\N
+89	\N	\N	21.6	\N	4.5	https://doi.org/10.48550/arXiv.2201.03545		7	\N	Swin-T-IN1k	224	\N	\N	\N
+92	\N	\N	54.4	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545		10	\N	Swin-B-IN1k	224	\N	\N	\N
+95	\N	\N	32.4	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545		9	\N	Swin-B-IN1k	224	\N	\N	\N
+77	5	384	76.8	\N	32.1	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	1	TransNeXt-S-IN1K	384	\N	\N	\N
+76	5	384	43.2	\N	32.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	9	1	TransNeXt-S-IN1K	384	\N	\N	\N
+75	5	384	56.4	\N	32.1	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	1	TransNeXt-S-IN1K	384	\N	\N	\N
+74	5	384	58.3	\N	32.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	7	1	TransNeXt-S-IN1K	384	\N	\N	\N
+73	5	384	86	\N	32.1	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	1	TransNeXt-S-IN1K	384	\N	\N	\N
+72	5	384	77	\N	56.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	12	1	TransNeXt-B-IN1k	384	\N	\N	\N
+71	5	384	44.7	\N	56.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	9	1	TransNeXt-B-IN1k	384	\N	\N	\N
+70	5	384	57.7	\N	56.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	8	1	TransNeXt-B-IN1k	384	\N	\N	\N
+69	5	384	61.6	\N	56.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	7	1	TransNeXt-B-IN1k	384	\N	\N	\N
+68	5	384	86.2	\N	56.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	1	1	TransNeXt-B-IN1k	384	\N	\N	\N
+67	\N	\N	75.1	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	\N	TransNeXt-B-IN1k	224	\N	\N	\N
+66	\N	\N	41.4	\N	18.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	9	\N	TransNeXt-B-IN1k	224	\N	\N	\N
+65	\N	\N	53.9	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	\N	TransNeXt-B-IN1k	224	\N	\N	\N
+64	\N	\N	50.6	\N	18.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	7	\N	TransNeXt-B-IN1k	224	\N	\N	\N
+63	\N	\N	43.5	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	TransNeXt-B-IN1k	224	\N	\N	\N
+62	\N	\N	74.8	\N	10.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	12	\N	TransNeXt-S-IN1K	224	\N	\N	\N
+60	\N	\N	52.5	\N	10.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	8	\N	TransNeXt-S-IN1K	224	\N	\N	\N
+61	\N	\N	39.7	\N	10.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	9	\N	TransNeXt-S-IN1K	224	\N	\N	\N
+59	\N	\N	47.1	\N	10.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	7	\N	TransNeXt-S-IN1K	224	\N	\N	\N
+58	\N	\N	43.9	\N	10.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	10	\N	TransNeXt-S-IN1K	224	\N	\N	\N
+47	30	384	55	\N	179	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	9	1	ConvNeXt-XL-IN22k	384	\N	\N	\N
+46	30	384	68.2	\N	179	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	1	ConvNeXt-XL-IN22k	384	\N	\N	\N
+45	30	384	69.3	\N	179	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	1	ConvNeXt-XL-IN22k	384	\N	\N	\N
+97	20	224	70.5	\N	4.6			12	1	ViT-S (DeiT III)-IN1k	224	\N	\N	\N
+100	20	224	83.8	\N	17.5			1	1	ViT-B (DeiT III)-IN1k	224	\N	\N	\N
+103	20	384	74.8	\N	55.5			12	1	ViT-B (DeiT III)-IN1k	384	\N	\N	\N
+106	20	384	85.8	\N	191.2			1	1	ViT-L (DeiT III)-IN1k	384	\N	\N	\N
+109	20	224	75.9	\N	167.4			12	1	ViT-H (DeiT III)-IN1k	224	\N	\N	\N
+112	50	224	85.7	\N	17.6			1	1	ViT-B (DeiT III)-IN22k	224	\N	\N	\N
+115	50	384	77.9	\N	55.5			12	1	ViT-B (DeiT III)-IN22k	384	\N	\N	\N
+118	50	384	87.7	\N	191.2			1	1	ViT-L (DeiT III)-IN22k	384	\N	\N	\N
+121	50	224	79.2	\N	167.4			12	1	ViT-H (DeiT III)-IN22k	224	\N	\N	\N
+125	30	384	74.7	\N	45	https://doi.org/10.48550/arXiv.2204.07118		12	1	ConvNeXt-B-IN1k	384	\N	\N	\N
+128	30	224	74.6	\N	15.4	https://doi.org/10.48550/arXiv.2204.07118		12	1	Swin-B-IN22k	224	\N	\N	\N
+131	30	384	77	\N	103.9	https://doi.org/10.48550/arXiv.2204.07118		12	1	Swin-L-IN22k	384	\N	\N	\N
+134	30	224	76.6	\N	34.4	https://doi.org/10.48550/arXiv.2204.07118		12	1	ConvNeXt-L-IN22k	224	\N	\N	\N
+137	30	384	77.7	\N	179	https://doi.org/10.48550/arXiv.2204.07118		12	1	ConvNeXt-XL-IN22k	384	\N	\N	\N
+140	\N	\N	79.4	\N	1.8			13	\N	ResNet-18 (RSB)-IN1k	224	\N	\N	\N
+143	\N	\N	65.1	\N	3.7			12	\N	ResNet-34 (RSB)-IN1k	224	\N	\N	\N
+146	\N	\N	68.7	\N	4.1			12	\N	ResNet-50 (RSB)-IN1k	224	\N	\N	\N
+149	\N	\N	70.3	\N	7.9			12	\N	ResNet-101 (RSB)-IN1k	224	\N	\N	\N
+152	\N	\N	70.6	\N	11.6			12	\N	ResNet-152 (RSB)-IN1k	224	\N	\N	\N
+155	100	224	84.9	\N	15.4			1	1	ConvNeXt V2-B-IN1k	224	\N	\N	\N
+158	600	224	80.3	\N	1.37			1	1	ConvNeXt V2-P-IN1k	224	\N	\N	\N
+161	90	224	82.1	\N	2.45			1	1	ConvNeXt V2-N-IN1k	224	2	90	224
 \.
 
 
@@ -1332,6 +1998,7 @@ COPY public.view_dataset (id, name, website, eval) FROM stdin;
 2	ImageNet-22k	https://www.image-net.org/index.php	f
 5	COCO (test)	https://cocodataset.org/#home	t
 3	COCO (train)	https://cocodataset.org/#home	f
+13	ImageNet-ReaL	https://github.com/google-research/reassessed-imagenet	t
 \.
 
 
@@ -1357,6 +2024,7 @@ COPY public.view_dataset_tasks (id, dataset_id, task_id) FROM stdin;
 15	10	4
 16	11	4
 17	12	4
+18	13	4
 \.
 
 
@@ -1387,29 +2055,81 @@ COPY public.view_downstreamhead_tasks (id, downstreamhead_id, task_id) FROM stdi
 --
 
 COPY public.view_fpsmeasurement (id, backbone_name, resolution, fps, gpu, "precision", batch_size, source) FROM stdin;
-1	TransNeXt-Base	224	297	V100	FP16	64	https://doi.org/10.48550/arXiv.2311.17132
-2	TransNeXt-Small	224	394	V100	FP16	64	https://doi.org/10.48550/arXiv.2311.17132
-3	TransNeXt-Tiny	224	756	V100	FP16	64	https://doi.org/10.48550/arXiv.2311.17132
-4	TransNeXt-Tiny	224	413	V100	FP32	64	https://doi.org/10.48550/arXiv.2311.17132
 5	TransNeXt-Micro	224	1117	V100	FP16	64	https://doi.org/10.48550/arXiv.2311.17132
-6	ConvNeXt-Tiny	224	774.7	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
-7	ConvNeXt-Tiny	384	282.8	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
-8	ConvNeXt-Small	224	447.1	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
-9	ConvNeXt-Small	384	163.5	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
-10	ConvNeXt-Base	224	292.1	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
-11	ConvNeXt-Base	384	95.7	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
-12	ConvNeXt-Large	224	146.8	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
-13	ConvNeXt-Large	384	50.4	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
-14	ConvNeXt-ExtraLarge	224	89.3	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
-15	ConvNeXt-ExtraLarge	384	30.2	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
-16	ConvNeXt-ExtraLarge	224	424.4	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
-17	ConvNeXt-ExtraLarge	384	147.4	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
-18	ConvNeXt-Tiny	224	1943.5	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
-19	ConvNeXt-Small	224	1275.3	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
-20	ConvNeXt-Base	224	969	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
-21	ConvNeXt-Base	384	336.6	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
-22	ConvNeXt-Large	224	611.5	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
-23	ConvNeXt-Large	384	211.4	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+24	Swin-T	224	755.2	V100	FP32	\N	https://arxiv.org/abs/2103.14030
+25	Swin-S	224	436.9	V100	FP32	\N	https://arxiv.org/abs/2103.14030
+26	Swin-B	224	278.1	V100	FP32	\N	https://arxiv.org/abs/2103.14030
+27	Swin-B	384	84.7	V100	FP32	\N	https://arxiv.org/abs/2103.14030
+28	Swin-L	384	42.1	V100	FP32	\N	https://arxiv.org/abs/2103.14030
+29	Swin-T	384	219.5	V100	FP32	\N	https://arxiv.org/abs/2103.14030
+30	Swin-S	384	127.6	V100	FP32	\N	https://arxiv.org/abs/2103.14030
+31	Swin-T	224	1325.6	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+32	Swin-S	224	857.3	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+33	Swin-B	224	662.8	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+34	Swin-B	384	242.5	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+35	Swin-L	224	435.9	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+36	Swin-L	384	157.9	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+37	Swin-L	224	141	V100	FP32	\N	https://github.com/microsoft/Swin-Transformer
+60	ConvNeXt-B	224	563	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+38	Swin-T/Mask-RCNN	1280	23.1	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+39	Swin-T/CascadeMaskRCNN	1280	12.2	A100	TF32	\N	https://arxiv.org/abs/2201.03545
+41	Swin-B/CascadeMaskRCNN	1280	10.7	A100	TF32	\N	https://arxiv.org/abs/2201.03545
+61	ConvNeXt-B	384	190	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+42	Swin-L/CascadeMaskRCNN	1280	9.2	A100	TF32	\N	https://arxiv.org/abs/2201.03545
+40	Swin-S/CascadeMaskRCNN	1280	11.4	A100	TF32	\N	https://arxiv.org/abs/2201.03545
+43	ConvNext-T/Mask-RCNN	1280	25.6	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+49	ViT-S (DeiT III)	224	1891	V100	AMP	\N	
+50	ViT-S (DeiT III)	384	424	V100	AMP	\N	
+51	ViT-B (DeiT III)	224	831	V100	AMP	\N	
+52	ViT-B (DeiT III)	384	190	V100	AMP	\N	
+53	ViT-L (DeiT III)	224	277	V100	AMP	\N	
+54	ViT-L (DeiT III)	384	67	V100	AMP	\N	
+55	ViT-H (DeiT III)	224	112	V100	AMP	\N	
+56	Swin-T	224	1109	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+57	Swin-S	224	718	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+58	Swin-B	224	532	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+59	Swin-B	384	160	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+62	ConvNeXt-L	224	344	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+63	ConvNeXt-L	384	115	V100	AMP	\N	
+48	ConvNeXt-XL/Cascade-Mask-RCNN	1280	8.6	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+47	ConvNeXt-L/Cascade-Mask-RCNN	1280	10	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+46	ConvNeXt-B/Cascade-Mask-RCNN	1280	11.4	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+45	ConvNeXt-S/Cascade-Mask-RCNN	1280	12	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+44	ConvNeXt-T/Cascade-Mask-RCNN	1280	12.2	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+23	ConvNeXt-L	384	211.4	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+1	TransNeXt-B	224	297	V100	FP16	64	https://doi.org/10.48550/arXiv.2311.17132
+2	TransNeXt-S	224	394	V100	FP16	64	https://doi.org/10.48550/arXiv.2311.17132
+3	TransNeXt-T	224	756	V100	FP16	64	https://doi.org/10.48550/arXiv.2311.17132
+4	TransNeXt-T	224	413	V100	FP32	64	https://doi.org/10.48550/arXiv.2311.17132
+6	ConvNeXt-T	224	774.7	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
+7	ConvNeXt-T	384	282.8	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
+8	ConvNeXt-S	224	447.1	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
+9	ConvNeXt-S	384	163.5	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
+10	ConvNeXt-B	224	292.1	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
+11	ConvNeXt-B	384	95.7	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
+12	ConvNeXt-L	224	146.8	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
+13	ConvNeXt-L	384	50.4	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
+14	ConvNeXt-XL	224	89.3	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
+15	ConvNeXt-XL	384	30.2	V100	FP32	\N	https://doi.org/10.48550/arXiv.2201.03545
+16	ConvNeXt-XL	224	424.4	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+17	ConvNeXt-XL	384	147.4	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+18	ConvNeXt-T	224	1943.5	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+19	ConvNeXt-S	224	1275.3	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+20	ConvNeXt-B	224	969	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+21	ConvNeXt-B	384	336.6	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+22	ConvNeXt-L	224	611.5	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+64	Swin-L	224	337	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+65	Swin-L	384	100	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+66	ConvNeXt-XL	224	241	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+67	ConvNeXt-XL	384	80	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+68	ResNet-18 (RSB)	224	7960	V100	FP16	\N	
+69	ResNet-34 (RSB)	224	4862	V100	FP16	\N	
+70	ResNet-50 (RSB)	224	2537	V100	FP16	\N	
+71	ResNet-101 (RSB)	224	1548	V100	FP16	\N	
+72	ResNet-152 (RSB)	224	1094	V100	FP16	\N	
+73	ResNet-50 (RSB)	224	2587	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+74	ResNet-101 (RSB)	224	1586	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+75	ResNet-152 (RSB)	224	1122	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
 \.
 
 
@@ -1417,26 +2137,47 @@ COPY public.view_fpsmeasurement (id, backbone_name, resolution, fps, gpu, "preci
 -- Data for Name: view_instanceresult; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs", "mAPm", "mAPl", gflops, paper, github, dataset_id, head_id, train_dataset_id, pretrained_backbone_name, instance_type_id) FROM stdin;
-7	12	51.7	73.2	56.9	\N	\N	\N	709	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	TransNeXt-Base-IN1k	2
-8	12	45.9	70.5	49.7	\N	\N	\N	709	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	TransNeXt-Base-IN1k	3
-6	12	45.5	69.8	49.1	\N	\N	\N	501	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	TransNeXt-Small-IN1k	3
-5	12	51.1	72.6	56.2	\N	\N	\N	501	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	TransNeXt-Small-IN1k	2
-4	12	44.6	68.6	48.1	\N	\N	\N	356	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	TransNeXt-Tiny-IN1k	3
-3	12	49.9	71.5	54.9	\N	\N	\N	356	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	TransNeXt-Tiny-IN1k	2
-9	36	54.8	73.8	59.8	\N	\N	\N	1354	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-Large-IN22k	2
-10	36	47.6	71.3	51.7	\N	\N	\N	1354	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-Large-IN22k	3
-11	36	52.7	71.3	57.2	\N	\N	\N	964	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-Base-IN1k	2
-12	36	45.6	68.9	49.5	\N	\N	\N	964	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-Base-IN1k	3
-13	36	54	73.1	58.8	\N	\N	\N	964	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-Base-IN22k	2
-14	36	46.9	70.6	51.3	\N	\N	\N	964	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-Base-IN22k	3
-15	36	51.9	70.8	56.5	\N	\N	\N	827	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-Small-IN1k	2
-16	36	50.4	69.1	54.8	\N	\N	\N	741	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-Tiny-IN1k	2
-17	36	43.7	66.5	47.3	\N	\N	\N	741	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-Tiny-IN1k	3
-18	36	46.2	67.9	50.8	\N	\N	\N	262	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	1	3	ConvNeXt-Tiny-IN1k	2
-19	36	41.7	65	44.9	\N	\N	\N	262	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	1	3	ConvNeXt-Tiny-IN1k	3
-20	36	55.2	74.2	59.9	\N	\N	\N	1898	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-ExtraLarge-IN22k	2
-21	36	47.7	71.6	52.2	\N	\N	\N	1898	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-ExtraLarge-IN22k	3
+COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs", "mAPm", "mAPl", gflops, paper, github, dataset_id, head_id, train_dataset_id, pretrained_backbone_name, instance_type_id, intermediate_train_dataset_id, intermediate_train_epochs) FROM stdin;
+7	12	51.7	73.2	56.9	\N	\N	\N	709	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	TransNeXt-B-IN1k	2	\N	\N
+8	12	45.9	70.5	49.7	\N	\N	\N	709	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	TransNeXt-B-IN1k	3	\N	\N
+5	12	51.1	72.6	56.2	\N	\N	\N	501	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	TransNeXt-S-IN1k	2	\N	\N
+6	12	45.5	69.8	49.1	\N	\N	\N	501	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	TransNeXt-S-IN1k	3	\N	\N
+23	36	43.3	\N	\N	\N	\N	\N	359	https://github.com/microsoft/Swin-Transformer		4	1	3	Swin-S-IN1k	3	\N	\N
+22	36	48.5	\N	\N	\N	\N	\N	359	https://github.com/microsoft/Swin-Transformer		4	1	3	Swin-S-IN1k	2	\N	\N
+24	36	46	68.1	50.3	\N	\N	\N	267	https://doi.org/10.48550/arXiv.2201.03545		4	1	3	Swin-T-IN1k	2	\N	\N
+25	36	41.6	65.1	44.9	\N	\N	\N	267	https://doi.org/10.48550/arXiv.2201.03545		4	1	3	Swin-T-IN1k	3	\N	\N
+26	36	50.4	69.2	54.7	\N	\N	\N	745	https://doi.org/10.48550/arXiv.2201.03545		4	2	3	Swin-T-IN1k	2	\N	\N
+27	36	43.7	66.6	47.3	\N	\N	\N	745	https://doi.org/10.48550/arXiv.2201.03545		4	2	3	Swin-T-IN1k	3	\N	\N
+28	36	51.9	70.7	56.3	\N	\N	\N	838	https://doi.org/10.48550/arXiv.2201.03545		4	2	3	Swin-S-IN1k	2	\N	\N
+29	36	45	68.2	48.8	\N	\N	\N	838	https://doi.org/10.48550/arXiv.2201.03545		4	2	3	Swin-S-IN1k	3	\N	\N
+30	36	51.9	70.5	56.4	\N	\N	\N	982	https://doi.org/10.48550/arXiv.2201.03545		4	2	3	Swin-B-IN1k	2	\N	\N
+31	36	45	68.1	48.9	\N	\N	\N	982	https://doi.org/10.48550/arXiv.2201.03545		4	2	3	Swin-B-IN1k	3	\N	\N
+32	36	53	71.8	57.5	\N	\N	\N	982	https://doi.org/10.48550/arXiv.2201.03545		4	2	3	Swin-B-IN22k	2	\N	\N
+33	36	45.8	69.4	49.7	\N	\N	\N	982	https://doi.org/10.48550/arXiv.2201.03545		4	2	3	Swin-B-IN22k	3	\N	\N
+35	36	46.7	70.1	50.8	\N	\N	\N	1382	https://doi.org/10.48550/arXiv.2201.03545		4	2	3	Swin-L-IN22k	3	\N	\N
+34	36	53.9	72.4	58.8	\N	\N	\N	1382	https://doi.org/10.48550/arXiv.2201.03545		4	2	3	Swin-L-IN22k	2	\N	\N
+11	36	52.7	71.3	57.2	\N	\N	\N	964	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-B-IN1k	2	\N	\N
+12	36	45.6	68.9	49.5	\N	\N	\N	964	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-B-IN1k	3	\N	\N
+20	36	55.2	74.2	59.9	\N	\N	\N	1898	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-XL-IN22k	2	\N	\N
+13	36	54	73.1	58.8	\N	\N	\N	964	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-B-IN22k	2	\N	\N
+14	36	46.9	70.6	51.3	\N	\N	\N	964	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-B-IN22k	3	\N	\N
+15	36	51.9	70.8	56.5	\N	\N	\N	827	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-S-IN1k	2	\N	\N
+16	36	50.4	69.1	54.8	\N	\N	\N	741	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-T-IN1k	2	\N	\N
+18	36	46.2	67.9	50.8	\N	\N	\N	262	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	1	3	ConvNeXt-T-IN1k	2	\N	\N
+17	36	43.7	66.5	47.3	\N	\N	\N	741	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-T-IN1k	3	\N	\N
+19	36	41.7	65	44.9	\N	\N	\N	262	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	1	3	ConvNeXt-T-IN1k	3	\N	\N
+21	36	47.7	71.6	52.2	\N	\N	\N	1898	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-XL-IN22k	3	\N	\N
+37	36	55.7	75.2	61.8	\N	\N	\N	2525			4	1	3	ConvNeXt V2-H-IN1k	2	\N	\N
+36	36	45	68.4	49.1	\N	\N	\N	827			4	2	3	ConvNeXt-S-IN1k	3	\N	\N
+3	12	49.9	71.5	54.9	\N	\N	\N	356	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	TransNeXt-T-IN1k	2	\N	\N
+4	12	44.6	68.6	48.1	\N	\N	\N	356	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	TransNeXt-T-IN1k	3	\N	\N
+9	36	54.8	73.8	59.8	\N	\N	\N	1354	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-L-IN22k	2	\N	\N
+10	36	47.6	71.3	51.7	\N	\N	\N	1354	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	ConvNeXt-L-IN22k	3	\N	\N
+38	36	48.9	72.8	53.6	\N	\N	\N	2525			4	1	3	ConvNeXt V2-H-IN1k	3	\N	\N
+40	36	47.7	71.4	52.3	\N	\N	\N	875			4	1	3	ConvNeXt-V2-L-IN1k	3	\N	\N
+41	36	52.9	72.6	58.9	\N	\N	\N	486			4	1	3	ConvNeXt V2-B-IN1k	2	\N	\N
+42	36	46.6	70	51.1	\N	\N	\N	486			4	1	3	ConvNeXt V2-B-IN1k	3	\N	\N
+39	36	54.4	73.9	60.4	\N	\N	\N	875			4	1	3	ConvNeXt-V2-L-IN1k	2	\N	\N
 \.
 
 
@@ -1445,6 +2186,32 @@ COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs"
 --
 
 COPY public.view_instanceresult_fps_measurements (id, instanceresult_id, fpsmeasurement_id) FROM stdin;
+1	24	38
+2	25	38
+3	26	39
+4	27	39
+5	28	40
+6	29	40
+7	30	41
+8	31	41
+9	32	41
+10	33	41
+11	34	42
+12	35	42
+13	9	47
+14	10	47
+15	20	48
+16	21	48
+17	11	46
+18	12	46
+19	14	46
+20	13	46
+21	36	45
+22	15	45
+23	16	44
+24	17	44
+25	18	43
+26	19	43
 \.
 
 
@@ -1453,19 +2220,47 @@ COPY public.view_instanceresult_fps_measurements (id, instanceresult_id, fpsmeas
 --
 
 COPY public.view_pretrainedbackbone (id, name, pretrain_method, pretrain_resolution, pretrain_epochs, paper, github, backbone_id, pretrain_dataset_id, family_id) FROM stdin;
-5	ConvNeXt-Large-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	1	2
-9	ConvNeXt-Small-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	6	1	2
-10	ConvNeXt-Small-IN22k	Supervised	224	90	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	6	2	2
-12	ConvNeXt-Tiny-IN22k	Supervised	224	90	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	5	2	2
-11	ConvNeXt-Tiny-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	5	1	2
-7	ConvNeXt-Base-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	1	2
-8	ConvNeXt-Base-IN22k	Supervised	224	90	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	2	2
-6	ConvNeXt-Large-IN22k	Supervised	224	90	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	2	2
-13	ConvNeXt-ExtraLarge-IN22k	Supervised	224	90	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	9	2	2
-2	TransNeXt-Tiny-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	2	1	1
+4	TransNeXt-B-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	1
+3	TransNeXt-S-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	3	1	1
+2	TransNeXt-T-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	2	1	1
 1	TransNeXt-Micro-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt?tab=readme-ov-file	1	1	1
-4	TransNeXt-Base-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	1
-3	TransNeXt-Small-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	3	1	1
+5	ConvNeXt-L-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	1	2
+8	ConvNeXt-B-IN22k	Supervised	224	90	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	2	2
+6	ConvNeXt-L-IN22k	Supervised	224	90	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	8	2	2
+13	ConvNeXt-XL-IN22k	Supervised	224	90	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	9	2	2
+15	Swin-T-IN22k	Supervised	224	90		https://github.com/microsoft/Swin-Transformer	10	2	3
+19	Swin-S-IN22k	Supervised	224	90			11	2	3
+22	ViT-S (DeiT III)-IN22k	Supervised	224	90			14	2	4
+23	ViT-B (DeiT III)-IN1k	Supervised	192	800			15	1	4
+24	ViT-B (DeiT III)-IN22k	Supervised	224	90			15	2	4
+16	Swin-B-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2103.14030	https://github.com/microsoft/Swin-Transformer	12	1	3
+12	ConvNeXt-T-IN22k	Supervised	224	90	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	5	2	2
+11	ConvNeXt-T-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	5	1	2
+10	ConvNeXt-S-IN22k	Supervised	224	90	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	6	2	2
+9	ConvNeXt-S-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	6	1	2
+41	ConvNeXt V2-A-IN1k	FCMAE	224	1600			23	1	6
+40	ConvNeXt V2-F-IN1k	FCMAE	224	1600			24	1	6
+39	ConvNeXt V2-P-IN1k	FCMAE	224	1600			25	1	6
+27	ViT-H (DeiT III)-IN1k	Supervised	192	800			17	1	4
+28	ViT-H (DeiT III)-IN22k	Supervised	224	90			17	2	4
+25	ViT-L (DeiT III)-IN1k	Supervised	192	800			16	1	4
+21	ViT-S (DeiT III)-IN1k	Supervised	192	800			14	1	4
+26	ViT-L (DeiT III)-IN22k	Supervised	224	90			16	2	4
+14	Swin-T-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2103.14030	https://github.com/microsoft/Swin-Transformer	10	1	3
+18	Swin-S-IN1k	Supervised	224	300			11	1	3
+17	Swin-B-IN22k	Supervised	224	90	https://doi.org/10.48550/arXiv.2103.14030	https://github.com/microsoft/Swin-Transformer	12	2	3
+20	Swin-L-IN22k	Supervised	224	90			13	2	3
+7	ConvNeXt-B-IN1k	Supervised	224	300	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	7	1	2
+38	ConvNeXt V2-N-IN1k	FCMAE	224	1600			26	1	6
+37	ConvNeXt V2-T-IN1k	FCMAE	224	1600			27	1	6
+29	ResNet-18 (RSB)-IN1k	Supervised	224	600			18	1	5
+30	ResNet-34 (RSB)-IN1k	Supervised	224	600			19	1	5
+31	ResNet-50 (RSB)-IN1k	Supervised	224	600			20	1	5
+32	ResNet-101 (RSB)-IN1k	Supervised	224	600			21	1	5
+33	ResNet-152 (RSB)-IN1k	Supervised	224	600			22	1	5
+36	ConvNeXt V2-B-IN1k	FCMAE	224	1600			28	1	6
+35	ConvNeXt V2-L-IN1k	FCMAE	224	1600			29	1	6
+34	ConvNeXt V2-H-IN1k	FCMAE	224	1600			30	1	6
 \.
 
 
@@ -1549,6 +2344,99 @@ COPY public.view_pretrainedbackbone_classification_results (id, pretrainedbackbo
 73	3	75
 74	3	76
 75	3	77
+76	14	78
+77	15	86
+78	18	79
+79	19	87
+80	16	80
+81	17	83
+82	20	85
+83	20	84
+84	17	82
+85	16	81
+86	14	88
+87	14	89
+88	14	90
+89	14	91
+90	16	92
+91	16	93
+92	16	94
+93	16	95
+94	21	96
+95	21	98
+96	21	99
+98	22	111
+99	22	110
+100	23	100
+101	23	101
+102	23	102
+103	23	103
+104	24	112
+105	24	113
+106	24	114
+107	24	115
+108	25	104
+109	25	105
+110	25	106
+111	25	107
+112	26	117
+113	26	116
+115	26	119
+116	27	108
+117	27	109
+118	28	120
+119	28	121
+120	21	97
+121	26	118
+122	14	122
+123	18	123
+124	17	128
+125	17	129
+126	20	130
+127	20	131
+128	7	124
+129	7	125
+130	5	127
+131	5	126
+132	8	132
+133	8	133
+134	6	134
+135	6	135
+136	13	136
+137	13	137
+138	29	139
+139	29	140
+140	30	142
+141	30	143
+142	31	145
+143	31	146
+144	32	148
+145	32	149
+146	33	152
+147	33	151
+148	29	138
+149	30	141
+150	31	144
+151	32	147
+152	33	150
+153	34	153
+154	35	154
+155	36	155
+156	37	156
+157	38	157
+158	39	158
+159	40	159
+160	41	160
+161	38	161
+162	38	162
+163	37	163
+164	37	164
+165	36	165
+166	36	166
+167	35	168
+168	35	167
+169	34	169
+170	34	170
 \.
 
 
@@ -1576,6 +2464,26 @@ COPY public.view_pretrainedbackbone_instance_results (id, pretrainedbackbone_id,
 17	11	19
 18	13	20
 19	13	21
+20	14	24
+21	14	25
+22	14	26
+23	14	27
+24	18	28
+25	18	29
+26	16	30
+27	16	31
+28	17	32
+29	17	33
+30	20	35
+31	18	22
+32	18	23
+33	20	34
+34	34	37
+35	34	38
+36	35	40
+37	35	39
+38	36	41
+39	36	42
 \.
 
 
@@ -1638,7 +2546,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 249, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 745, true);
 
 
 --
@@ -1652,49 +2560,49 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 15, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 32, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 35, true);
 
 
 --
 -- Name: view_backbone_fps_measurements_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbone_fps_measurements_id_seq', 23, true);
+SELECT pg_catalog.setval('public.view_backbone_fps_measurements_id_seq', 64, true);
 
 
 --
 -- Name: view_backbone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbone_id_seq', 9, true);
+SELECT pg_catalog.setval('public.view_backbone_id_seq', 30, true);
 
 
 --
 -- Name: view_backbonefamily_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbonefamily_id_seq', 2, true);
+SELECT pg_catalog.setval('public.view_backbonefamily_id_seq', 6, true);
 
 
 --
 -- Name: view_classificationresult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_classificationresult_id_seq', 77, true);
+SELECT pg_catalog.setval('public.view_classificationresult_id_seq', 170, true);
 
 
 --
 -- Name: view_dataset_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_dataset_id_seq', 12, true);
+SELECT pg_catalog.setval('public.view_dataset_id_seq', 13, true);
 
 
 --
 -- Name: view_dataset_tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_dataset_tasks_id_seq', 17, true);
+SELECT pg_catalog.setval('public.view_dataset_tasks_id_seq', 18, true);
 
 
 --
@@ -1715,42 +2623,42 @@ SELECT pg_catalog.setval('public.view_downstreamhead_tasks_id_seq', 4, true);
 -- Name: view_fpsmeasurement_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_fpsmeasurement_id_seq', 23, true);
+SELECT pg_catalog.setval('public.view_fpsmeasurement_id_seq', 75, true);
 
 
 --
 -- Name: view_instanceresult_fps_measurements_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_instanceresult_fps_measurements_id_seq', 1, false);
+SELECT pg_catalog.setval('public.view_instanceresult_fps_measurements_id_seq', 26, true);
 
 
 --
 -- Name: view_instanceresult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_instanceresult_id_seq', 21, true);
+SELECT pg_catalog.setval('public.view_instanceresult_id_seq', 42, true);
 
 
 --
 -- Name: view_pretrainedbackbone_classification_results_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_pretrainedbackbone_classification_results_id_seq', 75, true);
+SELECT pg_catalog.setval('public.view_pretrainedbackbone_classification_results_id_seq', 170, true);
 
 
 --
 -- Name: view_pretrainedbackbone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_pretrainedbackbone_id_seq', 13, true);
+SELECT pg_catalog.setval('public.view_pretrainedbackbone_id_seq', 41, true);
 
 
 --
 -- Name: view_pretrainedbackbone_instance_results_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_pretrainedbackbone_instance_results_id_seq', 19, true);
+SELECT pg_catalog.setval('public.view_pretrainedbackbone_instance_results_id_seq', 39, true);
 
 
 --
@@ -2191,6 +3099,13 @@ CREATE INDEX view_classificationresult_fine_tune_dataset_id_e978ec5e ON public.v
 
 
 --
+-- Name: view_classificationresult_intermediate_fine_tune_dat_df2eab7e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX view_classificationresult_intermediate_fine_tune_dat_df2eab7e ON public.view_classificationresult USING btree (intermediate_fine_tune_dataset_id);
+
+
+--
 -- Name: view_dataset_tasks_dataset_id_e86cc5f4; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -2251,6 +3166,13 @@ CREATE INDEX view_instanceresult_head_id_4508946f ON public.view_instanceresult 
 --
 
 CREATE INDEX view_instanceresult_instance_type_id_711d6ccd ON public.view_instanceresult USING btree (instance_type_id);
+
+
+--
+-- Name: view_instanceresult_intermediate_train_dataset_id_7bcb686b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX view_instanceresult_intermediate_train_dataset_id_7bcb686b ON public.view_instanceresult USING btree (intermediate_train_dataset_id);
 
 
 --
@@ -2422,6 +3344,14 @@ ALTER TABLE ONLY public.view_classificationresult
 
 
 --
+-- Name: view_classificationresult view_classificationr_intermediate_fine_tu_df2eab7e_fk_view_data; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.view_classificationresult
+    ADD CONSTRAINT view_classificationr_intermediate_fine_tu_df2eab7e_fk_view_data FOREIGN KEY (intermediate_fine_tune_dataset_id) REFERENCES public.view_dataset(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: view_dataset_tasks view_dataset_tasks_dataset_id_e86cc5f4_fk_view_dataset_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2491,6 +3421,14 @@ ALTER TABLE ONLY public.view_instanceresult
 
 ALTER TABLE ONLY public.view_instanceresult
     ADD CONSTRAINT view_instanceresult_instance_type_id_711d6ccd_fk_view_task_id FOREIGN KEY (instance_type_id) REFERENCES public.view_task(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: view_instanceresult view_instanceresult_intermediate_train_d_7bcb686b_fk_view_data; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.view_instanceresult
+    ADD CONSTRAINT view_instanceresult_intermediate_train_d_7bcb686b_fk_view_data FOREIGN KEY (intermediate_train_dataset_id) REFERENCES public.view_dataset(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --

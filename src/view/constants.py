@@ -67,6 +67,7 @@ RESOLUTIONS = {
     "": "----------",
     "224": "224x224",
     "384": "384x384",
+    "512": "512x512",
 }
 
 LIMITED_LEGEND_ATTRIBUTES = {
