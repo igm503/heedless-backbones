@@ -14,56 +14,63 @@ from .models import (
 )
 
 
+def subquery_filter(model, outer, instance_type):
+    if outer == Dataset:
+        queryset = model.objects.filter(dataset=OuterRef("pk"))
+    elif outer == DownstreamHead:
+        queryset = model.objects.filter(head=OuterRef("pk"))
+    else:
+        raise ValueError("outer must be either Dataset or DownstreamHead")
+    if instance_type:
+        queryset = queryset.filter(instance_type__name=instance_type.value)
+    return queryset
+
+
+def get_count_subquery(model, outer, outer_string, instance_type=None):
+    queryset = subquery_filter(model, outer, instance_type)
+    return Subquery(queryset.values(outer_string).annotate(count=Count("id")).values("count"))
+
+
+def get_date_subquery(model, outer, outer_string, instance_type=None):
+    queryset = subquery_filter(model, outer, instance_type)
+    return Subquery(
+        queryset.values(outer_string)
+        .values("dataset")
+        .annotate(latest_date=Max("pretrainedbackbone__family__pub_date"))
+        .values("latest_date")
+    )
+
+
+def get_count_date_row(obj, task):
+    if task.name == TaskType.CLASSIFICATION.value:
+        num_results = obj.class_count
+        last_result = obj.class_date
+    elif task.name == TaskType.DETECTION.value:
+        num_results = obj.det_count
+        last_result = obj.det_date
+    elif task.name == TaskType.INSTANCE_SEG.value:
+        num_results = obj.instance_count
+        last_result = obj.instance_date
+    else:
+        num_results = 0
+        last_result = 0
+    return {"name": obj.name, "# results": num_results, "last result": last_result}
+
+
 def get_dataset_lists():
     datasets = (
         Dataset.objects.filter(eval=True)
         .prefetch_related(Prefetch("tasks", Task.objects.all(), "_tasks"))
         .annotate(
-            classification_result_count=Subquery(
-                ClassificationResult.objects.filter(dataset=OuterRef("pk"))
-                .values("dataset")
-                .annotate(count=Count("id"))
-                .values("count")
+            class_count=get_count_subquery(ClassificationResult, Dataset, "dataset"),
+            det_count=get_count_subquery(InstanceResult, Dataset, "dataset", TaskType.DETECTION),
+            instance_count=get_count_subquery(
+                InstanceResult, Dataset, "dataset", TaskType.INSTANCE_SEG
             ),
-            detection_result_count=Subquery(
-                InstanceResult.objects.filter(
-                    dataset=OuterRef("pk"), instance_type__name=TaskType.DETECTION.value
-                )
-                .values("dataset")
-                .annotate(count=Count("id"))
-                .values("count")
-            ),
-            instance_seg_result_count=Subquery(
-                InstanceResult.objects.filter(
-                    dataset=OuterRef("pk"),
-                    instance_type__name=TaskType.INSTANCE_SEG.value,
-                )
-                .values("dataset")
-                .annotate(count=Count("id"))
-                .values("count")
-            ),
-            latest_classification_family_date=Subquery(
-                ClassificationResult.objects.filter(dataset=OuterRef("pk"))
-                .values("dataset")
-                .annotate(latest_date=Max("pretrainedbackbone__family__pub_date"))
-                .values("latest_date")
-            ),
-            latest_detection_family_date=Subquery(
-                InstanceResult.objects.filter(
-                    dataset=OuterRef("pk"), instance_type__name=TaskType.DETECTION.value
-                )
-                .values("dataset")
-                .annotate(latest_date=Max("pretrainedbackbone__family__pub_date"))
-                .values("latest_date")
-            ),
-            latest_instance_seg_family_date=Subquery(
-                InstanceResult.objects.filter(
-                    dataset=OuterRef("pk"),
-                    instance_type__name=TaskType.INSTANCE_SEG.value,
-                )
-                .values("dataset")
-                .annotate(latest_date=Max("pretrainedbackbone__family__pub_date"))
-                .values("latest_date")
+            class_date=get_date_subquery(ClassificationResult, Dataset, "dataset"),
+            det_date=get_date_subquery(InstanceResult, Dataset, "dataset", TaskType.DETECTION),
+            instance_date=get_date_subquery(
+                InstanceResult, Dataset, "dataset", TaskType.INSTANCE_SEG
             ),
         )
         .all()
@@ -72,26 +79,10 @@ def get_dataset_lists():
     lists = defaultdict(lambda: defaultdict(list))
     for dataset in datasets:
         for task in dataset._tasks:
-            if task.name == TaskType.CLASSIFICATION.value:
-                num_results = dataset.classification_result_count
-                last_result = dataset.latest_classification_family_date
-            elif task.name == TaskType.DETECTION.value:
-                num_results = dataset.detection_result_count
-                last_result = dataset.latest_detection_family_date
-            elif task.name == TaskType.INSTANCE_SEG.value:
-                num_results = dataset.instance_seg_result_count
-                last_result = dataset.latest_instance_seg_family_date
-            else:
-                num_results = 0
-                last_result = 0
-            if not num_results:
+            row = get_count_date_row(dataset, task)
+            if not row["# results"]:
                 continue
-            row = {
-                "name": dataset.name,
-                "# results": num_results,
-                "last result": last_result,
-                "website": "link",
-            }
+            row["website"] = "link"
             links = {
                 "name": reverse("dataset", args=[dataset.name]),
                 "website": dataset.website,
@@ -112,39 +103,15 @@ def get_head_lists():
         DownstreamHead.objects.filter()
         .prefetch_related(Prefetch("tasks", Task.objects.all(), "_tasks"))
         .annotate(
-            detection_result_count=Subquery(
-                InstanceResult.objects.filter(
-                    head=OuterRef("pk"), instance_type__name=TaskType.DETECTION.value
-                )
-                .values("head")
-                .annotate(count=Count("id"))
-                .values("count")
+            det_count=get_count_subquery(
+                InstanceResult, DownstreamHead, "head", TaskType.DETECTION
             ),
-            instance_seg_result_count=Subquery(
-                InstanceResult.objects.filter(
-                    head=OuterRef("pk"),
-                    instance_type__name=TaskType.INSTANCE_SEG.value,
-                )
-                .values("head")
-                .annotate(count=Count("id"))
-                .values("count")
+            instance_count=get_count_subquery(
+                InstanceResult, DownstreamHead, "head", TaskType.INSTANCE_SEG
             ),
-            latest_detection_family_date=Subquery(
-                InstanceResult.objects.filter(
-                    head=OuterRef("pk"), instance_type__name=TaskType.DETECTION.value
-                )
-                .values("head")
-                .annotate(latest_date=Max("pretrainedbackbone__family__pub_date"))
-                .values("latest_date")
-            ),
-            latest_instance_seg_family_date=Subquery(
-                InstanceResult.objects.filter(
-                    head=OuterRef("pk"),
-                    instance_type__name=TaskType.INSTANCE_SEG.value,
-                )
-                .values("head")
-                .annotate(latest_date=Max("pretrainedbackbone__family__pub_date"))
-                .values("latest_date")
+            det_date=get_date_subquery(InstanceResult, DownstreamHead, "head", TaskType.DETECTION),
+            instance_date=get_date_subquery(
+                InstanceResult, DownstreamHead, "head", TaskType.INSTANCE_SEG
             ),
         )
         .all()
@@ -153,24 +120,11 @@ def get_head_lists():
     lists = defaultdict(lambda: defaultdict(list))
     for head in heads:
         for task in head._tasks:
-            if task.name == TaskType.DETECTION.value:
-                num_results = head.detection_result_count
-                last_result = head.latest_detection_family_date
-            elif task.name == TaskType.INSTANCE_SEG.value:
-                num_results = head.instance_seg_result_count
-                last_result = head.latest_instance_seg_family_date
-            else:
-                num_results = 0
-                last_result = 0
-            if not num_results:
+            row = get_count_date_row(head, task)
+            if not row["# results"]:
                 continue
-            row = {
-                "name": head.name,
-                "# results": num_results,
-                "last result": last_result,
-                "github": "link",
-                "paper": "link",
-            }
+            row["github"] = "link"
+            row["paper"] = "link"
             links = {
                 "name": reverse("head", args=[head.name]),
                 "github": head.github,
