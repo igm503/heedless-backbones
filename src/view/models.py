@@ -162,7 +162,6 @@ class PretrainedBackbone(models.Model):
 class ClassificationResult(models.Model):
     objects = models.Manager()
 
-    pretrained_backbone_name = models.CharField(max_length=100)
     pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.RESTRICT)
     dataset = models.ForeignKey(Dataset, on_delete=models.RESTRICT)
     resolution = models.IntegerField()
@@ -194,7 +193,7 @@ class ClassificationResult(models.Model):
     def __str__(self):
         string = ""
         for item in [
-            self.pretrained_backbone_name,
+            self.pretrained_backbone.name,
             self.dataset,
             self.fine_tune_dataset,
             self.fine_tune_resolution,
@@ -208,7 +207,6 @@ class ClassificationResult(models.Model):
 class InstanceResult(models.Model):
     objects = models.Manager()
 
-    pretrained_backbone_name = models.CharField(max_length=100)
     pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.RESTRICT)
     head = models.ForeignKey(DownstreamHead, on_delete=models.RESTRICT)
     dataset = models.ForeignKey(Dataset, on_delete=models.RESTRICT)
@@ -241,7 +239,7 @@ class InstanceResult(models.Model):
     def __str__(self):
         string = ""
         for item in [
-            self.pretrained_backbone_name,
+            self.pretrained_backbone.name,
             self.head,
             self.instance_type,
             self.dataset,
@@ -252,5 +250,3 @@ class InstanceResult(models.Model):
                 string += str(item)
                 string += "/"
         return string
-PretrainedBackbone.classification_results = models.ManyToManyField(ClassificationResult, blank=True)
-PretrainedBackbone.instance_results = models.ManyToManyField(InstanceResult, blank=True)
