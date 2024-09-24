@@ -36,7 +36,7 @@ def get_date_subquery(model, outer, outer_string, instance_type=None):
     return Subquery(
         queryset.values(outer_string)
         .values("dataset")
-        .annotate(latest_date=Max("pretrainedbackbone__family__pub_date"))
+        .annotate(latest_date=Max("pretrained_backbone__family__pub_date"))
         .values("latest_date")
     )
 
@@ -90,12 +90,8 @@ def get_dataset_lists():
             lists[task.name]["rows"].append(row)
             lists[task.name]["links"].append(links)
     for task, lis in lists.items():
-        if lis["rows"]:
-            lists[task]["headers"] = list(lis["rows"][0].keys())
-        else:
-            lists[task]["headers"] = []
-    lists = {k: dict(v) for k, v in lists.items()}
-    return lists
+        lists[task]["headers"] = list(lis["rows"][0].keys()) if lis["rows"] else []
+    return {k: dict(v) for k, v in lists.items()}
 
 
 def get_head_lists():
@@ -133,12 +129,8 @@ def get_head_lists():
             lists[task.name]["rows"].append(row)
             lists[task.name]["links"].append(links)
     for task, lis in lists.items():
-        if lis["rows"]:
-            lists[task]["headers"] = list(lis["rows"][0].keys())
-        else:
-            lists[task]["headers"] = []
-    lists = {k: dict(v) for k, v in lists.items()}
-    return lists
+        lists[task]["headers"] = list(lis["rows"][0].keys()) if lis["rows"] else []
+    return {k: dict(v) for k, v in lists.items()}
 
 
 def get_family_list():

@@ -72,18 +72,18 @@ def filter_and_add_results(queryset, args, to_attr):
 
 def filter_by_classification(query, args):
     filter_args = {
-        "classification_results__dataset": args.dataset,
-        "classification_results__resolution": args.resolution,
+        "classificationresult__dataset": args.dataset,
+        "classificationresult__resolution": args.resolution,
     }
     filter_args = {k: v for k, v in filter_args.items() if v is not None}
     if args.fps:
         return query.filter(
             Exists(
                 ClassificationResult.objects.filter(
-                    pretrainedbackbone=OuterRef("pk"),
-                    pretrainedbackbone__backbone__fps_measurements__resolution=F("resolution"),
-                    pretrainedbackbone__backbone__fps_measurements__gpu=args.gpu,
-                    pretrainedbackbone__backbone__fps_measurements__precision=args.precision,
+                    pretrained_backbone=OuterRef("pk"),
+                    pretrained_backbone__backbone__fps_measurements__resolution=F("resolution"),
+                    pretrained_backbone__backbone__fps_measurements__gpu=args.gpu,
+                    pretrained_backbone__backbone__fps_measurements__precision=args.precision,
                 )
             ),
             **filter_args,
@@ -94,11 +94,11 @@ def filter_by_classification(query, args):
 
 def filter_by_instance(query, args):
     filter_args = {
-        "instance_results__dataset": args.dataset,
-        "instance_results__instance_type": args.task,
-        "instance_results__head": args.head,
-        "instance_results__fps_measurements__gpu": args.gpu,
-        "instance_results__fps_measurements__precision": args.precision,
+        "instanceresult__dataset": args.dataset,
+        "instanceresult__instance_type": args.task,
+        "instanceresult__head": args.head,
+        "instanceresult__fps_measurements__gpu": args.gpu,
+        "instanceresult__fps_measurements__precision": args.precision,
     }
     filter_args = {k: v for k, v in filter_args.items() if v is not None}
     return query.filter(**filter_args).distinct() if filter_args else query
@@ -113,14 +113,14 @@ def get_classification_prefetch(name, args):
     queryset = ClassificationResult.objects.filter(**filter_args)
     if args.fps:
         queryset = queryset.filter(
-            pretrainedbackbone__backbone__fps_measurements__resolution=F("resolution"),
-            pretrainedbackbone__backbone__fps_measurements__gpu=args.gpu,
-            pretrainedbackbone__backbone__fps_measurements__precision=args.precision,
+            pretrained_backbone__backbone__fps_measurements__resolution=F("resolution"),
+            pretrained_backbone__backbone__fps_measurements__gpu=args.gpu,
+            pretrained_backbone__backbone__fps_measurements__precision=args.precision,
         ).annotate(
             fps=Coalesce(
                 Subquery(
                     FPSMeasurement.objects.filter(
-                        backbone__pretrainedbackbone__classification_results=OuterRef("pk"),
+                        backbone=OuterRef("pretrained_backbone__backbone"),
                         resolution=OuterRef("resolution"),
                         gpu=args.gpu,
                         precision=args.precision,
@@ -130,7 +130,7 @@ def get_classification_prefetch(name, args):
                 output_field=FloatField(),
             )
         )
-    return Prefetch("classification_results", queryset=queryset, to_attr=name)
+    return Prefetch("classificationresult_set", queryset=queryset, to_attr=name)
 
 
 def get_instance_prefetch(name, args):
@@ -159,7 +159,7 @@ def get_instance_prefetch(name, args):
                 output_field=FloatField(),
             )
         )
-    return Prefetch("instance_results", queryset=queryset, to_attr=name)
+    return Prefetch("instanceresult_set", queryset=queryset, to_attr=name)
 
 
 def get_plot(queryset, request):

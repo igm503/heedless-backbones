@@ -95,7 +95,7 @@ def get_head_instance_table(head_name, instance_type):
     queryset = PretrainedBackbone.objects.select_related("family", "backbone")
     queryset = queryset.prefetch_related(
         Prefetch(
-            "instance_results",
+            "instanceresult_set",
             queryset=InstanceResult.objects.select_related("dataset").filter(
                 instance_type__name=instance_type.value,
                 head__name=head_name,
@@ -120,7 +120,7 @@ def get_family_instance_table(family_name, instance_type):
     queryset = queryset.filter(family__name=family_name)
     queryset = queryset.prefetch_related(
         Prefetch(
-            "instance_results",
+            "instanceresult_set",
             queryset=InstanceResult.objects.select_related("dataset").filter(
                 instance_type__name=instance_type.value
             ),
@@ -143,7 +143,7 @@ def get_dataset_instance_table(dataset_name, instance_type):
     queryset = PretrainedBackbone.objects.select_related("family", "backbone")
     queryset = queryset.prefetch_related(
         Prefetch(
-            "instance_results",
+            "instanceresult_set",
             queryset=InstanceResult.objects.select_related("dataset").filter(
                 instance_type__name=instance_type.value,
                 dataset__name=dataset_name,
@@ -195,7 +195,7 @@ def get_family_classification_table(family_name):
     queryset = queryset.filter(family__name=family_name)
     queryset = queryset.prefetch_related(
         Prefetch(
-            "classification_results",
+            "classificationresult_set",
             queryset=ClassificationResult.objects.select_related("dataset", "fine_tune_dataset"),
             to_attr="results",
         )
@@ -243,7 +243,7 @@ def get_dataset_classification_table(dataset_name):
     queryset = PretrainedBackbone.objects.select_related("family", "backbone")
     queryset = queryset.prefetch_related(
         Prefetch(
-            "classification_results",
+            "classificationresult_set",
             queryset=ClassificationResult.objects.select_related(
                 "dataset", "fine_tune_dataset"
             ).filter(dataset__name=dataset_name),
