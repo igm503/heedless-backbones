@@ -1,8 +1,7 @@
 import random
 from collections import defaultdict
 
-from django.db.models import Prefetch, Exists, OuterRef, F, Value, Subquery, FloatField
-from django.db.models.functions import Coalesce
+from django.db.models import Prefetch, OuterRef, F, Subquery
 from plotly.offline import plot
 import plotly.graph_objs as go
 
@@ -76,20 +75,7 @@ def filter_by_classification(query, args):
         "classificationresult__resolution": args.resolution,
     }
     filter_args = {k: v for k, v in filter_args.items() if v is not None}
-    if args.fps:
-        return query.filter(
-            Exists(
-                ClassificationResult.objects.filter(
-                    pretrained_backbone=OuterRef("pk"),
-                    pretrained_backbone__backbone__fps_measurements__resolution=F("resolution"),
-                    pretrained_backbone__backbone__fps_measurements__gpu=args.gpu,
-                    pretrained_backbone__backbone__fps_measurements__precision=args.precision,
-                )
-            ),
-            **filter_args,
-        ).distinct()
-    else:
-        return query.filter(**filter_args).distinct() if filter_args else query
+    return query.filter(**filter_args).distinct() if filter_args else query
 
 
 def filter_by_instance(query, args):
@@ -112,25 +98,18 @@ def get_classification_prefetch(name, args):
     filter_args = {k: v for k, v in filter_args.items() if v is not None}
     queryset = ClassificationResult.objects.filter(**filter_args)
     if args.fps:
+        fps_subquery = FPSMeasurement.objects.filter(
+            backbone=OuterRef("pretrained_backbone__backbone"),
+            resolution=OuterRef("resolution"),
+            gpu=args.gpu,
+            precision=args.precision,
+        )
         queryset = queryset.filter(
             pretrained_backbone__backbone__fps_measurements__resolution=F("resolution"),
             pretrained_backbone__backbone__fps_measurements__gpu=args.gpu,
             pretrained_backbone__backbone__fps_measurements__precision=args.precision,
-        ).annotate(
-            fps=Coalesce(
-                Subquery(
-                    FPSMeasurement.objects.filter(
-                        backbone=OuterRef("pretrained_backbone__backbone"),
-                        resolution=OuterRef("resolution"),
-                        gpu=args.gpu,
-                        precision=args.precision,
-                    ).values("fps")[:1]
-                ),
-                Value(None),
-                output_field=FloatField(),
-            )
-        )
-    return Prefetch("classificationresult_set", queryset=queryset, to_attr=name)
+        ).annotate(fps=Subquery(fps_subquery.values("fps")[:1]))
+    return Prefetch("classificationresult_set", queryset, name)
 
 
 def get_instance_prefetch(name, args):
@@ -138,28 +117,20 @@ def get_instance_prefetch(name, args):
         "dataset": args.dataset,
         "instance_type": args.task,
         "head": args.head,
-        # "resolution": args.resolution,
     }
     filter_args = {k: v for k, v in filter_args.items() if v is not None}
     queryset = InstanceResult.objects.filter(**filter_args)
     if args.fps:
+        fps_subquery = FPSMeasurement.objects.filter(
+            instanceresult=OuterRef("pk"),
+            gpu=args.gpu,
+            precision=args.precision,
+        )
         queryset = queryset.filter(
             fps_measurements__gpu=args.gpu,
             fps_measurements__precision=args.precision,
-        ).annotate(
-            fps=Coalesce(
-                Subquery(
-                    FPSMeasurement.objects.filter(
-                        instanceresult=OuterRef("pk"),
-                        gpu=args.gpu,
-                        precision=args.precision,
-                    ).values("fps")[:1]
-                ),
-                Value(None),
-                output_field=FloatField(),
-            )
-        )
-    return Prefetch("instanceresult_set", queryset=queryset, to_attr=name)
+        ).annotate(fps=Subquery(fps_subquery.values("fps")[:1]))
+    return Prefetch("instanceresult_set", queryset, name)
 
 
 def get_plot(queryset, request):

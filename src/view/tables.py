@@ -4,7 +4,12 @@ from django.db.models import Prefetch
 from django.urls import reverse
 
 from .request import PlotRequest
-from .data_utils import get_value, get_pretrain_string, get_finetune_string, get_train_string
+from .data_utils import (
+    get_value,
+    get_pretrain_string,
+    get_finetune_string,
+    get_train_string,
+)
 from .constants import INSTANCE_SEG_METRICS, DETECTION_METRICS
 from .models import ClassificationResult, InstanceResult, PretrainedBackbone, TaskType
 
@@ -92,20 +97,8 @@ def get_plot_table_multi(queryset, args, page):
 
 
 def get_head_instance_table(head_name, instance_type):
-    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
-    queryset = queryset.prefetch_related(
-        Prefetch(
-            "instanceresult_set",
-            queryset=InstanceResult.objects.select_related("dataset").filter(
-                instance_type__name=instance_type.value,
-                head__name=head_name,
-            ),
-            to_attr="results",
-        )
-    )
-
+    queryset = get_instance_data(instance_type, head_name=head_name)
     dataset_names = {result.dataset.name for pb in queryset for result in pb.results}
-
     data = []
     for dataset_name in dataset_names:
         table = get_instance_table(queryset, dataset_name, instance_type, page="head")
@@ -116,20 +109,8 @@ def get_head_instance_table(head_name, instance_type):
 
 
 def get_family_instance_table(family_name, instance_type):
-    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
-    queryset = queryset.filter(family__name=family_name)
-    queryset = queryset.prefetch_related(
-        Prefetch(
-            "instanceresult_set",
-            queryset=InstanceResult.objects.select_related("dataset").filter(
-                instance_type__name=instance_type.value
-            ),
-            to_attr="results",
-        )
-    )
-
+    queryset = get_instance_data(instance_type, family_name=family_name)
     dataset_names = {result.dataset.name for pb in queryset for result in pb.results}
-
     data = []
     for dataset_name in dataset_names:
         table = get_instance_table(queryset, dataset_name, instance_type, page="family")
@@ -140,19 +121,25 @@ def get_family_instance_table(family_name, instance_type):
 
 
 def get_dataset_instance_table(dataset_name, instance_type):
-    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
-    queryset = queryset.prefetch_related(
-        Prefetch(
-            "instanceresult_set",
-            queryset=InstanceResult.objects.select_related("dataset").filter(
-                instance_type__name=instance_type.value,
-                dataset__name=dataset_name,
-            ),
-            to_attr="results",
-        )
-    )
-
+    queryset = get_instance_data(instance_type, dataset_name=dataset_name)
     return get_instance_table(queryset, dataset_name, instance_type)
+
+
+def get_instance_data(instance_type, head_name=None, family_name=None, dataset_name=None):
+    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
+    if family_name:
+        queryset = queryset.filter(family__name=family_name)
+    prefetch_queryset = InstanceResult.objects.select_related("dataset").filter(
+        instance_type__name=instance_type.value
+    )
+    if head_name:
+        prefetch_queryset = prefetch_queryset.filter(head__name=head_name)
+    if dataset_name:
+        prefetch_queryset = prefetch_queryset.filter(dataset__name=dataset_name)
+    queryset = queryset.prefetch_related(
+        Prefetch("instanceresult_set", prefetch_queryset, "results")
+    )
+    return queryset
 
 
 def get_instance_table(queryset, dataset_name, instance_type, page=""):

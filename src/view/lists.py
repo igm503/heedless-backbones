@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from django.db.models import Count, Subquery, OuterRef, Max, Prefetch
+from django.db.models import Count, Q, Max, Prefetch
 from django.urls import reverse
 
 from .models import (
@@ -14,68 +14,8 @@ from .models import (
 )
 
 
-def subquery_filter(model, outer, instance_type):
-    if outer == Dataset:
-        queryset = model.objects.filter(dataset=OuterRef("pk"))
-    elif outer == DownstreamHead:
-        queryset = model.objects.filter(head=OuterRef("pk"))
-    else:
-        raise ValueError("outer must be either Dataset or DownstreamHead")
-    if instance_type:
-        queryset = queryset.filter(instance_type__name=instance_type.value)
-    return queryset
-
-
-def get_count_subquery(model, outer, outer_string, instance_type=None):
-    queryset = subquery_filter(model, outer, instance_type)
-    return Subquery(queryset.values(outer_string).annotate(count=Count("id")).values("count"))
-
-
-def get_date_subquery(model, outer, outer_string, instance_type=None):
-    queryset = subquery_filter(model, outer, instance_type)
-    return Subquery(
-        queryset.values(outer_string)
-        .values("dataset")
-        .annotate(latest_date=Max("pretrained_backbone__family__pub_date"))
-        .values("latest_date")
-    )
-
-
-def get_count_date_row(obj, task):
-    if task.name == TaskType.CLASSIFICATION.value:
-        num_results = obj.class_count
-        last_result = obj.class_date
-    elif task.name == TaskType.DETECTION.value:
-        num_results = obj.det_count
-        last_result = obj.det_date
-    elif task.name == TaskType.INSTANCE_SEG.value:
-        num_results = obj.instance_count
-        last_result = obj.instance_date
-    else:
-        num_results = 0
-        last_result = 0
-    return {"name": obj.name, "# results": num_results, "last result": last_result}
-
-
 def get_dataset_lists():
-    datasets = (
-        Dataset.objects.filter(eval=True)
-        .prefetch_related(Prefetch("tasks", Task.objects.all(), "_tasks"))
-        .annotate(
-            class_count=get_count_subquery(ClassificationResult, Dataset, "dataset"),
-            det_count=get_count_subquery(InstanceResult, Dataset, "dataset", TaskType.DETECTION),
-            instance_count=get_count_subquery(
-                InstanceResult, Dataset, "dataset", TaskType.INSTANCE_SEG
-            ),
-            class_date=get_date_subquery(ClassificationResult, Dataset, "dataset"),
-            det_date=get_date_subquery(InstanceResult, Dataset, "dataset", TaskType.DETECTION),
-            instance_date=get_date_subquery(
-                InstanceResult, Dataset, "dataset", TaskType.INSTANCE_SEG
-            ),
-        )
-        .all()
-    )
-
+    datasets = get_result_restricting_data(Dataset)
     lists = defaultdict(lambda: defaultdict(list))
     for dataset in datasets:
         for task in dataset._tasks:
@@ -95,24 +35,7 @@ def get_dataset_lists():
 
 
 def get_head_lists():
-    heads = (
-        DownstreamHead.objects.filter()
-        .prefetch_related(Prefetch("tasks", Task.objects.all(), "_tasks"))
-        .annotate(
-            det_count=get_count_subquery(
-                InstanceResult, DownstreamHead, "head", TaskType.DETECTION
-            ),
-            instance_count=get_count_subquery(
-                InstanceResult, DownstreamHead, "head", TaskType.INSTANCE_SEG
-            ),
-            det_date=get_date_subquery(InstanceResult, DownstreamHead, "head", TaskType.DETECTION),
-            instance_date=get_date_subquery(
-                InstanceResult, DownstreamHead, "head", TaskType.INSTANCE_SEG
-            ),
-        )
-        .all()
-    )
-
+    heads = get_result_restricting_data(DownstreamHead)
     lists = defaultdict(lambda: defaultdict(list))
     for head in heads:
         for task in head._tasks:
@@ -157,5 +80,63 @@ def get_family_list():
         row_links.append(links)
 
     headers = list(rows[0].keys()) if rows else []
-
     return {"rows": rows, "links": row_links, "headers": headers}
+
+
+def get_result_restricting_data(model):
+    if model == Dataset:
+        queryset = model.objects.filter(eval=True)
+    else:
+        queryset = model.objects.all()
+    queryset = queryset.prefetch_related(Prefetch("tasks", Task.objects.all(), to_attr="_tasks"))
+    queryset = queryset.annotate(
+        det_count=get_count(InstanceResult, TaskType.DETECTION),
+        inst_count=get_count(InstanceResult, TaskType.INSTANCE_SEG),
+        det_date=get_date(InstanceResult, TaskType.DETECTION),
+        inst_date=get_date(InstanceResult, TaskType.INSTANCE_SEG),
+    )
+    if model == Dataset:
+        queryset = queryset.annotate(
+            class_count=get_count(ClassificationResult),
+            class_date=get_date(ClassificationResult),
+        )
+
+    return queryset
+
+
+def get_count(result_model, result_type=None):
+    if result_model == ClassificationResult:
+        return Count("classificationresult")
+    else:
+        assert result_type is not None
+        return Count(
+            "instanceresult",
+            filter=Q(instanceresult__instance_type__name=result_type.value),
+        )
+
+
+def get_date(result_model, result_type=None):
+    if result_model == ClassificationResult:
+        return Max("classificationresult__pretrained_backbone__family__pub_date")
+    else:
+        assert result_type is not None
+        return Max(
+            "instanceresult__pretrained_backbone__family__pub_date",
+            filter=Q(instanceresult__instance_type__name=result_type.value),
+        )
+
+
+def get_count_date_row(obj, task):
+    if task.name == TaskType.CLASSIFICATION.value:
+        num_results = obj.class_count
+        last_result = obj.class_date
+    elif task.name == TaskType.DETECTION.value:
+        num_results = obj.det_count
+        last_result = obj.det_date
+    elif task.name == TaskType.INSTANCE_SEG.value:
+        num_results = obj.inst_count
+        last_result = obj.inst_date
+    else:
+        num_results = 0
+        last_result = 0
+    return {"name": obj.name, "# results": num_results, "last result": last_result}
