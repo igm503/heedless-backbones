@@ -778,7 +778,9 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 -- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
--- REDACTED
+COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+\.
+--REDACTED
 
 
 --
@@ -1547,6 +1549,93 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 743	2024-09-22 13:26:26.787367-05	34	ConvNeXt V2-H-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
 744	2024-09-22 13:31:58.329314-05	162	ConvNeXt V2-N-IN1k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Resolution"]}}]	8	1
 745	2024-09-22 23:00:48.031309-05	39	ConvNeXt-V2-L-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/36/	2	[]	7	1
+746	2024-09-25 00:33:12.099803-05	7	Hiera	1	[{"added": {}}]	14	1
+747	2024-09-25 00:35:16.85567-05	76	Hiera-T/A100/224/FP16/	1	[{"added": {}}]	15	1
+748	2024-09-25 00:36:07.686224-05	31	Hiera-T	1	[{"added": {}}]	10	1
+749	2024-09-25 00:36:45.589867-05	77	Hiera-S/A100/224/FP16/	1	[{"added": {}}]	15	1
+750	2024-09-25 00:36:47.32212-05	32	Hiera-S	1	[{"added": {}}]	10	1
+751	2024-09-25 00:37:12.830821-05	78	Hiera-B/A100/224/FP16/	1	[{"added": {}}]	15	1
+752	2024-09-25 00:37:14.108924-05	33	Hiera-B	1	[{"added": {}}]	10	1
+753	2024-09-25 00:37:46.734846-05	79	Hiera-B+/A100/224/FP16/	1	[{"added": {}}]	15	1
+754	2024-09-25 00:37:48.588427-05	34	Hiera-B+	1	[{"added": {}}]	10	1
+755	2024-09-25 00:38:31.111956-05	80	Hiera-L/A100/224/FP16/	1	[{"added": {}}]	15	1
+756	2024-09-25 00:39:55.496035-05	35	Hiera-L	1	[{"added": {}}]	10	1
+757	2024-09-25 00:40:13.956979-05	81	Hiera-H/A100/224/FP16/	1	[{"added": {}}]	15	1
+758	2024-09-25 00:40:27.755294-05	36	Hiera-H	1	[{"added": {}}]	10	1
+759	2024-09-25 00:46:36.277014-05	42	Hiera-T-IN1k	1	[{"added": {}}]	9	1
+760	2024-09-25 00:46:50.961027-05	43	Hiera-S-IN1k	1	[{"added": {}}]	9	1
+761	2024-09-25 00:47:07.782771-05	44	Hiera-B-IN1k	1	[{"added": {}}]	9	1
+762	2024-09-25 00:47:37.576511-05	45	Hiera-B+-IN1k	1	[{"added": {}}]	9	1
+763	2024-09-25 00:47:54.546158-05	46	Hiera-L-IN1k	1	[{"added": {}}]	9	1
+764	2024-09-25 00:48:20.043431-05	47	Hiera-H-IN1k	1	[{"added": {}}]	9	1
+765	2024-09-25 00:49:37.168861-05	171	Hiera-T-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+766	2024-09-25 00:49:59.405563-05	172	Hiera-S-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+767	2024-09-25 00:50:23.600218-05	173	Hiera-B-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+768	2024-09-25 00:50:43.286367-05	174	Hiera-B+-IN1k/ImageNet-1k/ImageNet-1k/100/	1	[{"added": {}}]	8	1
+769	2024-09-25 00:51:17.212742-05	175	Hiera-L-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+770	2024-09-25 00:51:41.112952-05	176	Hiera-H-IN1k/ImageNet-1k/ImageNet-1k/224/	1	[{"added": {}}]	8	1
+771	2024-09-25 00:51:48.045416-05	175	Hiera-L-IN1k/ImageNet-1k/ImageNet-1k/224/	2	[{"changed": {"fields": ["Fine tune epochs"]}}]	8	1
+772	2024-09-25 00:52:10.536121-05	34	Hiera-B+	2	[{"changed": {"fields": ["M parameters"]}}]	10	1
+773	2024-09-25 00:56:10.353422-05	82	Hiera-B-IN1k/Mask-RCNN/V100/1280/FP32/	1	[{"added": {}}]	15	1
+774	2024-09-25 00:56:13.751872-05	43	Hiera-B-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/100/	1	[{"added": {}}]	7	1
+775	2024-09-25 00:57:17.842886-05	44	Hiera-B-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/100/	1	[{"added": {}}]	7	1
+776	2024-09-25 00:58:07.489419-05	83	Hiera-B+-IN1k/Mask-RCNN/V100/1280/FP32/	1	[{"added": {}}]	15	1
+777	2024-09-25 00:58:09.572537-05	45	Hiera-B+-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/100/	1	[{"added": {}}]	7	1
+778	2024-09-25 00:58:44.741906-05	46	Hiera-B+-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/100/	1	[{"added": {}}]	7	1
+779	2024-09-25 00:59:40.077958-05	84	Hiera-L-IN1k/V100/1280/FP32/	1	[{"added": {}}]	15	1
+780	2024-09-25 00:59:42.661974-05	47	Hiera-L-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/100/	1	[{"added": {}}]	7	1
+781	2024-09-25 01:00:09.440634-05	48	Hiera-L-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/100/	1	[{"added": {}}]	7	1
+782	2024-09-25 01:00:15.101608-05	43	Hiera-B-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/100/	2	[]	7	1
+783	2024-09-25 01:00:21.324586-05	44	Hiera-B-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/100/	2	[{"changed": {"fields": ["Gflops"]}}]	7	1
+784	2024-09-25 01:00:27.21298-05	45	Hiera-B+-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/100/	2	[]	7	1
+785	2024-09-25 01:00:51.984614-05	82	Hiera-B-IN1k/Mask-RCNN/V100/1280/FP32/	2	[{"changed": {"fields": ["Fps"]}}]	15	1
+786	2024-09-25 01:01:02.465442-05	84	Hiera-L-IN1k/Mask-RCNN/V100/1280/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+787	2024-09-25 01:03:48.471388-05	32	Hiera-S	2	[]	10	1
+788	2024-09-25 01:07:03.502438-05	85	ConvNeXt V20T/A100/224/FP16/	1	[{"added": {}}]	15	1
+789	2024-09-25 01:07:06.017716-05	27	ConvNeXt V2-T	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+790	2024-09-25 01:07:47.320516-05	86	ConvNeXt V2-B/A100/224/FP16/	1	[{"added": {}}]	15	1
+791	2024-09-25 01:07:48.574862-05	28	ConvNeXt V2-B	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+792	2024-09-25 01:08:20.465786-05	87	ConvNeXt V2-L/A100/224/FP16/	1	[{"added": {}}]	15	1
+793	2024-09-25 01:08:23.863896-05	29	ConvNeXt V2-L	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+794	2024-09-25 01:08:47.621888-05	88	ConvNeXt V2-H/A100/224/FP16/	1	[{"added": {}}]	15	1
+795	2024-09-25 01:08:49.6461-05	30	ConvNeXt V2-H	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
+796	2024-09-25 01:29:34.379916-05	89	Swin-B-IN1k/Mask-RCNN/A100/1280/FP32/	1	[{"added": {}}]	15	1
+797	2024-09-25 01:29:53.919731-05	49	Swin-B-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/50/	1	[{"added": {}}]	7	1
+798	2024-09-25 01:30:29.879464-05	50	Swin-B-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/50/	1	[{"added": {}}]	7	1
+799	2024-09-25 01:30:33.943181-05	49	Swin-B-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/50/	2	[]	7	1
+800	2024-09-25 01:31:17.338916-05	51	Swin-B-IN22k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/50/	1	[{"added": {}}]	7	1
+801	2024-09-25 01:31:51.049059-05	52	Swin-B-IN22k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/50/	1	[{"added": {}}]	7	1
+802	2024-09-25 01:32:59.338352-05	90	Swin-L/Mask-RCNN/A100/1280/FP32/	1	[{"added": {}}]	15	1
+803	2024-09-25 01:33:02.879084-05	53	Swin-L-IN22k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/50/	1	[{"added": {}}]	7	1
+804	2024-09-25 01:33:29.191919-05	54	Swin-L-IN22k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/50/	1	[{"added": {}}]	7	1
+805	2024-09-25 01:35:06.180496-05	91	Swin-B/CascadeMaskRCNN/A100/1280/FP32/	1	[{"added": {}}]	15	1
+806	2024-09-25 01:35:11.350577-05	55	Swin-B-IN1k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/50/	1	[{"added": {}}]	7	1
+807	2024-09-25 01:35:35.183499-05	56	Swin-B-IN1k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/50/	1	[{"added": {}}]	7	1
+808	2024-09-25 01:38:18.637074-05	57	Swin-B-IN22k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/50/	1	[{"added": {}}]	7	1
+809	2024-09-25 01:38:45.605215-05	58	Swin-B-IN22k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/50/	1	[{"added": {}}]	7	1
+810	2024-09-25 01:40:37.783-05	92	Swin-L/CascadeMaskRCNN/A100/1280/FP32/	1	[{"added": {}}]	15	1
+811	2024-09-25 01:40:42.043709-05	59	Swin-L-IN22k/Cascade Mask R-CNN/Object Detection/COCO (val)/COCO (train)/50/	1	[{"added": {}}]	7	1
+812	2024-09-25 01:41:09.075848-05	60	Swin-L-IN22k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/50/	1	[{"added": {}}]	7	1
+813	2024-09-25 01:42:47.415097-05	93	Swin-B/MaskRCNN/V100/1280/FP16/	1	[{"added": {}}]	15	1
+814	2024-09-25 01:42:53.672309-05	49	Swin-B-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/50/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+815	2024-09-25 01:43:09.959743-05	50	Swin-B-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/50/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+816	2024-09-25 01:43:16.528804-05	51	Swin-B-IN22k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/50/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+817	2024-09-25 01:43:21.593479-05	52	Swin-B-IN22k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/50/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+818	2024-09-25 01:44:15.754498-05	94	Swin-L/MaskRCNN/V100/1280/FP32/	1	[{"added": {}}]	15	1
+819	2024-09-25 01:44:18.328769-05	53	Swin-L-IN22k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/50/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+820	2024-09-25 01:44:26.473503-05	54	Swin-L-IN22k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/50/	2	[{"changed": {"fields": ["Fps measurements"]}}]	7	1
+821	2024-09-25 01:44:46.832824-05	89	Swin-B/MaskRCNN/A100/1280/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+822	2024-09-25 01:45:09.602462-05	38	Swin-T/MaskRCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+823	2024-09-25 01:45:30.645418-05	44	ConvNeXt-T/CascadeMaskRCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+824	2024-09-25 01:45:36.674423-05	84	Hiera-L-IN1k/MaskRCNN/V100/1280/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+825	2024-09-25 01:45:40.417983-05	83	Hiera-B+-IN1k/MaskRCNN/V100/1280/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+826	2024-09-25 01:45:43.880044-05	82	Hiera-B-IN1k/MaskRCNN/V100/1280/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+827	2024-09-25 01:45:53.637044-05	48	ConvNeXt-XL/CascadeMaskRCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+828	2024-09-25 01:46:00.063381-05	47	ConvNeXt-L/CascadeMaskRCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+829	2024-09-25 01:46:53.869426-05	46	ConvNeXt-B/CascadeMaskRCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+830	2024-09-25 01:47:25.889684-05	45	ConvNeXt-S/CascadeMaskRCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+831	2024-09-25 01:47:33.686954-05	43	ConvNext-T/MaskRCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+832	2024-09-25 01:47:53.073017-05	90	Swin-L/MaskRCNN/A100/1280/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
 \.
 
 
@@ -1647,6 +1736,12 @@ COPY public.view_backbone (id, name, m_parameters, family_id, github, paper) FRO
 24	ConvNeXt V2-F	5.2	6		
 25	ConvNeXt V2-P	9.1	6		
 26	ConvNeXt V2-N	15.6	6		
+31	Hiera-T	28	7		
+33	Hiera-B	52	7		
+35	Hiera-L	214	7		
+36	Hiera-H	673	7		
+34	Hiera-B+	70	7		
+32	Hiera-S	35	7		
 27	ConvNeXt V2-T	28.6	6		
 28	ConvNeXt V2-B	89	6		
 29	ConvNeXt V2-L	198	6		
@@ -1738,6 +1833,16 @@ COPY public.view_backbone_fps_measurements (id, backbone_id, fpsmeasurement_id) 
 62	20	73
 63	21	74
 64	22	75
+65	31	76
+66	32	77
+67	33	78
+68	34	79
+69	35	80
+70	36	81
+71	27	85
+72	28	86
+73	29	87
+74	30	88
 \.
 
 
@@ -1752,6 +1857,7 @@ COPY public.view_backbonefamily (id, name, model_type, pub_date, paper, github, 
 4	DeiT III	Attention	2022-04-14	https://doi.org/10.48550/arXiv.2204.07118	https://github.com/facebookresearch/deit/blob/main/README_revenge.md	Supervised	f
 5	ResNet (RSB)	Convolution	2021-10-01	https://doi.org/10.48550/arXiv.2110.00476	https://github.com/huggingface/pytorch-image-models	Supervised	t
 6	ConvNeXt V2	Convolution	2023-01-02	https://doi.org/10.48550/arXiv.2301.00808	https://github.com/facebookresearch/ConvNeXt-V2	FCMAE	t
+7	Hiera	Attention	2023-06-01	https://doi.org/10.48550/arXiv.2306.00989	https://github.com/facebookresearch/hiera	MAE	t
 \.
 
 
@@ -1760,6 +1866,8 @@ COPY public.view_backbonefamily (id, name, model_type, pub_date, paper, github, 
 --
 
 COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolution, top_1, top_5, gflops, paper, github, dataset_id, fine_tune_dataset_id, resolution, intermediate_fine_tune_dataset_id, intermediate_fine_tune_epochs, intermediate_fine_tune_resolution, pretrained_backbone_id) FROM stdin;
+171	300	224	82.8	\N	5			1	1	224	\N	\N	\N	42
+176	50	224	86.9	\N	125			1	1	224	\N	\N	\N	47
 77	5	384	76.8	\N	32.1	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	1	384	\N	\N	\N	3
 76	5	384	43.2	\N	32.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	9	1	384	\N	\N	\N	3
 75	5	384	56.4	\N	32.1	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	1	384	\N	\N	\N	3
@@ -1778,6 +1886,7 @@ COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolutio
 1	\N	\N	82.5	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt?tab=readme-ov-file	1	\N	224	\N	\N	\N	1
 48	\N	\N	50.8	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	224	\N	\N	\N	1
 49	\N	\N	29.9	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	7	\N	224	\N	\N	\N	1
+172	200	224	83.8	\N	6			1	1	224	\N	\N	\N	43
 4	\N	\N	84.8	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	224	\N	\N	\N	4
 72	5	384	77	\N	56.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	12	1	384	\N	\N	\N	4
 71	5	384	44.7	\N	56.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	9	1	384	\N	\N	\N	4
@@ -1790,7 +1899,9 @@ COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolutio
 64	\N	\N	50.6	\N	18.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	7	\N	224	\N	\N	\N	4
 63	\N	\N	43.5	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	224	\N	\N	\N	4
 3	\N	\N	84.7	\N	10.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	224	\N	\N	\N	3
+173	100	224	84.5	\N	9			1	1	224	\N	\N	\N	44
 54	\N	\N	39.9	\N	5.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	7	\N	224	\N	\N	\N	2
+174	\N	100	85.2	\N	13			1	1	224	\N	\N	\N	45
 50	\N	\N	45.8	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	\N	224	\N	\N	\N	1
 51	\N	\N	33	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	9	\N	224	\N	\N	\N	1
 52	\N	\N	72.6	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	\N	224	\N	\N	\N	1
@@ -1928,6 +2039,7 @@ COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolutio
 153	50	224	86.3	\N	115			1	1	224	\N	\N	\N	34
 169	30	384	88.7	\N	337.9			1	1	384	2	90	384	34
 170	30	512	88.9	\N	600.8			1	1	512	2	90	512	34
+175	50	224	86.1	\N	40			1	1	224	\N	\N	\N	46
 \.
 
 
@@ -2021,13 +2133,12 @@ COPY public.view_fpsmeasurement (id, backbone_name, resolution, fps, gpu, "preci
 36	Swin-L	384	157.9	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
 37	Swin-L	224	141	V100	FP32	\N	https://github.com/microsoft/Swin-Transformer
 60	ConvNeXt-B	224	563	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
-38	Swin-T/Mask-RCNN	1280	23.1	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+44	ConvNeXt-T/CascadeMaskRCNN	1280	12.2	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
 39	Swin-T/CascadeMaskRCNN	1280	12.2	A100	TF32	\N	https://arxiv.org/abs/2201.03545
 41	Swin-B/CascadeMaskRCNN	1280	10.7	A100	TF32	\N	https://arxiv.org/abs/2201.03545
 61	ConvNeXt-B	384	190	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
 42	Swin-L/CascadeMaskRCNN	1280	9.2	A100	TF32	\N	https://arxiv.org/abs/2201.03545
 40	Swin-S/CascadeMaskRCNN	1280	11.4	A100	TF32	\N	https://arxiv.org/abs/2201.03545
-43	ConvNext-T/Mask-RCNN	1280	25.6	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
 49	ViT-S (DeiT III)	224	1891	V100	AMP	\N	
 50	ViT-S (DeiT III)	384	424	V100	AMP	\N	
 51	ViT-B (DeiT III)	224	831	V100	AMP	\N	
@@ -2041,11 +2152,11 @@ COPY public.view_fpsmeasurement (id, backbone_name, resolution, fps, gpu, "preci
 59	Swin-B	384	160	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
 62	ConvNeXt-L	224	344	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
 63	ConvNeXt-L	384	115	V100	AMP	\N	
-48	ConvNeXt-XL/Cascade-Mask-RCNN	1280	8.6	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
-47	ConvNeXt-L/Cascade-Mask-RCNN	1280	10	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
-46	ConvNeXt-B/Cascade-Mask-RCNN	1280	11.4	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
-45	ConvNeXt-S/Cascade-Mask-RCNN	1280	12	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
-44	ConvNeXt-T/Cascade-Mask-RCNN	1280	12.2	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+47	ConvNeXt-L/CascadeMaskRCNN	1280	10	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+46	ConvNeXt-B/CascadeMaskRCNN	1280	11.4	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+45	ConvNeXt-S/CascadeMaskRCNN	1280	12	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+43	ConvNext-T/MaskRCNN	1280	25.6	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+48	ConvNeXt-XL/CascadeMaskRCNN	1280	8.6	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
 23	ConvNeXt-L	384	211.4	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
 1	TransNeXt-B	224	297	V100	FP16	64	https://doi.org/10.48550/arXiv.2311.17132
 2	TransNeXt-S	224	394	V100	FP16	64	https://doi.org/10.48550/arXiv.2311.17132
@@ -2080,6 +2191,26 @@ COPY public.view_fpsmeasurement (id, backbone_name, resolution, fps, gpu, "preci
 73	ResNet-50 (RSB)	224	2587	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
 74	ResNet-101 (RSB)	224	1586	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
 75	ResNet-152 (RSB)	224	1122	V100	AMP	\N	https://doi.org/10.48550/arXiv.2204.07118
+76	Hiera-T	224	2758	A100	FP16	\N	
+77	Hiera-S	224	2211	A100	FP16	\N	
+78	Hiera-B	224	1556	A100	FP16	\N	
+79	Hiera-B+	224	1247	A100	FP16	\N	
+80	Hiera-L	224	532	A100	FP16	\N	
+81	Hiera-H	224	274	A100	FP16	\N	
+85	ConvNeXt V20T	224	1381	A100	FP16	\N	https://doi.org/10.48550/arXiv.2306.00989
+86	ConvNeXt V2-B	224	646	A100	FP16	\N	https://doi.org/10.48550/arXiv.2306.00989
+87	ConvNeXt V2-L	224	414	A100	FP16	\N	https://doi.org/10.48550/arXiv.2306.00989
+88	ConvNeXt V2-H	224	202	A100	FP16	\N	https://doi.org/10.48550/arXiv.2306.00989
+91	Swin-B/CascadeMaskRCNN	1280	13.2	A100	FP32	\N	https://doi.org/10.48550/arXiv.2203.16527
+92	Swin-L/CascadeMaskRCNN	1280	10.4	A100	FP32	\N	https://doi.org/10.48550/arXiv.2203.16527
+93	Swin-B/MaskRCNN	1280	6.1	V100	FP16	\N	https://doi.org/10.48550/arXiv.2306.00989
+94	Swin-L/MaskRCNN	1280	4.1	V100	FP32	\N	https://doi.org/10.48550/arXiv.2306.00989
+89	Swin-B/MaskRCNN	1280	16.7	A100	FP32	\N	https://doi.org/10.48550/arXiv.2203.16527
+38	Swin-T/MaskRCNN	1280	23.1	A100	TF32	\N	https://doi.org/10.48550/arXiv.2201.03545
+84	Hiera-L-IN1k/MaskRCNN	1280	2.9	V100	FP32	\N	
+83	Hiera-B+-IN1k/MaskRCNN	1280	5.2	V100	FP32	\N	
+82	Hiera-B-IN1k/MaskRCNN	1280	5.8	V100	FP32	\N	
+90	Swin-L/MaskRCNN	1280	12.3	A100	FP32	\N	https://doi.org/10.48550/arXiv.2203.16527
 \.
 
 
@@ -2128,6 +2259,24 @@ COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs"
 39	36	54.4	73.9	60.4	\N	\N	\N	875			4	1	3	2	\N	\N	35
 37	36	55.7	75.2	61.8	\N	\N	\N	2525			4	1	3	2	\N	\N	34
 38	36	48.9	72.8	53.6	\N	\N	\N	2525			4	1	3	3	\N	\N	34
+44	100	46.3	\N	\N	\N	\N	\N	600			4	1	3	3	\N	\N	44
+45	100	53.5	\N	\N	\N	\N	\N	600			4	1	3	2	\N	\N	45
+46	100	47.3	\N	\N	\N	\N	\N	600			4	1	3	3	\N	\N	45
+47	100	55	\N	\N	\N	\N	\N	1200			4	1	3	2	\N	\N	46
+48	100	48.6	\N	\N	\N	\N	\N	1200			4	1	3	3	\N	\N	46
+43	100	52.2	\N	\N	\N	\N	\N	600			4	1	3	2	\N	\N	44
+55	50	52.7	\N	\N	\N	\N	\N	982	https://doi.org/10.48550/arXiv.2203.16527		4	2	3	2	\N	\N	16
+56	50	45.5	\N	\N	\N	\N	\N	982	https://doi.org/10.48550/arXiv.2203.16527		4	2	3	3	\N	\N	16
+57	50	54	\N	\N	\N	\N	\N	982	https://doi.org/10.48550/arXiv.2203.16527		4	2	3	2	\N	\N	17
+58	50	46.5	\N	\N	\N	\N	\N	982	https://doi.org/10.48550/arXiv.2203.16527		4	2	3	3	\N	\N	17
+59	50	54.8	\N	\N	\N	\N	\N	1382	https://doi.org/10.48550/arXiv.2203.16527		4	2	3	2	\N	\N	20
+60	50	47.3	\N	\N	\N	\N	\N	1382	https://doi.org/10.48550/arXiv.2203.16527		4	2	3	3	\N	\N	20
+49	50	50.1	\N	\N	\N	\N	\N	700	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	2	\N	\N	16
+50	50	44.5	\N	\N	\N	\N	\N	600	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	3	\N	\N	16
+51	50	51.4	\N	\N	\N	\N	\N	600	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	2	\N	\N	17
+52	50	45.4	\N	\N	\N	\N	\N	600	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	3	\N	\N	17
+53	50	52.4	\N	\N	\N	\N	\N	1100	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	2	\N	\N	20
+54	50	46.2	\N	\N	\N	\N	\N	1100	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	3	\N	\N	20
 \.
 
 
@@ -2162,6 +2311,30 @@ COPY public.view_instanceresult_fps_measurements (id, instanceresult_id, fpsmeas
 24	17	44
 25	18	43
 26	19	43
+27	43	82
+28	44	82
+29	45	83
+30	46	83
+31	47	84
+32	48	84
+33	49	89
+34	50	89
+35	51	89
+36	52	89
+37	53	90
+38	54	90
+39	55	91
+40	56	91
+41	57	91
+42	58	91
+43	59	92
+44	60	92
+45	49	93
+46	50	93
+47	51	93
+48	52	93
+49	53	94
+50	54	94
 \.
 
 
@@ -2211,6 +2384,12 @@ COPY public.view_pretrainedbackbone (id, name, pretrain_method, pretrain_resolut
 36	ConvNeXt V2-B-IN1k	FCMAE	224	1600			28	1	6
 35	ConvNeXt V2-L-IN1k	FCMAE	224	1600			29	1	6
 34	ConvNeXt V2-H-IN1k	FCMAE	224	1600			30	1	6
+42	Hiera-T-IN1k	MAE	224	1600			31	1	7
+43	Hiera-S-IN1k	MAE	224	1600			32	1	7
+44	Hiera-B-IN1k	MAE	224	1600			33	1	7
+45	Hiera-B+-IN1k	MAE	224	1600			34	1	7
+46	Hiera-L-IN1k	MAE	224	1600			35	1	7
+47	Hiera-H-IN1k	MAE	224	1600			36	1	7
 \.
 
 
@@ -2273,7 +2452,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 745, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 832, true);
 
 
 --
@@ -2294,28 +2473,28 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 38, true);
 -- Name: view_backbone_fps_measurements_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbone_fps_measurements_id_seq', 64, true);
+SELECT pg_catalog.setval('public.view_backbone_fps_measurements_id_seq', 74, true);
 
 
 --
 -- Name: view_backbone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbone_id_seq', 30, true);
+SELECT pg_catalog.setval('public.view_backbone_id_seq', 36, true);
 
 
 --
 -- Name: view_backbonefamily_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbonefamily_id_seq', 6, true);
+SELECT pg_catalog.setval('public.view_backbonefamily_id_seq', 7, true);
 
 
 --
 -- Name: view_classificationresult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_classificationresult_id_seq', 170, true);
+SELECT pg_catalog.setval('public.view_classificationresult_id_seq', 176, true);
 
 
 --
@@ -2350,28 +2529,28 @@ SELECT pg_catalog.setval('public.view_downstreamhead_tasks_id_seq', 4, true);
 -- Name: view_fpsmeasurement_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_fpsmeasurement_id_seq', 75, true);
+SELECT pg_catalog.setval('public.view_fpsmeasurement_id_seq', 94, true);
 
 
 --
 -- Name: view_instanceresult_fps_measurements_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_instanceresult_fps_measurements_id_seq', 26, true);
+SELECT pg_catalog.setval('public.view_instanceresult_fps_measurements_id_seq', 50, true);
 
 
 --
 -- Name: view_instanceresult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_instanceresult_id_seq', 42, true);
+SELECT pg_catalog.setval('public.view_instanceresult_id_seq', 60, true);
 
 
 --
 -- Name: view_pretrainedbackbone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_pretrainedbackbone_id_seq', 41, true);
+SELECT pg_catalog.setval('public.view_pretrainedbackbone_id_seq', 47, true);
 
 
 --

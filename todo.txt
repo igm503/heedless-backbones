@@ -6,13 +6,14 @@ models to add:
 - ca-former
 - eva
 - eva-2
-- hiera
 - moganet
 - MVit
 - EfficientVit https://arxiv.org/pdf/2205.14756
 - Cswin
 - BiFormer
 - mamba out
+- groupmamba
+- Exploring Plain Vision Transformer Backbones
 
 left in papers
 - transnext
@@ -25,6 +26,8 @@ left in papers
 -- ade20k results; cifar, and a couple other classification results
 - convnextv2
 -- ade20k results
+- hiera
+-- inaturalist finetune results and places365;
 
 left in github
 
@@ -34,3 +37,7 @@ leftover cross references
 
 - efficientNetv2
 -- deit iii paper has throughput on v100 amp, imagenetv2
+
+-hiera
+-- vit, mcmae a100 fp16 classificaiton speed 
+-- mvit, vitdet v100 fp32 det speed

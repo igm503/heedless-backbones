@@ -49,8 +49,10 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
   - [DeiT III](https://arxiv.org/abs/2204.07118)
   - [ConvNextV2](https://arxiv.org/abs/2301.00808)
   - [ResNet (RSB)](https://arxiv.org/abs/2110.00476)
+  - [Hiera](https://arxiv.org/abs/2306.00989)
 
 ## Updates
+- 9-24-2024: added Hiera
 - 9-22-2024: added several models; more train info in tables; refactor plot and table gen; bug fixes
 - 9-9-2024: added list pages (models, heads, datasets); added postgresql sql dump to repo
 - 9-8-2024: added legend customization for plots; pub date axis option; pretrain method filter; table order defaults

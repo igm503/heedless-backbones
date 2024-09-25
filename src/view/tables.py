@@ -178,16 +178,7 @@ def get_instance_table(queryset, dataset_name, instance_type, page=""):
 
 
 def get_family_classification_table(family_name):
-    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
-    queryset = queryset.filter(family__name=family_name)
-    queryset = queryset.prefetch_related(
-        Prefetch(
-            "classificationresult_set",
-            queryset=ClassificationResult.objects.select_related("dataset", "fine_tune_dataset"),
-            to_attr="results",
-        )
-    )
-
+    queryset = get_classification_data(family_name=family_name)
     eval_datasets = {result.dataset.name for pb in queryset for result in pb.results}
 
     rows = []
@@ -227,16 +218,7 @@ def get_family_classification_table(family_name):
 
 
 def get_dataset_classification_table(dataset_name):
-    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
-    queryset = queryset.prefetch_related(
-        Prefetch(
-            "classificationresult_set",
-            queryset=ClassificationResult.objects.select_related(
-                "dataset", "fine_tune_dataset"
-            ).filter(dataset__name=dataset_name),
-            to_attr="results",
-        )
-    )
+    queryset = get_classification_data(dataset_name=dataset_name)
     if "ImageNet-C" in dataset_name:
         top1_str = "top-1&darr;"
         top5_str = "top-5&darr;"
@@ -262,6 +244,18 @@ def get_dataset_classification_table(dataset_name):
             links.append(row_links)
 
     return package_table(rows, links)
+
+
+def get_classification_data(dataset_name=None, family_name=None):
+    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
+    if family_name is not None:
+        queryset = queryset.filter(family__name=family_name)
+    prefetch_queryset = ClassificationResult.objects.select_related("dataset", "fine_tune_dataset")
+    if dataset_name is not None:
+        prefetch_queryset = prefetch_queryset.filter(dataset__name=dataset_name)
+    return queryset.prefetch_related(
+        Prefetch("classificationresult_set", prefetch_queryset, "results")
+    )
 
 
 def package_table(rows, links):

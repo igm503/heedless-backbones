@@ -58,7 +58,6 @@ def get_head_lists():
 
 def get_family_list():
     families = BackboneFamily.objects.all()
-
     rows = []
     row_links = []
     for family in families:
