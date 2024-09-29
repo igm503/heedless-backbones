@@ -1,36 +1,4 @@
-PROMPT = """
-Please analyze the provided paper and generate a YAML 
-structure describing the new model family, its backbones, 
-and its results, and related fps measurements. Since this
-YAML will be used to update a database, you should be
-aware of the following information:
-
-Table definitions:
-
-{model_definitions}
-
-Available Datasets, Tasks, Downstream Heads, and GPUs:
-
-{static_data}
-
-However, please ignore Panoptic and Semantic Segmentation.
-
-The YAML you will generate will be used to populate to 
-create new entries in the tables listed above. An example
-of the desired YAML structure to generate the tables is
-given below. Note that foreign key and many to many
-relationships are indicated by nesting. Note also that
-classification results and instance (this means instance
-segmentation or object detection) results can take
-more than just one metric. For example, instance results 
-can take mAP, AP50, AP75, mAPs, mAPm, mAPl, and gflops.
-If some of these metrics are not included for a given
-experiment, you are welcome to leave the keys out of the 
-YAML. However, please include all metrics that are listed.
-Finally, please include relevant gflop measurements along
-with each result.
-
-The following is an example of the desired YAML structure:
+Based on the paper content, here is the YAML structure describing the ConvNeXt model family:
 
 ```yaml
 name: "ConvNeXt"
@@ -53,7 +21,7 @@ backbones:
         fps: 1943.5
         gpu: "A100"
         precision: "TF32"
-    pretrained_backbones:
+    pretrained_backbone:
       - name: "ConvNeXt-T-IN1k"
         pretrain_dataset: "ImageNet-1K"
         pretrain_method: "Supervised"
@@ -156,7 +124,7 @@ backbones:
         fps: 1275.3
         gpu: "A100"
         precision: "TF32"
-    pretrained_backbones:
+    pretrained_backbone:
       - name: "ConvNeXt-S-IN1k"
         pretrain_dataset: "ImageNet-1K"
         pretrain_method: "Supervised"
@@ -239,7 +207,7 @@ backbones:
         fps: 336.6
         gpu: "A100"
         precision: "TF32"
-    pretrained_backbones:
+    pretrained_backbone:
       - name: "ConvNeXt-B-IN1k"
         pretrain_dataset: "ImageNet-1K"
         pretrain_method: "Supervised"
@@ -358,7 +326,7 @@ backbones:
         fps: 211.4
         gpu: "A100"
         precision: "TF32"
-    pretrained_backbones:
+    pretrained_backbone:
       - name: "ConvNeXt-L-IN1k"
         pretrain_dataset: "ImageNet-1K"
         pretrain_method: "Supervised"
@@ -440,7 +408,7 @@ backbones:
         fps: 147.4
         gpu: "A100"
         precision: "TF32"
-    pretrained_backbones:
+    pretrained_backbone:
       - name: "ConvNeXt-XL-IN22k"
         pretrain_dataset: "ImageNet-22K"
         pretrain_method: "Supervised"
@@ -492,29 +460,4 @@ backbones:
                 precision: "FP16"
 ```
 
-
-- Include every backbone from the model family introduced in the paper. 
-- For each bacbkbone, include every pretrained backbone introduced in the 
-paper.
-- Include every image classification result for the pretrained backbones 
-- Include every object detection and instance segmentation result for 
-the pretrained backbones, provided the downstream head used in the task
-exists in the list given above. 
-- Sometimes not all of the pretrained backbones will have instance results,
-or different sizes will use different heads and training schemes. Keep this
-in mind, and include all and only those instance results found in the paper.
-- Include every FPS result available for the models, including for 
-instance tasks (instance segmentation and object detection). 
-- FPS measurements are not always available, so the fps fields are optional. Only
-include measurements if they are available, and if you can find the gpu + float 
-precision used to take the measurement.
-
-The following is the paper content:
-
-{pdf_content}
-
-Please enclose your yaml in tags as follows:
-```yaml 
-# yaml content 
-```
-"""
+This YAML structure captures the key information about the ConvNeXt model family, including different backbone sizes, pretrained models, classification results, and instance segmentation/object detection results using the specified downstream heads. The structure includes data for ImageNet-1K and ImageNet-22K pretraining, as well as fine-tuning results on various datasets. FPS measurements are included where available for both V100 and A100 GPUs.

@@ -162,3 +162,7 @@ cython_debug/
 .idea/
 
 staticfiles/
+
+diff.txt
+generated.txt
+reference.txt

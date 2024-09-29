@@ -1,0 +1,316 @@
+name: DeiT III
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2022-04-14'
+paper: https://doi.org/10.48550/arXiv.2204.07118
+github: https://github.com/facebookresearch/deit/blob/main/README_revenge.md
+backbones:
+- name: ViT-S (DeiT III)
+  m_parameters: 22.0
+  fps_measurements:
+  - resolution: 224
+    gpu: V100
+    precision: AMP
+    fps: 1891.0
+  - resolution: 384
+    gpu: V100
+    precision: AMP
+    fps: 424.0
+  pretrained_backbones:
+  - name: ViT-S (DeiT III)-IN22k
+    pretrain_dataset: ImageNet-22k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 90
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.1
+      top_5: null
+      gflops: 4.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 224
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 73.8
+      top_5: null
+      gflops: 4.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 224
+    instance_results: []
+  - name: ViT-S (DeiT III)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 192
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 83.4
+      top_5: null
+      gflops: 15.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 384
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.4
+      top_5: null
+      gflops: 4.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
+    - dataset: ImageNet-V2
+      resolution: 384
+      top_1: 73.1
+      top_5: null
+      gflops: 15.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 384
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 70.5
+      top_5: null
+      gflops: 4.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
+    instance_results: []
+- name: ViT-B (DeiT III)
+  m_parameters: 86.6
+  fps_measurements:
+  - resolution: 224
+    gpu: V100
+    precision: AMP
+    fps: 831.0
+  - resolution: 384
+    gpu: V100
+    precision: AMP
+    fps: 190.0
+  pretrained_backbones:
+  - name: ViT-B (DeiT III)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 192
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 73.6
+      top_5: null
+      gflops: 17.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 85.0
+      top_5: null
+      gflops: 55.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 384
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.8
+      top_5: null
+      gflops: 17.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
+    - dataset: ImageNet-V2
+      resolution: 384
+      top_1: 74.8
+      top_5: null
+      gflops: 55.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 384
+    instance_results: []
+  - name: ViT-B (DeiT III)-IN22k
+    pretrain_dataset: ImageNet-22k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 90
+    classification_results:
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 76.5
+      top_5: null
+      gflops: 17.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 224
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 86.7
+      top_5: null
+      gflops: 55.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 384
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 85.7
+      top_5: null
+      gflops: 17.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 224
+    - dataset: ImageNet-V2
+      resolution: 384
+      top_1: 77.9
+      top_5: null
+      gflops: 55.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 384
+    instance_results: []
+- name: ViT-L (DeiT III)
+  m_parameters: 304.4
+  fps_measurements:
+  - resolution: 224
+    gpu: V100
+    precision: AMP
+    fps: 277.0
+  - resolution: 384
+    gpu: V100
+    precision: AMP
+    fps: 67.0
+  pretrained_backbones:
+  - name: ViT-L (DeiT III)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 192
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.9
+      top_5: null
+      gflops: 61.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
+    - dataset: ImageNet-V2
+      resolution: 384
+      top_1: 76.6
+      top_5: null
+      gflops: 191.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 384
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 75.1
+      top_5: null
+      gflops: 61.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 85.8
+      top_5: null
+      gflops: 191.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 384
+    instance_results: []
+  - name: ViT-L (DeiT III)-IN22k
+    pretrain_dataset: ImageNet-22k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 90
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 87.0
+      top_5: null
+      gflops: 61.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 224
+    - dataset: ImageNet-V2
+      resolution: 384
+      top_1: 79.1
+      top_5: null
+      gflops: 191.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 384
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 78.6
+      top_5: null
+      gflops: 61.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 224
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 87.7
+      top_5: null
+      gflops: 191.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 384
+    instance_results: []
+- name: ViT-H (DeiT III)
+  m_parameters: 632.1
+  fps_measurements:
+  - resolution: 224
+    gpu: V100
+    precision: AMP
+    fps: 112.0
+  pretrained_backbones:
+  - name: ViT-H (DeiT III)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 192
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 85.2
+      top_5: null
+      gflops: 167.4
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 75.9
+      top_5: null
+      gflops: 167.4
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
+    instance_results: []
+  - name: ViT-H (DeiT III)-IN22k
+    pretrain_dataset: ImageNet-22k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 90
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 87.2
+      top_5: null
+      gflops: 167.4
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 224
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 79.2
+      top_5: null
+      gflops: 167.4
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 224
+    instance_results: []

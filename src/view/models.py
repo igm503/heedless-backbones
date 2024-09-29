@@ -141,7 +141,7 @@ class Backbone(models.Model):
     objects = models.Manager()
 
     name = models.CharField(max_length=100, unique=True)
-    family = models.ForeignKey(BackboneFamily, on_delete=models.RESTRICT)
+    family = models.ForeignKey(BackboneFamily, on_delete=models.CASCADE)
     m_parameters = models.FloatField()
     fps_measurements = models.ManyToManyField(FPSMeasurement, blank=True)
     paper = models.URLField(blank=True)
@@ -155,8 +155,8 @@ class PretrainedBackbone(models.Model):
     objects = models.Manager()
 
     name = models.CharField(max_length=100, unique=True)
-    backbone = models.ForeignKey(Backbone, on_delete=models.RESTRICT)
-    family = models.ForeignKey(BackboneFamily, on_delete=models.RESTRICT)
+    backbone = models.ForeignKey(Backbone, on_delete=models.CASCADE)
+    family = models.ForeignKey(BackboneFamily, on_delete=models.CASCADE)
     pretrain_dataset = models.ForeignKey(
         Dataset,
         on_delete=models.RESTRICT,
@@ -177,7 +177,7 @@ class PretrainedBackbone(models.Model):
 class ClassificationResult(models.Model):
     objects = models.Manager()
 
-    pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.RESTRICT)
+    pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.CASCADE)
     dataset = models.ForeignKey(
         Dataset,
         on_delete=models.RESTRICT,
@@ -262,7 +262,7 @@ class ClassificationResult(models.Model):
 class InstanceResult(models.Model):
     objects = models.Manager()
 
-    pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.RESTRICT)
+    pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.CASCADE)
     head = models.ForeignKey(DownstreamHead, on_delete=models.RESTRICT)
     dataset = models.ForeignKey(
         Dataset,
