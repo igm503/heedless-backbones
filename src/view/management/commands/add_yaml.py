@@ -5,7 +5,7 @@ from django.db import transaction
 from django.core.management.base import BaseCommand
 from django.core.exceptions import ValidationError
 
-from .llm_gen import LLM_OUTPUT_DIR
+from .llm_utils import YAML_DIR
 from ...models import (
     BackboneFamily,
     Backbone,
@@ -32,9 +32,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             if ".yml" in options["yaml_file"]:
-                file_path = os.path.join(LLM_OUTPUT_DIR, options["yaml_file"])
+                file_path = os.path.join(YAML_DIR, options["yaml_file"])
             else:
-                file_path = os.path.join(LLM_OUTPUT_DIR, options["yaml_file"] + ".yml")
+                file_path = os.path.join(YAML_DIR, options["yaml_file"] + ".yml")
             parsed_data = load_yaml(file_path)
         except Exception as e:
             self.stdout.write(self.style.ERROR(f"Validation error: {str(e)}"))

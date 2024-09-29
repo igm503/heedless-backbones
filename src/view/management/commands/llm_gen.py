@@ -9,7 +9,6 @@ from .llm_utils import (
     get_pdf_content,
     get_prompt_with_examples,
     call_anthropic_api,
-    get_llm_output_filename,
     parse_model_output,
 )
 
@@ -26,6 +25,12 @@ class Command(BaseCommand):
         parser.add_argument("name", type=str, help="Name of the new model family")
 
     def handle(self, *args, **options):
+        assert f"{options['name']}.yml" not in os.listdir(
+            YAML_DIR
+        ), "Model family yaml already exists"
+        assert f"{options['name']}.txt" not in os.listdir(
+            LLM_OUTPUT_DIR
+        ), "Model family txt already exists"
         try:
             pdf_content = get_pdf_content(options["paper_url"])
         except Exception as e:
@@ -40,7 +45,7 @@ class Command(BaseCommand):
             return
 
         try:
-            file_name = get_llm_output_filename(options["name"])
+            file_name = f"{options['name']}.txt"
             file_path = os.path.join(LLM_OUTPUT_DIR, file_name)
             with open(file_path, "w") as f:
                 f.write(llm_output)

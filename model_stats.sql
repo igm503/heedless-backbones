@@ -778,10 +778,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 -- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-\.
---REDACTED
-
+-- REDACTED
 
 --
 -- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -1636,6 +1633,11 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 830	2024-09-25 01:47:25.889684-05	45	ConvNeXt-S/CascadeMaskRCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
 831	2024-09-25 01:47:33.686954-05	43	ConvNext-T/MaskRCNN/A100/1280/TF32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
 832	2024-09-25 01:47:53.073017-05	90	Swin-L/MaskRCNN/A100/1280/FP32/	2	[{"changed": {"fields": ["Backbone name"]}}]	15	1
+833	2024-09-29 01:25:48.19233-05	11	InternImage	3		14	1
+834	2024-09-29 01:25:58.89044-05	102	InternImage-T/A100/800/FP16/	3		15	1
+835	2024-09-29 01:25:58.890506-05	101	InternImage-T/A100/224/FP16/	3		15	1
+836	2024-09-29 01:33:25.532169-05	52	Swin-B-IN22k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/50/	2	[{"changed": {"fields": ["Gflops"]}}]	7	1
+837	2024-09-29 01:33:35.595062-05	51	Swin-B-IN22k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/50/	2	[{"changed": {"fields": ["Gflops"]}}]	7	1
 \.
 
 
@@ -1761,6 +1763,18 @@ COPY public.view_backbone (id, name, m_parameters, family_id, github, paper) FRO
 15	ViT-B (DeiT III)	86.6	4		
 16	ViT-L (DeiT III)	304.4	4		
 17	ViT-H (DeiT III)	632.1	4		
+47	InternImage-T	30	12		
+48	InternImage-S	50	12		
+49	InternImage-B	97	12		
+50	InternImage-L	223	12		
+51	InternImage-XL	335	12		
+52	FocalNet-T-LRF	28.6	13		
+53	FocalNet-T-SRF	28.4	13		
+54	FocalNet-S-SRF	50.3	13		
+55	FocalNet-S-LRF	50.3	13		
+56	FocalNet-B-LRF	88.7	13		
+57	FocalNet-B-SRF	88.1	13		
+58	FocalNet-L-SRF	197.1	13		
 \.
 
 
@@ -1843,6 +1857,17 @@ COPY public.view_backbone_fps_measurements (id, backbone_id, fpsmeasurement_id) 
 72	28	86
 73	29	87
 74	30	88
+83	47	103
+84	47	104
+85	52	105
+86	53	106
+87	54	107
+88	55	108
+89	56	109
+90	57	110
+91	57	111
+92	58	112
+93	58	113
 \.
 
 
@@ -1858,6 +1883,8 @@ COPY public.view_backbonefamily (id, name, model_type, pub_date, paper, github, 
 5	ResNet (RSB)	Convolution	2021-10-01	https://doi.org/10.48550/arXiv.2110.00476	https://github.com/huggingface/pytorch-image-models	Supervised	t
 6	ConvNeXt V2	Convolution	2023-01-02	https://doi.org/10.48550/arXiv.2301.00808	https://github.com/facebookresearch/ConvNeXt-V2	FCMAE	t
 7	Hiera	Attention	2023-06-01	https://doi.org/10.48550/arXiv.2306.00989	https://github.com/facebookresearch/hiera	MAE	t
+12	InternImage	Convolution	2022-11-11	https://arxiv.org/abs/2211.05778	https://github.com/OpenGVLab/InternImage	Supervised	t
+13	FocalNet	Attn + Conv	2022-03-22	https://doi.org/10.48550/arXiv.2203.11926	https://github.com/microsoft/FocalNet	Supervised	t
 \.
 
 
@@ -1900,8 +1927,23 @@ COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolutio
 63	\N	\N	43.5	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	224	\N	\N	\N	4
 3	\N	\N	84.7	\N	10.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	224	\N	\N	\N	3
 173	100	224	84.5	\N	9			1	1	224	\N	\N	\N	44
+182	300	224	83.5	\N	5			1	1	224	\N	\N	\N	53
+183	300	224	84.2	\N	8			1	1	224	\N	\N	\N	54
+184	300	224	84.9	\N	16			1	1	224	\N	\N	\N	55
+185	20	384	87.7	\N	108			1	1	384	\N	\N	\N	56
+186	20	384	88	\N	163			1	1	384	\N	\N	\N	57
 54	\N	\N	39.9	\N	5.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	7	\N	224	\N	\N	\N	2
 174	\N	100	85.2	\N	13			1	1	224	\N	\N	\N	45
+187	\N	\N	82.3	\N	4.5			1	\N	224	\N	\N	\N	58
+188	\N	\N	82.1	\N	4.5			1	\N	224	\N	\N	\N	59
+189	\N	\N	83.4	\N	8.7			1	\N	224	\N	\N	\N	60
+190	\N	\N	83.5	\N	8.7			1	\N	224	\N	\N	\N	61
+191	\N	\N	83.9	\N	15.4			1	\N	224	\N	\N	\N	62
+192	\N	\N	83.7	\N	15.3			1	\N	224	\N	\N	\N	63
+193	30	224	85.6	\N	15.3			1	1	224	\N	\N	\N	64
+194	30	384	86.5	\N	44.8			1	1	384	\N	\N	\N	64
+195	30	224	86.5	\N	34.2			1	1	224	\N	\N	\N	65
+196	30	384	87.3	\N	100.6			1	1	384	\N	\N	\N	65
 50	\N	\N	45.8	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	\N	224	\N	\N	\N	1
 51	\N	\N	33	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	9	\N	224	\N	\N	\N	1
 52	\N	\N	72.6	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	\N	224	\N	\N	\N	1
@@ -2211,6 +2253,17 @@ COPY public.view_fpsmeasurement (id, backbone_name, resolution, fps, gpu, "preci
 83	Hiera-B+-IN1k/MaskRCNN	1280	5.2	V100	FP32	\N	
 82	Hiera-B-IN1k/MaskRCNN	1280	5.8	V100	FP32	\N	
 90	Swin-L/MaskRCNN	1280	12.3	A100	FP32	\N	https://doi.org/10.48550/arXiv.2203.16527
+103	InternImage-T	224	775	A100	FP16	\N	
+104	InternImage-T	800	54	A100	FP16	\N	
+105	FocalNet-T-LRF	224	696	V100	FP32	\N	
+106	FocalNet-T-SRF	224	743	V100	FP32	\N	
+107	FocalNet-S-SRF	224	434	V100	FP32	\N	
+108	FocalNet-S-LRF	224	406	V100	FP32	\N	
+109	FocalNet-B-LRF	224	269	V100	FP32	\N	
+110	FocalNet-B-SRF	224	280	V100	FP32	\N	
+111	FocalNet-B-SRF	384	94	V100	FP32	\N	
+112	FocalNet-L-SRF	224	144	V100	FP32	\N	
+113	FocalNet-L-SRF	384	50	V100	FP32	\N	
 \.
 
 
@@ -2219,6 +2272,32 @@ COPY public.view_fpsmeasurement (id, backbone_name, resolution, fps, gpu, "preci
 --
 
 COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs", "mAPm", "mAPl", gflops, paper, github, dataset_id, head_id, train_dataset_id, instance_type_id, intermediate_train_dataset_id, intermediate_train_epochs, pretrained_backbone_id) FROM stdin;
+101	12	46.1	68.2	50.6	\N	\N	\N	268			4	1	3	2	\N	\N	58
+102	12	41.5	65.1	44.5	\N	\N	\N	268			4	1	3	3	\N	\N	58
+103	36	48	69.7	53	\N	\N	\N	268			4	1	3	2	\N	\N	58
+104	36	42.9	66.5	46.1	\N	\N	\N	268			4	1	3	3	\N	\N	58
+105	36	51.5	70.3	56	\N	\N	\N	751			4	2	3	2	\N	\N	58
+106	12	45.9	68.3	50.1	\N	\N	\N	268			4	1	3	2	\N	\N	59
+107	36	41.3	65	44.3	\N	\N	\N	268			4	1	3	3	\N	\N	59
+108	36	47.6	69.5	52	\N	\N	\N	268			4	1	3	2	\N	\N	59
+109	36	42.6	66.5	45.6	\N	\N	\N	268			4	1	3	3	\N	\N	59
+110	36	51.5	70.1	55.8	\N	\N	\N	746			4	2	3	2	\N	\N	59
+111	12	48	69.9	52.7	\N	\N	\N	356			4	1	3	2	\N	\N	60
+112	12	42.7	67.1	45.7	\N	\N	\N	56			4	1	3	3	\N	\N	60
+113	36	48.9	70.1	53.7	\N	\N	\N	356			4	1	3	2	\N	\N	60
+114	36	43.6	67.1	47.1	\N	\N	\N	56			4	1	3	3	\N	\N	60
+115	12	48.3	70.5	53.1	\N	\N	\N	365			4	1	3	2	\N	\N	61
+116	12	43.1	67.4	46.2	\N	\N	\N	365			4	1	3	3	\N	\N	61
+117	36	49.3	70.7	54.2	\N	\N	\N	365			4	1	3	2	\N	\N	61
+118	36	43.8	67.9	47.4	\N	\N	\N	365			4	1	3	3	\N	\N	61
+119	12	49	70.9	53.9	\N	\N	\N	507			4	1	3	2	\N	\N	62
+120	12	43.5	67.9	46.7	\N	\N	\N	507			4	1	3	3	\N	\N	62
+121	36	49.8	70.9	54.6	\N	\N	\N	507			4	1	3	2	\N	\N	62
+122	36	44.1	68.2	47.2	\N	\N	\N	507			4	1	3	3	\N	\N	62
+123	12	48.8	70.7	53.5	\N	\N	\N	496			4	1	3	2	\N	\N	63
+124	12	43.3	67.5	46.5	\N	\N	\N	496			4	1	3	3	\N	\N	63
+125	36	49.6	70.6	54.1	\N	\N	\N	496			4	1	3	2	\N	\N	63
+126	36	44.1	68	47.2	\N	\N	\N	496			4	1	3	3	\N	\N	63
 36	36	45	68.4	49.1	\N	\N	\N	827			4	2	3	3	\N	\N	1
 7	12	51.7	73.2	56.9	\N	\N	\N	709	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	2	\N	\N	4
 8	12	45.9	70.5	49.7	\N	\N	\N	709	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	3	\N	\N	4
@@ -2265,6 +2344,7 @@ COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs"
 47	100	55	\N	\N	\N	\N	\N	1200			4	1	3	2	\N	\N	46
 48	100	48.6	\N	\N	\N	\N	\N	1200			4	1	3	3	\N	\N	46
 43	100	52.2	\N	\N	\N	\N	\N	600			4	1	3	2	\N	\N	44
+52	50	45.4	\N	\N	\N	\N	\N	700	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	3	\N	\N	17
 55	50	52.7	\N	\N	\N	\N	\N	982	https://doi.org/10.48550/arXiv.2203.16527		4	2	3	2	\N	\N	16
 56	50	45.5	\N	\N	\N	\N	\N	982	https://doi.org/10.48550/arXiv.2203.16527		4	2	3	3	\N	\N	16
 57	50	54	\N	\N	\N	\N	\N	982	https://doi.org/10.48550/arXiv.2203.16527		4	2	3	2	\N	\N	17
@@ -2273,10 +2353,29 @@ COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs"
 60	50	47.3	\N	\N	\N	\N	\N	1382	https://doi.org/10.48550/arXiv.2203.16527		4	2	3	3	\N	\N	20
 49	50	50.1	\N	\N	\N	\N	\N	700	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	2	\N	\N	16
 50	50	44.5	\N	\N	\N	\N	\N	600	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	3	\N	\N	16
-51	50	51.4	\N	\N	\N	\N	\N	600	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	2	\N	\N	17
-52	50	45.4	\N	\N	\N	\N	\N	600	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	3	\N	\N	17
 53	50	52.4	\N	\N	\N	\N	\N	1100	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	2	\N	\N	20
 54	50	46.2	\N	\N	\N	\N	\N	1100	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	3	\N	\N	20
+51	50	51.4	\N	\N	\N	\N	\N	700	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	2	\N	\N	17
+81	12	47.2	69	52.1	\N	\N	\N	270			4	1	3	2	\N	\N	53
+82	12	42.5	66.1	45.8	\N	\N	\N	270			4	1	3	3	\N	\N	53
+83	36	49.1	70.4	54.1	\N	\N	\N	270			4	1	3	2	\N	\N	53
+84	36	43.7	67.3	47.3	\N	\N	\N	270			4	1	3	3	\N	\N	53
+85	12	47.8	69.8	52.8	\N	\N	\N	340			4	1	3	2	\N	\N	54
+86	12	43.3	67.1	46.7	\N	\N	\N	340			4	1	3	3	\N	\N	54
+87	36	49.7	71.1	54.5	\N	\N	\N	340			4	1	3	2	\N	\N	54
+88	36	44.5	68.5	47.8	\N	\N	\N	340			4	1	3	3	\N	\N	54
+89	12	48.8	70.9	54	\N	\N	\N	501			4	1	3	2	\N	\N	55
+90	12	44	67.8	47.4	\N	\N	\N	501			4	1	3	3	\N	\N	55
+91	36	50.3	71.4	55.3	\N	\N	\N	501			4	1	3	2	\N	\N	55
+92	36	44.8	68.7	48	\N	\N	\N	501			4	1	3	3	\N	\N	55
+93	12	54.9	74	59.8	\N	\N	\N	1399			4	2	3	2	\N	\N	56
+94	12	47.7	71.4	52.1	\N	\N	\N	1399			4	2	3	3	\N	\N	56
+95	36	56.1	74.8	60.7	\N	\N	\N	1399			4	2	3	2	\N	\N	56
+96	36	48.5	72.4	53	\N	\N	\N	1399			4	2	3	3	\N	\N	56
+97	12	55.3	74.4	60.1	\N	\N	\N	1782			4	2	3	2	\N	\N	57
+98	36	48.1	71.9	52.4	\N	\N	\N	1782			4	2	3	3	\N	\N	57
+99	36	56.2	75	61.2	\N	\N	\N	1782			4	2	3	2	\N	\N	57
+100	36	48.8	72.5	53.4	\N	\N	\N	1782			4	2	3	3	\N	\N	57
 \.
 
 
@@ -2390,6 +2489,19 @@ COPY public.view_pretrainedbackbone (id, name, pretrain_method, pretrain_resolut
 45	Hiera-B+-IN1k	MAE	224	1600			34	1	7
 46	Hiera-L-IN1k	MAE	224	1600			35	1	7
 47	Hiera-H-IN1k	MAE	224	1600			36	1	7
+53	InternImage-T-IN1k	Supervised	224	300			47	1	12
+54	InternImage-S-IN1k	Supervised	224	300			48	1	12
+55	InternImage-B-IN1k	Supervised	224	300			49	1	12
+56	InternImage-L-IN22k	Supervised	192	90			50	2	12
+57	InternImage-XL-IN22k	Supervised	192	90			51	2	12
+58	FocalNet-T-LRF-IN1k	Supervised	224	300			52	1	13
+59	FocalNet-T-SRF-IN1k	Supervised	224	300			53	1	13
+60	FocalNet-S-SRF-IN1k	Supervised	224	300			54	1	13
+61	FocalNet-S-IN1k	Supervised	224	300			55	1	13
+62	FocalNet-B-LRF-IN1k	Supervised	224	300			56	1	13
+63	FocalNet-B-SRF-IN1k	Supervised	224	300			57	1	13
+64	FocalNet-B-SRF-IN22k	Supervised	224	90			57	2	13
+65	FocalNet-L-SRF-IN22k	Supervised	224	90			58	2	13
 \.
 
 
@@ -2452,7 +2564,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 832, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 837, true);
 
 
 --
@@ -2473,28 +2585,28 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 38, true);
 -- Name: view_backbone_fps_measurements_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbone_fps_measurements_id_seq', 74, true);
+SELECT pg_catalog.setval('public.view_backbone_fps_measurements_id_seq', 93, true);
 
 
 --
 -- Name: view_backbone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbone_id_seq', 36, true);
+SELECT pg_catalog.setval('public.view_backbone_id_seq', 58, true);
 
 
 --
 -- Name: view_backbonefamily_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbonefamily_id_seq', 7, true);
+SELECT pg_catalog.setval('public.view_backbonefamily_id_seq', 13, true);
 
 
 --
 -- Name: view_classificationresult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_classificationresult_id_seq', 176, true);
+SELECT pg_catalog.setval('public.view_classificationresult_id_seq', 196, true);
 
 
 --
@@ -2529,7 +2641,7 @@ SELECT pg_catalog.setval('public.view_downstreamhead_tasks_id_seq', 4, true);
 -- Name: view_fpsmeasurement_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_fpsmeasurement_id_seq', 94, true);
+SELECT pg_catalog.setval('public.view_fpsmeasurement_id_seq', 113, true);
 
 
 --
@@ -2543,14 +2655,14 @@ SELECT pg_catalog.setval('public.view_instanceresult_fps_measurements_id_seq', 5
 -- Name: view_instanceresult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_instanceresult_id_seq', 60, true);
+SELECT pg_catalog.setval('public.view_instanceresult_id_seq', 126, true);
 
 
 --
 -- Name: view_pretrainedbackbone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_pretrainedbackbone_id_seq', 47, true);
+SELECT pg_catalog.setval('public.view_pretrainedbackbone_id_seq', 65, true);
 
 
 --

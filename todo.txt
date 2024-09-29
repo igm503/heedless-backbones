@@ -1,7 +1,6 @@
 models to add:
 
 - swinv2
-- focalnet
 - ca-former
 - eva
 - eva-2
@@ -29,6 +28,9 @@ left in papers
 -- inaturalist finetune results and places365;
 - internimage
 -- internimage-h (not trained on imagenet; downstream is with dino)
+- focalnet
+-- focalnet-h (no normal classificaiton or ds reults)
+-- ade20k results; other ds head results
 
 left in github
 

@@ -50,9 +50,11 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
   - [ConvNextV2](https://arxiv.org/abs/2301.00808)
   - [ResNet (RSB)](https://arxiv.org/abs/2110.00476)
   - [Hiera](https://arxiv.org/abs/2306.00989)
+  - [FocalNet](https://arxiv.org/abs/2203.11926)
+  - [InternImage](https://arxiv.org/abs/2211.05778)
 
 ## Updates
-- 9-29-2024: added LLM db data gen command
+- 9-29-2024: added LLM db data gen command; added benchmark for LLM db data gen; added InternImage, FocalNet
 - 9-24-2024: added Hiera
 - 9-22-2024: added several models; more train info in tables; refactor plot and table gen; bug fixes
 - 9-9-2024: added list pages (models, heads, datasets); added postgresql sql dump to repo

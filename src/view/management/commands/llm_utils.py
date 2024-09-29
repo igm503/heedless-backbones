@@ -4,7 +4,6 @@ import io
 import os
 
 from django.db.models.fields.related import ForeignKey, ManyToManyField
-from django.core.exceptions import ValidationError
 from dotenv import load_dotenv
 from pypdf import PdfReader
 import anthropic
@@ -183,11 +182,6 @@ def call_anthropic_api(prompt):
         messages=[{"role": "user", "content": prompt}],
     )
     return message.content[0].text
-
-
-def get_llm_output_filename(name):
-    existing_files = os.listdir(LLM_OUTPUT_DIR)
-    return f"{name}_{len(existing_files)}.txt"
 
 
 def parse_model_output(model_output):
