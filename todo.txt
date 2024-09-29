@@ -1,7 +1,6 @@
 models to add:
 
 - swinv2
-- internimage
 - focalnet
 - ca-former
 - eva
@@ -28,6 +27,8 @@ left in papers
 -- ade20k results
 - hiera
 -- inaturalist finetune results and places365;
+- internimage
+-- internimage-h (not trained on imagenet; downstream is with dino)
 
 left in github
 
@@ -37,6 +38,9 @@ leftover cross references
 
 - efficientNetv2
 -- deit iii paper has throughput on v100 amp, imagenetv2
+
+- internimage
+-- convenext-b fp16 a100 throughput(?)
 
 -hiera
 -- vit, mcmae a100 fp16 classificaiton speed 

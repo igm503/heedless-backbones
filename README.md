@@ -52,6 +52,7 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
   - [Hiera](https://arxiv.org/abs/2306.00989)
 
 ## Updates
+- 9-29-2024: added LLM db data gen command
 - 9-24-2024: added Hiera
 - 9-22-2024: added several models; more train info in tables; refactor plot and table gen; bug fixes
 - 9-9-2024: added list pages (models, heads, datasets); added postgresql sql dump to repo

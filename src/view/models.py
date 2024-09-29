@@ -1,7 +1,7 @@
-from __future__ import annotations
 from enum import Enum
 
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class PretrainMethod(Enum):
@@ -42,6 +42,9 @@ class Precision(Enum):
     AMP = "AMP"
     TF32 = "TF32"
     BF16 = "BF16"
+
+
+INSTANCE_TASKS = [TaskType.DETECTION.value, TaskType.INSTANCE_SEG.value]
 
 
 class Task(models.Model):
@@ -110,7 +113,7 @@ class FPSMeasurement(models.Model):
 class BackboneFamily(models.Model):
     objects = models.Manager()
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     model_type = models.CharField(
         max_length=100, choices={name.value: name.value for name in TokenMixer}
     )
@@ -122,6 +125,14 @@ class BackboneFamily(models.Model):
     paper = models.URLField(blank=True)
     github = models.URLField(blank=True)
 
+    def clean(self):
+        if not (self.paper or self.github):
+            raise ValidationError("Either paper or github must be provided")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return str(self.name)
 
@@ -129,7 +140,7 @@ class BackboneFamily(models.Model):
 class Backbone(models.Model):
     objects = models.Manager()
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     family = models.ForeignKey(BackboneFamily, on_delete=models.RESTRICT)
     m_parameters = models.FloatField()
     fps_measurements = models.ManyToManyField(FPSMeasurement, blank=True)
@@ -143,10 +154,14 @@ class Backbone(models.Model):
 class PretrainedBackbone(models.Model):
     objects = models.Manager()
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     backbone = models.ForeignKey(Backbone, on_delete=models.RESTRICT)
     family = models.ForeignKey(BackboneFamily, on_delete=models.RESTRICT)
-    pretrain_dataset = models.ForeignKey(Dataset, on_delete=models.RESTRICT)
+    pretrain_dataset = models.ForeignKey(
+        Dataset,
+        on_delete=models.RESTRICT,
+        limit_choices_to={"tasks__name": TaskType.CLASSIFICATION.value},
+    )
     pretrain_method = models.CharField(
         max_length=100, choices={name.value: name.value for name in PretrainMethod}
     )
@@ -163,12 +178,17 @@ class ClassificationResult(models.Model):
     objects = models.Manager()
 
     pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.RESTRICT)
-    dataset = models.ForeignKey(Dataset, on_delete=models.RESTRICT)
+    dataset = models.ForeignKey(
+        Dataset,
+        on_delete=models.RESTRICT,
+        limit_choices_to={"tasks__name": TaskType.CLASSIFICATION.value},
+    )
     resolution = models.IntegerField()
     fine_tune_dataset = models.ForeignKey(
         Dataset,
         on_delete=models.RESTRICT,
         related_name="classification_fine_tune",
+        limit_choices_to={"tasks__name": TaskType.CLASSIFICATION.value},
         blank=True,
         null=True,
     )
@@ -178,17 +198,52 @@ class ClassificationResult(models.Model):
         Dataset,
         on_delete=models.RESTRICT,
         related_name="intermediate_classification_fine_tune",
+        limit_choices_to={"tasks__name": TaskType.CLASSIFICATION.value},
         blank=True,
         null=True,
     )
     intermediate_fine_tune_epochs = models.IntegerField(blank=True, null=True)
     intermediate_fine_tune_resolution = models.IntegerField(blank=True, null=True)
     # MCE for Imagenet-C, CE for Imagenet-C-bar
-    top_1 = models.FloatField(null=True, blank=True)
+    top_1 = models.FloatField()
     top_5 = models.FloatField(null=True, blank=True)
     gflops = models.FloatField(blank=True, null=True)
     paper = models.URLField(blank=True)
     github = models.URLField(blank=True)
+
+    def clean(self):
+        if self.fine_tune_dataset:
+            if not self.fine_tune_resolution:
+                raise ValidationError(
+                    "fine tune resolution is required when fine tune dataset is provided"
+                )
+        else:
+            if self.fine_tune_resolution:
+                raise ValidationError(
+                    "fine tune dataset is required when fine tune resolution is provided"
+                )
+            if self.fine_tune_epochs:
+                raise ValidationError(
+                    "fine tune dataset is required when fine tune epochs is provided"
+                )
+        if self.intermediate_fine_tune_dataset:
+            if not self.intermediate_fine_tune_resolution:
+                raise ValidationError(
+                    "int fine tune resolution is required when int fine tune dataset is provided"
+                )
+        else:
+            if self.intermediate_fine_tune_resolution:
+                raise ValidationError(
+                    "int fine tune dataset is required when int fine tune resolution is provided"
+                )
+            if self.intermediate_fine_tune_epochs:
+                raise ValidationError(
+                    "int fine tune dataset is required when int fine tune epochs is provided"
+                )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         string = ""
@@ -209,18 +264,24 @@ class InstanceResult(models.Model):
 
     pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.RESTRICT)
     head = models.ForeignKey(DownstreamHead, on_delete=models.RESTRICT)
-    dataset = models.ForeignKey(Dataset, on_delete=models.RESTRICT)
+    dataset = models.ForeignKey(
+        Dataset,
+        on_delete=models.RESTRICT,
+        limit_choices_to={"tasks__name__in": INSTANCE_TASKS},
+    )
     instance_type = models.ForeignKey(Task, on_delete=models.RESTRICT)
     train_dataset = models.ForeignKey(
         Dataset,
         on_delete=models.RESTRICT,
         related_name="instance_train",
+        limit_choices_to={"tasks__name__in": INSTANCE_TASKS},
     )
     train_epochs = models.IntegerField(blank=True, null=True)
     intermediate_train_dataset = models.ForeignKey(
         Dataset,
         on_delete=models.RESTRICT,
         related_name="intermediate_instance_train",
+        limit_choices_to={"tasks__name__in": INSTANCE_TASKS},
         blank=True,
         null=True,
     )
@@ -235,6 +296,14 @@ class InstanceResult(models.Model):
     fps_measurements = models.ManyToManyField(FPSMeasurement, blank=True)
     paper = models.URLField(blank=True)
     github = models.URLField(blank=True)
+
+    def clean(self):
+        if self.intermediate_train_epochs and not self.intermediate_train_dataset:
+            raise ValidationError("int train dataset is required when int train epochs is provided")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         string = ""
