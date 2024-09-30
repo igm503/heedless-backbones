@@ -18,6 +18,8 @@ class TokenMixer(Enum):
     SSM = "State Space Model"
     ATTN_CONV = "Attn + Conv"
     CONV_SSM = "Conv + SSM"
+    RANDOM = "Random"
+    IDENTITY = "Identity"
 
 
 class TaskType(Enum):

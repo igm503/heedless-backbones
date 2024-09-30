@@ -1,0 +1,88 @@
+name: RandFormer
+model_type: Random
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2022-10-24'
+paper: https://doi.org/10.48550/arXiv.2210.13452
+github: https://github.com/sail-sg/metaformer
+backbones:
+- name: RandFormer-S12
+  m_parameters: 12.1
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RandFormer-S12-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 76.6
+      top_5: null
+      gflops: 3.8
+    instance_results: []
+- name: RandFormer-S24
+  m_parameters: 21.8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RandFormer-S24-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.8
+      top_5: null
+      gflops: 7.0
+    instance_results: []
+- name: RandFormer-S36
+  m_parameters: 31.5
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RandFormer-S36-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.5
+      top_5: null
+      gflops: 10.4
+    instance_results: []
+- name: RandFormer-M36
+  m_parameters: 56.8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RandFormer-M36-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.2
+      top_5: null
+      gflops: 18.0
+    instance_results: []
+- name: RandFormer-M48
+  m_parameters: 74.2
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RandFormer-M48-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.4
+      top_5: null
+      gflops: 23.8
+    instance_results: []

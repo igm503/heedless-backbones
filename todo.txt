@@ -1,13 +1,12 @@
 models to add:
 
 - swinv2
-- ca-former
 - eva
 - eva-2
 - moganet
+- MaxVit
 - MVit
 - EfficientVit https://arxiv.org/pdf/2205.14756
-- Cswin
 - BiFormer
 - mamba out
 - groupmamba
@@ -31,6 +30,10 @@ left in papers
 - focalnet
 -- focalnet-h (no normal classificaiton or ds reults)
 -- ade20k results; other ds head results
+- CSwin
+-- ade20k results
+- MetaFormers
+-- ade20k results
 
 left in github
 
@@ -47,3 +50,19 @@ leftover cross references
 -hiera
 -- vit, mcmae a100 fp16 classificaiton speed 
 -- mvit, vitdet v100 fp32 det speed
+
+- MetaFormers
+-- Swin and Convnext a100 TF32 throughput that differs from convnext report (is faster)
+
+other notes
+- CSwin
+-- Need to confirm pub date and CMaskRNN FPS details
+- hiera
+-- flop count
+- MetaFormers
+-- They say they use macs, but there numbers suggest they are using flops. I assumed macs and multiplied by 2. Need to check.
+-- Need to confirm precision of CascadeMaskRCNN FPS measurements.
+
+website
+- add head information to hovers
+- add intermediate dataset information to hovers

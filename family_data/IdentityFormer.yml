@@ -1,0 +1,88 @@
+name: IdentityFormer
+model_type: Identity
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2022-10-24'
+paper: https://doi.org/10.48550/arXiv.2210.13452
+github: https://github.com/sail-sg/metaformer
+backbones:
+- name: IdentityFormer-S12
+  m_parameters: 11.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: IdentityFormer-S12-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 74.6
+      top_5: null
+      gflops: 3.6
+    instance_results: []
+- name: IdentityFormer-S24
+  m_parameters: 21.3
+  fps_measurements: []
+  pretrained_backbones:
+  - name: IdentityFormer-S24-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.2
+      top_5: null
+      gflops: 6.8
+    instance_results: []
+- name: IdentityFormer-S36
+  m_parameters: 30.8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: IdentityFormer-S36-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.3
+      top_5: null
+      gflops: 10.0
+    instance_results: []
+- name: IdentityFormer-M36
+  m_parameters: 56.1
+  fps_measurements: []
+  pretrained_backbones:
+  - name: IdentityFormer-M36-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.0
+      top_5: null
+      gflops: 17.6
+    instance_results: []
+- name: IdentityFormer-M48
+  m_parameters: 73.3
+  fps_measurements: []
+  pretrained_backbones:
+  - name: IdentityFormer-M48-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.4
+      top_5: null
+      gflops: 23.0
+    instance_results: []

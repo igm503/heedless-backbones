@@ -178,7 +178,7 @@ def call_anthropic_api(prompt):
     client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
     message = client.messages.create(
         model="claude-3-5-sonnet-20240620",
-        max_tokens=8192,
+        max_tokens=16384,
         messages=[{"role": "user", "content": prompt}],
     )
     return message.content[0].text

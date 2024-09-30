@@ -1638,6 +1638,13 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 835	2024-09-29 01:25:58.890506-05	101	InternImage-T/A100/224/FP16/	3		15	1
 836	2024-09-29 01:33:25.532169-05	52	Swin-B-IN22k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/50/	2	[{"changed": {"fields": ["Gflops"]}}]	7	1
 837	2024-09-29 01:33:35.595062-05	51	Swin-B-IN22k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/50/	2	[{"changed": {"fields": ["Gflops"]}}]	7	1
+838	2024-09-29 14:56:21.96688-05	14	CSWin	2	[{"changed": {"fields": ["Name"]}}]	14	1
+839	2024-09-29 18:25:58.191992-05	268	CaFormer-M36-IN22k/ImageNet-1k/ImageNet-1k/384/	2	[{"changed": {"fields": ["Top 1"]}}]	8	1
+840	2024-09-29 18:28:05.591898-05	252	CAFormer-S36-IN22k/ImageNet-Sketch/ImageNet-1k/224/	2	[{"changed": {"fields": ["Top 1"]}}]	8	1
+841	2024-09-29 18:30:18.103355-05	251	CAFormer-S36-IN22k/ImageNet-C/ImageNet-1k/224/	2	[{"changed": {"fields": ["Top 1"]}}]	8	1
+842	2024-09-29 18:34:45.768601-05	342	ConvFormer-M36-IN1k/ImageNet-Sketch/	2	[{"changed": {"fields": ["Top 1"]}}]	8	1
+843	2024-09-29 18:37:25.058256-05	331	ConvFormer-S36-IN22k/ImageNet-C/ImageNet-1k/224/	2	[]	8	1
+844	2024-09-29 18:38:31.798255-05	335	ConvFormer-S36-IN22k/ImageNet-C/ImageNet-1k/384/	2	[{"changed": {"fields": ["Resolution"]}}]	8	1
 \.
 
 
@@ -1775,6 +1782,28 @@ COPY public.view_backbone (id, name, m_parameters, family_id, github, paper) FRO
 56	FocalNet-B-LRF	88.7	13		
 57	FocalNet-B-SRF	88.1	13		
 58	FocalNet-L-SRF	197.1	13		
+59	CSWin-T	23	14		
+60	CSWin-S	35	14		
+61	CSWin-B	78	14		
+62	CSWin-L	173	14		
+63	IdentityFormer-S12	11.9	15		
+64	IdentityFormer-S24	21.3	15		
+65	IdentityFormer-S36	30.8	15		
+66	IdentityFormer-M36	56.1	15		
+67	IdentityFormer-M48	73.3	15		
+68	RandFormer-S12	12.1	16		
+69	RandFormer-S24	21.8	16		
+70	RandFormer-S36	31.5	16		
+71	RandFormer-M36	56.8	16		
+72	RandFormer-M48	74.2	16		
+73	CAFormer-S18	26	17		
+74	CAFormer-S36	39	17		
+75	CAFormer-M36	56	17		
+76	CAFormer-B36	99	17		
+77	ConvFormer-S18	27	18		
+78	ConvFormer-S36	40	18		
+79	ConvFormer-M36	57	18		
+80	ConvFormer-B36	100	18		
 \.
 
 
@@ -1868,6 +1897,17 @@ COPY public.view_backbone_fps_measurements (id, backbone_id, fpsmeasurement_id) 
 91	57	111
 92	58	112
 93	58	113
+94	59	114
+95	60	117
+96	61	120
+97	73	123
+98	74	128
+99	75	131
+100	76	134
+101	77	135
+102	78	140
+103	79	143
+104	80	146
 \.
 
 
@@ -1885,6 +1925,11 @@ COPY public.view_backbonefamily (id, name, model_type, pub_date, paper, github, 
 7	Hiera	Attention	2023-06-01	https://doi.org/10.48550/arXiv.2306.00989	https://github.com/facebookresearch/hiera	MAE	t
 12	InternImage	Convolution	2022-11-11	https://arxiv.org/abs/2211.05778	https://github.com/OpenGVLab/InternImage	Supervised	t
 13	FocalNet	Attn + Conv	2022-03-22	https://doi.org/10.48550/arXiv.2203.11926	https://github.com/microsoft/FocalNet	Supervised	t
+14	CSWin	Attention	2021-07-01	https://doi.org/10.48550/arXiv.2107.00652	https://github.com/microsoft/CSWin-Transformer	Supervised	t
+15	IdentityFormer	Identity	2022-10-24	https://doi.org/10.48550/arXiv.2210.13452	https://github.com/sail-sg/metaformer	Supervised	t
+16	RandFormer	Random	2022-10-24	https://doi.org/10.48550/arXiv.2210.13452	https://github.com/sail-sg/metaformer	Supervised	t
+17	CAFormer	Attn + Conv	2022-10-24	https://doi.org/10.48550/arXiv.2210.13452	https://github.com/sail-sg/metaformer	Supervised	t
+18	ConvFormer	Convolution	2022-10-24	https://doi.org/10.48550/arXiv.2210.13452	https://github.com/sail-sg/metaformer	Supervised	t
 \.
 
 
@@ -1895,6 +1940,38 @@ COPY public.view_backbonefamily (id, name, model_type, pub_date, paper, github, 
 COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolution, top_1, top_5, gflops, paper, github, dataset_id, fine_tune_dataset_id, resolution, intermediate_fine_tune_dataset_id, intermediate_fine_tune_epochs, intermediate_fine_tune_resolution, pretrained_backbone_id) FROM stdin;
 171	300	224	82.8	\N	5			1	1	224	\N	\N	\N	42
 176	50	224	86.9	\N	125			1	1	224	\N	\N	\N	47
+207	\N	\N	74.6	\N	3.6			1	\N	224	\N	\N	\N	71
+208	\N	\N	78.2	\N	6.8			1	\N	224	\N	\N	\N	72
+209	\N	\N	79.3	\N	10			1	\N	224	\N	\N	\N	73
+210	\N	\N	80	\N	17.6			1	\N	224	\N	\N	\N	74
+211	\N	\N	80.4	\N	23			1	\N	224	\N	\N	\N	75
+313	30	384	50.1	\N	23.2			7	1	384	\N	\N	\N	90
+314	30	384	55	\N	23.2			8	1	384	\N	\N	\N	90
+315	30	384	47.2	\N	23.2			10	1	384	\N	\N	\N	90
+316	30	384	41.6	\N	23.2			9	1	384	\N	\N	\N	90
+317	\N	\N	84.1	\N	15.2			1	\N	224	\N	\N	\N	91
+318	30	384	85.4	\N	44.8			1	1	384	\N	\N	\N	91
+319	\N	\N	33.2	\N	15.2			7	\N	224	\N	\N	\N	91
+320	\N	\N	50.8	\N	15.2			8	\N	224	\N	\N	\N	91
+321	\N	\N	47.1	\N	15.2			10	\N	224	\N	\N	\N	91
+322	\N	\N	38.4	\N	15.2			9	\N	224	\N	\N	\N	91
+323	30	384	49.9	\N	44.8			7	1	384	\N	\N	\N	91
+324	30	384	51.9	\N	44.8			8	1	384	\N	\N	\N	91
+325	30	384	47.7	\N	44.8			10	1	384	\N	\N	\N	91
+326	30	384	37.8	\N	44.8			9	1	384	\N	\N	\N	91
+327	30	224	85.4	\N	15.2			1	1	224	\N	\N	\N	92
+328	30	384	86.4	\N	44.8			1	1	384	\N	\N	\N	92
+329	30	224	47.3	\N	15.2			7	1	224	\N	\N	\N	92
+330	30	224	58.9	\N	15.2			8	1	224	\N	\N	\N	92
+332	30	224	46.9	\N	15.2			9	1	224	\N	\N	\N	92
+333	30	384	62.9	\N	44.8			7	1	384	\N	\N	\N	92
+334	30	384	59.9	\N	44.8			8	1	384	\N	\N	\N	92
+336	30	384	47.1	\N	44.8			9	1	384	\N	\N	\N	92
+337	\N	\N	84.5	\N	25.6			1	\N	224	\N	\N	\N	93
+338	30	384	85.6	\N	75.4			1	1	384	\N	\N	\N	93
+339	\N	\N	37.6	\N	25.6			7	\N	224	\N	\N	\N	93
+340	\N	\N	51	\N	25.6			8	\N	224	\N	\N	\N	93
+341	\N	\N	46.5	\N	25.6			10	\N	224	\N	\N	\N	93
 77	5	384	76.8	\N	32.1	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	1	384	\N	\N	\N	3
 76	5	384	43.2	\N	32.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	9	1	384	\N	\N	\N	3
 75	5	384	56.4	\N	32.1	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	1	384	\N	\N	\N	3
@@ -1907,13 +1984,55 @@ COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolutio
 58	\N	\N	43.9	\N	10.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	10	\N	224	\N	\N	\N	3
 53	\N	\N	46.5	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	224	\N	\N	\N	2
 2	\N	\N	84	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	224	\N	\N	\N	2
+343	30	384	53.5	\N	75.4			7	1	384	\N	\N	\N	93
 57	\N	\N	73.8	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	\N	224	\N	\N	\N	2
 56	\N	\N	37.6	\N	5.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	9	\N	224	\N	\N	\N	2
 55	\N	\N	49.6	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	\N	224	\N	\N	\N	2
 1	\N	\N	82.5	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt?tab=readme-ov-file	1	\N	224	\N	\N	\N	1
 48	\N	\N	50.8	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	224	\N	\N	\N	1
 49	\N	\N	29.9	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	7	\N	224	\N	\N	\N	1
+344	30	384	52.2	\N	75.4			8	1	384	\N	\N	\N	93
+345	30	384	48.4	\N	75.4			10	1	384	\N	\N	\N	93
+346	30	384	38.5	\N	75.4			9	1	384	\N	\N	\N	93
+347	30	224	86.1	\N	25.6			1	1	224	\N	\N	\N	94
+348	30	384	86.9	\N	75.4			1	1	384	\N	\N	\N	94
+349	30	224	56.1	\N	25.6			7	1	224	\N	\N	\N	94
+350	30	224	60.9	\N	25.6			8	1	224	\N	\N	\N	94
+331	30	224	41	\N	15.2			10	1	224	\N	\N	\N	92
+335	30	384	41.3	\N	44.8			10	1	384	\N	\N	\N	92
 172	200	224	83.8	\N	6			1	1	224	\N	\N	\N	43
+212	\N	\N	76.6	\N	3.8			1	\N	224	\N	\N	\N	76
+213	\N	\N	78.8	\N	7			1	\N	224	\N	\N	\N	77
+214	\N	\N	79.5	\N	10.4			1	\N	224	\N	\N	\N	78
+215	\N	\N	81.2	\N	18			1	\N	224	\N	\N	\N	79
+216	\N	\N	81.4	\N	23.8			1	\N	224	\N	\N	\N	80
+351	30	224	38.4	\N	25.6			10	1	224	\N	\N	\N	94
+352	30	224	49.1	\N	25.6			9	1	224	\N	\N	\N	94
+353	30	384	68.5	\N	75.4			7	1	384	\N	\N	\N	94
+354	30	384	61.8	\N	75.4			8	1	384	\N	\N	\N	94
+355	30	384	39	\N	75.4			10	1	384	\N	\N	\N	94
+356	30	384	49.1	\N	75.4			9	1	384	\N	\N	\N	94
+357	\N	\N	84.8	\N	45.2			1	\N	224	\N	\N	\N	95
+358	30	384	85.7	\N	133			1	1	384	\N	\N	\N	95
+359	\N	\N	40.1	\N	45.2			7	\N	224	\N	\N	\N	95
+360	\N	\N	51.1	\N	45.2			8	\N	224	\N	\N	\N	95
+361	\N	\N	46.3	\N	45.2			10	\N	224	\N	\N	\N	95
+362	\N	\N	39.5	\N	45.2			9	\N	224	\N	\N	\N	95
+363	30	384	55.3	\N	133			7	1	384	\N	\N	\N	95
+364	30	384	52.2	\N	133			8	1	384	\N	\N	\N	95
+365	30	384	48.1	\N	133			10	1	384	\N	\N	\N	95
+366	30	384	38.9	\N	133			9	1	384	\N	\N	\N	95
+367	30	224	87	\N	45.2			1	1	224	\N	\N	\N	96
+368	30	384	87.6	\N	133			1	1	384	\N	\N	\N	96
+369	30	224	63.3	\N	45.2			7	1	224	\N	\N	\N	96
+370	30	224	65.3	\N	45.2			8	1	224	\N	\N	\N	96
+371	30	224	35	\N	45.2			10	1	224	\N	\N	\N	96
+372	30	224	52.7	\N	45.2			9	1	224	\N	\N	\N	96
+373	30	384	73.5	\N	133			7	1	384	\N	\N	\N	96
+374	30	384	66.5	\N	133			8	1	384	\N	\N	\N	96
+375	30	384	35.8	\N	133			10	1	384	\N	\N	\N	96
+376	30	384	52.9	\N	133			9	1	384	\N	\N	\N	96
+342	\N	\N	39.2	\N	25.6			9	\N	224	\N	\N	\N	93
 4	\N	\N	84.8	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	224	\N	\N	\N	4
 72	5	384	77	\N	56.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	12	1	384	\N	\N	\N	4
 71	5	384	44.7	\N	56.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	9	1	384	\N	\N	\N	4
@@ -1932,6 +2051,75 @@ COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolutio
 184	300	224	84.9	\N	16			1	1	224	\N	\N	\N	55
 185	20	384	87.7	\N	108			1	1	384	\N	\N	\N	56
 186	20	384	88	\N	163			1	1	384	\N	\N	\N	57
+217	\N	\N	83.6	\N	8.2			1	\N	224	\N	\N	\N	81
+218	30	384	85	\N	26.4			1	1	384	\N	\N	\N	81
+219	\N	\N	33.5	\N	8.2			7	\N	224	\N	\N	\N	81
+220	\N	\N	48.7	\N	8.2			8	\N	224	\N	\N	\N	81
+221	\N	\N	47.4	\N	8.2			10	\N	224	\N	\N	\N	81
+222	\N	\N	36.6	\N	8.2			9	\N	224	\N	\N	\N	81
+223	30	384	48.9	\N	26.8			7	1	384	\N	\N	\N	81
+224	30	384	51.3	\N	26.8			8	1	384	\N	\N	\N	81
+225	30	384	46.1	\N	26.8			10	1	384	\N	\N	\N	81
+226	30	384	37.7	\N	26.8			9	1	384	\N	\N	\N	81
+227	30	224	84.1	\N	8.2			1	1	224	\N	\N	\N	82
+228	30	384	85.4	\N	26.8			1	1	384	\N	\N	\N	82
+229	30	224	43.3	\N	8.2			7	1	224	\N	\N	\N	82
+230	30	224	54.1	\N	8.2			8	1	224	\N	\N	\N	82
+231	30	224	44.8	\N	8.2			10	1	224	\N	\N	\N	82
+232	30	224	41.2	\N	8.2			9	1	224	\N	\N	\N	82
+233	30	384	58.3	\N	26.8			7	1	384	\N	\N	\N	82
+234	30	384	55.9	\N	26.8			8	1	384	\N	\N	\N	82
+235	30	384	43.3	\N	26.8			10	1	384	\N	\N	\N	82
+236	30	384	42	\N	26.8			9	1	384	\N	\N	\N	82
+237	\N	\N	84.5	\N	16			1	\N	224	\N	\N	\N	83
+238	30	384	85.7	\N	52			1	1	384	\N	\N	\N	83
+239	\N	\N	40.9	\N	16			7	\N	224	\N	\N	\N	83
+240	\N	\N	51.7	\N	16			8	\N	224	\N	\N	\N	83
+241	\N	\N	44.7	\N	16			10	\N	224	\N	\N	\N	83
+242	\N	\N	39.5	\N	16			9	\N	224	\N	\N	\N	83
+243	30	384	57.1	\N	52			7	1	384	\N	\N	\N	83
+244	30	384	54.5	\N	52			8	1	384	\N	\N	\N	83
+245	30	384	42.7	\N	52			10	1	384	\N	\N	\N	83
+246	30	384	41.7	\N	52			9	1	384	\N	\N	\N	83
+247	30	224	85.8	\N	16			1	1	224	\N	\N	\N	84
+248	30	384	86.9	\N	52			1	1	384	\N	\N	\N	84
+249	30	224	55.5	\N	16			7	1	224	\N	\N	\N	84
+250	30	224	60.7	\N	16			8	1	224	\N	\N	\N	84
+253	30	384	70.6	\N	52			7	1	384	\N	\N	\N	84
+254	30	384	63	\N	52			8	1	384	\N	\N	\N	84
+255	30	384	36.8	\N	52			10	1	384	\N	\N	\N	84
+256	30	384	48.5	\N	52			9	1	384	\N	\N	\N	84
+257	\N	\N	85.2	\N	26.4			1	\N	224	\N	\N	\N	85
+258	30	384	86.2	\N	84			1	1	384	\N	\N	\N	85
+259	\N	\N	45.6	\N	26.4			7	\N	224	\N	\N	\N	85
+260	\N	\N	51.7	\N	26.4			8	\N	224	\N	\N	\N	85
+261	\N	\N	42.6	\N	26.4			10	\N	224	\N	\N	\N	85
+262	\N	\N	39.6	\N	26.4			9	\N	224	\N	\N	\N	85
+263	30	384	60.2	\N	84			7	1	384	\N	\N	\N	85
+264	30	384	55	\N	84			8	1	384	\N	\N	\N	85
+265	30	384	41.7	\N	84			10	1	384	\N	\N	\N	85
+266	30	384	41.5	\N	84			9	1	384	\N	\N	\N	85
+267	30	224	86.1	\N	26.4			1	1	224	\N	\N	\N	86
+269	30	224	60.9	\N	26.4			7	1	224	\N	\N	\N	86
+270	30	224	63.4	\N	26.4			8	1	224	\N	\N	\N	86
+271	30	224	35.2	\N	26.4			10	1	224	\N	\N	\N	86
+272	30	224	49.7	\N	26.4			9	1	224	\N	\N	\N	86
+273	30	384	73.9	\N	84			7	1	384	\N	\N	\N	86
+274	30	384	65.3	\N	84			8	1	384	\N	\N	\N	86
+275	30	384	33.9	\N	84			10	1	384	\N	\N	\N	86
+276	30	384	51	\N	84			9	1	384	\N	\N	\N	86
+277	\N	\N	85.5	\N	46.4			1	\N	224	\N	\N	\N	87
+278	30	384	86.4	\N	144.4			1	1	384	\N	\N	\N	87
+279	\N	\N	48.5	\N	46.4			7	\N	224	\N	\N	\N	87
+280	\N	\N	53.9	\N	46.4			8	\N	224	\N	\N	\N	87
+281	\N	\N	42.6	\N	46.4			10	\N	224	\N	\N	\N	87
+282	\N	\N	42.5	\N	46.4			9	\N	224	\N	\N	\N	87
+283	30	384	61.9	\N	144.4			7	1	384	\N	\N	\N	87
+284	30	384	55	\N	144.4			8	1	384	\N	\N	\N	87
+285	30	384	42.8	\N	144.4			10	1	384	\N	\N	\N	87
+286	30	384	42.5	\N	144.4			9	1	384	\N	\N	\N	87
+252	30	224	48.5	\N	16			9	1	224	\N	\N	\N	84
+251	30	224	38.5	\N	16			10	1	224	\N	\N	\N	84
 54	\N	\N	39.9	\N	5.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	7	\N	224	\N	\N	\N	2
 174	\N	100	85.2	\N	13			1	1	224	\N	\N	\N	45
 187	\N	\N	82.3	\N	4.5			1	\N	224	\N	\N	\N	58
@@ -1944,6 +2132,17 @@ COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolutio
 194	30	384	86.5	\N	44.8			1	1	384	\N	\N	\N	64
 195	30	224	86.5	\N	34.2			1	1	224	\N	\N	\N	65
 196	30	384	87.3	\N	100.6			1	1	384	\N	\N	\N	65
+287	30	224	87.4	\N	46.4			1	1	224	\N	\N	\N	88
+288	30	384	88.1	\N	144.4			1	1	384	\N	\N	\N	88
+289	30	224	69.4	\N	46.4			7	1	224	\N	\N	\N	88
+290	30	224	68.3	\N	46.4			8	1	224	\N	\N	\N	88
+291	30	224	31.8	\N	46.4			10	1	224	\N	\N	\N	88
+292	30	224	52.8	\N	46.4			9	1	224	\N	\N	\N	88
+293	30	384	79.5	\N	144.4			7	1	384	\N	\N	\N	88
+294	30	384	70.4	\N	144.4			8	1	384	\N	\N	\N	88
+295	30	384	30.8	\N	144.4			10	1	384	\N	\N	\N	88
+296	30	384	54.5	\N	144.4			9	1	384	\N	\N	\N	88
+268	30	384	87.4	\N	84			1	1	384	\N	\N	\N	86
 50	\N	\N	45.8	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	\N	224	\N	\N	\N	1
 51	\N	\N	33	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	9	\N	224	\N	\N	\N	1
 52	\N	\N	72.6	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	\N	224	\N	\N	\N	1
@@ -1989,6 +2188,7 @@ COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolutio
 113	50	224	76.5	\N	17.6			12	1	224	\N	\N	\N	24
 114	50	384	86.7	\N	55.5			1	1	384	\N	\N	\N	24
 112	50	224	85.7	\N	17.6			1	1	224	\N	\N	\N	24
+197	\N	\N	82.7	\N	4.3			1	\N	224	\N	\N	\N	66
 115	50	384	77.9	\N	55.5			12	1	384	\N	\N	\N	24
 81	30	384	84.5	97	47	https://github.com/microsoft/Swin-Transformer		1	1	384	\N	\N	\N	16
 93	\N	\N	35.8	\N	15.4	https://doi.org/10.48550/arXiv.2201.03545		7	\N	224	\N	\N	\N	16
@@ -2082,6 +2282,31 @@ COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolutio
 169	30	384	88.7	\N	337.9			1	1	384	2	90	384	34
 170	30	512	88.9	\N	600.8			1	1	512	2	90	512	34
 175	50	224	86.1	\N	40			1	1	224	\N	\N	\N	46
+198	30	384	84.3	\N	14			1	1	384	\N	\N	\N	66
+199	\N	\N	83.6	\N	6.9			1	\N	224	\N	\N	\N	67
+200	30	384	85	\N	22			1	1	384	\N	\N	\N	67
+201	\N	\N	84.2	\N	15			1	\N	224	\N	\N	\N	68
+202	30	384	85.4	\N	47			1	1	384	\N	\N	\N	68
+203	30	224	85.9	\N	15			1	1	224	\N	\N	\N	69
+204	30	384	87	\N	47			1	1	384	\N	\N	\N	69
+205	30	224	86.5	\N	31.5			1	1	224	\N	\N	\N	70
+206	30	384	87.5	\N	96.8			1	1	384	\N	\N	\N	70
+297	\N	\N	83	\N	7.8			1	\N	224	\N	\N	\N	89
+298	30	384	84.4	\N	23.2			1	1	384	\N	\N	\N	89
+299	\N	\N	25.3	\N	7.8			7	\N	224	\N	\N	\N	89
+300	\N	\N	48.7	\N	7.8			8	\N	224	\N	\N	\N	89
+301	\N	\N	51.7	\N	7.8			10	\N	224	\N	\N	\N	89
+302	\N	\N	35.2	\N	7.8			9	\N	224	\N	\N	\N	89
+303	30	384	42	\N	23.2			7	1	384	\N	\N	\N	89
+304	30	384	50.7	\N	23.2			8	1	384	\N	\N	\N	89
+305	30	384	51	\N	23.2			10	1	384	\N	\N	\N	89
+306	30	384	36.2	\N	23.2			9	1	384	\N	\N	\N	89
+307	30	224	83.7	\N	7.8			1	1	224	\N	\N	\N	90
+308	30	384	85	\N	23.2			1	1	384	\N	\N	\N	90
+309	30	224	33.4	\N	7.8			7	1	224	\N	\N	\N	90
+310	30	224	53.4	\N	7.8			8	1	224	\N	\N	\N	90
+311	30	224	47.5	\N	7.8			10	1	224	\N	\N	\N	90
+312	30	224	40.3	\N	7.8			9	1	224	\N	\N	\N	90
 \.
 
 
@@ -2264,6 +2489,39 @@ COPY public.view_fpsmeasurement (id, backbone_name, resolution, fps, gpu, "preci
 111	FocalNet-B-SRF	384	94	V100	FP32	\N	
 112	FocalNet-L-SRF	224	144	V100	FP32	\N	
 113	FocalNet-L-SRF	384	50	V100	FP32	\N	
+114	CSWin-T	224	701	V100	FP32	\N	
+115	CSWin-T	1280	14.2	A100	TF32	\N	
+116	CSWin-T	1280	14.2	A100	TF32	\N	
+117	CSWin-S	224	437	V100	FP32	\N	
+118	CSWin-S	1280	11.7	A100	TF32	\N	
+119	CSWin-S	1280	11.7	A100	TF32	\N	
+120	CSWin-B	224	250	V100	FP32	\N	
+121	CSWin-B	1280	9.6	A100	TF32	\N	
+122	CSWin-B	1280	9.6	A100	TF32	\N	
+123	CAFormer-S18	224	2093	A100	TF32	\N	
+124	CAFormer-S18	1280	18	V100	FP32	\N	
+125	CAFormer-S18	1280	18	V100	FP32	\N	
+126	CAFormer-S18	1280	8.7	V100	FP32	\N	
+127	CAFormer-S18	1280	8.7	V100	FP32	\N	
+128	CAFormer-S36	224	1138	A100	TF32	\N	
+129	CAFormer-S36	1280	7.1	V100	FP32	\N	
+130	CAFormer-S36	1280	7.1	V100	FP32	\N	
+131	CAFormer-M36	224	852	A100	TF32	\N	
+132	CAFormer-M36	1280	6.4	V100	FP32	\N	
+133	CAFormer-M36	1280	6.4	V100	FP32	\N	
+134	CAFormer-B36	224	644	A100	TF32	\N	
+135	ConvFormer-S18	224	2213	A100	TF32	\N	
+136	ConvFormer-S18	1280	18.3	V100	FP32	\N	
+137	ConvFormer-S18	1280	18.3	V100	FP32	\N	
+138	ConvFormer-S18	1280	8.7	V100	FP32	\N	
+139	ConvFormer-S18	1280	8.7	V100	FP32	\N	
+140	ConvFormer-S36	224	1205	A100	TF32	\N	
+141	ConvFormer-S36	1280	7.4	V100	FP32	\N	
+142	ConvFormer-S36	1280	7.4	V100	FP32	\N	
+143	ConvFormer-M36	224	899	A100	TF32	\N	
+144	ConvFormer-M36	1280	6.7	V100	FP32	\N	
+145	ConvFormer-M36	1280	6.7	V100	FP32	\N	
+146	ConvFormer-B36	224	677	A100	TF32	\N	
 \.
 
 
@@ -2298,6 +2556,14 @@ COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs"
 124	12	43.3	67.5	46.5	\N	\N	\N	496			4	1	3	3	\N	\N	63
 125	36	49.6	70.6	54.1	\N	\N	\N	496			4	1	3	2	\N	\N	63
 126	36	44.1	68	47.2	\N	\N	\N	496			4	1	3	3	\N	\N	63
+153	36	47.7	69.6	52.3	\N	\N	\N	502			4	1	3	2	\N	\N	89
+154	36	42.6	66.3	45.9	\N	\N	\N	502			4	1	3	3	\N	\N	89
+155	36	51.5	70.7	55.8	\N	\N	\N	1458			4	2	3	2	\N	\N	89
+156	36	44.6	67.8	48.2	\N	\N	\N	1458			4	2	3	3	\N	\N	89
+157	36	52.5	71.1	57	\N	\N	\N	1610			4	2	3	2	\N	\N	91
+158	36	45.2	68.6	48.8	\N	\N	\N	1610			4	2	3	3	\N	\N	91
+159	36	53	71.4	57.4	\N	\N	\N	1824			4	2	3	2	\N	\N	93
+160	36	45.7	69.2	49.5	\N	\N	\N	1824			4	2	3	3	\N	\N	93
 36	36	45	68.4	49.1	\N	\N	\N	827			4	2	3	3	\N	\N	1
 7	12	51.7	73.2	56.9	\N	\N	\N	709	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	2	\N	\N	4
 8	12	45.9	70.5	49.7	\N	\N	\N	709	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	3	\N	\N	4
@@ -2338,6 +2604,7 @@ COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs"
 39	36	54.4	73.9	60.4	\N	\N	\N	875			4	1	3	2	\N	\N	35
 37	36	55.7	75.2	61.8	\N	\N	\N	2525			4	1	3	2	\N	\N	34
 38	36	48.9	72.8	53.6	\N	\N	\N	2525			4	1	3	3	\N	\N	34
+127	12	46.7	68.6	51.3	\N	\N	\N	279			4	1	3	2	\N	\N	66
 44	100	46.3	\N	\N	\N	\N	\N	600			4	1	3	3	\N	\N	44
 45	100	53.5	\N	\N	\N	\N	\N	600			4	1	3	2	\N	\N	45
 46	100	47.3	\N	\N	\N	\N	\N	600			4	1	3	3	\N	\N	45
@@ -2356,6 +2623,23 @@ COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs"
 53	50	52.4	\N	\N	\N	\N	\N	1100	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	2	\N	\N	20
 54	50	46.2	\N	\N	\N	\N	\N	1100	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	3	\N	\N	20
 51	50	51.4	\N	\N	\N	\N	\N	700	https://doi.org/10.48550/arXiv.2203.16527		4	1	3	2	\N	\N	17
+128	12	42.2	65.6	45.4	\N	\N	\N	279			4	1	3	3	\N	\N	66
+129	36	49	70.7	53.7	\N	\N	\N	279			4	1	3	2	\N	\N	66
+130	36	43.6	67.9	46.6	\N	\N	\N	279			4	1	3	3	\N	\N	66
+131	36	52.5	71.5	57.1	\N	\N	\N	757			4	2	3	2	\N	\N	66
+132	36	45.3	68.8	48.9	\N	\N	\N	757			4	2	3	3	\N	\N	66
+133	12	47.9	70.1	52.6	\N	\N	\N	342			4	1	3	2	\N	\N	67
+134	12	43.2	67.1	46.2	\N	\N	\N	342			4	1	3	3	\N	\N	67
+135	36	50	71.3	54.7	\N	\N	\N	342			4	1	3	2	\N	\N	67
+136	36	44.5	68.4	47.7	\N	\N	\N	342			4	1	3	3	\N	\N	67
+137	36	53.7	72.2	58.4	\N	\N	\N	820			4	2	3	2	\N	\N	67
+138	36	46.4	69.6	50.6	\N	\N	\N	820			4	2	3	3	\N	\N	67
+139	12	48.7	70.4	53.9	\N	\N	\N	526			4	1	3	2	\N	\N	68
+140	12	43.9	67.8	47.3	\N	\N	\N	526			4	1	3	3	\N	\N	68
+141	36	50.8	72.1	55.8	\N	\N	\N	526			4	1	3	2	\N	\N	68
+142	36	44.9	69.1	48.3	\N	\N	\N	526			4	1	3	3	\N	\N	68
+143	36	53.9	72.6	58.5	\N	\N	\N	1004			4	2	3	2	\N	\N	68
+144	36	46.4	70	50.4	\N	\N	\N	1004			4	2	3	3	\N	\N	68
 81	12	47.2	69	52.1	\N	\N	\N	270			4	1	3	2	\N	\N	53
 82	12	42.5	66.1	45.8	\N	\N	\N	270			4	1	3	3	\N	\N	53
 83	36	49.1	70.4	54.1	\N	\N	\N	270			4	1	3	2	\N	\N	53
@@ -2376,6 +2660,14 @@ COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs"
 98	36	48.1	71.9	52.4	\N	\N	\N	1782			4	2	3	3	\N	\N	57
 99	36	56.2	75	61.2	\N	\N	\N	1782			4	2	3	2	\N	\N	57
 100	36	48.8	72.5	53.4	\N	\N	\N	1782			4	2	3	3	\N	\N	57
+145	36	48.6	70.5	53.4	\N	\N	\N	508			4	1	3	2	\N	\N	81
+146	36	43.7	67.5	47.4	\N	\N	\N	508			4	1	3	3	\N	\N	81
+147	36	52.3	71.3	56.9	\N	\N	\N	1466			4	2	3	2	\N	\N	81
+148	36	45.2	68.6	48.8	\N	\N	\N	1466			4	2	3	3	\N	\N	81
+149	36	53.2	72.1	57.7	\N	\N	\N	1622			4	2	3	2	\N	\N	83
+150	36	46	69.5	49.8	\N	\N	\N	1622			4	2	3	3	\N	\N	83
+151	36	53.8	72.5	58.3	\N	\N	\N	1840			4	2	3	2	\N	\N	85
+152	36	46.5	70.1	50.7	\N	\N	\N	1840			4	2	3	3	\N	\N	85
 \.
 
 
@@ -2434,6 +2726,28 @@ COPY public.view_instanceresult_fps_measurements (id, instanceresult_id, fpsmeas
 48	52	93
 49	53	94
 50	54	94
+51	131	115
+52	132	116
+53	137	118
+54	138	119
+55	143	121
+56	144	122
+57	145	124
+58	146	125
+59	147	126
+60	148	127
+61	149	129
+62	150	130
+63	151	132
+64	152	133
+65	153	136
+66	154	137
+67	155	138
+68	156	139
+69	157	141
+70	158	142
+71	159	144
+72	160	145
 \.
 
 
@@ -2502,6 +2816,37 @@ COPY public.view_pretrainedbackbone (id, name, pretrain_method, pretrain_resolut
 63	FocalNet-B-SRF-IN1k	Supervised	224	300			57	1	13
 64	FocalNet-B-SRF-IN22k	Supervised	224	90			57	2	13
 65	FocalNet-L-SRF-IN22k	Supervised	224	90			58	2	13
+66	CSWin-T-IN1k	Supervised	224	300			59	1	14
+67	CSWin-S-IN1k	Supervised	224	300			60	1	14
+68	CSWin-B-IN1k	Supervised	224	300			61	1	14
+69	CSWin-B-IN22k	Supervised	224	90			61	2	14
+70	CSWin-L-IN22k	Supervised	224	90			62	2	14
+71	IdentityFormer-S12-IN1k	Supervised	224	300			63	1	15
+72	IdentityFormer-S24-IN1k	Supervised	224	300			64	1	15
+73	IdentityFormer-S36-IN1k	Supervised	224	300			65	1	15
+74	IdentityFormer-M36-IN1k	Supervised	224	300			66	1	15
+75	IdentityFormer-M48-IN1k	Supervised	224	300			67	1	15
+76	RandFormer-S12-IN1k	Supervised	224	300			68	1	16
+77	RandFormer-S24-IN1k	Supervised	224	300			69	1	16
+78	RandFormer-S36-IN1k	Supervised	224	300			70	1	16
+79	RandFormer-M36-IN1k	Supervised	224	300			71	1	16
+80	RandFormer-M48-IN1k	Supervised	224	300			72	1	16
+81	CAFormer-S18-IN1k	Supervised	224	300			73	1	17
+82	CAFormer-S18-IN22k	Supervised	224	90			73	2	17
+83	CAFormer-S36-IN1k	Supervised	224	300			74	1	17
+84	CAFormer-S36-IN22k	Supervised	224	90			74	2	17
+85	CAFormer-M36-IN1k	Supervised	224	300			75	1	17
+86	CaFormer-M36-IN22k	Supervised	224	90			75	2	17
+87	CAFormer-B36-IN1k	Supervised	224	300			76	1	17
+88	CaFormer-B36-IN22k	Supervised	224	90			76	2	17
+89	ConvFormer-S18-IN1k	Supervised	224	300			77	1	18
+90	ConvFormer-S18-IN22k	Supervised	224	90			77	2	18
+91	ConvFormer-S36-IN1k	Supervised	224	300			78	1	18
+92	ConvFormer-S36-IN22k	Supervised	224	90			78	2	18
+93	ConvFormer-M36-IN1k	Supervised	224	300			79	1	18
+94	ConvFormer-M36-IN22k	Supervised	224	90			79	2	18
+95	ConvFormer-B36-IN1k	Supervised	224	300			80	1	18
+96	ConvFormer-B36-IN22k	Supervised	224	90			80	2	18
 \.
 
 
@@ -2564,7 +2909,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 837, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 844, true);
 
 
 --
@@ -2585,28 +2930,28 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 38, true);
 -- Name: view_backbone_fps_measurements_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbone_fps_measurements_id_seq', 93, true);
+SELECT pg_catalog.setval('public.view_backbone_fps_measurements_id_seq', 104, true);
 
 
 --
 -- Name: view_backbone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbone_id_seq', 58, true);
+SELECT pg_catalog.setval('public.view_backbone_id_seq', 80, true);
 
 
 --
 -- Name: view_backbonefamily_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbonefamily_id_seq', 13, true);
+SELECT pg_catalog.setval('public.view_backbonefamily_id_seq', 18, true);
 
 
 --
 -- Name: view_classificationresult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_classificationresult_id_seq', 196, true);
+SELECT pg_catalog.setval('public.view_classificationresult_id_seq', 376, true);
 
 
 --
@@ -2641,28 +2986,28 @@ SELECT pg_catalog.setval('public.view_downstreamhead_tasks_id_seq', 4, true);
 -- Name: view_fpsmeasurement_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_fpsmeasurement_id_seq', 113, true);
+SELECT pg_catalog.setval('public.view_fpsmeasurement_id_seq', 146, true);
 
 
 --
 -- Name: view_instanceresult_fps_measurements_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_instanceresult_fps_measurements_id_seq', 50, true);
+SELECT pg_catalog.setval('public.view_instanceresult_fps_measurements_id_seq', 72, true);
 
 
 --
 -- Name: view_instanceresult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_instanceresult_id_seq', 126, true);
+SELECT pg_catalog.setval('public.view_instanceresult_id_seq', 160, true);
 
 
 --
 -- Name: view_pretrainedbackbone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_pretrainedbackbone_id_seq', 65, true);
+SELECT pg_catalog.setval('public.view_pretrainedbackbone_id_seq', 96, true);
 
 
 --
