@@ -7,6 +7,7 @@ from django.db.models.fields.related import ForeignKey, ManyToManyField
 from dotenv import load_dotenv
 from pypdf import PdfReader
 import anthropic
+import openai
 
 from ...models import (
     BackboneFamily,
@@ -173,12 +174,24 @@ def get_pdf_content(url):
     return content
 
 
+
+
+def call_openai_api(prompt):
+    load_dotenv()
+    client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+    message = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": prompt}],
+    )
+    return message.choices[0].message.content
+
+
 def call_anthropic_api(prompt):
     load_dotenv()
     client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
     message = client.messages.create(
         model="claude-3-5-sonnet-20240620",
-        max_tokens=16384,
+        max_tokens=8192,
         messages=[{"role": "user", "content": prompt}],
     )
     return message.content[0].text

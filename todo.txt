@@ -1,10 +1,6 @@
 models to add:
 
 - swinv2
-- eva
-- eva-2
-- moganet
-- MaxVit
 - MVit
 - EfficientVit https://arxiv.org/pdf/2205.14756
 - BiFormer
@@ -33,6 +29,8 @@ left in papers
 - CSwin
 -- ade20k results
 - MetaFormers
+-- ade20k results
+- MogaNet
 -- ade20k results
 
 left in github

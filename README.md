@@ -23,7 +23,6 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
 ## TODO
 - Host the Website
 - Add Semantic Segmentation as a downstream task
-- Add More Backbones
 - Comparison of Heads
 - Comparison of Pretraining Datasets
 - Better Handling of Queries with no Results
@@ -52,10 +51,17 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
   - [FocalNet](https://arxiv.org/abs/2203.11926)
   - [InternImage](https://arxiv.org/abs/2211.05778)
   - [CSwin](https://arxiv.org/abs/2107.00652)
-  - [MetaFormers](https://arxiv.org/abs/2301.00808)
+  - [MetaFormers](https://arxiv.org/abs/2210.13452)
+  -- IdentityFormer
+  -- RandFormer
+  -- ConvFormer
+  -- CAFormer
+  - [MaxViT](https://arxiv.org/abs/2204.01697)
+  - [MogaNet](https://arxiv.org/pdf/2211.03295)
+  - [CoAtNet](https://arxiv.org/abs/2108.12895)
 
 ## Updates
-- 9-29-2024: added LLM db data gen command; added benchmark for LLM db data gen; added InternImage, FocalNet, CSwin, RandFormer, IdentityFormer, ConvFormer, CAFormer
+- 9-29-2024: added LLM db data gen command; added benchmark for LLM db data gen; added InternImage, FocalNet, CSwin, RandFormer, IdentityFormer, ConvFormer, CAFormer, MaxViT, MogaNet, CoAtNet
 - 9-24-2024: added Hiera
 - 9-22-2024: added several models; more train info in tables; refactor plot and table gen; bug fixes
 - 9-9-2024: added list pages (models, heads, datasets); added postgresql sql dump to repo

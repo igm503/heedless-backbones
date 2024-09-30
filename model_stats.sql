@@ -1645,6 +1645,9 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 842	2024-09-29 18:34:45.768601-05	342	ConvFormer-M36-IN1k/ImageNet-Sketch/	2	[{"changed": {"fields": ["Top 1"]}}]	8	1
 843	2024-09-29 18:37:25.058256-05	331	ConvFormer-S36-IN22k/ImageNet-C/ImageNet-1k/224/	2	[]	8	1
 844	2024-09-29 18:38:31.798255-05	335	ConvFormer-S36-IN22k/ImageNet-C/ImageNet-1k/384/	2	[{"changed": {"fields": ["Resolution"]}}]	8	1
+845	2024-09-29 21:40:55.588057-05	3	RetinaNet	1	[{"added": {}}]	12	1
+846	2024-09-29 21:51:53.231852-05	14	JFT-300M	1	[{"added": {}}]	13	1
+847	2024-09-29 21:52:56.672542-05	15	JFT-3B	1	[{"added": {}}]	13	1
 \.
 
 
@@ -1736,6 +1739,9 @@ fiuyyum8s80xghfwkab6oqxdd9kyoar1	.eJxVjEsOAiEQBe_C2hCaX6tL956BNNDIqIFkmFkZ766TzE
 COPY public.view_backbone (id, name, m_parameters, family_id, github, paper) FROM stdin;
 9	ConvNeXt-XL	350	2		
 13	Swin-L	197	3		
+87	MogaNet-XT	3	21		
+88	MogaNet-T	5.2	21		
+89	MogaNet-S	25.3	21		
 19	ResNet-34 (RSB)	21.8	5		
 18	ResNet-18 (RSB)	11.7	5		
 20	ResNet-50 (RSB)	25.6	5		
@@ -1754,6 +1760,8 @@ COPY public.view_backbone (id, name, m_parameters, family_id, github, paper) FRO
 27	ConvNeXt V2-T	28.6	6		
 28	ConvNeXt V2-B	89	6		
 29	ConvNeXt V2-L	198	6		
+90	MogaNet-B	43.8	21		
+91	MogaNet-L	82.5	21		
 30	ConvNeXt V2-H	660	6		
 6	ConvNeXt-S	50	2		
 5	ConvNeXt-T	29	2		
@@ -1804,6 +1812,20 @@ COPY public.view_backbone (id, name, m_parameters, family_id, github, paper) FRO
 78	ConvFormer-S36	40	18		
 79	ConvFormer-M36	57	18		
 80	ConvFormer-B36	100	18		
+81	MaxViT-T	31	19		
+82	MaxViT-S	69	19		
+83	MaxViT-B	120	19		
+84	MaxViT-L	212	19		
+85	MaxViT-XL	475	19		
+92	MogaNet-XL	180.8	21		
+93	CoAtNet-0	25	22		
+94	CoAtNet-1	42	22		
+95	CoAtNet-2	75	22		
+96	CoAtNet-3	168	22		
+97	CoAtNet-4	275	22		
+98	CoAtNet-5	688	22		
+99	CoAtNet-6	1470	22		
+100	CoAtNet-7	2440	22		
 \.
 
 
@@ -1908,6 +1930,18 @@ COPY public.view_backbone_fps_measurements (id, backbone_id, fpsmeasurement_id) 
 102	78	140
 103	79	143
 104	80	146
+105	81	147
+106	81	148
+107	81	149
+108	82	150
+109	82	151
+110	82	152
+111	83	153
+112	83	154
+113	83	155
+114	84	156
+115	84	157
+116	84	158
 \.
 
 
@@ -1930,6 +1964,9 @@ COPY public.view_backbonefamily (id, name, model_type, pub_date, paper, github, 
 16	RandFormer	Random	2022-10-24	https://doi.org/10.48550/arXiv.2210.13452	https://github.com/sail-sg/metaformer	Supervised	t
 17	CAFormer	Attn + Conv	2022-10-24	https://doi.org/10.48550/arXiv.2210.13452	https://github.com/sail-sg/metaformer	Supervised	t
 18	ConvFormer	Convolution	2022-10-24	https://doi.org/10.48550/arXiv.2210.13452	https://github.com/sail-sg/metaformer	Supervised	t
+19	MaxViT	Attn + Conv	2022-04-22	https://doi.org/10.48550/arXiv.2204.01697	https://github.com/google-research/maxvit	Supervised	t
+21	MogaNet	Convolution	2024-02-16	https://arxiv.org/abs/2211.03295	https://github.com/Westlake-AI/MogaNet	Supervised	t
+22	CoAtNet	Attn + Conv	2021-06-09	https://doi.org/10.48550/arXiv.2106.04803	https://github.com/huggingface/pytorch-image-models	Supervised	t
 \.
 
 
@@ -2033,6 +2070,20 @@ COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolutio
 375	30	384	35.8	\N	133			10	1	384	\N	\N	\N	96
 376	30	384	52.9	\N	133			9	1	384	\N	\N	\N	96
 342	\N	\N	39.2	\N	25.6			9	\N	224	\N	\N	\N	93
+406	\N	\N	81.6	\N	4.2			1	\N	224	\N	\N	\N	112
+407	30	384	83.9	\N	13.4			1	1	384	\N	\N	\N	112
+408	\N	\N	83.3	\N	8.4			1	\N	224	\N	\N	\N	113
+409	30	384	85.1	\N	27.4			1	1	384	\N	\N	\N	113
+410	\N	\N	84.1	\N	15.7			1	\N	224	\N	\N	\N	114
+411	30	384	85.7	\N	49.8			1	1	384	\N	\N	\N	114
+412	30	512	85.9	\N	96.7			1	1	512	\N	\N	\N	114
+413	30	384	87.1	\N	49.8			1	1	384	\N	\N	\N	115
+414	30	512	87.3	\N	96.7			1	1	512	\N	\N	\N	115
+415	\N	\N	84.5	\N	34.7			1	\N	224	\N	\N	\N	116
+416	30	384	85.8	\N	107.4			1	1	384	\N	\N	\N	116
+417	30	512	86	\N	203.1			1	1	512	\N	\N	\N	116
+418	30	384	87.6	\N	107.4			1	1	384	\N	\N	\N	117
+419	30	512	87.9	\N	203.1			1	1	512	\N	\N	\N	117
 4	\N	\N	84.8	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	224	\N	\N	\N	4
 72	5	384	77	\N	56.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	12	1	384	\N	\N	\N	4
 71	5	384	44.7	\N	56.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	9	1	384	\N	\N	\N	4
@@ -2045,6 +2096,8 @@ COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolutio
 64	\N	\N	50.6	\N	18.4	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	7	\N	224	\N	\N	\N	4
 63	\N	\N	43.5	\N	18.4	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	224	\N	\N	\N	4
 3	\N	\N	84.7	\N	10.3	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	224	\N	\N	\N	3
+420	30	384	88.52	\N	114			1	1	384	\N	\N	\N	118
+421	30	512	88.81	\N	214			1	1	512	\N	\N	\N	118
 173	100	224	84.5	\N	9			1	1	224	\N	\N	\N	44
 182	300	224	83.5	\N	5			1	1	224	\N	\N	\N	53
 183	300	224	84.2	\N	8			1	1	224	\N	\N	\N	54
@@ -2143,6 +2196,43 @@ COPY public.view_classificationresult (id, fine_tune_epochs, fine_tune_resolutio
 295	30	384	30.8	\N	144.4			10	1	384	\N	\N	\N	88
 296	30	384	54.5	\N	144.4			9	1	384	\N	\N	\N	88
 268	30	384	87.4	\N	84			1	1	384	\N	\N	\N	86
+377	\N	\N	83.62	\N	5.6			1	\N	224	\N	\N	\N	97
+378	30	384	85.24	\N	17.7			1	1	384	\N	\N	\N	97
+379	30	512	85.72	\N	33.7			1	1	512	\N	\N	\N	97
+380	\N	\N	84.45	\N	11.7			1	\N	224	\N	\N	\N	98
+381	30	384	85.74	\N	36.1			1	1	384	\N	\N	\N	98
+382	30	512	86.19	\N	67.6			1	1	512	\N	\N	\N	98
+383	\N	\N	84.95	\N	23.4			1	\N	224	\N	\N	\N	99
+384	30	384	86.34	\N	74.2			1	1	384	\N	\N	\N	99
+385	30	512	86.66	\N	138.5			1	1	512	\N	\N	\N	99
+386	30	384	88.24	\N	74.2			1	1	384	\N	\N	\N	100
+387	30	512	88.38	\N	138.3			1	1	512	\N	\N	\N	100
+388	\N	\N	85.17	\N	43.9			1	\N	224	\N	\N	\N	101
+389	30	384	86.4	\N	133.1			1	1	384	\N	\N	\N	101
+390	30	512	86.7	\N	245.4			1	1	512	\N	\N	\N	101
+391	30	384	88.32	\N	128.7			1	1	384	\N	\N	\N	102
+392	30	512	88.46	\N	245.2			1	1	512	\N	\N	\N	102
+393	30	384	88.51	\N	293.7			1	1	384	\N	\N	\N	103
+394	30	512	88.7	\N	535.2			1	1	512	\N	\N	\N	103
+397	\N	\N	76.5	\N	0.8			1	\N	224	\N	\N	\N	105
+398	30	256	77.2	\N	1.04			1	1	256	\N	\N	\N	105
+399	\N	\N	79	\N	1.1			1	\N	224	\N	\N	\N	106
+400	30	256	80	\N	1.44			1	1	256	\N	\N	\N	106
+401	\N	\N	83.4	\N	4.97			1	\N	224	\N	\N	\N	107
+402	\N	\N	84.3	\N	9.93			1	\N	224	\N	\N	\N	108
+403	\N	\N	84.7	\N	15.9			1	\N	224	\N	\N	\N	109
+404	\N	\N	85.1	\N	34.5			1	\N	224	\N	\N	\N	110
+405	30	384	87.8	\N	102			1	1	384	\N	\N	\N	111
+422	30	384	87.9	\N	189.5			1	1	384	\N	\N	\N	119
+423	30	512	88.1	\N	360.9			1	1	512	\N	\N	\N	119
+424	30	384	88.3	\N	189.5			1	1	384	\N	\N	\N	120
+425	30	512	88.4	\N	360.9			1	1	512	\N	\N	\N	120
+426	30	384	88.4	\N	189.5			1	1	384	\N	\N	\N	121
+427	30	512	88.56	\N	360.9			1	1	512	\N	\N	\N	121
+428	30	512	89.11	\N	361			1	1	512	\N	\N	\N	122
+429	30	512	89.77	\N	812			1	1	512	\N	\N	\N	123
+430	30	512	90.45	\N	1521			1	1	512	\N	\N	\N	124
+431	30	512	90.88	\N	2586			1	1	512	\N	\N	\N	125
 50	\N	\N	45.8	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	\N	224	\N	\N	\N	1
 51	\N	\N	33	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	9	\N	224	\N	\N	\N	1
 52	\N	\N	72.6	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	\N	224	\N	\N	\N	1
@@ -2328,6 +2418,8 @@ COPY public.view_dataset (id, name, website, eval) FROM stdin;
 5	COCO (test)	https://cocodataset.org/#home	t
 3	COCO (train)	https://cocodataset.org/#home	f
 13	ImageNet-ReaL	https://github.com/google-research/reassessed-imagenet	t
+14	JFT-300M	https://doi.org/10.48550/arXiv.1707.02968	f
+15	JFT-3B	https://doi.org/10.48550/arXiv.2106.04560	f
 \.
 
 
@@ -2354,6 +2446,8 @@ COPY public.view_dataset_tasks (id, dataset_id, task_id) FROM stdin;
 16	11	4
 17	12	4
 18	13	4
+19	14	4
+20	15	4
 \.
 
 
@@ -2364,6 +2458,7 @@ COPY public.view_dataset_tasks (id, dataset_id, task_id) FROM stdin;
 COPY public.view_downstreamhead (id, name, paper, github) FROM stdin;
 1	Mask R-CNN	https://doi.org/10.48550/arXiv.1703.06870	https://github.com/facebookresearch/Detectron?tab=readme-ov-file
 2	Cascade Mask R-CNN	https://doi.org/10.48550/arXiv.1906.09756	https://github.com/zhaoweicai/Detectron-Cascade-RCNN?tab=readme-ov-file
+3	RetinaNet	https://doi.org/10.48550/arXiv.1708.02002	https://github.com/facebookresearch/detectron
 \.
 
 
@@ -2376,6 +2471,7 @@ COPY public.view_downstreamhead_tasks (id, downstreamhead_id, task_id) FROM stdi
 2	1	3
 3	2	2
 4	2	3
+5	3	2
 \.
 
 
@@ -2464,6 +2560,8 @@ COPY public.view_fpsmeasurement (id, backbone_name, resolution, fps, gpu, "preci
 79	Hiera-B+	224	1247	A100	FP16	\N	
 80	Hiera-L	224	532	A100	FP16	\N	
 81	Hiera-H	224	274	A100	FP16	\N	
+147	MaxViT-T	224	349.6	V100	AMP	\N	
+148	MaxViT-T	384	121.9	V100	AMP	\N	
 85	ConvNeXt V20T	224	1381	A100	FP16	\N	https://doi.org/10.48550/arXiv.2306.00989
 86	ConvNeXt V2-B	224	646	A100	FP16	\N	https://doi.org/10.48550/arXiv.2306.00989
 87	ConvNeXt V2-L	224	414	A100	FP16	\N	https://doi.org/10.48550/arXiv.2306.00989
@@ -2522,6 +2620,16 @@ COPY public.view_fpsmeasurement (id, backbone_name, resolution, fps, gpu, "preci
 144	ConvFormer-M36	1280	6.7	V100	FP32	\N	
 145	ConvFormer-M36	1280	6.7	V100	FP32	\N	
 146	ConvFormer-B36	224	677	A100	TF32	\N	
+149	MaxViT-T	512	63.8	V100	AMP	\N	
+150	MaxViT-S	224	242.5	V100	AMP	\N	
+151	MaxViT-S	384	82.7	V100	AMP	\N	
+152	MaxViT-S	512	43.3	V100	AMP	\N	
+153	MaxViT-B	224	133.6	V100	AMP	\N	
+154	MaxViT-B	384	45.8	V100	AMP	\N	
+155	MaxViT-B	512	24	V100	AMP	\N	
+156	MaxViT-L	224	99.4	V100	AMP	\N	
+157	MaxViT-L	384	34.3	V100	AMP	\N	
+158	MaxViT-L	512	17.8	V100	AMP	\N	
 \.
 
 
@@ -2640,6 +2748,8 @@ COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs"
 142	36	44.9	69.1	48.3	\N	\N	\N	526			4	1	3	3	\N	\N	68
 143	36	53.9	72.6	58.5	\N	\N	\N	1004			4	2	3	2	\N	\N	68
 144	36	46.4	70	50.4	\N	\N	\N	1004			4	2	3	3	\N	\N	68
+161	36	52.1	71.9	56.8	\N	\N	\N	475			4	2	3	2	\N	\N	97
+162	36	44.6	69.1	48.4	\N	\N	\N	475			4	2	3	3	\N	\N	97
 81	12	47.2	69	52.1	\N	\N	\N	270			4	1	3	2	\N	\N	53
 82	12	42.5	66.1	45.8	\N	\N	\N	270			4	1	3	3	\N	\N	53
 83	36	49.1	70.4	54.1	\N	\N	\N	270			4	1	3	2	\N	\N	53
@@ -2657,6 +2767,10 @@ COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs"
 95	36	56.1	74.8	60.7	\N	\N	\N	1399			4	2	3	2	\N	\N	56
 96	36	48.5	72.4	53	\N	\N	\N	1399			4	2	3	3	\N	\N	56
 97	12	55.3	74.4	60.1	\N	\N	\N	1782			4	2	3	2	\N	\N	57
+163	36	53.1	72.5	58.1	\N	\N	\N	595			4	2	3	2	\N	\N	98
+164	36	45.4	69.8	49.5	\N	\N	\N	595			4	2	3	3	\N	\N	98
+165	36	53.4	72.9	58.1	\N	\N	\N	856			4	2	3	2	\N	\N	99
+166	36	45.7	70.3	50	\N	\N	\N	856			4	2	3	3	\N	\N	99
 98	36	48.1	71.9	52.4	\N	\N	\N	1782			4	2	3	3	\N	\N	57
 99	36	56.2	75	61.2	\N	\N	\N	1782			4	2	3	2	\N	\N	57
 100	36	48.8	72.5	53.4	\N	\N	\N	1782			4	2	3	3	\N	\N	57
@@ -2668,6 +2782,25 @@ COPY public.view_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs"
 150	36	46	69.5	49.8	\N	\N	\N	1622			4	2	3	3	\N	\N	83
 151	36	53.8	72.5	58.3	\N	\N	\N	1840			4	2	3	2	\N	\N	85
 152	36	46.5	70.1	50.7	\N	\N	\N	1840			4	2	3	3	\N	\N	85
+167	12	39.7	60	42.4	23.8	43.6	51.7	167			4	3	3	2	\N	\N	105
+168	12	40.7	62.3	44.4	\N	\N	\N	185			4	1	3	2	\N	\N	105
+169	12	37.6	59.6	40.2	\N	\N	\N	185			4	1	3	3	\N	\N	105
+170	12	41.4	61.5	44.4	25.1	45.7	53.6	173			4	3	3	2	\N	\N	106
+171	12	42.6	64	46.4	\N	\N	\N	192			4	1	3	2	\N	\N	106
+172	12	39.1	61.3	42	\N	\N	\N	192			4	1	3	3	\N	\N	106
+173	12	45.8	66.6	49	29.1	50.1	59.8	253			4	3	3	2	\N	\N	107
+174	12	46.7	68	51.3	\N	\N	\N	272			4	1	3	2	\N	\N	107
+175	12	42.2	65.4	45.5	\N	\N	\N	272			4	1	3	3	\N	\N	107
+176	36	51.6	70.8	56.3	\N	\N	\N	750			4	2	3	2	\N	\N	107
+177	36	45.1	68.7	48.8	\N	\N	\N	750			4	2	3	3	\N	\N	107
+178	12	47.9	70	52.7	\N	\N	\N	373			4	1	3	2	\N	\N	108
+179	12	43.2	67	46.6	\N	\N	\N	373			4	1	3	3	\N	\N	108
+180	36	52.6	72	57.3	\N	\N	\N	851			4	2	3	2	\N	\N	108
+181	36	46	69.6	49.7	\N	\N	\N	851			4	2	3	3	\N	\N	108
+182	36	53.3	71.8	57.8	\N	\N	\N	974			4	2	3	2	\N	\N	109
+183	36	46.1	69.2	49.8	\N	\N	\N	974			4	2	3	3	\N	\N	109
+184	36	56.2	75	61.2	\N	\N	\N	1355			4	2	3	2	\N	\N	111
+185	36	48.8	72.6	53.3	\N	\N	\N	1355			4	2	3	3	\N	\N	111
 \.
 
 
@@ -2847,6 +2980,34 @@ COPY public.view_pretrainedbackbone (id, name, pretrain_method, pretrain_resolut
 94	ConvFormer-M36-IN22k	Supervised	224	90			79	2	18
 95	ConvFormer-B36-IN1k	Supervised	224	300			80	1	18
 96	ConvFormer-B36-IN22k	Supervised	224	90			80	2	18
+97	MaxViT-T-IN1k	Supervised	224	300			81	1	19
+98	MaxViT-S-IN1k	Supervised	224	300			82	1	19
+99	MaxViT-B-IN1k	Supervised	224	300			83	1	19
+100	MaxViT-B-IN22k	Supervised	224	90			83	2	19
+101	MaxViT-L-IN1k	Supervised	224	300			84	1	19
+102	MaxViT-L-IN22k	Supervised	224	90			84	2	19
+103	MaxViT-XL-IN22k	Supervised	224	90			85	2	19
+105	MogaNet-XT-IN1k	Supervised	224	300			87	1	21
+106	MogaNet-T-IN1k	Supervised	224	300			88	1	21
+107	MogaNet-S-IN1k	Supervised	224	300			89	1	21
+108	MogaNet-B-IN1k	Supervised	224	300			90	1	21
+109	MogaNet-L-IN1k	Supervised	224	300			91	1	21
+110	MogaNet-XL-IN1k	Supervised	224	300			92	1	21
+111	MogaNet-XL-IN22k	Supervised	224	90			92	2	21
+112	CoAtNet-0-IN1k	Supervised	224	300			93	1	22
+113	CoAtNet-1-IN1k	Supervised	224	300			94	1	22
+114	CoAtNet-2-IN1k	Supervised	224	300			95	1	22
+115	CoAtNet-2-IN22k	Supervised	224	90			95	2	22
+116	CoAtNet-3-IN1k	Supervised	224	300			96	1	22
+117	CoAtNet-3-IN22k	Supervised	224	90			96	2	22
+118	CoAtNet-3-JFT300M	Supervised	224	14			96	14	22
+119	CoAtNet-4-IN22k	Supervised	224	90			97	2	22
+120	CoAtNet-4-IN22k-PTRA	Supervised	224	90			97	2	22
+121	CoAtNet-4-IN22k-PTRA-E150	Supervised	224	150			97	2	22
+122	CoAtNet-4-JFT300M	Supervised	224	14			97	14	22
+123	CoAtNet-5-JFT300M	Supervised	224	14			98	14	22
+124	CoAtNet-6-JFT3B	Supervised	224	14			99	15	22
+125	CoAtNet-7-JFT3B	Supervised	224	14			100	15	22
 \.
 
 
@@ -2909,7 +3070,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 844, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 847, true);
 
 
 --
@@ -2930,63 +3091,63 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 38, true);
 -- Name: view_backbone_fps_measurements_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbone_fps_measurements_id_seq', 104, true);
+SELECT pg_catalog.setval('public.view_backbone_fps_measurements_id_seq', 116, true);
 
 
 --
 -- Name: view_backbone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbone_id_seq', 80, true);
+SELECT pg_catalog.setval('public.view_backbone_id_seq', 100, true);
 
 
 --
 -- Name: view_backbonefamily_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_backbonefamily_id_seq', 18, true);
+SELECT pg_catalog.setval('public.view_backbonefamily_id_seq', 22, true);
 
 
 --
 -- Name: view_classificationresult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_classificationresult_id_seq', 376, true);
+SELECT pg_catalog.setval('public.view_classificationresult_id_seq', 431, true);
 
 
 --
 -- Name: view_dataset_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_dataset_id_seq', 13, true);
+SELECT pg_catalog.setval('public.view_dataset_id_seq', 15, true);
 
 
 --
 -- Name: view_dataset_tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_dataset_tasks_id_seq', 18, true);
+SELECT pg_catalog.setval('public.view_dataset_tasks_id_seq', 20, true);
 
 
 --
 -- Name: view_downstreamhead_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_downstreamhead_id_seq', 2, true);
+SELECT pg_catalog.setval('public.view_downstreamhead_id_seq', 3, true);
 
 
 --
 -- Name: view_downstreamhead_tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_downstreamhead_tasks_id_seq', 4, true);
+SELECT pg_catalog.setval('public.view_downstreamhead_tasks_id_seq', 5, true);
 
 
 --
 -- Name: view_fpsmeasurement_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_fpsmeasurement_id_seq', 146, true);
+SELECT pg_catalog.setval('public.view_fpsmeasurement_id_seq', 158, true);
 
 
 --
@@ -3000,14 +3161,14 @@ SELECT pg_catalog.setval('public.view_instanceresult_fps_measurements_id_seq', 7
 -- Name: view_instanceresult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_instanceresult_id_seq', 160, true);
+SELECT pg_catalog.setval('public.view_instanceresult_id_seq', 185, true);
 
 
 --
 -- Name: view_pretrainedbackbone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_pretrainedbackbone_id_seq', 96, true);
+SELECT pg_catalog.setval('public.view_pretrainedbackbone_id_seq', 125, true);
 
 
 --
