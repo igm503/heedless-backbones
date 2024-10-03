@@ -219,15 +219,18 @@ def get_hover(pb, x, y, x_title, y_title, x_result, y_result):
             hover_elements.append(f"Finetune: {get_finetune_string(x_result)}")
         else:
             hover_elements.append(f"Train: {get_train_string(x_result)}")
+            hover_elements.append(f"Head: {x_result.head.name}")
     else:
         if isinstance(x_result, ClassificationResult):
             hover_elements.append(f"X Finetune: {get_finetune_string(x_result)}")
         else:
             hover_elements.append(f"X Train: {get_train_string(x_result)}")
+            hover_elements.append(f"X Head: {x_result.head.name}")
         if isinstance(y_result, ClassificationResult):
             hover_elements.append(f"Y Finetune: {get_finetune_string(y_result)}")
         else:
             hover_elements.append(f"Y Train: {get_train_string(y_result)}")
+            hover_elements.append(f"Y Head: {y_result.head.name}")
     hover_elements += [
         f"{y_title}: {y}",
         f"{x_title}: {x}",

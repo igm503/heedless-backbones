@@ -62,5 +62,3 @@ other notes
 -- Need to confirm precision of CascadeMaskRCNN FPS measurements.
 
 website
-- add head information to hovers
-- add intermediate dataset information to hovers
