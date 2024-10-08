@@ -52,10 +52,10 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
   - [InternImage](https://arxiv.org/abs/2211.05778)
   - [CSwin](https://arxiv.org/abs/2107.00652)
   - [MetaFormers](https://arxiv.org/abs/2210.13452)
-  -- IdentityFormer
-  -- RandFormer
-  -- ConvFormer
-  -- CAFormer
+    - IdentityFormer
+    - RandFormer
+    - ConvFormer
+    - CAFormer
   - [MaxViT](https://arxiv.org/abs/2204.01697)
   - [MogaNet](https://arxiv.org/pdf/2211.03295)
   - [CoAtNet](https://arxiv.org/abs/2108.12895)
