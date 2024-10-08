@@ -1,7 +1,6 @@
 import os
 import yaml
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 
 from .llm_gen import YAML_DIR
@@ -11,7 +10,6 @@ from ...models import (
     PretrainedBackbone,
     ClassificationResult,
     InstanceResult,
-    FPSMeasurement,
 )
 
 
