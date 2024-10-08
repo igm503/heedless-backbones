@@ -1,3 +1,4 @@
+import os
 import configparser
 import re
 
@@ -24,6 +25,9 @@ def main():
 
     paths = config["Paths"]
     project_root = paths["project_root"]
+    project_root = project_root[:-1] if project_root.endswith("/") else project_root
+    if not os.path.exists(project_root):
+        raise ValueError(f"project root dir {project_root} does not exist")
 
     replacements = {
         "/path/to/heedless-backbones": project_root,
