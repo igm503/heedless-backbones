@@ -43,7 +43,7 @@ leftover cross references
 -- deit iii paper has throughput on v100 amp, imagenetv2
 
 - internimage
--- convenext-b fp16 a100 throughput(?)
+-- convnext-b fp16 a100 throughput(?)
 
 -hiera
 -- vit, mcmae a100 fp16 classificaiton speed 
