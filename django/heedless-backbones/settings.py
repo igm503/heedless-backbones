@@ -19,18 +19,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Read the config.ini file
 config = configparser.ConfigParser()
-config.read(os.path.join(BASE_DIR.parent, 'config.ini'))
+config.read(os.path.join(BASE_DIR.parent, "config.ini"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config['Secret Key']['key']
+SECRET_KEY = config["Secret Key"]["key"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+host_domain = config["Server"]["domain"]
+if host_domain.startswith("www."):
+    ALLOWED_HOSTS = [host_domain[4:], host_domain]
+else:
+    ALLOWED_HOSTS = [host_domain, "www." + host_domain]
 
 
 # Application definition
@@ -82,11 +86,11 @@ WSGI_APPLICATION = "heedless-backbones.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": config['Database']['name'],
-        "USER": config['Database']['user'],
-        "PASSWORD": config['Database']['password'],
-        "HOST": config['Database']['host'],
-        "PORT": config['Database']['port'],
+        "NAME": config["Database"]["name"],
+        "USER": config["Database"]["user"],
+        "PASSWORD": config["Database"]["password"],
+        "HOST": config["Database"]["host"],
+        "PORT": config["Database"]["port"],
     }
 }
 

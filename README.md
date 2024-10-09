@@ -1,6 +1,4 @@
-# [Coming Soon]
-
-# Heedless Backbones
+# [Heedless Backbones](https://heedlessbackbones.com)
 ![Alt text](assets/plot_view.png?raw=true "Plot View")
 A simple web application for comparing computer vision backbones performance on classification and downstream tasks.
 
@@ -61,6 +59,7 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
   - [CoAtNet](https://arxiv.org/abs/2108.12895)
 
 ## Updates
+- 10-9-2024: Website is live
 - 9-29-2024: added LLM db data gen command; added benchmark for LLM db data gen; added InternImage, FocalNet, CSwin, RandFormer, IdentityFormer, ConvFormer, CAFormer, MaxViT, MogaNet, CoAtNet
 - 9-24-2024: added Hiera
 - 9-22-2024: added several models; more train info in tables; refactor plot and table gen; bug fixes
