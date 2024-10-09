@@ -33,7 +33,7 @@ def all(request):
         plot, table = get_plot_and_table(plot_request)
     return render(
         request,
-        "view/all.html",
+        "stats/all.html",
         {
             "form": form,
             "plot": plot,
@@ -61,7 +61,7 @@ def family(request, family_name):
 
     return render(
         request,
-        "view/family.html",
+        "stats/family.html",
         {
             "family": family,
             "form": form,
@@ -93,7 +93,7 @@ def head(request, head_name):
 
     return render(
         request,
-        "view/head.html",
+        "stats/head.html",
         {
             "head": head,
             "form": form,
@@ -127,7 +127,7 @@ def dataset(request, dataset_name):
 
     return render(
         request,
-        "view/dataset.html",
+        "stats/dataset.html",
         {
             "dataset": dataset,
             "form": form,
@@ -144,21 +144,21 @@ def datasets(request):
     global dataset_lists
     if dataset_lists is None:
         dataset_lists = get_dataset_lists()
-    return render(request, "view/datasets.html", {"datasets": dataset_lists})
+    return render(request, "stats/datasets.html", {"datasets": dataset_lists})
 
 
 def families(request):
     global family_list
     if family_list is None:
         family_list = get_family_list()
-    return render(request, "view/families.html", {"families": family_list})
+    return render(request, "stats/families.html", {"families": family_list})
 
 
 def heads(request):
     global head_lists
     if head_lists is None:
         head_lists = get_head_lists()
-    return render(request, "view/heads.html", {"heads": head_lists})
+    return render(request, "stats/heads.html", {"heads": head_lists})
 
 
 def get_default_request(family=None, head=None, dataset=None):

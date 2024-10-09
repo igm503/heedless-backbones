@@ -161,8 +161,12 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 
-staticfiles/
+static/
 
 diff.txt
 generated.txt
 reference.txt
+config.ini
+deployment/gunicorn.sh
+deployment/heedless-backbones.service
+deployment/heedless-backbones.nginxconf

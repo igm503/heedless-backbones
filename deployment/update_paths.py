@@ -3,14 +3,14 @@ import configparser
 import re
 
 
-def read_config(filename="config.ini"):
+def read_config(filename="../config.ini"):
     config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
     config.read(filename)
     return config
 
 
-def update_file(filename, replacements):
-    with open(filename, "r") as file:
+def create_from_template(filename, replacements):
+    with open(os.path.join("templates", filename), "r") as file:
         content = file.read()
 
     for old, new in replacements.items():
@@ -34,18 +34,12 @@ def main():
         "heedlessbackbones.com": config["Server"]["domain"],
         "linux_user": config["User"]["linux_user"],
         "linux_group": config["User"]["linux_group"],
-        "conda activate model_stats": f"conda activate {config['Conda']['environment']}",
+        "conda activate conda_env": f"conda activate {config['Conda']['environment']}",
     }
 
-    files_to_update = [
-        "heedless-backbones.nginxconf",
-        "heedless-backbones.service",
-        "gunicorn.sh",
-        "init_systemd.sh",
-    ]
 
-    for filename in files_to_update:
-        update_file(filename, replacements)
+    for filename in os.listdir("templates"):
+        create_from_template(filename, replacements)
         print(f"Updated {filename}")
 
 
