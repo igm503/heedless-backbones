@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0019_remove_pretrainedbackbone_classification_results_and_more"),
+        ("stats", "0019_remove_pretrainedbackbone_classification_results_and_more"),
     ]
 
     operations = [

@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 
 def transfer_m2m_to_fk(apps, schema_editor):
-    PretrainedBackbone = apps.get_model("view", "PretrainedBackbone")
+    PretrainedBackbone = apps.get_model("stats", "PretrainedBackbone")
 
     for pb in PretrainedBackbone.objects.all():
         for classification_result in pb.classification_results.all():
@@ -19,7 +19,7 @@ def transfer_m2m_to_fk(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("view", "0017_backbone_github_backbone_paper"),
+        ("stats", "0017_backbone_github_backbone_paper"),
     ]
 
     operations = [
@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 default=1,
                 on_delete=django.db.models.deletion.RESTRICT,
-                to="view.pretrainedbackbone",
+                to="stats.pretrainedbackbone",
             ),
             preserve_default=False,
         ),
@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 default=1,
                 on_delete=django.db.models.deletion.RESTRICT,
-                to="view.pretrainedbackbone",
+                to="stats.pretrainedbackbone",
             ),
             preserve_default=False,
         ),
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
             model_name="backbone",
             name="family",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.RESTRICT, to="view.backbonefamily"
+                on_delete=django.db.models.deletion.RESTRICT, to="stats.backbonefamily"
             ),
         ),
         migrations.AlterField(
@@ -93,7 +93,7 @@ class Migration(migrations.Migration):
             model_name="classificationresult",
             name="dataset",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.RESTRICT, to="view.dataset"
+                on_delete=django.db.models.deletion.RESTRICT, to="stats.dataset"
             ),
         ),
         migrations.AlterField(
@@ -104,7 +104,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.RESTRICT,
                 related_name="classification_fine_tune",
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
         migrations.AlterField(
@@ -125,7 +125,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.RESTRICT,
                 related_name="intermediate_classification_fine_tune",
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
         migrations.AlterField(
@@ -157,20 +157,20 @@ class Migration(migrations.Migration):
             model_name="instanceresult",
             name="dataset",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.RESTRICT, to="view.dataset"
+                on_delete=django.db.models.deletion.RESTRICT, to="stats.dataset"
             ),
         ),
         migrations.AlterField(
             model_name="instanceresult",
             name="head",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.RESTRICT, to="view.downstreamhead"
+                on_delete=django.db.models.deletion.RESTRICT, to="stats.downstreamhead"
             ),
         ),
         migrations.AlterField(
             model_name="instanceresult",
             name="instance_type",
-            field=models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, to="view.task"),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, to="stats.task"),
         ),
         migrations.AlterField(
             model_name="instanceresult",
@@ -180,7 +180,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.RESTRICT,
                 related_name="intermediate_instance_train",
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
         migrations.AlterField(
@@ -194,7 +194,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.RESTRICT,
                 related_name="instance_train",
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
         migrations.AlterField(
@@ -206,21 +206,21 @@ class Migration(migrations.Migration):
             model_name="pretrainedbackbone",
             name="backbone",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.RESTRICT, to="view.backbone"
+                on_delete=django.db.models.deletion.RESTRICT, to="stats.backbone"
             ),
         ),
         migrations.AlterField(
             model_name="pretrainedbackbone",
             name="family",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.RESTRICT, to="view.backbonefamily"
+                on_delete=django.db.models.deletion.RESTRICT, to="stats.backbonefamily"
             ),
         ),
         migrations.AlterField(
             model_name="pretrainedbackbone",
             name="pretrain_dataset",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.RESTRICT, to="view.dataset"
+                on_delete=django.db.models.deletion.RESTRICT, to="stats.dataset"
             ),
         ),
         migrations.AlterField(

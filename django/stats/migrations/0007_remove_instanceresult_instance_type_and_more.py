@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0006_classificationresult_pretrained_backbone_name_and_more"),
+        ("stats", "0006_classificationresult_pretrained_backbone_name_and_more"),
     ]
 
     operations = [
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             model_name="instanceresult",
             name="instance_type",
             field=models.ForeignKey(
-                default=4, on_delete=django.db.models.deletion.CASCADE, to="view.task"
+                default=4, on_delete=django.db.models.deletion.CASCADE, to="stats.task"
             ),
             preserve_default=False,
         ),

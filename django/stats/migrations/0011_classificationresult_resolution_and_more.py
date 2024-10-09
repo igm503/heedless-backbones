@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0010_alter_fpsmeasurement_precision"),
+        ("stats", "0010_alter_fpsmeasurement_precision"),
     ]
 
     operations = [
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="instanceresult",
             name="fps_measurements",
-            field=models.ManyToManyField(blank=True, to="view.fpsmeasurement"),
+            field=models.ManyToManyField(blank=True, to="stats.fpsmeasurement"),
         ),
         migrations.AlterField(
             model_name="fpsmeasurement",

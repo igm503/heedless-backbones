@@ -119,7 +119,7 @@ class Migration(migrations.Migration):
                     "family",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="view.backbonefamily",
+                        to="stats.backbonefamily",
                     ),
                 ),
             ],
@@ -162,7 +162,7 @@ class Migration(migrations.Migration):
                 (
                     "dataset",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="view.dataset"
+                        on_delete=django.db.models.deletion.CASCADE, to="stats.dataset"
                     ),
                 ),
                 (
@@ -170,7 +170,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="classification_fine_tune",
-                        to="view.dataset",
+                        to="stats.dataset",
                     ),
                 ),
             ],
@@ -205,14 +205,14 @@ class Migration(migrations.Migration):
                 (
                     "dataset",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="view.dataset"
+                        on_delete=django.db.models.deletion.CASCADE, to="stats.dataset"
                     ),
                 ),
                 (
                     "head",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="view.downstreamhead",
+                        to="stats.downstreamhead",
                     ),
                 ),
                 (
@@ -220,10 +220,10 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="instance_train",
-                        to="view.dataset",
+                        to="stats.dataset",
                     ),
                 ),
-                ("instance_type", models.ManyToManyField(to="view.task")),
+                ("instance_type", models.ManyToManyField(to="stats.task")),
             ],
         ),
         migrations.CreateModel(
@@ -258,18 +258,18 @@ class Migration(migrations.Migration):
                 (
                     "backbone",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="view.backbone"
+                        on_delete=django.db.models.deletion.CASCADE, to="stats.backbone"
                     ),
                 ),
                 (
                     "classification_results",
-                    models.ManyToManyField(to="view.classificationresult"),
+                    models.ManyToManyField(to="stats.classificationresult"),
                 ),
-                ("instance_results", models.ManyToManyField(to="view.instanceresult")),
+                ("instance_results", models.ManyToManyField(to="stats.instanceresult")),
                 (
                     "pretrain_dataset",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="view.dataset"
+                        on_delete=django.db.models.deletion.CASCADE, to="stats.dataset"
                     ),
                 ),
             ],
@@ -277,11 +277,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="downstreamhead",
             name="tasks",
-            field=models.ManyToManyField(to="view.task"),
+            field=models.ManyToManyField(to="stats.task"),
         ),
         migrations.AddField(
             model_name="dataset",
             name="tasks",
-            field=models.ManyToManyField(to="view.task"),
+            field=models.ManyToManyField(to="stats.task"),
         ),
     ]

@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0004_alter_pretrainedbackbone_classification_results_and_more"),
+        ("stats", "0004_alter_pretrainedbackbone_classification_results_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
             model_name="pretrainedbackbone",
             name="classification_results",
-            field=models.ManyToManyField(blank=True, to="view.classificationresult"),
+            field=models.ManyToManyField(blank=True, to="stats.classificationresult"),
         ),
         migrations.AlterField(
             model_name="pretrainedbackbone",
             name="instance_results",
-            field=models.ManyToManyField(blank=True, to="view.instanceresult"),
+            field=models.ManyToManyField(blank=True, to="stats.instanceresult"),
         ),
     ]

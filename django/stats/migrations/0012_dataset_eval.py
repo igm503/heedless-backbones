@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0011_classificationresult_resolution_and_more"),
+        ("stats", "0011_classificationresult_resolution_and_more"),
     ]
 
     operations = [

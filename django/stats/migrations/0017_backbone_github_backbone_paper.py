@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0016_instanceresult_intermediate_train_dataset_and_more"),
+        ("stats", "0016_instanceresult_intermediate_train_dataset_and_more"),
     ]
 
     operations = [

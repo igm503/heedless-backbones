@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0020_remove_classificationresult_pretrained_backbone_name_and_more"),
+        ("stats", "0020_remove_classificationresult_pretrained_backbone_name_and_more"),
     ]
 
     operations = [
@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             model_name="backbone",
             name="family",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE, to="view.backbonefamily"
+                on_delete=django.db.models.deletion.CASCADE, to="stats.backbonefamily"
             ),
         ),
         migrations.AlterField(
@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 limit_choices_to={"tasks__name": "Classification"},
                 on_delete=django.db.models.deletion.RESTRICT,
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
         migrations.AlterField(
@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.RESTRICT,
                 related_name="classification_fine_tune",
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
         migrations.AlterField(
@@ -58,7 +58,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.RESTRICT,
                 related_name="intermediate_classification_fine_tune",
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
         migrations.AlterField(
@@ -66,7 +66,7 @@ class Migration(migrations.Migration):
             name="pretrained_backbone",
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
-                to="view.pretrainedbackbone",
+                to="stats.pretrainedbackbone",
             ),
         ),
         migrations.AlterField(
@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
                     "tasks__name__in": ["Object Detection", "Instance Segmentation"]
                 },
                 on_delete=django.db.models.deletion.RESTRICT,
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
         migrations.AlterField(
@@ -97,7 +97,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.RESTRICT,
                 related_name="intermediate_instance_train",
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
         migrations.AlterField(
@@ -105,7 +105,7 @@ class Migration(migrations.Migration):
             name="pretrained_backbone",
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
-                to="view.pretrainedbackbone",
+                to="stats.pretrainedbackbone",
             ),
         ),
         migrations.AlterField(
@@ -117,21 +117,21 @@ class Migration(migrations.Migration):
                 },
                 on_delete=django.db.models.deletion.RESTRICT,
                 related_name="instance_train",
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
         migrations.AlterField(
             model_name="pretrainedbackbone",
             name="backbone",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE, to="view.backbone"
+                on_delete=django.db.models.deletion.CASCADE, to="stats.backbone"
             ),
         ),
         migrations.AlterField(
             model_name="pretrainedbackbone",
             name="family",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE, to="view.backbonefamily"
+                on_delete=django.db.models.deletion.CASCADE, to="stats.backbonefamily"
             ),
         ),
         migrations.AlterField(
@@ -145,7 +145,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 limit_choices_to={"tasks__name": "Classification"},
                 on_delete=django.db.models.deletion.RESTRICT,
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
     ]

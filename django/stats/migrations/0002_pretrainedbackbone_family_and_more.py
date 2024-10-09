@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0001_initial"),
+        ("stats", "0001_initial"),
     ]
 
     operations = [
@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 default=0,
                 on_delete=django.db.models.deletion.CASCADE,
-                to="view.backbonefamily",
+                to="stats.backbonefamily",
             ),
             preserve_default=False,
         ),

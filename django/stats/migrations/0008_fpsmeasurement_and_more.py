@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0007_remove_instanceresult_instance_type_and_more"),
+        ("stats", "0007_remove_instanceresult_instance_type_and_more"),
     ]
 
     operations = [
@@ -86,6 +86,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="backbone",
             name="fps_measurements",
-            field=models.ManyToManyField(blank=True, to="view.fpsmeasurement"),
+            field=models.ManyToManyField(blank=True, to="stats.fpsmeasurement"),
         ),
     ]

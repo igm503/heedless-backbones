@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0005_alter_pretrainedbackbone_classification_results_and_more"),
+        ("stats", "0005_alter_pretrainedbackbone_classification_results_and_more"),
     ]
 
     operations = [

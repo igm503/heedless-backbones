@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0015_classificationresult_intermediate_fine_tune_dataset_and_more"),
+        ("stats", "0015_classificationresult_intermediate_fine_tune_dataset_and_more"),
     ]
 
     operations = [
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name="intermediate_instance_train",
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
         migrations.AddField(
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name="intermediate_classification_fine_tune",
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
         migrations.AlterField(

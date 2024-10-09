@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0003_alter_classificationresult_fine_tune_dataset_and_more"),
+        ("stats", "0003_alter_classificationresult_fine_tune_dataset_and_more"),
     ]
 
     operations = [
@@ -14,14 +14,14 @@ class Migration(migrations.Migration):
             model_name="pretrainedbackbone",
             name="classification_results",
             field=models.ManyToManyField(
-                blank=True, null=True, to="view.classificationresult"
+                blank=True, null=True, to="stats.classificationresult"
             ),
         ),
         migrations.AlterField(
             model_name="pretrainedbackbone",
             name="instance_results",
             field=models.ManyToManyField(
-                blank=True, null=True, to="view.instanceresult"
+                blank=True, null=True, to="stats.instanceresult"
             ),
         ),
     ]

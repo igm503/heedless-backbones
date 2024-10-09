@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0002_pretrainedbackbone_family_and_more"),
+        ("stats", "0002_pretrainedbackbone_family_and_more"),
     ]
 
     operations = [
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name="classification_fine_tune",
-                to="view.dataset",
+                to="stats.dataset",
             ),
         ),
         migrations.AlterField(

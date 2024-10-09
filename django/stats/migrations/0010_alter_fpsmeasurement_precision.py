@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("view", "0009_rename_pretrained_backbone_name_fpsmeasurement_backbone_name"),
+        ("stats", "0009_rename_pretrained_backbone_name_fpsmeasurement_backbone_name"),
     ]
 
     operations = [
