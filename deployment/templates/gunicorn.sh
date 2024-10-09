@@ -1,13 +1,13 @@
 #!/bin/bash
 
-NAME="heedless-backbones-gunicorn"                                 # Name of the process
-DJANGODIR=/path/to/heedless-backbones/heedless-backbones-django/   # Django project directory
-SOCKFILE=/path/to/gunicorn.sock                                    # we will communicate using this unix socket
-USER=linux_user                                                    # the user to run as
-GROUP=linux_group                                                  # the group to run as
-NUM_WORKERS=3                                                      # how many worker processes should Gunicorn spawn
-DJANGO_SETTINGS_MODULE=heedless-backbones.settings                 # which settings file should Django use
-DJANGO_WSGI_MODULE=heedless-backbones.wsgi                         # WSGI module name
+NAME="heedless-backbones-gunicorn"                     # Name of the process
+DJANGODIR=/path/to/heedless-backbones/django/          # Django project directory
+SOCKFILE=/path/to/gunicorn.sock                        # we will communicate using this unix socket
+USER=linux_user                                        # the user to run as
+GROUP=linux_group                                      # the group to run as
+NUM_WORKERS=3                                          # how many worker processes should Gunicorn spawn
+DJANGO_SETTINGS_MODULE=heedless-backbones.settings     # which settings file should Django use
+DJANGO_WSGI_MODULE=heedless-backbones.wsgi             # WSGI module name
 
 # Activate the virtual environment
 cd $DJANGODIR
