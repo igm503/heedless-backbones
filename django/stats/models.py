@@ -167,8 +167,8 @@ class PretrainedBackbone(models.Model):
     pretrain_method = models.CharField(
         max_length=100, choices={name.value: name.value for name in PretrainMethod}
     )
-    pretrain_resolution = models.IntegerField(blank=True, null=True)
-    pretrain_epochs = models.IntegerField(blank=True, null=True)
+    pretrain_resolution = models.IntegerField()
+    pretrain_epochs = models.IntegerField()
     paper = models.URLField(blank=True)
     github = models.URLField(blank=True)
 
@@ -278,7 +278,7 @@ class InstanceResult(models.Model):
         related_name="instance_train",
         limit_choices_to={"tasks__name__in": INSTANCE_TASKS},
     )
-    train_epochs = models.IntegerField(blank=True, null=True)
+    train_epochs = models.IntegerField()
     intermediate_train_dataset = models.ForeignKey(
         Dataset,
         on_delete=models.RESTRICT,
@@ -306,6 +306,51 @@ class InstanceResult(models.Model):
     def save(self, *args, **kwargs):
         self.full_clean()
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        string = ""
+        for item in [
+            self.pretrained_backbone.name,
+            self.head,
+            self.instance_type,
+            self.dataset,
+            self.train_dataset,
+            self.train_epochs,
+        ]:
+            if item is not None:
+                string += str(item)
+                string += "/"
+        return string
+
+
+class SemanticSegmentationResult(models.Model):
+    objects = models.Manager()
+    pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.CASCADE)
+    head = models.ForeignKey(DownstreamHead, on_delete=models.RESTRICT)
+    dataset = models.ForeignKey(
+        Dataset,
+        on_delete=models.RESTRICT,
+        related_name="semantic_seg_result",
+        limit_choices_to={"tasks__name": TaskType.SEMANTIC_SEG.value},
+    )
+    train_dataset = models.ForeignKey(
+        Dataset,
+        on_delete=models.RESTRICT,
+        related_name="semantic_seg_train",
+        limit_choices_to={"tasks__name": TaskType.SEMANTIC_SEG.value},
+    )
+    train_epochs = models.IntegerField()
+    train_resolution = models.IntegerField()
+
+    m_iou = models.FloatField()
+    pixel_accuracy = models.FloatField(blank=True, null=True)
+    mean_accuracy = models.FloatField(blank=True, null=True)
+    multiscale = models.BooleanField(default=False, help_text="multiscale inference")
+    flip_test = models.BooleanField(default=False, help_text="horizontal flip testing")
+    gflops = models.FloatField(blank=True, null=True)
+    fps_measurements = models.ManyToManyField("FPSMeasurement", blank=True)
+    paper = models.URLField(blank=True)
+    github = models.URLField(blank=True)
 
     def __str__(self):
         string = ""

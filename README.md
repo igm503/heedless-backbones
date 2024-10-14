@@ -19,8 +19,7 @@ In addition, the user interface doesn't allow for interesting queries (e.g. what
 Heedless Backbones is an attempt to address these shortcomings of Paperswithcode within the space of computer vision backbones. It is built on a data model that treats pretrained foundation models as first class citizens and because of this allows you to make fairly complicated, interesting visualizations of model performance on different tasks. In addition, for now, I will be solely responsible for entering the data, meaning that while it may take a while before the model you're interested in shows up, once it does, it will have far more metadata than any corresponding entry in Paperswithcode.
 
 ## TODO
-- Host the Website
-- Add Semantic Segmentation as a downstream task
+- Add deployment instructions
 - Comparison of Heads
 - Comparison of Pretraining Datasets
 - Better Handling of Queries with no Results
@@ -59,6 +58,7 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
   - [CoAtNet](https://arxiv.org/abs/2108.12895)
 
 ## Updates
+- 10-13-2024: added Semantic Segmentation task
 - 10-9-2024: Website is live
 - 9-29-2024: added LLM db data gen command; added benchmark for LLM db data gen; added InternImage, FocalNet, CSwin, RandFormer, IdentityFormer, ConvFormer, CAFormer, MaxViT, MogaNet, CoAtNet
 - 9-24-2024: added Hiera

@@ -30,11 +30,13 @@ SECRET_KEY = config["Secret Key"]["key"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 host_domain = config["Server"]["domain"]
+ALLOWED_HOSTS.append(host_domain)
 if host_domain.startswith("www."):
-    ALLOWED_HOSTS = [host_domain[4:], host_domain]
+    ALLOWED_HOSTS.append(host_domain[4:])
 else:
-    ALLOWED_HOSTS = [host_domain, "www." + host_domain]
+    ALLOWED_HOSTS.append("www." + host_domain)
 
 
 # Application definition
