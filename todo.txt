@@ -32,6 +32,9 @@ left in papers
 -- ade20k results
 - MogaNet
 -- ade20k results
+- VMamba
+-- ade20k results
+-- fps results for higher resolutions (not trained at higher res though)
 
 left in github
 
@@ -44,6 +47,9 @@ leftover cross references
 
 - internimage
 -- convnext-b fp16 a100 throughput(?)
+
+- VMamba
+-- swin, convnext, deit fps results a100 fp32 (I think)
 
 -hiera
 -- vit, mcmae a100 fp16 classificaiton speed 
