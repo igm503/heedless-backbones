@@ -120,7 +120,39 @@ backbones:
         gpu: A100
         precision: TF32
         fps: 14.2
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      train_resolution: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 48.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 202.0
+      fps_measurements: []
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 50.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.3
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 959.0
+      fps_measurements:
+      - resolution: 512
+        gpu: A100
+        precision: TF32
+        fps: 17.3
 - name: CSWin-S
   m_parameters: 35.0
   fps_measurements:
@@ -235,7 +267,39 @@ backbones:
         gpu: A100
         precision: TF32
         fps: 11.7
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      train_resolution: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 271.0
+      fps_measurements: []
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 51.5
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.4
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1027.0
+      fps_measurements:
+      - resolution: 512
+        gpu: A100
+        precision: TF32
+        fps: 15.6
 - name: CSWin-B
   m_parameters: 78.0
   fps_measurements:
@@ -350,7 +414,39 @@ backbones:
         gpu: A100
         precision: TF32
         fps: 9.6
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      train_resolution: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.9
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 464.0
+      fps_measurements: []
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 52.2
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 51.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1222.0
+      fps_measurements:
+      - resolution: 512
+        gpu: A100
+        precision: TF32
+        fps: 9.1
   - name: CSWin-B-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -374,7 +470,21 @@ backbones:
       fine_tune_epochs: 30
       fine_tune_resolution: 384
     instance_results: []
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 640
+      ms_m_iou: 52.6
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 51.8
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1941.0
+      fps_measurements: []
 - name: CSWin-L
   m_parameters: 173.0
   fps_measurements: []
@@ -402,4 +512,18 @@ backbones:
       fine_tune_epochs: 30
       fine_tune_resolution: 384
     instance_results: []
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 640
+      ms_m_iou: 55.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 54.0
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 2745.0
+      fps_measurements: []

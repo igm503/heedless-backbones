@@ -81,7 +81,21 @@ backbones:
       fine_tune_epochs: 20
       fine_tune_resolution: 224
     instance_results: []
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 46.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 45.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 588.0
+      fps_measurements: []
 - name: ViT-B (DeiT III)
   m_parameters: 86.6
   fps_measurements:
@@ -133,7 +147,21 @@ backbones:
       fine_tune_epochs: 20
       fine_tune_resolution: 384
     instance_results: []
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 50.2
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.3
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1283.0
+      fps_measurements: []
   - name: ViT-B (DeiT III)-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -173,7 +201,21 @@ backbones:
       fine_tune_epochs: 50
       fine_tune_resolution: 384
     instance_results: []
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 52.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 51.8
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1283.0
+      fps_measurements: []
 - name: ViT-L (DeiT III)
   m_parameters: 304.4
   fps_measurements:
@@ -225,7 +267,21 @@ backbones:
       fine_tune_epochs: 20
       fine_tune_resolution: 384
     instance_results: []
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 52.0
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 51.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 2231.0
+      fps_measurements: []
   - name: ViT-L (DeiT III)-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -265,7 +321,21 @@ backbones:
       fine_tune_epochs: 50
       fine_tune_resolution: 384
     instance_results: []
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 54.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 53.8
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 2231.0
+      fps_measurements: []
 - name: ViT-H (DeiT III)
   m_parameters: 632.1
   fps_measurements:

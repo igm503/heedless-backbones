@@ -20,7 +20,7 @@ backbones:
       resolution: 224
       top_1: 76.6
       top_5: null
-      gflops: 3.8
+      gflops: 1.9
     instance_results: []
     semantic_seg_results: []
 - name: RandFormer-S24
@@ -37,7 +37,7 @@ backbones:
       resolution: 224
       top_1: 78.8
       top_5: null
-      gflops: 7.0
+      gflops: 3.5
     instance_results: []
     semantic_seg_results: []
 - name: RandFormer-S36
@@ -54,7 +54,7 @@ backbones:
       resolution: 224
       top_1: 79.5
       top_5: null
-      gflops: 10.4
+      gflops: 5.2
     instance_results: []
     semantic_seg_results: []
 - name: RandFormer-M36
@@ -71,7 +71,7 @@ backbones:
       resolution: 224
       top_1: 81.2
       top_5: null
-      gflops: 18.0
+      gflops: 9.0
     instance_results: []
     semantic_seg_results: []
 - name: RandFormer-M48
@@ -88,6 +88,6 @@ backbones:
       resolution: 224
       top_1: 81.4
       top_5: null
-      gflops: 23.8
+      gflops: 11.9
     instance_results: []
     semantic_seg_results: []

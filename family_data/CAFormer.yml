@@ -20,52 +20,11 @@ backbones:
     pretrain_resolution: 224
     pretrain_epochs: 300
     classification_results:
-    - dataset: ImageNet-1k
-      resolution: 224
-      top_1: 83.6
-      top_5: null
-      gflops: 8.2
-    - dataset: ImageNet-1k
-      resolution: 384
-      top_1: 85.0
-      top_5: null
-      gflops: 26.4
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 30
-      fine_tune_resolution: 384
-    - dataset: ImageNet-A
-      resolution: 224
-      top_1: 33.5
-      top_5: null
-      gflops: 8.2
-    - dataset: ImageNet-R
-      resolution: 224
-      top_1: 48.7
-      top_5: null
-      gflops: 8.2
-    - dataset: ImageNet-C
-      resolution: 224
-      top_1: 47.4
-      top_5: null
-      gflops: 8.2
-    - dataset: ImageNet-Sketch
-      resolution: 224
-      top_1: 36.6
-      top_5: null
-      gflops: 8.2
-    - dataset: ImageNet-A
-      resolution: 384
-      top_1: 48.9
-      top_5: null
-      gflops: 26.8
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 30
-      fine_tune_resolution: 384
     - dataset: ImageNet-R
       resolution: 384
       top_1: 51.3
       top_5: null
-      gflops: 26.8
+      gflops: 13.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -73,7 +32,7 @@ backbones:
       resolution: 384
       top_1: 46.1
       top_5: null
-      gflops: 26.8
+      gflops: 13.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -81,7 +40,48 @@ backbones:
       resolution: 384
       top_1: 37.7
       top_5: null
-      gflops: 26.8
+      gflops: 13.4
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.6
+      top_5: null
+      gflops: 4.1
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 85.0
+      top_5: null
+      gflops: 13.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 33.5
+      top_5: null
+      gflops: 4.1
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 48.7
+      top_5: null
+      gflops: 4.1
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 47.4
+      top_5: null
+      gflops: 4.1
+    - dataset: ImageNet-Sketch
+      resolution: 224
+      top_1: 36.6
+      top_5: null
+      gflops: 4.1
+    - dataset: ImageNet-A
+      resolution: 384
+      top_1: 48.9
+      top_5: null
+      gflops: 13.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -154,7 +154,21 @@ backbones:
         gpu: V100
         precision: FP32
         fps: 8.7
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 48.9
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1024.0
+      fps_measurements: []
   - name: CAFormer-S18-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -165,7 +179,7 @@ backbones:
       resolution: 224
       top_1: 84.1
       top_5: null
-      gflops: 8.2
+      gflops: 4.1
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -173,7 +187,7 @@ backbones:
       resolution: 384
       top_1: 85.4
       top_5: null
-      gflops: 26.8
+      gflops: 13.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -181,7 +195,7 @@ backbones:
       resolution: 224
       top_1: 43.3
       top_5: null
-      gflops: 8.2
+      gflops: 4.1
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -189,7 +203,7 @@ backbones:
       resolution: 224
       top_1: 54.1
       top_5: null
-      gflops: 8.2
+      gflops: 4.1
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -197,7 +211,7 @@ backbones:
       resolution: 224
       top_1: 44.8
       top_5: null
-      gflops: 8.2
+      gflops: 4.1
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -205,7 +219,7 @@ backbones:
       resolution: 224
       top_1: 41.2
       top_5: null
-      gflops: 8.2
+      gflops: 4.1
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -213,7 +227,7 @@ backbones:
       resolution: 384
       top_1: 58.3
       top_5: null
-      gflops: 26.8
+      gflops: 13.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -221,7 +235,7 @@ backbones:
       resolution: 384
       top_1: 55.9
       top_5: null
-      gflops: 26.8
+      gflops: 13.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -229,7 +243,7 @@ backbones:
       resolution: 384
       top_1: 43.3
       top_5: null
-      gflops: 26.8
+      gflops: 13.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -237,7 +251,7 @@ backbones:
       resolution: 384
       top_1: 42.0
       top_5: null
-      gflops: 26.8
+      gflops: 13.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -258,15 +272,10 @@ backbones:
     pretrain_epochs: 300
     classification_results:
     - dataset: ImageNet-1k
-      resolution: 224
-      top_1: 84.5
-      top_5: null
-      gflops: 16.0
-    - dataset: ImageNet-1k
       resolution: 384
       top_1: 85.7
       top_5: null
-      gflops: 52.0
+      gflops: 26.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -274,27 +283,27 @@ backbones:
       resolution: 224
       top_1: 40.9
       top_5: null
-      gflops: 16.0
+      gflops: 8.0
     - dataset: ImageNet-R
       resolution: 224
       top_1: 51.7
       top_5: null
-      gflops: 16.0
+      gflops: 8.0
     - dataset: ImageNet-C
       resolution: 224
       top_1: 44.7
       top_5: null
-      gflops: 16.0
+      gflops: 8.0
     - dataset: ImageNet-Sketch
       resolution: 224
       top_1: 39.5
       top_5: null
-      gflops: 16.0
+      gflops: 8.0
     - dataset: ImageNet-A
       resolution: 384
       top_1: 57.1
       top_5: null
-      gflops: 52.0
+      gflops: 26.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -302,7 +311,7 @@ backbones:
       resolution: 384
       top_1: 54.5
       top_5: null
-      gflops: 52.0
+      gflops: 26.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -310,7 +319,7 @@ backbones:
       resolution: 384
       top_1: 42.7
       top_5: null
-      gflops: 52.0
+      gflops: 26.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -318,10 +327,15 @@ backbones:
       resolution: 384
       top_1: 41.7
       top_5: null
-      gflops: 52.0
+      gflops: 26.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.5
+      top_5: null
+      gflops: 8.0
     instance_results:
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
@@ -357,7 +371,21 @@ backbones:
         gpu: V100
         precision: FP32
         fps: 7.1
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 50.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1197.0
+      fps_measurements: []
   - name: CAFormer-S36-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -368,7 +396,7 @@ backbones:
       resolution: 224
       top_1: 85.8
       top_5: null
-      gflops: 16.0
+      gflops: 8.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -376,7 +404,7 @@ backbones:
       resolution: 384
       top_1: 86.9
       top_5: null
-      gflops: 52.0
+      gflops: 26.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -384,7 +412,7 @@ backbones:
       resolution: 224
       top_1: 55.5
       top_5: null
-      gflops: 16.0
+      gflops: 8.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -392,7 +420,7 @@ backbones:
       resolution: 224
       top_1: 60.7
       top_5: null
-      gflops: 16.0
+      gflops: 8.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -400,7 +428,7 @@ backbones:
       resolution: 384
       top_1: 70.6
       top_5: null
-      gflops: 52.0
+      gflops: 26.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -408,7 +436,7 @@ backbones:
       resolution: 384
       top_1: 63.0
       top_5: null
-      gflops: 52.0
+      gflops: 26.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -416,7 +444,7 @@ backbones:
       resolution: 384
       top_1: 36.8
       top_5: null
-      gflops: 52.0
+      gflops: 26.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -424,7 +452,7 @@ backbones:
       resolution: 384
       top_1: 48.5
       top_5: null
-      gflops: 52.0
+      gflops: 26.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -432,7 +460,7 @@ backbones:
       resolution: 224
       top_1: 48.5
       top_5: null
-      gflops: 16.0
+      gflops: 8.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -440,7 +468,7 @@ backbones:
       resolution: 224
       top_1: 38.5
       top_5: null
-      gflops: 16.0
+      gflops: 8.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -464,12 +492,12 @@ backbones:
       resolution: 224
       top_1: 85.2
       top_5: null
-      gflops: 26.4
+      gflops: 13.2
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 86.2
       top_5: null
-      gflops: 84.0
+      gflops: 42.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -477,27 +505,27 @@ backbones:
       resolution: 224
       top_1: 45.6
       top_5: null
-      gflops: 26.4
+      gflops: 13.2
     - dataset: ImageNet-R
       resolution: 224
       top_1: 51.7
       top_5: null
-      gflops: 26.4
+      gflops: 13.2
     - dataset: ImageNet-C
       resolution: 224
       top_1: 42.6
       top_5: null
-      gflops: 26.4
+      gflops: 13.2
     - dataset: ImageNet-Sketch
       resolution: 224
       top_1: 39.6
       top_5: null
-      gflops: 26.4
+      gflops: 13.2
     - dataset: ImageNet-A
       resolution: 384
       top_1: 60.2
       top_5: null
-      gflops: 84.0
+      gflops: 42.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -505,7 +533,7 @@ backbones:
       resolution: 384
       top_1: 55.0
       top_5: null
-      gflops: 84.0
+      gflops: 42.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -513,7 +541,7 @@ backbones:
       resolution: 384
       top_1: 41.7
       top_5: null
-      gflops: 84.0
+      gflops: 42.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -521,7 +549,7 @@ backbones:
       resolution: 384
       top_1: 41.5
       top_5: null
-      gflops: 84.0
+      gflops: 42.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -560,7 +588,21 @@ backbones:
         gpu: V100
         precision: FP32
         fps: 6.4
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 51.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1346.0
+      fps_measurements: []
   - name: CaFormer-M36-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -571,7 +613,7 @@ backbones:
       resolution: 224
       top_1: 86.1
       top_5: null
-      gflops: 26.4
+      gflops: 13.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -579,7 +621,7 @@ backbones:
       resolution: 224
       top_1: 60.9
       top_5: null
-      gflops: 26.4
+      gflops: 13.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -587,7 +629,7 @@ backbones:
       resolution: 224
       top_1: 63.4
       top_5: null
-      gflops: 26.4
+      gflops: 13.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -595,7 +637,7 @@ backbones:
       resolution: 224
       top_1: 35.2
       top_5: null
-      gflops: 26.4
+      gflops: 13.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -603,7 +645,7 @@ backbones:
       resolution: 224
       top_1: 49.7
       top_5: null
-      gflops: 26.4
+      gflops: 13.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -611,7 +653,7 @@ backbones:
       resolution: 384
       top_1: 73.9
       top_5: null
-      gflops: 84.0
+      gflops: 42.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -619,7 +661,7 @@ backbones:
       resolution: 384
       top_1: 65.3
       top_5: null
-      gflops: 84.0
+      gflops: 42.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -627,7 +669,7 @@ backbones:
       resolution: 384
       top_1: 33.9
       top_5: null
-      gflops: 84.0
+      gflops: 42.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -635,7 +677,7 @@ backbones:
       resolution: 384
       top_1: 51.0
       top_5: null
-      gflops: 84.0
+      gflops: 42.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -643,7 +685,7 @@ backbones:
       resolution: 384
       top_1: 87.4
       top_5: null
-      gflops: 84.0
+      gflops: 42.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -667,12 +709,12 @@ backbones:
       resolution: 224
       top_1: 85.5
       top_5: null
-      gflops: 46.4
+      gflops: 23.2
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 86.4
       top_5: null
-      gflops: 144.4
+      gflops: 72.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -680,27 +722,27 @@ backbones:
       resolution: 224
       top_1: 48.5
       top_5: null
-      gflops: 46.4
+      gflops: 23.2
     - dataset: ImageNet-R
       resolution: 224
       top_1: 53.9
       top_5: null
-      gflops: 46.4
+      gflops: 23.2
     - dataset: ImageNet-C
       resolution: 224
       top_1: 42.6
       top_5: null
-      gflops: 46.4
+      gflops: 23.2
     - dataset: ImageNet-Sketch
       resolution: 224
       top_1: 42.5
       top_5: null
-      gflops: 46.4
+      gflops: 23.2
     - dataset: ImageNet-A
       resolution: 384
       top_1: 61.9
       top_5: null
-      gflops: 144.4
+      gflops: 72.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -708,7 +750,7 @@ backbones:
       resolution: 384
       top_1: 55.0
       top_5: null
-      gflops: 144.4
+      gflops: 72.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -716,7 +758,7 @@ backbones:
       resolution: 384
       top_1: 42.8
       top_5: null
-      gflops: 144.4
+      gflops: 72.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -724,7 +766,7 @@ backbones:
       resolution: 384
       top_1: 42.5
       top_5: null
-      gflops: 144.4
+      gflops: 72.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -740,7 +782,7 @@ backbones:
       resolution: 224
       top_1: 87.4
       top_5: null
-      gflops: 46.4
+      gflops: 23.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -748,7 +790,7 @@ backbones:
       resolution: 384
       top_1: 88.1
       top_5: null
-      gflops: 144.4
+      gflops: 72.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -756,7 +798,7 @@ backbones:
       resolution: 224
       top_1: 69.4
       top_5: null
-      gflops: 46.4
+      gflops: 23.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -764,7 +806,7 @@ backbones:
       resolution: 224
       top_1: 68.3
       top_5: null
-      gflops: 46.4
+      gflops: 23.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -772,7 +814,7 @@ backbones:
       resolution: 224
       top_1: 31.8
       top_5: null
-      gflops: 46.4
+      gflops: 23.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -780,7 +822,7 @@ backbones:
       resolution: 224
       top_1: 52.8
       top_5: null
-      gflops: 46.4
+      gflops: 23.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 224
@@ -788,7 +830,7 @@ backbones:
       resolution: 384
       top_1: 79.5
       top_5: null
-      gflops: 144.4
+      gflops: 72.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -796,7 +838,7 @@ backbones:
       resolution: 384
       top_1: 70.4
       top_5: null
-      gflops: 144.4
+      gflops: 72.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -804,7 +846,7 @@ backbones:
       resolution: 384
       top_1: 30.8
       top_5: null
-      gflops: 144.4
+      gflops: 72.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -812,7 +854,7 @@ backbones:
       resolution: 384
       top_1: 54.5
       top_5: null
-      gflops: 144.4
+      gflops: 72.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384

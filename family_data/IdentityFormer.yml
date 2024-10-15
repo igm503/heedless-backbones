@@ -20,7 +20,7 @@ backbones:
       resolution: 224
       top_1: 74.6
       top_5: null
-      gflops: 3.6
+      gflops: 1.8
     instance_results: []
     semantic_seg_results: []
 - name: IdentityFormer-S24
@@ -37,7 +37,7 @@ backbones:
       resolution: 224
       top_1: 78.2
       top_5: null
-      gflops: 6.8
+      gflops: 3.4
     instance_results: []
     semantic_seg_results: []
 - name: IdentityFormer-S36
@@ -54,7 +54,7 @@ backbones:
       resolution: 224
       top_1: 79.3
       top_5: null
-      gflops: 10.0
+      gflops: 5.0
     instance_results: []
     semantic_seg_results: []
 - name: IdentityFormer-M36
@@ -71,7 +71,7 @@ backbones:
       resolution: 224
       top_1: 80.0
       top_5: null
-      gflops: 17.6
+      gflops: 8.8
     instance_results: []
     semantic_seg_results: []
 - name: IdentityFormer-M48
@@ -88,6 +88,6 @@ backbones:
       resolution: 224
       top_1: 80.4
       top_5: null
-      gflops: 23.0
+      gflops: 11.5
     instance_results: []
     semantic_seg_results: []

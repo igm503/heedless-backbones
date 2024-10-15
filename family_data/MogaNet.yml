@@ -73,7 +73,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 100
+      train_epochs: 128
       train_resolution: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -151,7 +151,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 100
+      train_epochs: 128
       train_resolution: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -247,7 +247,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 100
+      train_epochs: 128
       train_resolution: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -330,7 +330,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 100
+      train_epochs: 128
       train_resolution: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -387,7 +387,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 100
+      train_epochs: 128
       train_resolution: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -460,7 +460,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 100
+      train_epochs: 128
       train_resolution: 640
       ms_m_iou: null
       ms_pixel_accuracy: null

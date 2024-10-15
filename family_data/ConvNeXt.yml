@@ -147,7 +147,21 @@ backbones:
         gpu: A100
         precision: TF32
         fps: 8.6
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 640
+      ms_m_iou: 54.0
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 53.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 3335.0
+      fps_measurements: []
 - name: ConvNeXt-S
   m_parameters: 50.0
   fps_measurements:
@@ -234,7 +248,21 @@ backbones:
         gpu: A100
         precision: TF32
         fps: 12.0
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 49.6
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 48.7
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1027.0
+      fps_measurements: []
 - name: ConvNeXt-T
   m_parameters: 29.0
   fps_measurements:
@@ -380,7 +408,21 @@ backbones:
         gpu: A100
         precision: TF32
         fps: 25.6
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 46.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 46.0
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 939.0
+      fps_measurements: []
 - name: ConvNeXt-B
   m_parameters: 89.0
   fps_measurements:
@@ -522,7 +564,21 @@ backbones:
         gpu: A100
         precision: TF32
         fps: 11.4
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 640
+      ms_m_iou: 53.1
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 52.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1828.0
+      fps_measurements: []
   - name: ConvNeXt-B-IN1k
     pretrain_dataset: ImageNet-1k
     pretrain_method: Supervised
@@ -615,7 +671,21 @@ backbones:
         gpu: A100
         precision: TF32
         fps: 11.4
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 49.9
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1170.0
+      fps_measurements: []
 - name: ConvNeXt-L
   m_parameters: 198.0
   fps_measurements:
@@ -791,4 +861,18 @@ backbones:
         gpu: A100
         precision: TF32
         fps: 10.0
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 640
+      ms_m_iou: 53.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 53.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 2458.0
+      fps_measurements: []

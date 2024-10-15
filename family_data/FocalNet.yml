@@ -91,7 +91,21 @@ backbones:
       mAPl: null
       gflops: 751.0
       fps_measurements: []
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 47.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 46.8
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 949.0
+      fps_measurements: []
 - name: FocalNet-T-SRF
   m_parameters: 28.4
   fps_measurements:
@@ -177,7 +191,21 @@ backbones:
       mAPl: null
       gflops: 746.0
       fps_measurements: []
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 47.2
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 46.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 944.0
+      fps_measurements: []
 - name: FocalNet-S-SRF
   m_parameters: 50.3
   fps_measurements:
@@ -250,7 +278,21 @@ backbones:
       mAPl: null
       gflops: 56.0
       fps_measurements: []
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 50.1
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.3
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1035.0
+      fps_measurements: []
 - name: FocalNet-S-LRF
   m_parameters: 50.3
   fps_measurements:
@@ -259,7 +301,7 @@ backbones:
     precision: FP32
     fps: 406.0
   pretrained_backbones:
-  - name: FocalNet-S-IN1k
+  - name: FocalNet-S-LRF-IN1k
     pretrain_dataset: ImageNet-1k
     pretrain_method: Supervised
     pretrain_resolution: 224
@@ -323,7 +365,21 @@ backbones:
       mAPl: null
       gflops: 365.0
       fps_measurements: []
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 50.1
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1044.0
+      fps_measurements: []
 - name: FocalNet-B-LRF
   m_parameters: 88.7
   fps_measurements:
@@ -396,7 +452,21 @@ backbones:
       mAPl: null
       gflops: 507.0
       fps_measurements: []
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 51.4
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1192.0
+      fps_measurements: []
 - name: FocalNet-B-SRF
   m_parameters: 88.1
   fps_measurements:
@@ -473,7 +543,21 @@ backbones:
       mAPl: null
       gflops: 496.0
       fps_measurements: []
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 51.1
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1180.0
+      fps_measurements: []
   - name: FocalNet-B-SRF-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised

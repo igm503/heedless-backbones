@@ -183,7 +183,87 @@ backbones:
         gpu: A100
         precision: FP32
         fps: 12.3
-    semantic_seg_results: []
+    - head: HTC++
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 72
+      mAP: 57.1
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 1470.0
+      fps_measurements: []
+    - head: HTC++
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 72
+      mAP: 49.5
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 1470.0
+      fps_measurements: []
+    - head: HTC++
+      dataset: COCO (test)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 72
+      mAP: 57.7
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 1470.0
+      fps_measurements: []
+    - head: HTC++
+      dataset: COCO (test)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 72
+      mAP: 50.2
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 1470.0
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (test)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 640
+      ms_m_iou: 62.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 3230.0
+      fps_measurements: []
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 640
+      ms_m_iou: 53.5
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 52.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 3230.0
+      fps_measurements: []
 - name: Swin-T
   m_parameters: 29.0
   fps_measurements:
@@ -325,7 +405,39 @@ backbones:
         gpu: A100
         precision: TF32
         fps: 12.2
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      train_resolution: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 41.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 182.0
+      fps_measurements: []
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 45.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 44.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 945.0
+      fps_measurements:
+      - resolution: 512
+        gpu: A100
+        precision: TF32
+        fps: 18.5
 - name: Swin-S
   m_parameters: 50.0
   fps_measurements:
@@ -439,7 +551,39 @@ backbones:
         gpu: A100
         precision: TF32
         fps: 11.4
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      train_resolution: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 45.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 274.0
+      fps_measurements: []
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 49.5
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 47.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1038.0
+      fps_measurements:
+      - resolution: 512
+        gpu: A100
+        precision: TF32
+        fps: 15.2
 - name: Swin-B
   m_parameters: 88.0
   fps_measurements:
@@ -618,7 +762,39 @@ backbones:
         gpu: A100
         precision: FP32
         fps: 16.7
-    semantic_seg_results: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      train_resolution: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 46.0
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 422.0
+      fps_measurements: []
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: 49.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 48.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1188.0
+      fps_measurements:
+      - resolution: 512
+        gpu: A100
+        precision: TF32
+        fps: 9.9
   - name: Swin-B-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -768,4 +944,44 @@ backbones:
         gpu: A100
         precision: FP32
         fps: 16.7
-    semantic_seg_results: []
+    - head: HTC++
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 72
+      mAP: 56.4
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 1043.0
+      fps_measurements: []
+    - head: HTC++
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 72
+      mAP: 49.1
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 1043.0
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 640
+      ms_m_iou: 51.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.0
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1841.0
+      fps_measurements: []
