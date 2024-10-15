@@ -58,6 +58,16 @@
   </div>
   {% endif %}
 
+  {% if semantic_table %}
+  <button class="drawer" id="toggleSemantic" data-container="semanticTableContainer"
+    data-text="Semantic Segmentation Results">
+    Semantic Segmentation Results
+  </button>
+  <div class="table-container drawerContents" id="semanticTableContainer">
+    {% render_table "semanticDatasetTable" semantic_table %}
+  </div>
+  {% endif %}
+
 </main>
 
 {% endblock %}

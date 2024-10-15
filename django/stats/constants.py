@@ -63,11 +63,27 @@ DETECTION_METRICS = {
     "gflops": "GFLOPs",
 }
 
-RESOLUTIONS = {
+SEMANTIC_SEG_METRICS = {
+    "ms_m_iou": "mIoU<sup>ms</sup>",
+    "ms_pixel_accuracy": "pAcc<sup>ms</sup>",
+    "ms_mean_accuracy": "mAcc<sup>ms</sup>",
+    "ss_m_iou": "mIoU<sup>ss</sup>",
+    "ss_pixel_accuracy": "pAcc<sup>ss</sup>",
+    "ss_mean_accuracy": "mAcc<sup>ss</sup>",
+    "gflops": "GFLOPs",
+}
+
+CLASSIFICATION_RESOLUTIONS = {
     "": "----------",
     "224": "224x224",
     "384": "384x384",
     "512": "512x512",
+}
+
+SEMANTIC_SEG_RESOLUTIONS = {
+    "": "----------",
+    "512": "512x2048",
+    "640": "640x2560",
 }
 
 LIMITED_LEGEND_ATTRIBUTES = {
@@ -82,8 +98,14 @@ CLASSIFICATION_LEGEND_ATTRIBUTES = {
 }
 
 INSTANCE_LEGEND_ATTRIBUTES = {
-    "instance.head.name": "Downstream Head",
-    "instance.train_epochs": "Downstream Training Epochs",
+    "instance.head.name": "Instance Head",
+    "instance.train_epochs": "Instance Training Epochs",
+}
+
+SEMANTIC_SEG_LEGEND_ATTRIBUTES = {
+    "semantic_segmentation.head.name": "Semantic Segmentation Head",
+    "semantic_segmentation.resolution": "Semantic Segmentation Resolution",
+    "semantic_segmentation.train_epochs": "Semantic Segmentation Training Epochs",
 }
 
 FIELDS = [

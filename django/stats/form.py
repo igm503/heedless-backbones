@@ -16,11 +16,14 @@ from .constants import (
     IMAGENET_C_METRICS,
     IMAGENET_C_BAR_METRICS,
     INSTANCE_METRICS,
+    SEMANTIC_SEG_METRICS,
     FIELDS,
-    RESOLUTIONS,
+    CLASSIFICATION_RESOLUTIONS,
+    SEMANTIC_SEG_RESOLUTIONS,
     LIMITED_LEGEND_ATTRIBUTES,
     CLASSIFICATION_LEGEND_ATTRIBUTES,
     INSTANCE_LEGEND_ATTRIBUTES,
+    SEMANTIC_SEG_LEGEND_ATTRIBUTES,
 )
 
 class PlotForm(forms.Form):
@@ -100,12 +103,20 @@ class PlotForm(forms.Form):
                         choices=CLASSIFICATION_METRICS, required=False
                     )
                 self.fields[f"{axis}_resolution"] = forms.ChoiceField(
-                    choices=RESOLUTIONS, required=False
+                    choices=CLASSIFICATION_RESOLUTIONS, required=False
                 )
             else:
-                self.fields[f"{axis}_metric"] = forms.ChoiceField(
-                    choices=INSTANCE_METRICS, required=False
-                )
+                if task_name == TaskType.SEMANTIC_SEG.value:
+                    self.fields[f"{axis}_metric"] = forms.ChoiceField(
+                        choices=SEMANTIC_SEG_METRICS, required=False
+                    )
+                    self.fields[f"{axis}_resolution"] = forms.ChoiceField(
+                        choices=SEMANTIC_SEG_RESOLUTIONS, required=False
+                    )
+                else:
+                    self.fields[f"{axis}_metric"] = forms.ChoiceField(
+                        choices=INSTANCE_METRICS, required=False
+                    )
                 if not self.head:
                     self.fields[f"{axis}_head"] = forms.ModelChoiceField(
                         queryset=DownstreamHead.objects.filter(tasks__name=task_name),
@@ -141,8 +152,10 @@ class PlotForm(forms.Form):
                 group_attrs.update(CLASSIFICATION_LEGEND_ATTRIBUTES)
             if TaskType.INSTANCE_SEG.value in [x_task, y_task]:
                 group_attrs.update(INSTANCE_LEGEND_ATTRIBUTES)
-            elif TaskType.DETECTION.value in [x_task, y_task]:
+            if TaskType.DETECTION.value in [x_task, y_task]:
                 group_attrs.update(INSTANCE_LEGEND_ATTRIBUTES)
+            if TaskType.SEMANTIC_SEG.value in [x_task, y_task]:
+                group_attrs.update(SEMANTIC_SEG_LEGEND_ATTRIBUTES)
             if args.get("legend_attribute"):
                 second_group_attrs = group_attrs.copy()
                 del second_group_attrs[args["legend_attribute"]]

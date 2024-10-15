@@ -56,6 +56,19 @@
   </div>
   {% endif %}
 
+  {% if semantic_tables %}
+  <button class="drawer" id="toggleInstance" data-container="semanticTableContainer"
+    data-text="Semantic Segmentation Results">
+    Semantic Segmentation Results
+  </button>
+  <div class="table-container drawerContents" id="semanticTableContainer">
+    {% for semantic_table in semantic_tables %}
+    <h3><a href="{% url "dataset" semantic_table.name %}">{{ semantic_table.name }}</a></h3>
+    {% render_table "semanticHeadTable" semantic_table %}
+    {% endfor %}
+  </div>
+  {% endif %}
+
 </main>
 
 {% endblock %}

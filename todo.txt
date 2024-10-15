@@ -17,12 +17,10 @@ left in papers
 -- ade20k results; coco HTC++ results
 - deit iii
 -- ade20k results; cifar, and a couple other classification results
-- convnextv2
--- ade20k results
 - hiera
 -- inaturalist finetune results and places365;
 - internimage
--- internimage-h (not trained on imagenet; downstream is with dino)
+-- internimage-h (trained on joint semi-labeled datasets; downstream is with dino and mask2former)
 - focalnet
 -- focalnet-h (no normal classificaiton or ds reults)
 -- ade20k results; other ds head results
@@ -30,18 +28,10 @@ left in papers
 -- ade20k results
 - MetaFormers
 -- ade20k results
-- MogaNet
--- ade20k results
 - VMamba
--- ade20k results
 -- fps results for higher resolutions (not trained at higher res though)
 
-left in github
-
 leftover cross references
-- swin
--- convnext paper has swin semantic seg with upernet on ade20k
-
 - efficientNetv2
 -- deit iii paper has throughput on v100 amp, imagenetv2
 
@@ -67,7 +57,10 @@ other notes
 -- They say they use macs, but there numbers suggest they are using flops. I assumed macs and multiplied by 2. Need to check.
 -- Need to confirm precision of CascadeMaskRCNN FPS measurements.
 
-website
+code
+- fix semantic seg resolution (need to decide bteween train and test res, to not confuse fps measurements)
+- semantic seg put res in train snippets (graph and tables)
+- semantic seg dataset and head page default plot options need to be set correctly
 - comparison of same instance results and metrics doesn't show correct results when different heads are selected.
 - add github link
 - add about page

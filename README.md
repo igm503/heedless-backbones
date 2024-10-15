@@ -59,6 +59,7 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
   - [VMamba](https://arxiv.org/abs/2401.10166)
 
 ## Updates
+- 10-15-2024: added Semantic Seg to site interface
 - 10-13-2024: added Semantic Segmentation task; added VMamba
 - 10-9-2024: Website is live
 - 9-29-2024: added LLM db data gen command; added benchmark for LLM db data gen; added InternImage, FocalNet, CSwin, RandFormer, IdentityFormer, ConvFormer, CAFormer, MaxViT, MogaNet, CoAtNet

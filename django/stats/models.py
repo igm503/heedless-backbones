@@ -341,23 +341,56 @@ class SemanticSegmentationResult(models.Model):
     )
     train_epochs = models.IntegerField()
     train_resolution = models.IntegerField()
+    intermediate_train_dataset = models.ForeignKey(
+        Dataset,
+        on_delete=models.RESTRICT,
+        related_name="intermediate_semantic_seg_train",
+        limit_choices_to={"tasks__name": TaskType.SEMANTIC_SEG.value},
+        blank=True,
+        null=True,
+    )
+    intermediate_train_epochs = models.IntegerField(blank=True, null=True)
+    intermediate_train_resolution = models.IntegerField(blank=True, null=True)
 
-    m_iou = models.FloatField()
-    pixel_accuracy = models.FloatField(blank=True, null=True)
-    mean_accuracy = models.FloatField(blank=True, null=True)
-    multiscale = models.BooleanField(default=False, help_text="multiscale inference")
+    ms_m_iou = models.FloatField(blank=True, null=True)
+    ms_pixel_accuracy = models.FloatField(blank=True, null=True)
+    ms_mean_accuracy = models.FloatField(blank=True, null=True)
+    ss_m_iou = models.FloatField(blank=True, null=True)
+    ss_pixel_accuracy = models.FloatField(blank=True, null=True)
+    ss_mean_accuracy = models.FloatField(blank=True, null=True)
     flip_test = models.BooleanField(default=False, help_text="horizontal flip testing")
     gflops = models.FloatField(blank=True, null=True)
     fps_measurements = models.ManyToManyField("FPSMeasurement", blank=True)
     paper = models.URLField(blank=True)
     github = models.URLField(blank=True)
 
+    def clean(self):
+        if not self.ms_m_iou and not self.ss_m_iou:
+            raise ValidationError("either ms_m_iou or ss_m_iou must be provided")
+        if self.intermediate_train_dataset:
+            if not self.intermediate_train_resolution:
+                raise ValidationError(
+                    "int train resolution is required when int train dataset is provided"
+                )
+        else:
+            if self.intermediate_train_resolution:
+                raise ValidationError(
+                    "int train dataset is required when int train resolution is provided"
+                )
+            if self.intermediate_train_epochs:
+                raise ValidationError(
+                    "int train dataset is required when int train epochs is provided"
+                )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         string = ""
         for item in [
             self.pretrained_backbone.name,
             self.head,
-            self.instance_type,
             self.dataset,
             self.train_dataset,
             self.train_epochs,

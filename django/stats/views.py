@@ -1,18 +1,15 @@
-import time
-
 from django.shortcuts import get_object_or_404, render
 
-# from .logging import logger
 from .form import PlotForm
 from .lists import get_family_list, get_head_lists, get_dataset_lists
 from .models import BackboneFamily, Backbone, Dataset, DownstreamHead, TaskType
 from .plot import PlotRequest, get_plot_and_table
 from .tables import (
     get_family_classification_table,
-    get_family_instance_table,
-    get_head_instance_table,
+    get_family_downstream_table,
+    get_head_downstream_table,
     get_dataset_classification_table,
-    get_dataset_instance_table,
+    get_dataset_downstream_table,
 )
 
 plot, table = None, None
@@ -56,8 +53,9 @@ def family(request, family_name):
             plot_request, page="family", family_name=family_name
         )
     class_table = get_family_classification_table(family.name)
-    det_tables = get_family_instance_table(family.name, TaskType.DETECTION)
-    instance_tables = get_family_instance_table(family.name, TaskType.INSTANCE_SEG)
+    det_tables = get_family_downstream_table(family.name, TaskType.DETECTION)
+    instance_tables = get_family_downstream_table(family.name, TaskType.INSTANCE_SEG)
+    semantic_tables = get_family_downstream_table(family.name, TaskType.SEMANTIC_SEG)
 
     return render(
         request,
@@ -70,6 +68,7 @@ def family(request, family_name):
             "classification_table": class_table,
             "detection_tables": det_tables,
             "instance_tables": instance_tables,
+            "semantic_tables": semantic_tables,
         },
     )
 
@@ -86,10 +85,13 @@ def head(request, head_name):
     head_tasks = [task.name for task in head.tasks.all()]
     det_tables = None
     instance_tables = None
+    semantic_tables = None
     if TaskType.DETECTION.value in head_tasks:
-        det_tables = get_head_instance_table(head.name, TaskType.DETECTION)
+        det_tables = get_head_downstream_table(head.name, TaskType.DETECTION)
     if TaskType.INSTANCE_SEG.value in head_tasks:
-        instance_tables = get_head_instance_table(head.name, TaskType.INSTANCE_SEG)
+        instance_tables = get_head_downstream_table(head.name, TaskType.INSTANCE_SEG)
+    if TaskType.SEMANTIC_SEG.value in head_tasks:
+        semantic_tables = get_head_downstream_table(head.name, TaskType.SEMANTIC_SEG)
 
     return render(
         request,
@@ -101,6 +103,7 @@ def head(request, head_name):
             "table": head_table,
             "detection_tables": det_tables,
             "instance_tables": instance_tables,
+            "semantic_tables": semantic_tables,
         },
     )
 
@@ -118,12 +121,15 @@ def dataset(request, dataset_name):
     classification_table = None
     det_table = None
     instance_table = None
+    semantic_table = None
     if TaskType.CLASSIFICATION.value in dataset_tasks:
         classification_table = get_dataset_classification_table(dataset.name)
     if TaskType.DETECTION.value in dataset_tasks:
-        det_table = get_dataset_instance_table(dataset.name, TaskType.DETECTION)
+        det_table = get_dataset_downstream_table(dataset.name, TaskType.DETECTION)
     if TaskType.INSTANCE_SEG.value in dataset_tasks:
-        instance_table = get_dataset_instance_table(dataset.name, TaskType.INSTANCE_SEG)
+        instance_table = get_dataset_downstream_table(dataset.name, TaskType.INSTANCE_SEG)
+    if TaskType.SEMANTIC_SEG.value in dataset_tasks:
+        semantic_table = get_dataset_downstream_table(dataset.name, TaskType.SEMANTIC_SEG)
 
     return render(
         request,
@@ -136,6 +142,7 @@ def dataset(request, dataset_name):
             "classification_table": classification_table,
             "detection_table": det_table,
             "instance_table": instance_table,
+            "semantic_table": semantic_table,
         },
     )
 

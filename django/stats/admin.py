@@ -10,6 +10,7 @@ from .models import (
     ClassificationResult,
     InstanceResult,
     FPSMeasurement,
+    SemanticSegmentationResult,
 )
 
 admin.site.register(Dataset)
@@ -21,3 +22,4 @@ admin.site.register(DownstreamHead)
 admin.site.register(ClassificationResult)
 admin.site.register(InstanceResult)
 admin.site.register(FPSMeasurement)
+admin.site.register(SemanticSegmentationResult)

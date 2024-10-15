@@ -10,8 +10,16 @@ from .data_utils import (
     get_finetune_string,
     get_train_string,
 )
-from .constants import INSTANCE_SEG_METRICS, DETECTION_METRICS
-from .models import ClassificationResult, InstanceResult, PretrainedBackbone, TaskType
+from .constants import INSTANCE_SEG_METRICS, DETECTION_METRICS, SEMANTIC_SEG_METRICS
+from .models import (
+    ClassificationResult,
+    InstanceResult,
+    PretrainedBackbone,
+    SemanticSegmentationResult,
+    TaskType,
+)
+
+INSTANCE_TYPES = [TaskType.DETECTION.value, TaskType.INSTANCE_SEG.value]
 
 
 def get_plot_table(queryset, request, page=""):
@@ -29,6 +37,8 @@ def get_plot_table_none(queryset, args, page):
     for pb in queryset:
         for results in [pb._instance_results, pb._classification_results]:
             for result in results:
+                if not check_axis_values(pb, result, args):
+                    continue
                 row, row_links = get_base_row(pb, page)
                 row, row_links = add_axis_values(pb, result, args, row, row_links)
                 rows.append(row)
@@ -41,6 +51,8 @@ def get_plot_table_single(queryset, args, page):
     links = []
     for pb in queryset:
         for result in pb.filtered_results:
+            if not check_axis_values(pb, result, args):
+                continue
             row, row_links = get_base_row(pb, page)
             if hasattr(result, "head"):
                 add_head(result.head, row, row_links, "head", page)
@@ -61,6 +73,8 @@ def get_plot_table_multi(queryset, args, page):
     for pb in queryset:
         for x_result in pb.x_results:
             for y_result in pb.y_results:
+                if hasattr(x_result, args.x_attr) is None or hasattr(y_result, args.y_attr) is None:
+                    continue
                 if x_title == y_title:
                     if y_result.dataset.name != x_result.dataset.name:
                         x_title = f"{x_title} ({x_result.dataset.name})"
@@ -96,59 +110,71 @@ def get_plot_table_multi(queryset, args, page):
     return package_table(rows, links)
 
 
-def get_head_instance_table(head_name, instance_type):
-    queryset = get_instance_data(instance_type, head_name=head_name)
+def get_head_downstream_table(head_name, downstream_type):
+    queryset = get_downstream_data(downstream_type, head_name=head_name)
     dataset_names = {result.dataset.name for pb in queryset for result in pb.results}
     data = []
     for dataset_name in dataset_names:
-        table = get_instance_table(queryset, dataset_name, instance_type, page="head")
+        table = get_downstream_table(queryset, dataset_name, downstream_type, page="head")
         table["name"] = dataset_name
         data.append(table)
 
     return data
 
 
-def get_family_instance_table(family_name, instance_type):
-    queryset = get_instance_data(instance_type, family_name=family_name)
+def get_family_downstream_table(family_name, downstream_type):
+    queryset = get_downstream_data(downstream_type, family_name=family_name)
     dataset_names = {result.dataset.name for pb in queryset for result in pb.results}
     data = []
     for dataset_name in dataset_names:
-        table = get_instance_table(queryset, dataset_name, instance_type, page="family")
+        table = get_downstream_table(queryset, dataset_name, downstream_type, page="family")
         table["name"] = dataset_name
         data.append(table)
 
     return data
 
 
-def get_dataset_instance_table(dataset_name, instance_type):
-    queryset = get_instance_data(instance_type, dataset_name=dataset_name)
-    return get_instance_table(queryset, dataset_name, instance_type)
+def get_dataset_downstream_table(dataset_name, downstream_type):
+    queryset = get_downstream_data(downstream_type, dataset_name=dataset_name)
+    return get_downstream_table(queryset, dataset_name, downstream_type)
 
 
-def get_instance_data(instance_type, head_name=None, family_name=None, dataset_name=None):
+def get_downstream_data(downstream_type, head_name=None, family_name=None, dataset_name=None):
     queryset = PretrainedBackbone.objects.select_related("family", "backbone")
     if family_name:
         queryset = queryset.filter(family__name=family_name)
-    prefetch_queryset = InstanceResult.objects.select_related("dataset").filter(
-        instance_type__name=instance_type.value
-    )
+    if downstream_type.value in INSTANCE_TYPES:
+        prefetch_queryset = InstanceResult.objects.select_related("dataset").filter(
+            instance_type__name=downstream_type.value
+        )
+    else:
+        prefetch_queryset = SemanticSegmentationResult.objects.select_related("dataset")
     if head_name:
         prefetch_queryset = prefetch_queryset.filter(head__name=head_name)
     if dataset_name:
         prefetch_queryset = prefetch_queryset.filter(dataset__name=dataset_name)
-    queryset = queryset.prefetch_related(
-        Prefetch("instanceresult_set", prefetch_queryset, "results")
-    )
+
+    if downstream_type.value in INSTANCE_TYPES:
+        queryset = queryset.prefetch_related(
+            Prefetch("instanceresult_set", prefetch_queryset, "results")
+        )
+    else:
+        queryset = queryset.prefetch_related(
+            Prefetch("semanticsegmentationresult_set", prefetch_queryset, "results")
+        )
     return queryset
 
 
-def get_instance_table(queryset, dataset_name, instance_type, page=""):
-    result_keys = (
-        DETECTION_METRICS
-        if instance_type.value == TaskType.DETECTION.value
-        else INSTANCE_SEG_METRICS
-    )
-    result_strs = ["mAP", "AP50", "AP75", "mAPs", "mAPm", "mAPl"]
+def get_downstream_table(queryset, dataset_name, downstream_type, page=""):
+    if downstream_type.value == TaskType.INSTANCE_SEG.value:
+        result_keys = INSTANCE_SEG_METRICS
+    elif downstream_type.value == TaskType.DETECTION.value:
+        result_keys = DETECTION_METRICS
+    else:
+        result_keys = SEMANTIC_SEG_METRICS
+
+    result_strs = list(result_keys.keys())
+    result_strs.remove("gflops")
 
     rows = []
     links = []
@@ -259,8 +285,11 @@ def get_classification_data(dataset_name=None, family_name=None):
 
 
 def package_table(rows, links):
-    headers = list(rows[0].keys()) if rows else []
-    return {"headers": headers, "rows": rows, "links": links}
+    if rows:
+        headers = list(rows[0].keys())
+        return {"headers": headers, "rows": rows, "links": links}
+    else:
+        return None
 
 
 def get_base_row(pb, page):
@@ -277,6 +306,16 @@ def get_base_row(pb, page):
         row_links = {"family": reverse("family", args=[pb.family.name])}
 
     return row, row_links
+
+
+def check_axis_values(pb, result, args):
+    if args.x_attr != "m_parameters":
+        if get_value(pb, result, args.x_attr) is None:
+            return False
+    if args.y_attr != "m_parameters":
+        if get_value(pb, result, args.y_attr) is None:
+            return False
+    return True
 
 
 def add_axis_values(pb, result, args, row, row_links):

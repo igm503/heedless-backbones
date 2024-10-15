@@ -11,6 +11,7 @@ from .models import (
     TaskType,
     ClassificationResult,
     InstanceResult,
+    SemanticSegmentationResult
 )
 
 
@@ -53,6 +54,9 @@ def get_head_lists():
             lists[task.name]["links"].append(links)
     for task, lis in lists.items():
         lists[task]["headers"] = list(lis["rows"][0].keys()) if lis["rows"] else []
+    for task, lis in lists.items():
+        print(task)
+        print(lis)
     return {k: dict(v) for k, v in lists.items()}
 
 
@@ -91,8 +95,10 @@ def get_result_restricting_data(model):
     queryset = queryset.annotate(
         det_count=get_count(InstanceResult, TaskType.DETECTION),
         inst_count=get_count(InstanceResult, TaskType.INSTANCE_SEG),
+        sem_count=get_count(SemanticSegmentationResult),
         det_date=get_date(InstanceResult, TaskType.DETECTION),
         inst_date=get_date(InstanceResult, TaskType.INSTANCE_SEG),
+        sem_date=get_date(SemanticSegmentationResult),
     )
     if model == Dataset:
         queryset = queryset.annotate(
@@ -106,17 +112,22 @@ def get_result_restricting_data(model):
 def get_count(result_model, result_type=None):
     if result_model == ClassificationResult:
         return Count("classificationresult")
-    else:
-        assert result_type is not None
+    elif result_model == SemanticSegmentationResult:
+        return Count("semanticsegmentationresult")
+    elif result_model == InstanceResult:
         return Count(
             "instanceresult",
             filter=Q(instanceresult__instance_type__name=result_type.value),
         )
+    else:
+        return 0
 
 
 def get_date(result_model, result_type=None):
     if result_model == ClassificationResult:
         return Max("classificationresult__pretrained_backbone__family__pub_date")
+    elif result_model == SemanticSegmentationResult:
+        return Max("semanticsegmentationresult__pretrained_backbone__family__pub_date")
     else:
         assert result_type is not None
         return Max(
@@ -135,6 +146,9 @@ def get_count_date_row(obj, task):
     elif task.name == TaskType.INSTANCE_SEG.value:
         num_results = obj.inst_count
         last_result = obj.inst_date
+    elif task.name == TaskType.SEMANTIC_SEG.value:
+        num_results = obj.sem_count
+        last_result = obj.sem_date
     else:
         num_results = 0
         last_result = 0

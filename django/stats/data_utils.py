@@ -4,6 +4,7 @@ from .constants import (
     IMAGENET_C_BAR_METRICS,
     CLASSIFICATION_METRICS,
     INSTANCE_METRICS,
+    SEMANTIC_SEG_METRICS,
     AXIS_CHOICES,
     INSTANCE_SEG_METRICS,
     DETECTION_METRICS,
@@ -21,15 +22,14 @@ def get_axis_title(db_name, instance_type=None, dataset=None):
         else:
             title = db_name  # this shouldn't happen
     elif db_name in CLASSIFICATION_METRICS:
+        title = CLASSIFICATION_METRICS[db_name]
         if dataset is not None:
             if dataset.name == "ImageNet-C":
                 title = IMAGENET_C_METRICS[db_name]
             elif dataset.name == "ImageNet-C-bar":
                 title = IMAGENET_C_BAR_METRICS[db_name]
-            else:
-                title = CLASSIFICATION_METRICS[db_name]
-        else:
-            title = CLASSIFICATION_METRICS[db_name]
+    elif db_name in SEMANTIC_SEG_METRICS:
+        title = SEMANTIC_SEG_METRICS[db_name]
     else:
         title = AXIS_CHOICES.get(db_name, "")
     return title

@@ -16,6 +16,7 @@ from .data_utils import (
 )
 from .models import (
     ClassificationResult,
+    SemanticSegmentationResult,
     InstanceResult,
     PretrainedBackbone,
     FPSMeasurement,
@@ -57,6 +58,7 @@ def get_plot_data(request, family_name=None):
 def get_all_results_data(queryset, args):
     queryset = filter_by_classification(queryset, args)
     queryset = queryset.prefetch_related(get_instance_prefetch("_instance_results", args))
+    queryset = queryset.prefetch_related(get_semantic_prefetch("_semantic_results", args))
     return queryset.prefetch_related(get_classification_prefetch("_classification_results", args))
 
 
@@ -64,6 +66,9 @@ def filter_and_add_results(queryset, args, to_attr):
     if args.task.name == TaskType.CLASSIFICATION.value:
         queryset = filter_by_classification(queryset, args)
         return queryset.prefetch_related(get_classification_prefetch(to_attr, args))
+    elif args.task.name == TaskType.SEMANTIC_SEG.value:
+        queryset = filter_by_semantic(queryset, args)
+        return queryset.prefetch_related(get_semantic_prefetch(to_attr, args))
     else:
         queryset = filter_by_instance(queryset, args)
         return queryset.prefetch_related(get_instance_prefetch(to_attr, args))
@@ -73,6 +78,18 @@ def filter_by_classification(query, args):
     filter_args = {
         "classificationresult__dataset": args.dataset,
         "classificationresult__resolution": args.resolution,
+    }
+    filter_args = {k: v for k, v in filter_args.items() if v is not None}
+    return query.filter(**filter_args).distinct() if filter_args else query
+
+
+def filter_by_semantic(query, args):
+    filter_args = {
+        "semanticsegmentationresult__dataset": args.dataset,
+        "semanticsegmentationresult__train_resolution": args.resolution,
+        "semanticsegmentationresult__head": args.head,
+        "semanticsegmentationresult__fps_measurements__gpu": args.gpu,
+        "semanticsegmentationresult__fps_measurements__precision": args.precision,
     }
     filter_args = {k: v for k, v in filter_args.items() if v is not None}
     return query.filter(**filter_args).distinct() if filter_args else query
@@ -110,6 +127,29 @@ def get_classification_prefetch(name, args):
             pretrained_backbone__backbone__fps_measurements__precision=args.precision,
         ).annotate(fps=Subquery(fps_subquery.values("fps")[:1]))
     return Prefetch("classificationresult_set", queryset, name)
+
+
+def get_semantic_prefetch(name, args):
+    filter_args = {
+        "dataset": args.dataset,
+        "train_resolution": args.resolution,
+        "head": args.head,
+    }
+    filter_args = {k: v for k, v in filter_args.items() if v is not None}
+    queryset = SemanticSegmentationResult.objects.filter(**filter_args)
+    if args.fps:
+        fps_subquery = FPSMeasurement.objects.filter(
+            backbone=OuterRef("pretrained_backbone__backbone"),
+            resolution=OuterRef("resolution"),
+            gpu=args.gpu,
+            precision=args.precision,
+        )
+        queryset = queryset.filter(
+            pretrained_backbone__backbone__fps_measurements__resolution=F("resolution"),
+            pretrained_backbone__backbone__fps_measurements__gpu=args.gpu,
+            pretrained_backbone__backbone__fps_measurements__precision=args.precision,
+        ).annotate(fps=Subquery(fps_subquery.values("fps")[:1]))
+    return Prefetch("semanticsegmentationresult_set", queryset, name)
 
 
 def get_instance_prefetch(name, args):
@@ -185,6 +225,8 @@ def add_point(pb, x_result, y_result, args, x_title, y_title, data, keys):
         key += " / " + get_group_key(pb, x_result, y_result, args.group_by_second)
     x = get_value(pb, x_result, args.x_attr)
     y = get_value(pb, y_result, args.y_attr)
+    if x is None or y is None:
+        return
     hover = get_hover(pb, x, y, x_title, y_title, x_result, y_result)
     data[key]["x"].append(x)
     data[key]["y"].append(y)
