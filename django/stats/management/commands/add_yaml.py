@@ -13,6 +13,7 @@ from ...models import (
     ClassificationResult,
     InstanceResult,
     Dataset,
+    SemanticSegmentationResult,
     Task,
     DownstreamHead,
     FPSMeasurement,
@@ -169,4 +170,46 @@ def update_database(data):
                     fps_measurement.full_clean()
                     fps_measurement.save()
                     instance_result.fps_measurements.add(fps_measurement)
+
+            for semantic_data in pretrained_data.get("semantic_results", []):
+                semantic_result = SemanticSegmentationResult(
+                    pretrained_backbone=pretrained_backbone,
+                    head=DownstreamHead.objects.get(name=semantic_data["head"]),
+                    dataset=Dataset.objects.get(name=semantic_data["dataset"]),
+                    train_dataset=Dataset.objects.get(name=semantic_data["train_dataset"]),
+                    train_epochs=semantic_data["train_epochs"],
+                    train_resolution=semantic_data["train_resolution"],
+                    ms_m_iou=semantic_data.get("ms_m_iou"),
+                    ms_pixel_accuracy=semantic_data.get("ms_pixel_accuracy"),
+                    ms_mean_accuracy=semantic_data.get("ms_mean_accuracy"),
+                    ss_m_iou=semantic_data.get("ss_m_iou"),
+                    ss_pixel_accuracy=semantic_data.get("ss_pixel_accuracy"),
+                    ss_mean_accuracy=semantic_data.get("ss_mean_accuracy"),
+                    flip_test=semantic_data["flip_test"],
+                    gflops=semantic_data["gflops"],
+                )
+                if "intermediate_train_dataset" in semantic_data:
+                    semantic_result.intermediate_train_dataset = Dataset.objects.get(
+                        name=semantic_data["intermediate_train_dataset"]
+                    )
+                    semantic_result.intermediate_train_epochs = semantic_data[
+                        "intermediate_train_epochs"
+                    ]
+                    semantic_result.intermediate_train_resolution = semantic_data[
+                        "intermediate_train_resolution"
+                    ]
+                semantic_result.full_clean()
+                semantic_result.save()
+                for fps_data in semantic_data.get("fps_measurements", []):
+                    fps_measurement = FPSMeasurement(
+                        backbone_name=backbone.name,
+                        resolution=fps_data["resolution"],
+                        gpu=fps_data["gpu"],
+                        precision=fps_data["precision"],
+                        fps=fps_data["fps"],
+                    )
+                    fps_measurement.full_clean()
+                    fps_measurement.save()
+                    semantic_result.fps_measurements.add(fps_measurement)
+
     return f"Success adding family {data['name']}"
