@@ -14,12 +14,13 @@ This means, for example, that you can't easily:
 - Compare model accuracy on multiple tasks
 - Do apples-to-apples accuracy comparison, even on one dataset and one task
 
-In addition, the user interface doesn't allow for interesting queries (e.g. what's the best model on ImageNet that can do better than 1000 fps on a V100?), and the database is inconsistently maintained.
+In addition, the user interface doesn't allow for interesting queries (e.g. what's the best model on ImageNet that can do better than 1000 fps on a V100 with AMP?), and the database is inconsistently maintained.
 
 Heedless Backbones is an attempt to address these shortcomings of Paperswithcode within the space of computer vision backbones. It is built on a data model that treats pretrained foundation models as first class citizens and because of this allows you to make fairly complicated, interesting visualizations of model performance on different tasks. In addition, for now, I will be solely responsible for entering the data, meaning that while it may take a while before the model you're interested in shows up, once it does, it will have far more metadata than any corresponding entry in Paperswithcode.
 
 ## TODO
 - Add deployment instructions
+- Filter by prominence (since there will soon be too many models)
 - Comparison of Heads
 - Comparison of Pretraining Datasets
 - Better Handling of Queries with no Results
@@ -59,6 +60,7 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
   - [VMamba](https://arxiv.org/abs/2401.10166)
 
 ## Updates
+- 10-16-2024: added ADE20k results for remaining models 
 - 10-15-2024: added ADE20k results for some models; added Semantic Seg to site interface
 - 10-13-2024: added Semantic Segmentation task; added VMamba
 - 10-9-2024: Website is live

@@ -1,33 +1,37 @@
 models to add:
 
 - swinv2
+- UniReplkNet
+- Slak
+- ReplkNet
 - MVit
 - EfficientVit https://arxiv.org/pdf/2205.14756
 - BiFormer
-- mamba out
+- mamba out (they say they report macs but seem to be reporting flops)
 - groupmamba
+- plain mamba
 - Exploring Plain Vision Transformer Backbones
 
+other data sources:
+- Detrex (no flops)
+- mmseg benchmarks (no flops)
+- Timm benchmarks
+
 left in papers
-- transnext
--- ade20k results; coco dino results
-- convnext
--- ade20k results
 - swin
--- ade20k results; coco HTC++ results
+-- Sparse RCNN, ATSS OD
 - deit iii
--- ade20k results; cifar, and a couple other classification results
+-- ViT-L and ViT-B finetuned at 384 UPerNet (e.g. using 384 finetuned model as pretrained model for upernet); cifar, and a couple other classification results
 - hiera
 -- inaturalist finetune results and places365;
 - internimage
 -- internimage-h (trained on joint semi-labeled datasets; downstream is with dino and mask2former)
 - focalnet
--- focalnet-h (no normal classificaiton or ds reults)
--- ade20k results; other ds head results
-- CSwin
--- ade20k results
+-- focalnet-h COCO DINO
+-- focalnet-L finetuned at 384 mask2former
+-- Sparse RCNN, ATSS OD
 - MetaFormers
--- ade20k results
+-- ade20k FPS for swin, convnext, and metaformers (unclear what the precision is)
 - VMamba
 -- fps results for higher resolutions (not trained at higher res though)
 
@@ -50,14 +54,15 @@ leftover cross references
 
 other notes
 - CSwin
--- Need to confirm pub date and CMaskRNN FPS details
+-- Need to confirm pub date and CMaskRNN FPS details (this also goes for cswin and swin upernet fps results)
 - hiera
 -- flop count
 - MetaFormers
--- They say they use macs, but there numbers suggest they are using flops. I assumed macs and multiplied by 2. Need to check.
--- Need to confirm precision of CascadeMaskRCNN FPS measurements.
+-- They say they use macs, but there numbers suggest they are using flops. I assume flops. Need to confirm.
+-- Need to confirm precision of Downstream FPS measurements.
 
 code
+- add semantic seg result ingestion to add_yaml
 - fix semantic seg resolution (need to decide bteween train and test res, to not confuse fps measurements)
 - semantic seg put res in train snippets (graph and tables)
 - semantic seg dataset and head page default plot options need to be set correctly
@@ -65,3 +70,5 @@ code
 - add github link
 - add about page
 - too many links will take you to new tab
+- add filter by # citations
+- add filter by model type (CNN, ATT, etc.) and structure (ISO, HIER, etc.)

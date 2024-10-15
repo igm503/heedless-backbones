@@ -1753,6 +1753,91 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 873	2024-10-14 23:00:58.796941-05	17	MogaNet-B-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
 874	2024-10-14 23:01:25.959257-05	18	MogaNet-L-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
 875	2024-10-14 23:02:24.066962-05	19	MogaNet-XL-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+876	2024-10-15 11:49:48.644833-05	5	Mask2Former	1	[{"added": {}}]	12	1
+877	2024-10-15 11:51:03.643398-05	6	DINO	1	[{"added": {}}]	12	1
+878	2024-10-15 11:58:42.26057-05	5	TransNeXt-S-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/12/	2	[{"changed": {"fields": ["Gflops"]}}]	7	1
+879	2024-10-15 11:58:50.081471-05	6	TransNeXt-S-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/12/	2	[{"changed": {"fields": ["Gflops"]}}]	7	1
+880	2024-10-15 11:59:04.175003-05	7	TransNeXt-B-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/12/	2	[{"changed": {"fields": ["Gflops"]}}]	7	1
+881	2024-10-15 11:59:12.275612-05	8	TransNeXt-B-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/12/	2	[{"changed": {"fields": ["Gflops"]}}]	7	1
+882	2024-10-15 12:02:19.953527-05	196	TransNeXt-T-IN1k/DINO/Object Detection/COCO (val)/COCO (train)/12/	1	[{"added": {}}]	7	1
+883	2024-10-15 12:02:41.509884-05	197	TransNeXt-S-IN1k/DINO/Object Detection/COCO (val)/COCO (train)/12/	1	[{"added": {}}]	7	1
+884	2024-10-15 12:03:58.933746-05	198	TransNeXt-B-IN1k/DINO/Object Detection/COCO (val)/COCO (train)/12/	1	[{"added": {}}]	7	1
+885	2024-10-15 12:06:28.145217-05	20	TransNeXt-T-IN1k/UPerNet/ADE20K (val)/Cityscapes (train)/100/	1	[{"added": {}}]	17	1
+886	2024-10-15 12:06:58.941212-05	21	TransNeXt-S-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+887	2024-10-15 12:07:51.556102-05	22	TransNeXt-B-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+888	2024-10-15 15:11:14.535513-05	23	TransNeXt-T-IN1k/Mask2Former/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+889	2024-10-15 15:11:37.476548-05	24	TransNeXt-S-IN1k/Mask2Former/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+890	2024-10-15 15:12:30.86916-05	25	TransNeXt-B-IN1k/Mask2Former/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+891	2024-10-15 15:16:09.391532-05	26	ConvNeXt-T-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+892	2024-10-15 15:16:48.245087-05	27	ConvNeXt-S-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+893	2024-10-15 15:17:39.9844-05	28	ConvNeXt-B-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+894	2024-10-15 15:18:19.871261-05	29	ConvNeXt-B-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+895	2024-10-15 15:18:53.097368-05	30	ConvNeXt-L-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+896	2024-10-15 15:19:24.874381-05	31	ConvNeXt-XL-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+897	2024-10-15 15:24:35.902587-05	32	Swin-T-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+898	2024-10-15 15:25:30.842861-05	33	Swin-S-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+899	2024-10-15 15:26:34.734387-05	34	Swin-B-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+900	2024-10-15 15:27:12.545635-05	35	Swin-L-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+901	2024-10-15 15:27:57.93194-05	36	Swin-L-IN22k/UPerNet/ADE20K (test)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+902	2024-10-15 15:33:28.698122-05	7	HTC	1	[{"added": {}}]	12	1
+903	2024-10-15 15:33:39.315304-05	7	HTC/HTC++	2	[{"changed": {"fields": ["Name"]}}]	12	1
+904	2024-10-15 15:34:46.028341-05	7	HTC++	2	[{"changed": {"fields": ["Name", "Github"]}}]	12	1
+905	2024-10-15 15:35:27.14479-05	8	HTC	1	[{"added": {}}]	12	1
+906	2024-10-15 15:36:13.860991-05	199	Swin-B-IN22k/HTC++/Object Detection/COCO (val)/COCO (train)/72/	1	[{"added": {}}]	7	1
+907	2024-10-15 15:36:37.804742-05	200	Swin-B-IN22k/HTC++/Instance Segmentation/COCO (val)/COCO (train)/72/	1	[{"added": {}}]	7	1
+908	2024-10-15 15:37:13.185097-05	201	Swin-L-IN22k/HTC++/Object Detection/COCO (val)/COCO (train)/72/	1	[{"added": {}}]	7	1
+909	2024-10-15 15:37:40.869864-05	202	Swin-L-IN22k/HTC++/Instance Segmentation/COCO (val)/COCO (train)/72/	1	[{"added": {}}]	7	1
+910	2024-10-15 15:38:05.753035-05	203	Swin-L-IN22k/HTC++/Object Detection/COCO (test)/COCO (train)/72/	1	[{"added": {}}]	7	1
+911	2024-10-15 15:38:32.297611-05	204	Swin-L-IN22k/HTC++/Instance Segmentation/COCO (test)/COCO (train)/72/	1	[{"added": {}}]	7	1
+912	2024-10-15 15:42:30.307739-05	37	CSWin-T-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+913	2024-10-15 15:43:17.659316-05	32	Swin-T-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	2	[{"changed": {"fields": ["Ms m iou", "Ss m iou", "Paper"]}}]	17	1
+914	2024-10-15 15:43:35.726085-05	33	Swin-S-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	2	[{"changed": {"fields": ["Ms m iou", "Ss m iou", "Paper"]}}]	17	1
+915	2024-10-15 15:44:38.469534-05	38	Swin-B-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+916	2024-10-15 15:45:03.45453-05	34	Swin-B-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	2	[{"changed": {"fields": ["Ms m iou", "Ss m iou", "Paper"]}}]	17	1
+917	2024-10-15 15:45:22.207517-05	35	Swin-L-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	2	[{"changed": {"fields": ["Ss m iou", "Paper"]}}]	17	1
+918	2024-10-15 15:45:58.844408-05	39	CSWin-S-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+919	2024-10-15 15:46:25.892484-05	40	CSWin-B-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+920	2024-10-15 15:47:01.518658-05	41	CSWin-B-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+921	2024-10-15 15:47:44.46985-05	42	CSWin-L-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+922	2024-10-15 15:51:38.169724-05	9	Panoptic FPN	1	[{"added": {}}]	12	1
+923	2024-10-15 15:54:22.033598-05	43	Swin-T-IN1k/Panoptic FPN/ADE20K (val)/ADE20K (train)/50/	1	[{"added": {}}]	17	1
+924	2024-10-15 15:54:50.180876-05	44	CSWin-T-IN1k/Panoptic FPN/ADE20K (val)/ADE20K (train)/50/	1	[{"added": {}}]	17	1
+925	2024-10-15 15:54:58.915884-05	43	Swin-T-IN1k/Panoptic FPN/ADE20K (val)/ADE20K (train)/50/	2	[{"changed": {"fields": ["Gflops"]}}]	17	1
+926	2024-10-15 15:55:32.155581-05	45	Swin-S-IN1k/Panoptic FPN/ADE20K (val)/ADE20K (train)/50/	1	[{"added": {}}]	17	1
+927	2024-10-15 15:55:55.46734-05	46	CSWin-S-IN1k/Panoptic FPN/ADE20K (val)/ADE20K (train)/50/	1	[{"added": {}}]	17	1
+928	2024-10-15 15:56:36.592639-05	47	Swin-B-IN1k/Panoptic FPN/ADE20K (val)/ADE20K (train)/50/	1	[{"added": {}}]	17	1
+929	2024-10-15 15:57:00.356708-05	48	CSWin-B-IN1k/Panoptic FPN/ADE20K (val)/ADE20K (train)/50/	1	[{"added": {}}]	17	1
+930	2024-10-15 16:04:28.868488-05	162	Swin-T/UPerNet/A100/512/TF32/	1	[{"added": {}}]	15	1
+931	2024-10-15 16:04:32.059542-05	32	Swin-T-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	2	[{"changed": {"fields": ["Fps measurements"]}}]	17	1
+932	2024-10-15 16:05:30.976726-05	163	CSWin-T/UPerNet/A100/512/TF32/	1	[{"added": {}}]	15	1
+933	2024-10-15 16:05:33.80747-05	37	CSWin-T-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	2	[{"changed": {"fields": ["Fps measurements"]}}]	17	1
+934	2024-10-15 16:06:12.380263-05	164	Swin-S/UPerNet/A100/512/TF32/	1	[{"added": {}}]	15	1
+935	2024-10-15 16:06:14.651142-05	33	Swin-S-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	2	[{"changed": {"fields": ["Fps measurements"]}}]	17	1
+936	2024-10-15 16:06:48.057997-05	165	CSWin-S/UPerNet/A100/512/TF32/	1	[{"added": {}}]	15	1
+937	2024-10-15 16:06:49.252847-05	39	CSWin-S-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	2	[{"changed": {"fields": ["Fps measurements"]}}]	17	1
+938	2024-10-15 16:07:59.688062-05	166	Swin-B/UPerNet/A100/512/TF32/	1	[{"added": {}}]	15	1
+939	2024-10-15 16:08:04.188071-05	34	Swin-B-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	2	[]	17	1
+940	2024-10-15 16:08:18.161057-05	38	Swin-B-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	2	[{"changed": {"fields": ["Fps measurements"]}}]	17	1
+941	2024-10-15 16:08:51.967306-05	167	CSWin-B/UPerNet/A100/512/TF32/	1	[{"added": {}}]	15	1
+942	2024-10-15 16:08:53.422954-05	40	CSWin-B-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	2	[{"changed": {"fields": ["Fps measurements"]}}]	17	1
+943	2024-10-15 16:15:44.13791-05	49	ViT-S (DeiT III)-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+944	2024-10-15 16:16:40.810973-05	50	ViT-B (DeiT III)-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+945	2024-10-15 16:17:18.990991-05	51	ViT-L (DeiT III)-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+946	2024-10-15 16:23:07.0375-05	52	ViT-B (DeiT III)-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+947	2024-10-15 16:23:44.611712-05	53	ViT-L (DeiT III)-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+948	2024-10-15 16:30:59.569181-05	54	FocalNet-T-SRF-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+949	2024-10-15 16:31:24.867919-05	55	FocalNet-T-LRF-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+950	2024-10-15 16:32:16.49427-05	56	FocalNet-S-SRF-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+951	2024-10-15 16:32:32.834211-05	61	FocalNet-S-LRF-IN1k	2	[{"changed": {"fields": ["Name"]}}]	9	1
+952	2024-10-15 16:33:25.741626-05	57	FocalNet-S-LRF-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+953	2024-10-15 16:33:47.765554-05	58	FocalNet-B-SRF-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+954	2024-10-15 16:34:14.089624-05	59	FocalNet-B-LRF-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+955	2024-10-15 17:03:55.87089-05	60	ConvFormer-S18-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/128/	1	[{"added": {}}]	17	1
+956	2024-10-15 17:04:14.68498-05	61	CAFormer-S18-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/128/	1	[{"added": {}}]	17	1
+957	2024-10-15 17:04:41.590136-05	62	ConvFormer-S36-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/128/	1	[{"added": {}}]	17	1
+958	2024-10-15 17:05:09.337546-05	63	CAFormer-S36-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/128/	1	[{"added": {}}]	17	1
+959	2024-10-15 17:05:41.227581-05	64	ConvFormer-M36-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/128/	1	[{"added": {}}]	17	1
+960	2024-10-15 17:06:06.071844-05	65	CAFormer-M36-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/128/	1	[{"added": {}}]	17	1
 \.
 
 
@@ -2097,38 +2182,38 @@ COPY public.stats_backbonefamily (id, name, model_type, pub_date, paper, github,
 COPY public.stats_classificationresult (id, fine_tune_epochs, fine_tune_resolution, top_1, top_5, gflops, paper, github, dataset_id, fine_tune_dataset_id, resolution, intermediate_fine_tune_dataset_id, intermediate_fine_tune_epochs, intermediate_fine_tune_resolution, pretrained_backbone_id) FROM stdin;
 171	300	224	82.8	\N	5			1	1	224	\N	\N	\N	42
 176	50	224	86.9	\N	125			1	1	224	\N	\N	\N	47
-207	\N	\N	74.6	\N	3.6			1	\N	224	\N	\N	\N	71
-208	\N	\N	78.2	\N	6.8			1	\N	224	\N	\N	\N	72
-209	\N	\N	79.3	\N	10			1	\N	224	\N	\N	\N	73
-210	\N	\N	80	\N	17.6			1	\N	224	\N	\N	\N	74
-211	\N	\N	80.4	\N	23			1	\N	224	\N	\N	\N	75
-313	30	384	50.1	\N	23.2			7	1	384	\N	\N	\N	90
-314	30	384	55	\N	23.2			8	1	384	\N	\N	\N	90
-315	30	384	47.2	\N	23.2			10	1	384	\N	\N	\N	90
-316	30	384	41.6	\N	23.2			9	1	384	\N	\N	\N	90
-317	\N	\N	84.1	\N	15.2			1	\N	224	\N	\N	\N	91
-318	30	384	85.4	\N	44.8			1	1	384	\N	\N	\N	91
-319	\N	\N	33.2	\N	15.2			7	\N	224	\N	\N	\N	91
-320	\N	\N	50.8	\N	15.2			8	\N	224	\N	\N	\N	91
-321	\N	\N	47.1	\N	15.2			10	\N	224	\N	\N	\N	91
-322	\N	\N	38.4	\N	15.2			9	\N	224	\N	\N	\N	91
-323	30	384	49.9	\N	44.8			7	1	384	\N	\N	\N	91
-324	30	384	51.9	\N	44.8			8	1	384	\N	\N	\N	91
-325	30	384	47.7	\N	44.8			10	1	384	\N	\N	\N	91
-326	30	384	37.8	\N	44.8			9	1	384	\N	\N	\N	91
-327	30	224	85.4	\N	15.2			1	1	224	\N	\N	\N	92
-328	30	384	86.4	\N	44.8			1	1	384	\N	\N	\N	92
-329	30	224	47.3	\N	15.2			7	1	224	\N	\N	\N	92
-330	30	224	58.9	\N	15.2			8	1	224	\N	\N	\N	92
-332	30	224	46.9	\N	15.2			9	1	224	\N	\N	\N	92
-333	30	384	62.9	\N	44.8			7	1	384	\N	\N	\N	92
-334	30	384	59.9	\N	44.8			8	1	384	\N	\N	\N	92
-336	30	384	47.1	\N	44.8			9	1	384	\N	\N	\N	92
-337	\N	\N	84.5	\N	25.6			1	\N	224	\N	\N	\N	93
-338	30	384	85.6	\N	75.4			1	1	384	\N	\N	\N	93
-339	\N	\N	37.6	\N	25.6			7	\N	224	\N	\N	\N	93
-340	\N	\N	51	\N	25.6			8	\N	224	\N	\N	\N	93
-341	\N	\N	46.5	\N	25.6			10	\N	224	\N	\N	\N	93
+224	30	384	51.3	\N	13.4			8	1	384	\N	\N	\N	81
+225	30	384	46.1	\N	13.4			10	1	384	\N	\N	\N	81
+226	30	384	37.7	\N	13.4			9	1	384	\N	\N	\N	81
+227	30	224	84.1	\N	4.1			1	1	224	\N	\N	\N	82
+228	30	384	85.4	\N	13.4			1	1	384	\N	\N	\N	82
+229	30	224	43.3	\N	4.1			7	1	224	\N	\N	\N	82
+230	30	224	54.1	\N	4.1			8	1	224	\N	\N	\N	82
+231	30	224	44.8	\N	4.1			10	1	224	\N	\N	\N	82
+232	30	224	41.2	\N	4.1			9	1	224	\N	\N	\N	82
+233	30	384	58.3	\N	13.4			7	1	384	\N	\N	\N	82
+234	30	384	55.9	\N	13.4			8	1	384	\N	\N	\N	82
+235	30	384	43.3	\N	13.4			10	1	384	\N	\N	\N	82
+236	30	384	42	\N	13.4			9	1	384	\N	\N	\N	82
+238	30	384	85.7	\N	26			1	1	384	\N	\N	\N	83
+239	\N	\N	40.9	\N	8			7	\N	224	\N	\N	\N	83
+240	\N	\N	51.7	\N	8			8	\N	224	\N	\N	\N	83
+241	\N	\N	44.7	\N	8			10	\N	224	\N	\N	\N	83
+242	\N	\N	39.5	\N	8			9	\N	224	\N	\N	\N	83
+243	30	384	57.1	\N	26			7	1	384	\N	\N	\N	83
+244	30	384	54.5	\N	26			8	1	384	\N	\N	\N	83
+245	30	384	42.7	\N	26			10	1	384	\N	\N	\N	83
+246	30	384	41.7	\N	26			9	1	384	\N	\N	\N	83
+247	30	224	85.8	\N	8			1	1	224	\N	\N	\N	84
+248	30	384	86.9	\N	26			1	1	384	\N	\N	\N	84
+249	30	224	55.5	\N	8			7	1	224	\N	\N	\N	84
+250	30	224	60.7	\N	8			8	1	224	\N	\N	\N	84
+253	30	384	70.6	\N	26			7	1	384	\N	\N	\N	84
+254	30	384	63	\N	26			8	1	384	\N	\N	\N	84
+255	30	384	36.8	\N	26			10	1	384	\N	\N	\N	84
+256	30	384	48.5	\N	26			9	1	384	\N	\N	\N	84
+252	30	224	48.5	\N	8			9	1	224	\N	\N	\N	84
+251	30	224	38.5	\N	8			10	1	224	\N	\N	\N	84
 77	5	384	76.8	\N	32.1	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	1	384	\N	\N	\N	3
 76	5	384	43.2	\N	32.1	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	9	1	384	\N	\N	\N	3
 75	5	384	56.4	\N	32.1	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	1	384	\N	\N	\N	3
@@ -2141,55 +2226,54 @@ COPY public.stats_classificationresult (id, fine_tune_epochs, fine_tune_resoluti
 58	\N	\N	43.9	\N	10.3	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	10	\N	224	\N	\N	\N	3
 53	\N	\N	46.5	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	224	\N	\N	\N	2
 2	\N	\N	84	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	1	\N	224	\N	\N	\N	2
-343	30	384	53.5	\N	75.4			7	1	384	\N	\N	\N	93
+257	\N	\N	85.2	\N	13.2			1	\N	224	\N	\N	\N	85
 57	\N	\N	73.8	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	12	\N	224	\N	\N	\N	2
 56	\N	\N	37.6	\N	5.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	9	\N	224	\N	\N	\N	2
 55	\N	\N	49.6	\N	5.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	8	\N	224	\N	\N	\N	2
 1	\N	\N	82.5	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt?tab=readme-ov-file	1	\N	224	\N	\N	\N	1
 48	\N	\N	50.8	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	10	\N	224	\N	\N	\N	1
 49	\N	\N	29.9	\N	2.7	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	7	\N	224	\N	\N	\N	1
-344	30	384	52.2	\N	75.4			8	1	384	\N	\N	\N	93
-345	30	384	48.4	\N	75.4			10	1	384	\N	\N	\N	93
-346	30	384	38.5	\N	75.4			9	1	384	\N	\N	\N	93
-347	30	224	86.1	\N	25.6			1	1	224	\N	\N	\N	94
-348	30	384	86.9	\N	75.4			1	1	384	\N	\N	\N	94
-349	30	224	56.1	\N	25.6			7	1	224	\N	\N	\N	94
-350	30	224	60.9	\N	25.6			8	1	224	\N	\N	\N	94
-331	30	224	41	\N	15.2			10	1	224	\N	\N	\N	92
-335	30	384	41.3	\N	44.8			10	1	384	\N	\N	\N	92
+258	30	384	86.2	\N	42			1	1	384	\N	\N	\N	85
+259	\N	\N	45.6	\N	13.2			7	\N	224	\N	\N	\N	85
+260	\N	\N	51.7	\N	13.2			8	\N	224	\N	\N	\N	85
+261	\N	\N	42.6	\N	13.2			10	\N	224	\N	\N	\N	85
+262	\N	\N	39.6	\N	13.2			9	\N	224	\N	\N	\N	85
+263	30	384	60.2	\N	42			7	1	384	\N	\N	\N	85
+264	30	384	55	\N	42			8	1	384	\N	\N	\N	85
+265	30	384	41.7	\N	42			10	1	384	\N	\N	\N	85
+266	30	384	41.5	\N	42			9	1	384	\N	\N	\N	85
 172	200	224	83.8	\N	6			1	1	224	\N	\N	\N	43
-212	\N	\N	76.6	\N	3.8			1	\N	224	\N	\N	\N	76
-213	\N	\N	78.8	\N	7			1	\N	224	\N	\N	\N	77
-214	\N	\N	79.5	\N	10.4			1	\N	224	\N	\N	\N	78
-215	\N	\N	81.2	\N	18			1	\N	224	\N	\N	\N	79
-216	\N	\N	81.4	\N	23.8			1	\N	224	\N	\N	\N	80
-351	30	224	38.4	\N	25.6			10	1	224	\N	\N	\N	94
-352	30	224	49.1	\N	25.6			9	1	224	\N	\N	\N	94
-353	30	384	68.5	\N	75.4			7	1	384	\N	\N	\N	94
-354	30	384	61.8	\N	75.4			8	1	384	\N	\N	\N	94
-355	30	384	39	\N	75.4			10	1	384	\N	\N	\N	94
-356	30	384	49.1	\N	75.4			9	1	384	\N	\N	\N	94
-357	\N	\N	84.8	\N	45.2			1	\N	224	\N	\N	\N	95
-358	30	384	85.7	\N	133			1	1	384	\N	\N	\N	95
-359	\N	\N	40.1	\N	45.2			7	\N	224	\N	\N	\N	95
-360	\N	\N	51.1	\N	45.2			8	\N	224	\N	\N	\N	95
-361	\N	\N	46.3	\N	45.2			10	\N	224	\N	\N	\N	95
-362	\N	\N	39.5	\N	45.2			9	\N	224	\N	\N	\N	95
-363	30	384	55.3	\N	133			7	1	384	\N	\N	\N	95
-364	30	384	52.2	\N	133			8	1	384	\N	\N	\N	95
-365	30	384	48.1	\N	133			10	1	384	\N	\N	\N	95
-366	30	384	38.9	\N	133			9	1	384	\N	\N	\N	95
-367	30	224	87	\N	45.2			1	1	224	\N	\N	\N	96
-368	30	384	87.6	\N	133			1	1	384	\N	\N	\N	96
-369	30	224	63.3	\N	45.2			7	1	224	\N	\N	\N	96
-370	30	224	65.3	\N	45.2			8	1	224	\N	\N	\N	96
-371	30	224	35	\N	45.2			10	1	224	\N	\N	\N	96
-372	30	224	52.7	\N	45.2			9	1	224	\N	\N	\N	96
-373	30	384	73.5	\N	133			7	1	384	\N	\N	\N	96
-374	30	384	66.5	\N	133			8	1	384	\N	\N	\N	96
-375	30	384	35.8	\N	133			10	1	384	\N	\N	\N	96
-376	30	384	52.9	\N	133			9	1	384	\N	\N	\N	96
-342	\N	\N	39.2	\N	25.6			9	\N	224	\N	\N	\N	93
+267	30	224	86.1	\N	13.2			1	1	224	\N	\N	\N	86
+269	30	224	60.9	\N	13.2			7	1	224	\N	\N	\N	86
+270	30	224	63.4	\N	13.2			8	1	224	\N	\N	\N	86
+271	30	224	35.2	\N	13.2			10	1	224	\N	\N	\N	86
+272	30	224	49.7	\N	13.2			9	1	224	\N	\N	\N	86
+273	30	384	73.9	\N	42			7	1	384	\N	\N	\N	86
+274	30	384	65.3	\N	42			8	1	384	\N	\N	\N	86
+275	30	384	33.9	\N	42			10	1	384	\N	\N	\N	86
+276	30	384	51	\N	42			9	1	384	\N	\N	\N	86
+268	30	384	87.4	\N	42			1	1	384	\N	\N	\N	86
+277	\N	\N	85.5	\N	23.2			1	\N	224	\N	\N	\N	87
+278	30	384	86.4	\N	72.2			1	1	384	\N	\N	\N	87
+279	\N	\N	48.5	\N	23.2			7	\N	224	\N	\N	\N	87
+280	\N	\N	53.9	\N	23.2			8	\N	224	\N	\N	\N	87
+281	\N	\N	42.6	\N	23.2			10	\N	224	\N	\N	\N	87
+282	\N	\N	42.5	\N	23.2			9	\N	224	\N	\N	\N	87
+283	30	384	61.9	\N	72.2			7	1	384	\N	\N	\N	87
+284	30	384	55	\N	72.2			8	1	384	\N	\N	\N	87
+285	30	384	42.8	\N	72.2			10	1	384	\N	\N	\N	87
+286	30	384	42.5	\N	72.2			9	1	384	\N	\N	\N	87
+287	30	224	87.4	\N	23.2			1	1	224	\N	\N	\N	88
+288	30	384	88.1	\N	72.2			1	1	384	\N	\N	\N	88
+289	30	224	69.4	\N	23.2			7	1	224	\N	\N	\N	88
+290	30	224	68.3	\N	23.2			8	1	224	\N	\N	\N	88
+291	30	224	31.8	\N	23.2			10	1	224	\N	\N	\N	88
+292	30	224	52.8	\N	23.2			9	1	224	\N	\N	\N	88
+293	30	384	79.5	\N	72.2			7	1	384	\N	\N	\N	88
+294	30	384	70.4	\N	72.2			8	1	384	\N	\N	\N	88
+295	30	384	30.8	\N	72.2			10	1	384	\N	\N	\N	88
+296	30	384	54.5	\N	72.2			9	1	384	\N	\N	\N	88
+297	\N	\N	83	\N	3.9			1	\N	224	\N	\N	\N	89
 406	\N	\N	81.6	\N	4.2			1	\N	224	\N	\N	\N	112
 407	30	384	83.9	\N	13.4			1	1	384	\N	\N	\N	112
 408	\N	\N	83.3	\N	8.4			1	\N	224	\N	\N	\N	113
@@ -2224,75 +2308,50 @@ COPY public.stats_classificationresult (id, fine_tune_epochs, fine_tune_resoluti
 184	300	224	84.9	\N	16			1	1	224	\N	\N	\N	55
 185	20	384	87.7	\N	108			1	1	384	\N	\N	\N	56
 186	20	384	88	\N	163			1	1	384	\N	\N	\N	57
-217	\N	\N	83.6	\N	8.2			1	\N	224	\N	\N	\N	81
-218	30	384	85	\N	26.4			1	1	384	\N	\N	\N	81
-219	\N	\N	33.5	\N	8.2			7	\N	224	\N	\N	\N	81
-220	\N	\N	48.7	\N	8.2			8	\N	224	\N	\N	\N	81
-221	\N	\N	47.4	\N	8.2			10	\N	224	\N	\N	\N	81
-222	\N	\N	36.6	\N	8.2			9	\N	224	\N	\N	\N	81
-223	30	384	48.9	\N	26.8			7	1	384	\N	\N	\N	81
-224	30	384	51.3	\N	26.8			8	1	384	\N	\N	\N	81
-225	30	384	46.1	\N	26.8			10	1	384	\N	\N	\N	81
-226	30	384	37.7	\N	26.8			9	1	384	\N	\N	\N	81
-227	30	224	84.1	\N	8.2			1	1	224	\N	\N	\N	82
-228	30	384	85.4	\N	26.8			1	1	384	\N	\N	\N	82
-229	30	224	43.3	\N	8.2			7	1	224	\N	\N	\N	82
-230	30	224	54.1	\N	8.2			8	1	224	\N	\N	\N	82
-231	30	224	44.8	\N	8.2			10	1	224	\N	\N	\N	82
-232	30	224	41.2	\N	8.2			9	1	224	\N	\N	\N	82
-233	30	384	58.3	\N	26.8			7	1	384	\N	\N	\N	82
-234	30	384	55.9	\N	26.8			8	1	384	\N	\N	\N	82
-235	30	384	43.3	\N	26.8			10	1	384	\N	\N	\N	82
-236	30	384	42	\N	26.8			9	1	384	\N	\N	\N	82
-237	\N	\N	84.5	\N	16			1	\N	224	\N	\N	\N	83
-238	30	384	85.7	\N	52			1	1	384	\N	\N	\N	83
-239	\N	\N	40.9	\N	16			7	\N	224	\N	\N	\N	83
-240	\N	\N	51.7	\N	16			8	\N	224	\N	\N	\N	83
-241	\N	\N	44.7	\N	16			10	\N	224	\N	\N	\N	83
-242	\N	\N	39.5	\N	16			9	\N	224	\N	\N	\N	83
-243	30	384	57.1	\N	52			7	1	384	\N	\N	\N	83
-244	30	384	54.5	\N	52			8	1	384	\N	\N	\N	83
-245	30	384	42.7	\N	52			10	1	384	\N	\N	\N	83
-246	30	384	41.7	\N	52			9	1	384	\N	\N	\N	83
-247	30	224	85.8	\N	16			1	1	224	\N	\N	\N	84
-248	30	384	86.9	\N	52			1	1	384	\N	\N	\N	84
-249	30	224	55.5	\N	16			7	1	224	\N	\N	\N	84
-250	30	224	60.7	\N	16			8	1	224	\N	\N	\N	84
-253	30	384	70.6	\N	52			7	1	384	\N	\N	\N	84
-254	30	384	63	\N	52			8	1	384	\N	\N	\N	84
-255	30	384	36.8	\N	52			10	1	384	\N	\N	\N	84
-256	30	384	48.5	\N	52			9	1	384	\N	\N	\N	84
-257	\N	\N	85.2	\N	26.4			1	\N	224	\N	\N	\N	85
-258	30	384	86.2	\N	84			1	1	384	\N	\N	\N	85
-259	\N	\N	45.6	\N	26.4			7	\N	224	\N	\N	\N	85
-260	\N	\N	51.7	\N	26.4			8	\N	224	\N	\N	\N	85
-261	\N	\N	42.6	\N	26.4			10	\N	224	\N	\N	\N	85
-262	\N	\N	39.6	\N	26.4			9	\N	224	\N	\N	\N	85
-263	30	384	60.2	\N	84			7	1	384	\N	\N	\N	85
-264	30	384	55	\N	84			8	1	384	\N	\N	\N	85
-265	30	384	41.7	\N	84			10	1	384	\N	\N	\N	85
-266	30	384	41.5	\N	84			9	1	384	\N	\N	\N	85
-267	30	224	86.1	\N	26.4			1	1	224	\N	\N	\N	86
-269	30	224	60.9	\N	26.4			7	1	224	\N	\N	\N	86
-270	30	224	63.4	\N	26.4			8	1	224	\N	\N	\N	86
-271	30	224	35.2	\N	26.4			10	1	224	\N	\N	\N	86
-272	30	224	49.7	\N	26.4			9	1	224	\N	\N	\N	86
-273	30	384	73.9	\N	84			7	1	384	\N	\N	\N	86
-274	30	384	65.3	\N	84			8	1	384	\N	\N	\N	86
-275	30	384	33.9	\N	84			10	1	384	\N	\N	\N	86
-276	30	384	51	\N	84			9	1	384	\N	\N	\N	86
-277	\N	\N	85.5	\N	46.4			1	\N	224	\N	\N	\N	87
-278	30	384	86.4	\N	144.4			1	1	384	\N	\N	\N	87
-279	\N	\N	48.5	\N	46.4			7	\N	224	\N	\N	\N	87
-280	\N	\N	53.9	\N	46.4			8	\N	224	\N	\N	\N	87
-281	\N	\N	42.6	\N	46.4			10	\N	224	\N	\N	\N	87
-282	\N	\N	42.5	\N	46.4			9	\N	224	\N	\N	\N	87
-283	30	384	61.9	\N	144.4			7	1	384	\N	\N	\N	87
-284	30	384	55	\N	144.4			8	1	384	\N	\N	\N	87
-285	30	384	42.8	\N	144.4			10	1	384	\N	\N	\N	87
-286	30	384	42.5	\N	144.4			9	1	384	\N	\N	\N	87
-252	30	224	48.5	\N	16			9	1	224	\N	\N	\N	84
-251	30	224	38.5	\N	16			10	1	224	\N	\N	\N	84
+298	30	384	84.4	\N	11.6			1	1	384	\N	\N	\N	89
+299	\N	\N	25.3	\N	3.9			7	\N	224	\N	\N	\N	89
+300	\N	\N	48.7	\N	3.9			8	\N	224	\N	\N	\N	89
+301	\N	\N	51.7	\N	3.9			10	\N	224	\N	\N	\N	89
+302	\N	\N	35.2	\N	3.9			9	\N	224	\N	\N	\N	89
+303	30	384	42	\N	11.6			7	1	384	\N	\N	\N	89
+304	30	384	50.7	\N	11.6			8	1	384	\N	\N	\N	89
+305	30	384	51	\N	11.6			10	1	384	\N	\N	\N	89
+306	30	384	36.2	\N	11.6			9	1	384	\N	\N	\N	89
+313	30	384	50.1	\N	11.6			7	1	384	\N	\N	\N	90
+314	30	384	55	\N	11.6			8	1	384	\N	\N	\N	90
+315	30	384	47.2	\N	11.6			10	1	384	\N	\N	\N	90
+316	30	384	41.6	\N	11.6			9	1	384	\N	\N	\N	90
+307	30	224	83.7	\N	3.9			1	1	224	\N	\N	\N	90
+308	30	384	85	\N	11.6			1	1	384	\N	\N	\N	90
+309	30	224	33.4	\N	3.9			7	1	224	\N	\N	\N	90
+310	30	224	53.4	\N	3.9			8	1	224	\N	\N	\N	90
+311	30	224	47.5	\N	3.9			10	1	224	\N	\N	\N	90
+312	30	224	40.3	\N	3.9			9	1	224	\N	\N	\N	90
+317	\N	\N	84.1	\N	7.6			1	\N	224	\N	\N	\N	91
+318	30	384	85.4	\N	22.4			1	1	384	\N	\N	\N	91
+319	\N	\N	33.2	\N	7.6			7	\N	224	\N	\N	\N	91
+320	\N	\N	50.8	\N	7.6			8	\N	224	\N	\N	\N	91
+321	\N	\N	47.1	\N	7.6			10	\N	224	\N	\N	\N	91
+322	\N	\N	38.4	\N	7.6			9	\N	224	\N	\N	\N	91
+323	30	384	49.9	\N	22.4			7	1	384	\N	\N	\N	91
+324	30	384	51.9	\N	22.4			8	1	384	\N	\N	\N	91
+325	30	384	47.7	\N	22.4			10	1	384	\N	\N	\N	91
+326	30	384	37.8	\N	22.4			9	1	384	\N	\N	\N	91
+327	30	224	85.4	\N	7.6			1	1	224	\N	\N	\N	92
+328	30	384	86.4	\N	22.4			1	1	384	\N	\N	\N	92
+329	30	224	47.3	\N	7.6			7	1	224	\N	\N	\N	92
+330	30	224	58.9	\N	7.6			8	1	224	\N	\N	\N	92
+332	30	224	46.9	\N	7.6			9	1	224	\N	\N	\N	92
+333	30	384	62.9	\N	22.4			7	1	384	\N	\N	\N	92
+334	30	384	59.9	\N	22.4			8	1	384	\N	\N	\N	92
+336	30	384	47.1	\N	22.4			9	1	384	\N	\N	\N	92
+331	30	224	41	\N	7.6			10	1	224	\N	\N	\N	92
+335	30	384	41.3	\N	22.4			10	1	384	\N	\N	\N	92
+337	\N	\N	84.5	\N	12.8			1	\N	224	\N	\N	\N	93
+338	30	384	85.6	\N	37.7			1	1	384	\N	\N	\N	93
+339	\N	\N	37.6	\N	12.8			7	\N	224	\N	\N	\N	93
+340	\N	\N	51	\N	12.8			8	\N	224	\N	\N	\N	93
+341	\N	\N	46.5	\N	12.8			10	\N	224	\N	\N	\N	93
 54	\N	\N	39.9	\N	5.7	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/DaiShiResearch/TransNeXt	7	\N	224	\N	\N	\N	2
 174	\N	100	85.2	\N	13			1	1	224	\N	\N	\N	45
 187	\N	\N	82.3	\N	4.5			1	\N	224	\N	\N	\N	58
@@ -2305,17 +2364,6 @@ COPY public.stats_classificationresult (id, fine_tune_epochs, fine_tune_resoluti
 194	30	384	86.5	\N	44.8			1	1	384	\N	\N	\N	64
 195	30	224	86.5	\N	34.2			1	1	224	\N	\N	\N	65
 196	30	384	87.3	\N	100.6			1	1	384	\N	\N	\N	65
-287	30	224	87.4	\N	46.4			1	1	224	\N	\N	\N	88
-288	30	384	88.1	\N	144.4			1	1	384	\N	\N	\N	88
-289	30	224	69.4	\N	46.4			7	1	224	\N	\N	\N	88
-290	30	224	68.3	\N	46.4			8	1	224	\N	\N	\N	88
-291	30	224	31.8	\N	46.4			10	1	224	\N	\N	\N	88
-292	30	224	52.8	\N	46.4			9	1	224	\N	\N	\N	88
-293	30	384	79.5	\N	144.4			7	1	384	\N	\N	\N	88
-294	30	384	70.4	\N	144.4			8	1	384	\N	\N	\N	88
-295	30	384	30.8	\N	144.4			10	1	384	\N	\N	\N	88
-296	30	384	54.5	\N	144.4			9	1	384	\N	\N	\N	88
-268	30	384	87.4	\N	84			1	1	384	\N	\N	\N	86
 377	\N	\N	83.62	\N	5.6			1	\N	224	\N	\N	\N	97
 378	30	384	85.24	\N	17.7			1	1	384	\N	\N	\N	97
 379	30	512	85.72	\N	33.7			1	1	512	\N	\N	\N	97
@@ -2502,24 +2550,61 @@ COPY public.stats_classificationresult (id, fine_tune_epochs, fine_tune_resoluti
 204	30	384	87	\N	47			1	1	384	\N	\N	\N	69
 205	30	224	86.5	\N	31.5			1	1	224	\N	\N	\N	70
 206	30	384	87.5	\N	96.8			1	1	384	\N	\N	\N	70
-297	\N	\N	83	\N	7.8			1	\N	224	\N	\N	\N	89
-298	30	384	84.4	\N	23.2			1	1	384	\N	\N	\N	89
-299	\N	\N	25.3	\N	7.8			7	\N	224	\N	\N	\N	89
-300	\N	\N	48.7	\N	7.8			8	\N	224	\N	\N	\N	89
-301	\N	\N	51.7	\N	7.8			10	\N	224	\N	\N	\N	89
-302	\N	\N	35.2	\N	7.8			9	\N	224	\N	\N	\N	89
-303	30	384	42	\N	23.2			7	1	384	\N	\N	\N	89
-304	30	384	50.7	\N	23.2			8	1	384	\N	\N	\N	89
-305	30	384	51	\N	23.2			10	1	384	\N	\N	\N	89
-306	30	384	36.2	\N	23.2			9	1	384	\N	\N	\N	89
-307	30	224	83.7	\N	7.8			1	1	224	\N	\N	\N	90
-308	30	384	85	\N	23.2			1	1	384	\N	\N	\N	90
-309	30	224	33.4	\N	7.8			7	1	224	\N	\N	\N	90
-310	30	224	53.4	\N	7.8			8	1	224	\N	\N	\N	90
-311	30	224	47.5	\N	7.8			10	1	224	\N	\N	\N	90
-312	30	224	40.3	\N	7.8			9	1	224	\N	\N	\N	90
+207	\N	\N	74.6	\N	1.8			1	\N	224	\N	\N	\N	71
+208	\N	\N	78.2	\N	3.4			1	\N	224	\N	\N	\N	72
+209	\N	\N	79.3	\N	5			1	\N	224	\N	\N	\N	73
+210	\N	\N	80	\N	8.8			1	\N	224	\N	\N	\N	74
+211	\N	\N	80.4	\N	11.5			1	\N	224	\N	\N	\N	75
+212	\N	\N	76.6	\N	1.9			1	\N	224	\N	\N	\N	76
+213	\N	\N	78.8	\N	3.5			1	\N	224	\N	\N	\N	77
+214	\N	\N	79.5	\N	5.2			1	\N	224	\N	\N	\N	78
+215	\N	\N	81.2	\N	9			1	\N	224	\N	\N	\N	79
+216	\N	\N	81.4	\N	11.9			1	\N	224	\N	\N	\N	80
+217	\N	\N	83.6	\N	4.1			1	\N	224	\N	\N	\N	81
+218	30	384	85	\N	13.2			1	1	384	\N	\N	\N	81
+219	\N	\N	33.5	\N	4.1			7	\N	224	\N	\N	\N	81
+220	\N	\N	48.7	\N	4.1			8	\N	224	\N	\N	\N	81
+221	\N	\N	47.4	\N	4.1			10	\N	224	\N	\N	\N	81
+222	\N	\N	36.6	\N	4.1			9	\N	224	\N	\N	\N	81
 433	\N	\N	83.6	\N	8.7			1	\N	224	\N	\N	\N	127
 434	\N	\N	83.9	\N	15.4			1	\N	224	\N	\N	\N	128
+223	30	384	48.9	\N	13.4			7	1	384	\N	\N	\N	81
+237	\N	\N	84.5	\N	8			1	\N	224	\N	\N	\N	83
+343	30	384	53.5	\N	37.7			7	1	384	\N	\N	\N	93
+344	30	384	52.2	\N	37.7			8	1	384	\N	\N	\N	93
+345	30	384	48.4	\N	37.7			10	1	384	\N	\N	\N	93
+346	30	384	38.5	\N	37.7			9	1	384	\N	\N	\N	93
+342	\N	\N	39.2	\N	12.8			9	\N	224	\N	\N	\N	93
+347	30	224	86.1	\N	12.8			1	1	224	\N	\N	\N	94
+348	30	384	86.9	\N	37.7			1	1	384	\N	\N	\N	94
+349	30	224	56.1	\N	12.8			7	1	224	\N	\N	\N	94
+350	30	224	60.9	\N	12.8			8	1	224	\N	\N	\N	94
+351	30	224	38.4	\N	12.8			10	1	224	\N	\N	\N	94
+352	30	224	49.1	\N	12.8			9	1	224	\N	\N	\N	94
+353	30	384	68.5	\N	37.7			7	1	384	\N	\N	\N	94
+354	30	384	61.8	\N	37.7			8	1	384	\N	\N	\N	94
+355	30	384	39	\N	37.7			10	1	384	\N	\N	\N	94
+356	30	384	49.1	\N	37.7			9	1	384	\N	\N	\N	94
+357	\N	\N	84.8	\N	22.6			1	\N	224	\N	\N	\N	95
+358	30	384	85.7	\N	66.5			1	1	384	\N	\N	\N	95
+359	\N	\N	40.1	\N	22.6			7	\N	224	\N	\N	\N	95
+360	\N	\N	51.1	\N	22.6			8	\N	224	\N	\N	\N	95
+361	\N	\N	46.3	\N	22.6			10	\N	224	\N	\N	\N	95
+362	\N	\N	39.5	\N	22.6			9	\N	224	\N	\N	\N	95
+363	30	384	55.3	\N	66.5			7	1	384	\N	\N	\N	95
+364	30	384	52.2	\N	66.5			8	1	384	\N	\N	\N	95
+365	30	384	48.1	\N	66.5			10	1	384	\N	\N	\N	95
+366	30	384	38.9	\N	66.5			9	1	384	\N	\N	\N	95
+367	30	224	87	\N	22.6			1	1	224	\N	\N	\N	96
+368	30	384	87.6	\N	66.5			1	1	384	\N	\N	\N	96
+369	30	224	63.3	\N	22.6			7	1	224	\N	\N	\N	96
+370	30	224	65.3	\N	22.6			8	1	224	\N	\N	\N	96
+371	30	224	35	\N	22.6			10	1	224	\N	\N	\N	96
+372	30	224	52.7	\N	22.6			9	1	224	\N	\N	\N	96
+373	30	384	73.5	\N	66.5			7	1	384	\N	\N	\N	96
+374	30	384	66.5	\N	66.5			8	1	384	\N	\N	\N	96
+375	30	384	35.8	\N	66.5			10	1	384	\N	\N	\N	96
+376	30	384	52.9	\N	66.5			9	1	384	\N	\N	\N	96
 \.
 
 
@@ -2603,6 +2688,11 @@ COPY public.stats_downstreamhead (id, name, paper, github) FROM stdin;
 2	Cascade Mask R-CNN	https://doi.org/10.48550/arXiv.1906.09756	https://github.com/zhaoweicai/Detectron-Cascade-RCNN?tab=readme-ov-file
 3	RetinaNet	https://doi.org/10.48550/arXiv.1708.02002	https://github.com/facebookresearch/detectron
 4	UPerNet	https://doi.org/10.48550/arXiv.1807.10221	https://github.com/CSAILVision/unifiedparsing
+5	Mask2Former	https://doi.org/10.48550/arXiv.2112.01527	https://github.com/facebookresearch/Mask2Former
+6	DINO	https://doi.org/10.48550/arXiv.2203.03605	https://github.com/IDEA-Research/DINO
+7	HTC++	https://arxiv.org/pdf/2103.14030	https://github.com/microsoft/Swin-Transformer
+8	HTC	https://doi.org/10.48550/arXiv.1901.07518	https://github.com/open-mmlab/mmdetection/tree/main/configs/htc
+9	Panoptic FPN	https://doi.org/10.48550/arXiv.1901.02446	https://github.com/facebookresearch/detectron2
 \.
 
 
@@ -2617,6 +2707,17 @@ COPY public.stats_downstreamhead_tasks (id, downstreamhead_id, task_id) FROM std
 4	2	3
 5	3	2
 6	4	5
+7	5	3
+8	5	5
+9	5	6
+10	6	2
+11	7	2
+12	7	3
+13	8	2
+14	8	3
+15	9	3
+16	9	5
+17	9	6
 \.
 
 
@@ -2778,6 +2879,12 @@ COPY public.stats_fpsmeasurement (id, backbone_name, resolution, fps, gpu, "prec
 158	MaxViT-L	512	17.8	V100	AMP	\N	
 160	VMamba-S	224	877	A100	FP32	\N	
 161	VMamba-B	224	646	A100	FP32	\N	
+162	Swin-T/UPerNet	512	18.5	A100	TF32	\N	https://arxiv.org/pdf/2107.00652
+163	CSWin-T/UPerNet	512	17.3	A100	TF32	\N	
+164	Swin-S/UPerNet	512	15.2	A100	TF32	\N	https://arxiv.org/pdf/2107.00652
+165	CSWin-S/UPerNet	512	15.6	A100	TF32	\N	
+166	Swin-B/UPerNet	512	9.9	A100	TF32	\N	https://arxiv.org/pdf/2107.00652
+167	CSWin-B/UPerNet	512	9.1	A100	TF32	\N	
 \.
 
 
@@ -2820,10 +2927,6 @@ COPY public.stats_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs
 158	36	45.2	68.6	48.8	\N	\N	\N	1610			4	2	3	3	\N	\N	91
 159	36	53	71.4	57.4	\N	\N	\N	1824			4	2	3	2	\N	\N	93
 160	36	45.7	69.2	49.5	\N	\N	\N	1824			4	2	3	3	\N	\N	93
-7	12	51.7	73.2	56.9	\N	\N	\N	709	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	2	\N	\N	4
-8	12	45.9	70.5	49.7	\N	\N	\N	709	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	3	\N	\N	4
-5	12	51.1	72.6	56.2	\N	\N	\N	501	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	2	\N	\N	3
-6	12	45.5	69.8	49.1	\N	\N	\N	501	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	3	\N	\N	3
 3	12	49.9	71.5	54.9	\N	\N	\N	356	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	2	\N	\N	2
 4	12	44.6	68.6	48.1	\N	\N	\N	356	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	3	\N	\N	2
 13	36	54	73.1	58.8	\N	\N	\N	964	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	2	\N	\N	8
@@ -2837,6 +2940,9 @@ COPY public.stats_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs
 16	36	50.4	69.1	54.8	\N	\N	\N	741	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	2	\N	\N	11
 18	36	46.2	67.9	50.8	\N	\N	\N	262	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	1	3	2	\N	\N	11
 17	36	43.7	66.5	47.3	\N	\N	\N	741	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	3	\N	\N	11
+6	12	45.5	69.8	49.1	\N	\N	\N	516	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	3	\N	\N	3
+7	12	51.7	73.2	56.9	\N	\N	\N	728	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	2	\N	\N	4
+8	12	45.9	70.5	49.7	\N	\N	\N	728	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	3	\N	\N	4
 19	36	41.7	65	44.9	\N	\N	\N	262	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	1	3	3	\N	\N	11
 15	36	51.9	70.8	56.5	\N	\N	\N	827	https://doi.org/10.48550/arXiv.2201.03545	https://github.com/facebookresearch/ConvNeXt	4	2	3	2	\N	\N	9
 24	36	46	68.1	50.3	\N	\N	\N	267	https://doi.org/10.48550/arXiv.2201.03545		4	1	3	2	\N	\N	14
@@ -2959,6 +3065,16 @@ COPY public.stats_instanceresult (id, train_epochs, "mAP", "AP50", "AP75", "mAPs
 193	36	44.2	68.2	47.7	\N	\N	\N	349			4	1	3	3	\N	\N	127
 194	12	49.2	71.4	54	\N	\N	\N	485			4	1	3	2	\N	\N	128
 195	12	44.1	68.3	47.7	\N	\N	\N	485			4	1	3	3	\N	\N	128
+5	12	51.1	72.6	56.2	\N	\N	\N	516	https://doi.org/10.48550/arXiv.2311.17132	https://github.com/DaiShiResearch/TransNeXt	4	1	3	2	\N	\N	3
+196	12	55.7	\N	\N	\N	\N	\N	\N			4	6	3	2	\N	\N	2
+197	12	56.6	\N	\N	\N	\N	\N	\N			4	6	3	2	\N	\N	3
+198	12	57.1	\N	\N	\N	\N	\N	\N			4	6	3	2	\N	\N	4
+199	72	56.4	\N	\N	\N	\N	\N	1043			4	7	3	2	\N	\N	17
+200	72	49.1	\N	\N	\N	\N	\N	1043			4	7	3	3	\N	\N	17
+201	72	57.1	\N	\N	\N	\N	\N	1470			4	7	3	2	\N	\N	20
+202	72	49.5	\N	\N	\N	\N	\N	1470			4	7	3	3	\N	\N	20
+203	72	57.7	\N	\N	\N	\N	\N	1470			5	7	3	2	\N	\N	20
+204	72	50.2	\N	\N	\N	\N	\N	1470			5	7	3	3	\N	\N	20
 \.
 
 
@@ -3102,7 +3218,6 @@ COPY public.stats_pretrainedbackbone (id, name, pretrain_method, pretrain_resolu
 58	FocalNet-T-LRF-IN1k	Supervised	224	300			52	1	13
 59	FocalNet-T-SRF-IN1k	Supervised	224	300			53	1	13
 60	FocalNet-S-SRF-IN1k	Supervised	224	300			54	1	13
-61	FocalNet-S-IN1k	Supervised	224	300			55	1	13
 62	FocalNet-B-LRF-IN1k	Supervised	224	300			56	1	13
 63	FocalNet-B-SRF-IN1k	Supervised	224	300			57	1	13
 64	FocalNet-B-SRF-IN22k	Supervised	224	90			57	2	13
@@ -3169,6 +3284,7 @@ COPY public.stats_pretrainedbackbone (id, name, pretrain_method, pretrain_resolu
 126	VMamba-T-IN1k	Supervised	224	300			101	1	23
 127	VMamba-S-IN1k	Supervised	224	300			102	1	23
 128	VMamba-B-IN1k	Supervised	224	300			103	1	23
+61	FocalNet-S-LRF-IN1k	Supervised	224	300			55	1	13
 \.
 
 
@@ -3177,23 +3293,69 @@ COPY public.stats_pretrainedbackbone (id, name, pretrain_method, pretrain_resolu
 --
 
 COPY public.stats_semanticsegmentationresult (id, train_epochs, train_resolution, ms_pixel_accuracy, ms_mean_accuracy, flip_test, gflops, paper, github, dataset_id, head_id, pretrained_backbone_id, train_dataset_id, ms_m_iou, ss_m_iou, ss_mean_accuracy, ss_pixel_accuracy, intermediate_train_dataset_id, intermediate_train_epochs, intermediate_train_resolution) FROM stdin;
-3	100	512	\N	\N	f	944			20	4	53	19	48.1	47.9	\N	\N	\N	\N	\N
-4	100	512	\N	\N	f	1017			20	4	54	19	50.9	50.1	\N	\N	\N	\N	\N
-5	100	512	\N	\N	f	1185			20	4	55	19	51.3	50.8	\N	\N	\N	\N	\N
-6	100	640	\N	\N	f	2526			20	4	56	19	54.1	53.9	\N	\N	\N	\N	\N
-7	100	640	\N	\N	f	3142			20	4	57	19	55.3	55	\N	\N	\N	\N	\N
-8	100	512	\N	\N	f	1170			20	4	36	19	52.1	\N	\N	\N	\N	\N	\N
-9	100	512	\N	\N	f	1573			20	4	35	19	53.7	\N	\N	\N	\N	\N	\N
-10	100	512	\N	\N	f	3272			20	4	34	19	55	\N	\N	\N	\N	\N	\N
-11	100	512	\N	\N	f	949			20	4	126	19	48.8	47.9	\N	\N	\N	\N	\N
-12	100	512	\N	\N	f	1028			20	4	127	19	51.2	50.6	\N	\N	\N	\N	\N
-13	100	512	\N	\N	f	1170			20	4	128	19	51.6	51	\N	\N	\N	\N	\N
-14	100	512	\N	\N	f	856			20	4	105	19	\N	42.2	\N	\N	\N	\N	\N
-15	100	512	\N	\N	f	862			20	4	106	19	\N	43.7	\N	\N	\N	\N	\N
-16	100	512	\N	\N	f	946			20	4	107	19	\N	49.2	\N	\N	\N	\N	\N
-17	100	512	\N	\N	f	1050			20	4	108	19	\N	50.1	\N	\N	\N	\N	\N
-18	100	512	\N	\N	f	1176			20	4	109	19	\N	50.9	\N	\N	\N	\N	\N
-19	100	640	\N	\N	f	2451			20	4	111	19	\N	54	\N	\N	\N	\N	\N
+3	128	512	\N	\N	f	944			20	4	53	19	48.1	47.9	\N	\N	\N	\N	\N
+44	64	512	\N	\N	f	202			20	9	66	19	\N	48.2	\N	\N	\N	\N	\N
+43	64	512	\N	\N	f	182	https://arxiv.org/pdf/2107.00652		20	9	14	19	\N	41.5	\N	\N	\N	\N	\N
+45	64	512	\N	\N	f	274	https://arxiv.org/pdf/2107.00652		20	9	18	19	\N	45.2	\N	\N	\N	\N	\N
+46	64	512	\N	\N	f	271			20	9	67	19	\N	49.2	\N	\N	\N	\N	\N
+47	64	512	\N	\N	f	422	https://arxiv.org/pdf/2107.00652		20	9	16	19	\N	46	\N	\N	\N	\N	\N
+48	64	512	\N	\N	f	464			20	9	68	19	\N	49.9	\N	\N	\N	\N	\N
+4	128	512	\N	\N	f	1017			20	4	54	19	50.9	50.1	\N	\N	\N	\N	\N
+5	128	512	\N	\N	f	1185			20	4	55	19	51.3	50.8	\N	\N	\N	\N	\N
+6	128	640	\N	\N	f	2526			20	4	56	19	54.1	53.9	\N	\N	\N	\N	\N
+7	128	640	\N	\N	f	3142			20	4	57	19	55.3	55	\N	\N	\N	\N	\N
+8	128	512	\N	\N	f	1170			20	4	36	19	52.1	\N	\N	\N	\N	\N	\N
+9	128	512	\N	\N	f	1573			20	4	35	19	53.7	\N	\N	\N	\N	\N	\N
+10	128	512	\N	\N	f	3272			20	4	34	19	55	\N	\N	\N	\N	\N	\N
+11	128	512	\N	\N	f	949			20	4	126	19	48.8	47.9	\N	\N	\N	\N	\N
+12	128	512	\N	\N	f	1028			20	4	127	19	51.2	50.6	\N	\N	\N	\N	\N
+13	128	512	\N	\N	f	1170			20	4	128	19	51.6	51	\N	\N	\N	\N	\N
+14	128	512	\N	\N	f	856			20	4	105	19	\N	42.2	\N	\N	\N	\N	\N
+15	128	512	\N	\N	f	862			20	4	106	19	\N	43.7	\N	\N	\N	\N	\N
+16	128	512	\N	\N	f	946			20	4	107	19	\N	49.2	\N	\N	\N	\N	\N
+17	128	512	\N	\N	f	1050			20	4	108	19	\N	50.1	\N	\N	\N	\N	\N
+18	128	512	\N	\N	f	1176			20	4	109	19	\N	50.9	\N	\N	\N	\N	\N
+19	128	640	\N	\N	f	2451			20	4	111	19	\N	54	\N	\N	\N	\N	\N
+20	128	512	\N	\N	t	978			20	4	2	16	51.7	51.1	\N	\N	\N	\N	\N
+21	128	512	\N	\N	t	1089			20	4	3	19	52.8	52.5	\N	\N	\N	\N	\N
+22	128	512	\N	\N	t	1268			20	4	4	19	53.7	53	\N	\N	\N	\N	\N
+23	128	512	\N	\N	f	\N			20	5	2	19	\N	53.4	\N	\N	\N	\N	\N
+24	128	512	\N	\N	f	\N			20	5	3	19	\N	54.1	\N	\N	\N	\N	\N
+25	128	512	\N	\N	f	\N			20	5	4	19	\N	54.7	\N	\N	\N	\N	\N
+26	128	512	\N	\N	f	939			20	4	11	19	46.7	46	\N	\N	\N	\N	\N
+27	128	512	\N	\N	f	1027			20	4	9	19	49.6	48.7	\N	\N	\N	\N	\N
+28	128	512	\N	\N	f	1170			20	4	7	19	49.9	49.1	\N	\N	\N	\N	\N
+29	128	640	\N	\N	f	1828			20	4	8	19	53.1	52.6	\N	\N	\N	\N	\N
+30	128	640	\N	\N	f	2458			20	4	6	19	53.7	53.2	\N	\N	\N	\N	\N
+31	128	640	\N	\N	f	3335			20	4	13	19	54	53.6	\N	\N	\N	\N	\N
+36	128	640	\N	\N	f	3230			21	4	20	19	62.8	\N	\N	\N	\N	\N	\N
+40	128	512	\N	\N	f	1222			20	4	68	19	52.2	51.1	\N	\N	\N	\N	\N
+49	128	512	\N	\N	f	588			20	4	21	19	46.8	45.6	\N	\N	\N	\N	\N
+50	128	512	\N	\N	f	1283			20	4	23	19	50.2	49.3	\N	\N	\N	\N	\N
+35	128	640	\N	\N	f	3230	https://arxiv.org/pdf/2107.00652		20	4	20	19	53.5	52.1	\N	\N	\N	\N	\N
+41	128	640	\N	\N	f	1941			20	4	69	19	52.6	51.8	\N	\N	\N	\N	\N
+42	128	640	\N	\N	f	2745			20	4	70	19	55.7	54	\N	\N	\N	\N	\N
+32	128	512	\N	\N	f	945	https://arxiv.org/pdf/2107.00652		20	4	14	19	45.8	44.5	\N	\N	\N	\N	\N
+37	128	512	\N	\N	f	959			20	4	66	19	50.7	49.3	\N	\N	\N	\N	\N
+33	128	512	\N	\N	f	1038	https://arxiv.org/pdf/2107.00652		20	4	18	19	49.5	47.6	\N	\N	\N	\N	\N
+39	128	512	\N	\N	f	1027			20	4	67	19	51.5	50.4	\N	\N	\N	\N	\N
+34	128	640	\N	\N	f	1841	https://arxiv.org/pdf/2107.00652		20	4	17	19	51.7	50	\N	\N	\N	\N	\N
+38	128	512	\N	\N	f	1188	https://arxiv.org/pdf/2107.00652		20	4	16	19	49.7	48.1	\N	\N	\N	\N	\N
+51	128	512	\N	\N	f	2231			20	4	25	19	52	51.5	\N	\N	\N	\N	\N
+52	128	512	\N	\N	f	1283			20	4	24	19	52.8	51.8	\N	\N	\N	\N	\N
+53	128	512	\N	\N	f	2231			20	4	26	19	54.7	53.8	\N	\N	\N	\N	\N
+54	128	512	\N	\N	f	944			20	4	59	19	47.2	46.5	\N	\N	\N	\N	\N
+55	128	512	\N	\N	f	949			20	4	58	19	47.8	46.8	\N	\N	\N	\N	\N
+56	128	512	\N	\N	f	1035			20	4	60	19	50.1	49.3	\N	\N	\N	\N	\N
+57	128	512	\N	\N	f	1044			20	4	61	19	50.1	49.1	\N	\N	\N	\N	\N
+58	128	512	\N	\N	f	1180			20	4	63	19	51.1	50.2	\N	\N	\N	\N	\N
+59	128	512	\N	\N	f	1192			20	4	62	19	51.4	50.5	\N	\N	\N	\N	\N
+60	128	512	\N	\N	f	925			20	4	89	19	48.6	\N	\N	\N	\N	\N	\N
+61	128	512	\N	\N	f	1024			20	4	81	19	48.9	\N	\N	\N	\N	\N	\N
+62	128	512	\N	\N	f	1003			20	4	91	19	50.7	\N	\N	\N	\N	\N	\N
+63	128	512	\N	\N	f	1197			20	4	83	19	50.8	\N	\N	\N	\N	\N	\N
+64	128	512	\N	\N	f	1113			20	4	93	19	51.3	\N	\N	\N	\N	\N	\N
+65	128	512	\N	\N	f	1346			20	4	85	19	51.7	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -3202,6 +3364,12 @@ COPY public.stats_semanticsegmentationresult (id, train_epochs, train_resolution
 --
 
 COPY public.stats_semanticsegmentationresult_fps_measurements (id, semanticsegmentationresult_id, fpsmeasurement_id) FROM stdin;
+1	32	162
+2	37	163
+3	33	164
+4	39	165
+5	38	166
+6	40	167
 \.
 
 
@@ -3264,7 +3432,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 875, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 960, true);
 
 
 --
@@ -3327,21 +3495,21 @@ SELECT pg_catalog.setval('public.stats_dataset_tasks_id_seq', 38, true);
 -- Name: stats_downstreamhead_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.stats_downstreamhead_id_seq', 4, true);
+SELECT pg_catalog.setval('public.stats_downstreamhead_id_seq', 9, true);
 
 
 --
 -- Name: stats_downstreamhead_tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.stats_downstreamhead_tasks_id_seq', 6, true);
+SELECT pg_catalog.setval('public.stats_downstreamhead_tasks_id_seq', 17, true);
 
 
 --
 -- Name: stats_fpsmeasurement_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.stats_fpsmeasurement_id_seq', 161, true);
+SELECT pg_catalog.setval('public.stats_fpsmeasurement_id_seq', 167, true);
 
 
 --
@@ -3355,7 +3523,7 @@ SELECT pg_catalog.setval('public.stats_instanceresult_fps_measurements_id_seq', 
 -- Name: stats_instanceresult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.stats_instanceresult_id_seq', 195, true);
+SELECT pg_catalog.setval('public.stats_instanceresult_id_seq', 204, true);
 
 
 --
@@ -3369,14 +3537,14 @@ SELECT pg_catalog.setval('public.stats_pretrainedbackbone_id_seq', 128, true);
 -- Name: stats_semanticsegmentationresult_fps_measurements_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.stats_semanticsegmentationresult_fps_measurements_id_seq', 1, false);
+SELECT pg_catalog.setval('public.stats_semanticsegmentationresult_fps_measurements_id_seq', 6, true);
 
 
 --
 -- Name: stats_semanticsegmentationresult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.stats_semanticsegmentationresult_id_seq', 19, true);
+SELECT pg_catalog.setval('public.stats_semanticsegmentationresult_id_seq', 65, true);
 
 
 --
