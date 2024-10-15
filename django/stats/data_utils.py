@@ -53,6 +53,8 @@ def get_nested_attr(obj, attr_path):
 def get_train_string(result):
     dataset = result.train_dataset.name if result.train_dataset else None
     training = f"{dataset} : {result.train_epochs}"
+    if hasattr(result, "crop_size"):
+        training += f" : {result.crop_size}"
     if result.intermediate_train_dataset is not None:
         int_dataset = result.intermediate_train_dataset.name
         intermediate = f"{int_dataset} : {result.intermediate_train_epochs}"

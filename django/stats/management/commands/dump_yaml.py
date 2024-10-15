@@ -49,7 +49,6 @@ class Command(BaseCommand):
             return
 
 
-
 def generate_yaml_from_db(family_name):
     family = BackboneFamily.objects.get(name=family_name)
 
@@ -91,7 +90,7 @@ def generate_yaml_from_db(family_name):
                 "pretrain_epochs": pretrained.pretrain_epochs,
                 "classification_results": [],
                 "instance_results": [],
-                "semantic_seg_results": [],    
+                "semantic_seg_results": [],
             }
 
             for classification in ClassificationResult.objects.filter(
@@ -122,7 +121,9 @@ def generate_yaml_from_db(family_name):
                     )
                 pretrained_data["classification_results"].append(classification_data)
 
-            for instance in InstanceResult.objects.filter(pretrained_backbone=pretrained):
+            for instance in InstanceResult.objects.filter(
+                pretrained_backbone=pretrained
+            ):
                 instance_data = {
                     "head": instance.head.name,
                     "dataset": instance.dataset.name,
@@ -164,7 +165,7 @@ def generate_yaml_from_db(family_name):
                     "dataset": semantic.dataset.name,
                     "train_dataset": semantic.train_dataset.name,
                     "train_epochs": semantic.train_epochs,
-                    "train_resolution": semantic.train_resolution,
+                    "crop_size": semantic.crop_size,
                     "ms_m_iou": semantic.ms_m_iou,
                     "ms_pixel_accuracy": semantic.ms_pixel_accuracy,
                     "ms_mean_accuracy": semantic.ms_mean_accuracy,
@@ -180,7 +181,6 @@ def generate_yaml_from_db(family_name):
                         {
                             "intermediate_train_dataset": semantic.intermediate_train_dataset.name,
                             "intermediate_train_epochs": semantic.intermediate_train_epochs,
-                            "intermediate_train_resolution": semantic.intermediate_train_resolution,
                         }
                     )
                 for fps in semantic.fps_measurements.all():

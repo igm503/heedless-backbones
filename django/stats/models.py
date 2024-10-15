@@ -52,7 +52,9 @@ INSTANCE_TASKS = [TaskType.DETECTION.value, TaskType.INSTANCE_SEG.value]
 class Task(models.Model):
     objects = models.Manager()
 
-    name = models.CharField(max_length=100, choices={name.value: name.value for name in TaskType})
+    name = models.CharField(
+        max_length=100, choices={name.value: name.value for name in TaskType}
+    )
 
     def __str__(self):
         return str(self.name)
@@ -88,7 +90,9 @@ class FPSMeasurement(models.Model):
     backbone_name = models.CharField(max_length=100)
     resolution = models.IntegerField()
     fps = models.FloatField()
-    gpu = models.CharField(max_length=100, choices={name.value: name.value for name in GPU})
+    gpu = models.CharField(
+        max_length=100, choices={name.value: name.value for name in GPU}
+    )
     precision = models.CharField(
         choices={name.value: name.value for name in Precision},
         max_length=20,
@@ -179,7 +183,9 @@ class PretrainedBackbone(models.Model):
 class ClassificationResult(models.Model):
     objects = models.Manager()
 
-    pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.CASCADE)
+    pretrained_backbone = models.ForeignKey(
+        PretrainedBackbone, on_delete=models.CASCADE
+    )
     dataset = models.ForeignKey(
         Dataset,
         on_delete=models.RESTRICT,
@@ -264,7 +270,9 @@ class ClassificationResult(models.Model):
 class InstanceResult(models.Model):
     objects = models.Manager()
 
-    pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.CASCADE)
+    pretrained_backbone = models.ForeignKey(
+        PretrainedBackbone, on_delete=models.CASCADE
+    )
     head = models.ForeignKey(DownstreamHead, on_delete=models.RESTRICT)
     dataset = models.ForeignKey(
         Dataset,
@@ -300,8 +308,12 @@ class InstanceResult(models.Model):
     github = models.URLField(blank=True)
 
     def clean(self):
-        if self.intermediate_train_epochs and not self.intermediate_train_dataset:
-            raise ValidationError("int train dataset is required when int train epochs is provided")
+        if (self.intermediate_train_epochs is None) != (
+            self.intermediate_train_dataset is None
+        ):
+            raise ValidationError(
+                "int train dataset and int train epochs must be provided together"
+            )
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -325,7 +337,9 @@ class InstanceResult(models.Model):
 
 class SemanticSegmentationResult(models.Model):
     objects = models.Manager()
-    pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.CASCADE)
+    pretrained_backbone = models.ForeignKey(
+        PretrainedBackbone, on_delete=models.CASCADE
+    )
     head = models.ForeignKey(DownstreamHead, on_delete=models.RESTRICT)
     dataset = models.ForeignKey(
         Dataset,
@@ -340,7 +354,6 @@ class SemanticSegmentationResult(models.Model):
         limit_choices_to={"tasks__name": TaskType.SEMANTIC_SEG.value},
     )
     train_epochs = models.IntegerField()
-    train_resolution = models.IntegerField()
     intermediate_train_dataset = models.ForeignKey(
         Dataset,
         on_delete=models.RESTRICT,
@@ -350,7 +363,7 @@ class SemanticSegmentationResult(models.Model):
         null=True,
     )
     intermediate_train_epochs = models.IntegerField(blank=True, null=True)
-    intermediate_train_resolution = models.IntegerField(blank=True, null=True)
+    crop_size = models.IntegerField()
 
     ms_m_iou = models.FloatField(blank=True, null=True)
     ms_pixel_accuracy = models.FloatField(blank=True, null=True)
@@ -366,21 +379,15 @@ class SemanticSegmentationResult(models.Model):
 
     def clean(self):
         if not self.ms_m_iou and not self.ss_m_iou:
-            raise ValidationError("either ms_m_iou or ss_m_iou must be provided")
-        if self.intermediate_train_dataset:
-            if not self.intermediate_train_resolution:
-                raise ValidationError(
-                    "int train resolution is required when int train dataset is provided"
-                )
-        else:
-            if self.intermediate_train_resolution:
-                raise ValidationError(
-                    "int train dataset is required when int train resolution is provided"
-                )
-            if self.intermediate_train_epochs:
-                raise ValidationError(
-                    "int train dataset is required when int train epochs is provided"
-                )
+            raise ValidationError(
+                "at least one of ms_m_iou and ss_m_iou must be provided"
+            )
+        if (self.intermediate_train_epochs is None) != (
+            self.intermediate_train_dataset is None
+        ):
+            raise ValidationError(
+                "int train dataset and int train epochs must be provided together"
+            )
 
     def save(self, *args, **kwargs):
         self.full_clean()

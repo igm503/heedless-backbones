@@ -96,7 +96,9 @@ def update_database(data):
                 name=pretrained_data["name"],
                 backbone=backbone,
                 family=family,
-                pretrain_dataset=Dataset.objects.get(name=pretrained_data["pretrain_dataset"]),
+                pretrain_dataset=Dataset.objects.get(
+                    name=pretrained_data["pretrain_dataset"]
+                ),
                 pretrain_method=pretrained_data["pretrain_method"],
                 pretrain_resolution=pretrained_data["pretrain_resolution"],
                 pretrain_epochs=pretrained_data["pretrain_epochs"],
@@ -104,7 +106,9 @@ def update_database(data):
             pretrained_backbone.full_clean()
             pretrained_backbone.save()
 
-            for classification_data in pretrained_data.get("classification_results", []):
+            for classification_data in pretrained_data.get(
+                "classification_results", []
+            ):
                 classification_result = ClassificationResult(
                     pretrained_backbone=pretrained_backbone,
                     dataset=Dataset.objects.get(name=classification_data["dataset"]),
@@ -114,9 +118,13 @@ def update_database(data):
                     gflops=classification_data["gflops"],
                 )
                 if "fine_tune_dataset" in classification_data:
-                    ft_dataset = Dataset.objects.get(name=classification_data["fine_tune_dataset"])
+                    ft_dataset = Dataset.objects.get(
+                        name=classification_data["fine_tune_dataset"]
+                    )
                     classification_result.fine_tune_dataset = ft_dataset
-                    classification_result.fine_tune_epochs = classification_data["fine_tune_epochs"]
+                    classification_result.fine_tune_epochs = classification_data[
+                        "fine_tune_epochs"
+                    ]
                     classification_result.fine_tune_resolution = classification_data[
                         "fine_tune_resolution"
                     ]
@@ -125,12 +133,12 @@ def update_database(data):
                         name=classification_data["intermediate_fine_tune_dataset"]
                     )
                     classification_result.intermediate_fine_tune_dataset = inter_dataset
-                    classification_result.intermediate_fine_tune_epochs = classification_data[
-                        "intermediate_fine_tune_epochs"
-                    ]
-                    classification_result.intermediate_fine_tune_resolution = classification_data[
-                        "intermediate_fine_tune_resolution"
-                    ]
+                    classification_result.intermediate_fine_tune_epochs = (
+                        classification_data["intermediate_fine_tune_epochs"]
+                    )
+                    classification_result.intermediate_fine_tune_resolution = (
+                        classification_data["intermediate_fine_tune_resolution"]
+                    )
                 classification_result.full_clean()
                 classification_result.save()
 
@@ -140,7 +148,9 @@ def update_database(data):
                     head=DownstreamHead.objects.get(name=instance_data["head"]),
                     dataset=Dataset.objects.get(name=instance_data["dataset"]),
                     instance_type=Task.objects.get(name=instance_data["instance_type"]),
-                    train_dataset=Dataset.objects.get(name=instance_data["train_dataset"]),
+                    train_dataset=Dataset.objects.get(
+                        name=instance_data["train_dataset"]
+                    ),
                     train_epochs=instance_data["train_epochs"],
                     mAP=instance_data["mAP"],
                     AP50=instance_data.get("AP50"),
@@ -176,9 +186,11 @@ def update_database(data):
                     pretrained_backbone=pretrained_backbone,
                     head=DownstreamHead.objects.get(name=semantic_data["head"]),
                     dataset=Dataset.objects.get(name=semantic_data["dataset"]),
-                    train_dataset=Dataset.objects.get(name=semantic_data["train_dataset"]),
+                    train_dataset=Dataset.objects.get(
+                        name=semantic_data["train_dataset"]
+                    ),
                     train_epochs=semantic_data["train_epochs"],
-                    train_resolution=semantic_data["train_resolution"],
+                    crop_size=semantic_data["crop_size"],
                     ms_m_iou=semantic_data.get("ms_m_iou"),
                     ms_pixel_accuracy=semantic_data.get("ms_pixel_accuracy"),
                     ms_mean_accuracy=semantic_data.get("ms_mean_accuracy"),
@@ -194,9 +206,6 @@ def update_database(data):
                     )
                     semantic_result.intermediate_train_epochs = semantic_data[
                         "intermediate_train_epochs"
-                    ]
-                    semantic_result.intermediate_train_resolution = semantic_data[
-                        "intermediate_train_resolution"
                     ]
                 semantic_result.full_clean()
                 semantic_result.save()

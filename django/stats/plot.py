@@ -45,7 +45,9 @@ def get_plot_data(request, family_name=None):
         queryset = queryset.filter(pretrain_method=request.pretrain_method)
 
     if request.query_type == PlotRequest.SINGLE:
-        queryset = filter_and_add_results(queryset, request.data_args, "filtered_results")
+        queryset = filter_and_add_results(
+            queryset, request.data_args, "filtered_results"
+        )
     elif request.query_type == PlotRequest.MULTI:
         queryset = filter_and_add_results(queryset, request.x_args, "x_results")
         queryset = filter_and_add_results(queryset, request.y_args, "y_results")
@@ -57,9 +59,15 @@ def get_plot_data(request, family_name=None):
 
 def get_all_results_data(queryset, args):
     queryset = filter_by_classification(queryset, args)
-    queryset = queryset.prefetch_related(get_instance_prefetch("_instance_results", args))
-    queryset = queryset.prefetch_related(get_semantic_prefetch("_semantic_results", args))
-    return queryset.prefetch_related(get_classification_prefetch("_classification_results", args))
+    queryset = queryset.prefetch_related(
+        get_instance_prefetch("_instance_results", args)
+    )
+    queryset = queryset.prefetch_related(
+        get_semantic_prefetch("_semantic_results", args)
+    )
+    return queryset.prefetch_related(
+        get_classification_prefetch("_classification_results", args)
+    )
 
 
 def filter_and_add_results(queryset, args, to_attr):
@@ -86,7 +94,7 @@ def filter_by_classification(query, args):
 def filter_by_semantic(query, args):
     filter_args = {
         "semanticsegmentationresult__dataset": args.dataset,
-        "semanticsegmentationresult__train_resolution": args.resolution,
+        "semanticsegmentationresult__crop_size": args.resolution,
         "semanticsegmentationresult__head": args.head,
         "semanticsegmentationresult__fps_measurements__gpu": args.gpu,
         "semanticsegmentationresult__fps_measurements__precision": args.precision,
@@ -132,22 +140,20 @@ def get_classification_prefetch(name, args):
 def get_semantic_prefetch(name, args):
     filter_args = {
         "dataset": args.dataset,
-        "train_resolution": args.resolution,
+        "crop_size": args.resolution,
         "head": args.head,
     }
     filter_args = {k: v for k, v in filter_args.items() if v is not None}
     queryset = SemanticSegmentationResult.objects.filter(**filter_args)
     if args.fps:
         fps_subquery = FPSMeasurement.objects.filter(
-            backbone=OuterRef("pretrained_backbone__backbone"),
-            resolution=OuterRef("resolution"),
+            semanticsegmentationresult=OuterRef("pk"),
             gpu=args.gpu,
             precision=args.precision,
         )
         queryset = queryset.filter(
-            pretrained_backbone__backbone__fps_measurements__resolution=F("resolution"),
-            pretrained_backbone__backbone__fps_measurements__gpu=args.gpu,
-            pretrained_backbone__backbone__fps_measurements__precision=args.precision,
+            fps_measurements__gpu=args.gpu,
+            fps_measurements__precision=args.precision,
         ).annotate(fps=Subquery(fps_subquery.values("fps")[:1]))
     return Prefetch("semanticsegmentationresult_set", queryset, name)
 
@@ -190,11 +196,15 @@ def get_plot(queryset, request):
     elif request.query_type == PlotRequest.MULTI:
         x_title += f" ({args.x_dataset})"
         y_title += f" ({args.y_dataset})"
-        title = f"{y_title} on {args.y_dataset.name} vs. {x_title} on {args.x_dataset.name}"
+        title = (
+            f"{y_title} on {args.y_dataset.name} vs. {x_title} on {args.x_dataset.name}"
+        )
         for pb in queryset:
             for x_result in pb.x_results:
                 for y_result in pb.y_results:
-                    add_point(pb, x_result, y_result, args, x_title, y_title, data, keys)
+                    add_point(
+                        pb, x_result, y_result, args, x_title, y_title, data, keys
+                    )
     else:
         title = f"{y_title} against {x_title}"
         for pb in queryset:
@@ -237,7 +247,10 @@ def add_point(pb, x_result, y_result, args, x_title, y_title, data, keys):
 def get_group_key(pb, x_result, y_result, attr):
     attrs = attr.split(".")
     if attrs[0] == "classification":
-        assert type(x_result) is ClassificationResult or type(y_result) is ClassificationResult
+        assert (
+            type(x_result) is ClassificationResult
+            or type(y_result) is ClassificationResult
+        )
         if type(x_result) is ClassificationResult:
             return get_nested_attr(x_result, attrs[1:])
         elif type(y_result) is ClassificationResult:
@@ -247,6 +260,15 @@ def get_group_key(pb, x_result, y_result, attr):
         if type(x_result) is InstanceResult:
             return get_nested_attr(x_result, attrs[1:])
         elif type(y_result) is InstanceResult:
+            return get_nested_attr(y_result, attrs[1:])
+    elif attrs[0] == "semantic":
+        assert (
+            type(x_result) is SemanticSegmentationResult
+            or type(y_result) is SemanticSegmentationResult
+        )
+        if type(x_result) is SemanticSegmentationResult:
+            return get_nested_attr(x_result, attrs[1:])
+        elif type(y_result) is SemanticSegmentationResult:
             return get_nested_attr(y_result, attrs[1:])
     return get_nested_attr(pb, attrs)
 
@@ -291,7 +313,9 @@ def get_marker_configs(names):
     marker_configs = {}
     for name in names:
         color = f"hsla({hue},80%,40%,0.8)"
-        marker_configs[name] = dict(size=7, line=dict(width=0, color="black"), color=color)
+        marker_configs[name] = dict(
+            size=7, line=dict(width=0, color="black"), color=color
+        )
         hue += hue_increment
         hue %= 360
     return marker_configs
@@ -350,4 +374,6 @@ def get_plot_div(title, x_title, y_title, data):
         line=dict(color="black", width=1),
     )
 
-    return plot(fig, output_type="div", include_plotlyjs=True, config={"responsive": True})
+    return plot(
+        fig, output_type="div", include_plotlyjs=True, config={"responsive": True}
+    )

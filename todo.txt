@@ -63,8 +63,6 @@ other notes
 
 code
 - add semantic seg result ingestion to add_yaml
-- fix semantic seg resolution (need to decide bteween train and test res, to not confuse fps measurements)
-- semantic seg put res in train snippets (graph and tables)
 - semantic seg dataset and head page default plot options need to be set correctly
 - comparison of same instance results and metrics doesn't show correct results when different heads are selected.
 - add github link

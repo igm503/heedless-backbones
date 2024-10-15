@@ -103,9 +103,9 @@ INSTANCE_LEGEND_ATTRIBUTES = {
 }
 
 SEMANTIC_SEG_LEGEND_ATTRIBUTES = {
-    "semantic_segmentation.head.name": "Semantic Segmentation Head",
-    "semantic_segmentation.resolution": "Semantic Segmentation Resolution",
-    "semantic_segmentation.train_epochs": "Semantic Segmentation Training Epochs",
+    "semantic.head.name": "Semantic Segmentation Head",
+    "semantic.crop_size": "Semantic Segmentation Resolution",
+    "semantic.train_epochs": "Semantic Segmentation Training Epochs",
 }
 
 FIELDS = [
