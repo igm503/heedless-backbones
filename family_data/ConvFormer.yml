@@ -154,6 +154,7 @@ backbones:
         gpu: V100
         precision: FP32
         fps: 8.7
+    semantic_seg_results: []
   - name: ConvFormer-S18-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -241,6 +242,7 @@ backbones:
       fine_tune_epochs: 30
       fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
 - name: ConvFormer-S36
   m_parameters: 40.0
   fps_measurements:
@@ -355,6 +357,7 @@ backbones:
         gpu: V100
         precision: FP32
         fps: 7.4
+    semantic_seg_results: []
   - name: ConvFormer-S36-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -442,6 +445,7 @@ backbones:
       fine_tune_epochs: 30
       fine_tune_resolution: 384
     instance_results: []
+    semantic_seg_results: []
 - name: ConvFormer-M36
   m_parameters: 57.0
   fps_measurements:
@@ -556,6 +560,7 @@ backbones:
         gpu: V100
         precision: FP32
         fps: 6.7
+    semantic_seg_results: []
   - name: ConvFormer-M36-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -643,6 +648,7 @@ backbones:
       fine_tune_epochs: 30
       fine_tune_resolution: 384
     instance_results: []
+    semantic_seg_results: []
 - name: ConvFormer-B36
   m_parameters: 100.0
   fps_measurements:
@@ -723,6 +729,7 @@ backbones:
       fine_tune_epochs: 30
       fine_tune_resolution: 384
     instance_results: []
+    semantic_seg_results: []
   - name: ConvFormer-B36-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -810,3 +817,4 @@ backbones:
       fine_tune_epochs: 30
       fine_tune_resolution: 384
     instance_results: []
+    semantic_seg_results: []

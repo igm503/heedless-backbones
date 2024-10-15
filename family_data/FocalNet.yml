@@ -2,7 +2,7 @@ name: FocalNet
 model_type: Attn + Conv
 hierarchical: true
 pretrain_method: Supervised
-pub_date: '2022-3-22'
+pub_date: '2022-03-22'
 paper: https://doi.org/10.48550/arXiv.2203.11926
 github: https://github.com/microsoft/FocalNet
 backbones:
@@ -23,6 +23,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 82.3
+      top_5: null
       gflops: 4.5
     instance_results:
     - head: Mask R-CNN
@@ -33,7 +34,11 @@ backbones:
       mAP: 46.1
       AP50: 68.2
       AP75: 50.6
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 268.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -42,7 +47,11 @@ backbones:
       mAP: 41.5
       AP50: 65.1
       AP75: 44.5
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 268.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -51,7 +60,11 @@ backbones:
       mAP: 48.0
       AP50: 69.7
       AP75: 53.0
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 268.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -60,7 +73,11 @@ backbones:
       mAP: 42.9
       AP50: 66.5
       AP75: 46.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 268.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -69,7 +86,12 @@ backbones:
       mAP: 51.5
       AP50: 70.3
       AP75: 56.0
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 751.0
+      fps_measurements: []
+    semantic_seg_results: []
 - name: FocalNet-T-SRF
   m_parameters: 28.4
   fps_measurements:
@@ -87,6 +109,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 82.1
+      top_5: null
       gflops: 4.5
     instance_results:
     - head: Mask R-CNN
@@ -97,7 +120,11 @@ backbones:
       mAP: 45.9
       AP50: 68.3
       AP75: 50.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 268.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -106,7 +133,11 @@ backbones:
       mAP: 41.3
       AP50: 65.0
       AP75: 44.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 268.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -115,7 +146,11 @@ backbones:
       mAP: 47.6
       AP50: 69.5
       AP75: 52.0
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 268.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -124,7 +159,11 @@ backbones:
       mAP: 42.6
       AP50: 66.5
       AP75: 45.6
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 268.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -133,8 +172,12 @@ backbones:
       mAP: 51.5
       AP50: 70.1
       AP75: 55.8
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 746.0
-
+      fps_measurements: []
+    semantic_seg_results: []
 - name: FocalNet-S-SRF
   m_parameters: 50.3
   fps_measurements:
@@ -152,6 +195,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 83.4
+      top_5: null
       gflops: 8.7
     instance_results:
     - head: Mask R-CNN
@@ -162,7 +206,11 @@ backbones:
       mAP: 48.0
       AP50: 69.9
       AP75: 52.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 356.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -171,7 +219,11 @@ backbones:
       mAP: 42.7
       AP50: 67.1
       AP75: 45.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 56.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -180,7 +232,11 @@ backbones:
       mAP: 48.9
       AP50: 70.1
       AP75: 53.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 356.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -189,8 +245,12 @@ backbones:
       mAP: 43.6
       AP50: 67.1
       AP75: 47.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 56.0
-
+      fps_measurements: []
+    semantic_seg_results: []
 - name: FocalNet-S-LRF
   m_parameters: 50.3
   fps_measurements:
@@ -208,6 +268,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 83.5
+      top_5: null
       gflops: 8.7
     instance_results:
     - head: Mask R-CNN
@@ -218,7 +279,11 @@ backbones:
       mAP: 48.3
       AP50: 70.5
       AP75: 53.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 365.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -227,7 +292,11 @@ backbones:
       mAP: 43.1
       AP50: 67.4
       AP75: 46.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 365.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -236,7 +305,11 @@ backbones:
       mAP: 49.3
       AP50: 70.7
       AP75: 54.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 365.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -245,8 +318,12 @@ backbones:
       mAP: 43.8
       AP50: 67.9
       AP75: 47.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 365.0
-
+      fps_measurements: []
+    semantic_seg_results: []
 - name: FocalNet-B-LRF
   m_parameters: 88.7
   fps_measurements:
@@ -264,6 +341,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 83.9
+      top_5: null
       gflops: 15.4
     instance_results:
     - head: Mask R-CNN
@@ -274,7 +352,11 @@ backbones:
       mAP: 49.0
       AP50: 70.9
       AP75: 53.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 507.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -283,7 +365,11 @@ backbones:
       mAP: 43.5
       AP50: 67.9
       AP75: 46.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 507.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -292,7 +378,11 @@ backbones:
       mAP: 49.8
       AP50: 70.9
       AP75: 54.6
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 507.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -301,8 +391,12 @@ backbones:
       mAP: 44.1
       AP50: 68.2
       AP75: 47.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 507.0
-
+      fps_measurements: []
+    semantic_seg_results: []
 - name: FocalNet-B-SRF
   m_parameters: 88.1
   fps_measurements:
@@ -324,6 +418,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 83.7
+      top_5: null
       gflops: 15.3
     instance_results:
     - head: Mask R-CNN
@@ -334,7 +429,11 @@ backbones:
       mAP: 48.8
       AP50: 70.7
       AP75: 53.5
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 496.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -343,7 +442,11 @@ backbones:
       mAP: 43.3
       AP50: 67.5
       AP75: 46.5
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 496.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -352,7 +455,11 @@ backbones:
       mAP: 49.6
       AP50: 70.6
       AP75: 54.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 496.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -361,8 +468,12 @@ backbones:
       mAP: 44.1
       AP50: 68.0
       AP75: 47.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 496.0
-    
+      fps_measurements: []
+    semantic_seg_results: []
   - name: FocalNet-B-SRF-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -372,6 +483,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 85.6
+      top_5: null
       gflops: 15.3
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -379,11 +491,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 86.5
+      top_5: null
       gflops: 44.8
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
-
+    instance_results: []
+    semantic_seg_results: []
 - name: FocalNet-L-SRF
   m_parameters: 197.1
   fps_measurements:
@@ -405,6 +519,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 86.5
+      top_5: null
       gflops: 34.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -412,16 +527,10 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 87.3
+      top_5: null
       gflops: 100.6
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
-
-# - name: FocalNet-H
-#   m_parameters: 746.0
-#   pretrained_backbones:
-#   - name: FocalNet-H-IN22k
-#     pretrain_dataset: ImageNet-22k
-#     pretrain_method: Supervised
-#     pretrain_resolution: 224
-#     pretrain_epochs: 90
+    instance_results: []
+    semantic_seg_results: []

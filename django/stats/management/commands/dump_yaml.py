@@ -10,6 +10,7 @@ from ...models import (
     PretrainedBackbone,
     ClassificationResult,
     InstanceResult,
+    SemanticSegmentationResult,
 )
 
 
@@ -24,14 +25,21 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        if options["family"] == "all":
+            for family in BackboneFamily.objects.all():
+                self.dump_yaml(family.name)
+        else:
+            self.dump_yaml(options["family"])
+
+    def dump_yaml(self, family_name):
         try:
-            family_data = generate_yaml_from_db(options["family"])
+            family_data = generate_yaml_from_db(family_name)
         except Exception as e:
             self.stdout.write(self.style.ERROR(f"Error generating YAML: {str(e)}"))
             return
 
         try:
-            yaml_name = f"{options['family']}.yml"
+            yaml_name = f"{family_name}.yml"
             yaml_path = os.path.join(YAML_DIR, yaml_name)
             with open(yaml_path, "w") as f:
                 yaml.dump(family_data, f, default_flow_style=False, sort_keys=False)
@@ -39,6 +47,7 @@ class Command(BaseCommand):
         except Exception as e:
             self.stdout.write(self.style.ERROR(f"Error writing to yaml file: {str(e)}"))
             return
+
 
 
 def generate_yaml_from_db(family_name):
@@ -82,6 +91,7 @@ def generate_yaml_from_db(family_name):
                 "pretrain_epochs": pretrained.pretrain_epochs,
                 "classification_results": [],
                 "instance_results": [],
+                "semantic_seg_results": [],    
             }
 
             for classification in ClassificationResult.objects.filter(
@@ -145,6 +155,44 @@ def generate_yaml_from_db(family_name):
                         }
                     )
                 pretrained_data["instance_results"].append(instance_data)
+
+            for semantic in SemanticSegmentationResult.objects.filter(
+                pretrained_backbone=pretrained
+            ):
+                semantic_data = {
+                    "head": semantic.head.name,
+                    "dataset": semantic.dataset.name,
+                    "train_dataset": semantic.train_dataset.name,
+                    "train_epochs": semantic.train_epochs,
+                    "train_resolution": semantic.train_resolution,
+                    "ms_m_iou": semantic.ms_m_iou,
+                    "ms_pixel_accuracy": semantic.ms_pixel_accuracy,
+                    "ms_mean_accuracy": semantic.ms_mean_accuracy,
+                    "ss_m_iou": semantic.ss_m_iou,
+                    "ss_pixel_accuracy": semantic.ss_pixel_accuracy,
+                    "ss_mean_accuracy": semantic.ss_mean_accuracy,
+                    "flip_test": semantic.flip_test,
+                    "gflops": semantic.gflops,
+                    "fps_measurements": [],
+                }
+                if semantic.intermediate_train_dataset:
+                    semantic_data.update(
+                        {
+                            "intermediate_train_dataset": semantic.intermediate_train_dataset.name,
+                            "intermediate_train_epochs": semantic.intermediate_train_epochs,
+                            "intermediate_train_resolution": semantic.intermediate_train_resolution,
+                        }
+                    )
+                for fps in semantic.fps_measurements.all():
+                    semantic_data["fps_measurements"].append(
+                        {
+                            "resolution": fps.resolution,
+                            "gpu": fps.gpu,
+                            "precision": fps.precision,
+                            "fps": fps.fps,
+                        }
+                    )
+                pretrained_data["semantic_seg_results"].append(semantic_data)
 
             backbone_data["pretrained_backbones"].append(pretrained_data)
 

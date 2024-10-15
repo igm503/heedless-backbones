@@ -5,7 +5,6 @@ pretrain_method: Supervised
 pub_date: '2021-07-01'
 paper: https://doi.org/10.48550/arXiv.2107.00652
 github: https://github.com/microsoft/CSWin-Transformer
-
 backbones:
 - name: CSWin-T
   m_parameters: 23.0
@@ -24,10 +23,12 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 82.7
+      top_5: null
       gflops: 4.3
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 84.3
+      top_5: null
       gflops: 14.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -41,7 +42,11 @@ backbones:
       mAP: 46.7
       AP50: 68.6
       AP75: 51.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 279.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -50,7 +55,11 @@ backbones:
       mAP: 42.2
       AP50: 65.6
       AP75: 45.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 279.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -59,7 +68,11 @@ backbones:
       mAP: 49.0
       AP50: 70.7
       AP75: 53.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 279.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -68,7 +81,11 @@ backbones:
       mAP: 43.6
       AP50: 67.9
       AP75: 46.6
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 279.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -77,6 +94,9 @@ backbones:
       mAP: 52.5
       AP50: 71.5
       AP75: 57.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 757.0
       fps_measurements:
       - resolution: 1280
@@ -91,13 +111,16 @@ backbones:
       mAP: 45.3
       AP50: 68.8
       AP75: 48.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 757.0
       fps_measurements:
       - resolution: 1280
         gpu: A100
         precision: TF32
         fps: 14.2
-
+    semantic_seg_results: []
 - name: CSWin-S
   m_parameters: 35.0
   fps_measurements:
@@ -115,10 +138,12 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 83.6
+      top_5: null
       gflops: 6.9
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 85.0
+      top_5: null
       gflops: 22.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -132,7 +157,11 @@ backbones:
       mAP: 47.9
       AP50: 70.1
       AP75: 52.6
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 342.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -141,7 +170,11 @@ backbones:
       mAP: 43.2
       AP50: 67.1
       AP75: 46.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 342.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -150,7 +183,11 @@ backbones:
       mAP: 50.0
       AP50: 71.3
       AP75: 54.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 342.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -159,7 +196,11 @@ backbones:
       mAP: 44.5
       AP50: 68.4
       AP75: 47.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 342.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -168,6 +209,9 @@ backbones:
       mAP: 53.7
       AP50: 72.2
       AP75: 58.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 820.0
       fps_measurements:
       - resolution: 1280
@@ -182,13 +226,16 @@ backbones:
       mAP: 46.4
       AP50: 69.6
       AP75: 50.6
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 820.0
       fps_measurements:
       - resolution: 1280
         gpu: A100
         precision: TF32
         fps: 11.7
-
+    semantic_seg_results: []
 - name: CSWin-B
   m_parameters: 78.0
   fps_measurements:
@@ -206,10 +253,12 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 84.2
+      top_5: null
       gflops: 15.0
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 85.4
+      top_5: null
       gflops: 47.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -223,7 +272,11 @@ backbones:
       mAP: 48.7
       AP50: 70.4
       AP75: 53.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 526.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -232,7 +285,11 @@ backbones:
       mAP: 43.9
       AP50: 67.8
       AP75: 47.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 526.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -241,7 +298,11 @@ backbones:
       mAP: 50.8
       AP50: 72.1
       AP75: 55.8
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 526.0
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -250,7 +311,11 @@ backbones:
       mAP: 44.9
       AP50: 69.1
       AP75: 48.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 526.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -259,6 +324,9 @@ backbones:
       mAP: 53.9
       AP50: 72.6
       AP75: 58.5
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 1004.0
       fps_measurements:
       - resolution: 1280
@@ -273,12 +341,16 @@ backbones:
       mAP: 46.4
       AP50: 70.0
       AP75: 50.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 1004.0
       fps_measurements:
       - resolution: 1280
         gpu: A100
         precision: TF32
         fps: 9.6
+    semantic_seg_results: []
   - name: CSWin-B-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -288,6 +360,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 85.9
+      top_5: null
       gflops: 15.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -295,12 +368,16 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 87.0
+      top_5: null
       gflops: 47.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []
 - name: CSWin-L
   m_parameters: 173.0
+  fps_measurements: []
   pretrained_backbones:
   - name: CSWin-L-IN22k
     pretrain_dataset: ImageNet-22k
@@ -311,6 +388,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 86.5
+      top_5: null
       gflops: 31.5
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -318,7 +396,10 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 87.5
+      top_5: null
       gflops: 96.8
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []

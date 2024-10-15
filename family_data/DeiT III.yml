@@ -41,20 +41,13 @@ backbones:
       fine_tune_epochs: 50
       fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
   - name: ViT-S (DeiT III)-IN1k
     pretrain_dataset: ImageNet-1k
     pretrain_method: Supervised
     pretrain_resolution: 192
     pretrain_epochs: 800
     classification_results:
-    - dataset: ImageNet-1k
-      resolution: 384
-      top_1: 83.4
-      top_5: null
-      gflops: 15.5
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 20
-      fine_tune_resolution: 384
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 81.4
@@ -63,6 +56,14 @@ backbones:
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 20
       fine_tune_resolution: 224
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 83.4
+      top_5: null
+      gflops: 15.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 384
     - dataset: ImageNet-V2
       resolution: 384
       top_1: 73.1
@@ -80,6 +81,7 @@ backbones:
       fine_tune_epochs: 20
       fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
 - name: ViT-B (DeiT III)
   m_parameters: 86.6
   fps_measurements:
@@ -131,6 +133,7 @@ backbones:
       fine_tune_epochs: 20
       fine_tune_resolution: 384
     instance_results: []
+    semantic_seg_results: []
   - name: ViT-B (DeiT III)-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -170,6 +173,7 @@ backbones:
       fine_tune_epochs: 50
       fine_tune_resolution: 384
     instance_results: []
+    semantic_seg_results: []
 - name: ViT-L (DeiT III)
   m_parameters: 304.4
   fps_measurements:
@@ -221,6 +225,7 @@ backbones:
       fine_tune_epochs: 20
       fine_tune_resolution: 384
     instance_results: []
+    semantic_seg_results: []
   - name: ViT-L (DeiT III)-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -260,6 +265,7 @@ backbones:
       fine_tune_epochs: 50
       fine_tune_resolution: 384
     instance_results: []
+    semantic_seg_results: []
 - name: ViT-H (DeiT III)
   m_parameters: 632.1
   fps_measurements:
@@ -291,6 +297,7 @@ backbones:
       fine_tune_epochs: 20
       fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
   - name: ViT-H (DeiT III)-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -314,3 +321,4 @@ backbones:
       fine_tune_epochs: 50
       fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []

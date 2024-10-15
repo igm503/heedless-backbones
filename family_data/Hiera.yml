@@ -29,6 +29,7 @@ backbones:
       fine_tune_epochs: 300
       fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
 - name: Hiera-B
   m_parameters: 52.0
   fps_measurements:
@@ -86,6 +87,7 @@ backbones:
         gpu: V100
         precision: FP32
         fps: 5.8
+    semantic_seg_results: []
 - name: Hiera-L
   m_parameters: 214.0
   fps_measurements:
@@ -143,6 +145,7 @@ backbones:
         gpu: V100
         precision: FP32
         fps: 2.9
+    semantic_seg_results: []
 - name: Hiera-H
   m_parameters: 673.0
   fps_measurements:
@@ -166,6 +169,7 @@ backbones:
       fine_tune_epochs: 50
       fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
 - name: Hiera-B+
   m_parameters: 70.0
   fps_measurements:
@@ -223,6 +227,7 @@ backbones:
         gpu: V100
         precision: FP32
         fps: 5.2
+    semantic_seg_results: []
 - name: Hiera-S
   m_parameters: 35.0
   fps_measurements:
@@ -246,3 +251,4 @@ backbones:
       fine_tune_epochs: 200
       fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []

@@ -8,6 +8,7 @@ github: https://github.com/huggingface/pytorch-image-models
 backbones:
 - name: CoAtNet-0
   m_parameters: 25.0
+  fps_measurements: []
   pretrained_backbones:
   - name: CoAtNet-0-IN1k
     pretrain_dataset: ImageNet-1k
@@ -18,15 +19,18 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 81.6
+      top_5: null
       gflops: 4.2
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 83.9
+      top_5: null
       gflops: 13.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
     instance_results: []
+    semantic_seg_results: []
 - name: CoAtNet-1
   m_parameters: 42.0
   fps_measurements: []
@@ -40,15 +44,18 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 83.3
+      top_5: null
       gflops: 8.4
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 85.1
+      top_5: null
       gflops: 27.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
     instance_results: []
+    semantic_seg_results: []
 - name: CoAtNet-2
   m_parameters: 75.0
   fps_measurements: []
@@ -62,10 +69,12 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 84.1
+      top_5: null
       gflops: 15.7
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 85.7
+      top_5: null
       gflops: 49.8
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -73,11 +82,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 85.9
+      top_5: null
       gflops: 96.7
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
     instance_results: []
+    semantic_seg_results: []
   - name: CoAtNet-2-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -87,6 +98,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 87.1
+      top_5: null
       gflops: 49.8
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -94,11 +106,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 87.3
+      top_5: null
       gflops: 96.7
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
     instance_results: []
+    semantic_seg_results: []
 - name: CoAtNet-3
   m_parameters: 168.0
   fps_measurements: []
@@ -112,10 +126,12 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 84.5
+      top_5: null
       gflops: 34.7
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 85.8
+      top_5: null
       gflops: 107.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -123,11 +139,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 86.0
+      top_5: null
       gflops: 203.1
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
     instance_results: []
+    semantic_seg_results: []
   - name: CoAtNet-3-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -137,6 +155,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 87.6
+      top_5: null
       gflops: 107.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -144,11 +163,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 87.9
+      top_5: null
       gflops: 203.1
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
     instance_results: []
+    semantic_seg_results: []
   - name: CoAtNet-3-JFT300M
     pretrain_dataset: JFT-300M
     pretrain_method: Supervised
@@ -158,6 +179,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 88.52
+      top_5: null
       gflops: 114.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -165,11 +187,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 88.81
+      top_5: null
       gflops: 214.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
     instance_results: []
+    semantic_seg_results: []
 - name: CoAtNet-4
   m_parameters: 275.0
   fps_measurements: []
@@ -183,6 +207,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 87.9
+      top_5: null
       gflops: 189.5
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -190,11 +215,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 88.1
+      top_5: null
       gflops: 360.9
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
     instance_results: []
+    semantic_seg_results: []
   - name: CoAtNet-4-IN22k-PTRA
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -204,6 +231,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 88.3
+      top_5: null
       gflops: 189.5
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -211,11 +239,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 88.4
+      top_5: null
       gflops: 360.9
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
     instance_results: []
+    semantic_seg_results: []
   - name: CoAtNet-4-IN22k-PTRA-E150
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -225,6 +255,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 88.4
+      top_5: null
       gflops: 189.5
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -232,11 +263,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 88.56
+      top_5: null
       gflops: 360.9
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
     instance_results: []
+    semantic_seg_results: []
   - name: CoAtNet-4-JFT300M
     pretrain_dataset: JFT-300M
     pretrain_method: Supervised
@@ -246,11 +279,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 89.11
+      top_5: null
       gflops: 361.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
     instance_results: []
+    semantic_seg_results: []
 - name: CoAtNet-5
   m_parameters: 688.0
   fps_measurements: []
@@ -264,11 +299,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 89.77
+      top_5: null
       gflops: 812.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
     instance_results: []
+    semantic_seg_results: []
 - name: CoAtNet-6
   m_parameters: 1470.0
   fps_measurements: []
@@ -282,11 +319,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 90.45
+      top_5: null
       gflops: 1521.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
     instance_results: []
+    semantic_seg_results: []
 - name: CoAtNet-7
   m_parameters: 2440.0
   fps_measurements: []
@@ -300,8 +339,10 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 90.88
+      top_5: null
       gflops: 2586.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
     instance_results: []
+    semantic_seg_results: []

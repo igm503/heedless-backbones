@@ -672,10 +672,8 @@ CREATE TABLE public.stats_semanticsegmentationresult (
     id bigint NOT NULL,
     train_epochs integer NOT NULL,
     train_resolution integer NOT NULL,
-    m_iou double precision NOT NULL,
-    pixel_accuracy double precision,
-    mean_accuracy double precision,
-    multiscale boolean NOT NULL,
+    ms_pixel_accuracy double precision,
+    ms_mean_accuracy double precision,
     flip_test boolean NOT NULL,
     gflops double precision,
     paper character varying(200) NOT NULL,
@@ -683,7 +681,14 @@ CREATE TABLE public.stats_semanticsegmentationresult (
     dataset_id bigint NOT NULL,
     head_id bigint NOT NULL,
     pretrained_backbone_id bigint NOT NULL,
-    train_dataset_id bigint NOT NULL
+    train_dataset_id bigint NOT NULL,
+    ms_m_iou double precision,
+    ss_m_iou double precision,
+    ss_mean_accuracy double precision,
+    ss_pixel_accuracy double precision,
+    intermediate_train_dataset_id bigint,
+    intermediate_train_epochs integer,
+    intermediate_train_resolution integer
 );
 
 
@@ -848,10 +853,9 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 -- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
--- 
+--
 -- REDACTED
 --
-
 
 --
 -- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -1731,6 +1735,24 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 856	2024-10-14 00:04:26.932347-05	21	ADE20K (test)	1	[{"added": {}}]	13	1
 849	2024-10-11 12:16:33.185877-05	36	ConvNeXt-S-IN1k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone"]}}]	7	1
 857	2024-10-14 00:16:30.236523-05	4	UPerNet	1	[{"added": {}}]	12	1
+858	2024-10-14 22:23:49.702549-05	104	InternImage-H	1	[{"added": {}}]	10	1
+859	2024-10-14 22:38:35.402579-05	3	InternImage-T-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+860	2024-10-14 22:39:05.734692-05	4	InternImage-S-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+861	2024-10-14 22:39:38.063922-05	5	InternImage-B-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+862	2024-10-14 22:40:23.973292-05	6	InternImage-L-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+863	2024-10-14 22:41:10.980481-05	7	InternImage-XL-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+864	2024-10-14 22:48:40.469883-05	8	ConvNeXt V2-B-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+865	2024-10-14 22:49:09.443207-05	9	ConvNeXt V2-L-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+866	2024-10-14 22:50:25.02414-05	10	ConvNeXt V2-H-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+867	2024-10-14 22:54:27.090996-05	11	VMamba-T-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+868	2024-10-14 22:54:55.722784-05	12	VMamba-S-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+869	2024-10-14 22:55:22.053758-05	13	VMamba-B-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+870	2024-10-14 22:59:44.473456-05	14	MogaNet-XT-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+871	2024-10-14 23:00:07.021338-05	15	MogaNet-T-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+872	2024-10-14 23:00:33.345979-05	16	MogaNet-S-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+873	2024-10-14 23:00:58.796941-05	17	MogaNet-B-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+874	2024-10-14 23:01:25.959257-05	18	MogaNet-L-IN1k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
+875	2024-10-14 23:02:24.066962-05	19	MogaNet-XL-IN22k/UPerNet/ADE20K (val)/ADE20K (train)/100/	1	[{"added": {}}]	17	1
 \.
 
 
@@ -1803,6 +1825,8 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 38	stats	0020_remove_classificationresult_pretrained_backbone_name_and_more	2024-09-24 00:24:58.054568-05
 39	stats	0021_alter_backbone_family_alter_backbone_name_and_more	2024-10-08 19:39:51.295826-05
 40	stats	0022_alter_backbonefamily_model_type_and_more	2024-10-14 18:51:53.698747-05
+43	stats	0023_rename_mean_accuracy_semanticsegmentationresult_ms_mean_accuracy_and_more	2024-10-14 22:35:58.552572-05
+44	stats	0024_semanticsegmentationresult_intermediate_train_dataset_and_more	2024-10-14 23:30:25.751724-05
 \.
 
 
@@ -1917,6 +1941,7 @@ COPY public.stats_backbone (id, name, m_parameters, family_id, github, paper) FR
 101	VMamba-T	30	23		
 102	VMamba-S	50	23		
 103	VMamba-B	89	23		
+104	InternImage-H	1080	12		
 \.
 
 
@@ -3151,7 +3176,24 @@ COPY public.stats_pretrainedbackbone (id, name, pretrain_method, pretrain_resolu
 -- Data for Name: stats_semanticsegmentationresult; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.stats_semanticsegmentationresult (id, train_epochs, train_resolution, m_iou, pixel_accuracy, mean_accuracy, multiscale, flip_test, gflops, paper, github, dataset_id, head_id, pretrained_backbone_id, train_dataset_id) FROM stdin;
+COPY public.stats_semanticsegmentationresult (id, train_epochs, train_resolution, ms_pixel_accuracy, ms_mean_accuracy, flip_test, gflops, paper, github, dataset_id, head_id, pretrained_backbone_id, train_dataset_id, ms_m_iou, ss_m_iou, ss_mean_accuracy, ss_pixel_accuracy, intermediate_train_dataset_id, intermediate_train_epochs, intermediate_train_resolution) FROM stdin;
+3	100	512	\N	\N	f	944			20	4	53	19	48.1	47.9	\N	\N	\N	\N	\N
+4	100	512	\N	\N	f	1017			20	4	54	19	50.9	50.1	\N	\N	\N	\N	\N
+5	100	512	\N	\N	f	1185			20	4	55	19	51.3	50.8	\N	\N	\N	\N	\N
+6	100	640	\N	\N	f	2526			20	4	56	19	54.1	53.9	\N	\N	\N	\N	\N
+7	100	640	\N	\N	f	3142			20	4	57	19	55.3	55	\N	\N	\N	\N	\N
+8	100	512	\N	\N	f	1170			20	4	36	19	52.1	\N	\N	\N	\N	\N	\N
+9	100	512	\N	\N	f	1573			20	4	35	19	53.7	\N	\N	\N	\N	\N	\N
+10	100	512	\N	\N	f	3272			20	4	34	19	55	\N	\N	\N	\N	\N	\N
+11	100	512	\N	\N	f	949			20	4	126	19	48.8	47.9	\N	\N	\N	\N	\N
+12	100	512	\N	\N	f	1028			20	4	127	19	51.2	50.6	\N	\N	\N	\N	\N
+13	100	512	\N	\N	f	1170			20	4	128	19	51.6	51	\N	\N	\N	\N	\N
+14	100	512	\N	\N	f	856			20	4	105	19	\N	42.2	\N	\N	\N	\N	\N
+15	100	512	\N	\N	f	862			20	4	106	19	\N	43.7	\N	\N	\N	\N	\N
+16	100	512	\N	\N	f	946			20	4	107	19	\N	49.2	\N	\N	\N	\N	\N
+17	100	512	\N	\N	f	1050			20	4	108	19	\N	50.1	\N	\N	\N	\N	\N
+18	100	512	\N	\N	f	1176			20	4	109	19	\N	50.9	\N	\N	\N	\N	\N
+19	100	640	\N	\N	f	2451			20	4	111	19	\N	54	\N	\N	\N	\N	\N
 \.
 
 
@@ -3222,7 +3264,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 857, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 875, true);
 
 
 --
@@ -3236,7 +3278,7 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 17, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 42, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 44, true);
 
 
 --
@@ -3250,7 +3292,7 @@ SELECT pg_catalog.setval('public.stats_backbone_fps_measurements_id_seq', 119, t
 -- Name: stats_backbone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.stats_backbone_id_seq', 103, true);
+SELECT pg_catalog.setval('public.stats_backbone_id_seq', 104, true);
 
 
 --
@@ -3334,7 +3376,7 @@ SELECT pg_catalog.setval('public.stats_semanticsegmentationresult_fps_measuremen
 -- Name: stats_semanticsegmentationresult_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.stats_semanticsegmentationresult_id_seq', 1, false);
+SELECT pg_catalog.setval('public.stats_semanticsegmentationresult_id_seq', 19, true);
 
 
 --
@@ -4124,6 +4166,13 @@ CREATE INDEX stats_semanticsegmentation_fpsmeasurement_id_d7f6596c ON public.sta
 
 
 --
+-- Name: stats_semanticsegmentation_intermediate_train_dataset_cae7a18e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX stats_semanticsegmentation_intermediate_train_dataset_cae7a18e ON public.stats_semanticsegmentationresult USING btree (intermediate_train_dataset_id);
+
+
+--
 -- Name: stats_semanticsegmentation_pretrained_backbone_id_2241fca5; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -4604,6 +4653,14 @@ ALTER TABLE ONLY public.stats_semanticsegmentationresult_fps_measurements
 
 ALTER TABLE ONLY public.stats_semanticsegmentationresult
     ADD CONSTRAINT stats_semanticsegmen_head_id_b4d71f95_fk_stats_dow FOREIGN KEY (head_id) REFERENCES public.stats_downstreamhead(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: stats_semanticsegmentationresult stats_semanticsegmen_intermediate_train_d_cae7a18e_fk_stats_dat; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.stats_semanticsegmentationresult
+    ADD CONSTRAINT stats_semanticsegmen_intermediate_train_d_cae7a18e_fk_stats_dat FOREIGN KEY (intermediate_train_dataset_id) REFERENCES public.stats_dataset(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --

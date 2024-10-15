@@ -25,6 +25,7 @@ backbones:
       fine_tune_epochs: 600
       fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
 - name: ConvNeXt V2-F
   m_parameters: 5.2
   fps_measurements: []
@@ -44,6 +45,7 @@ backbones:
       fine_tune_epochs: 600
       fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
 - name: ConvNeXt V2-P
   m_parameters: 9.1
   fps_measurements: []
@@ -63,6 +65,7 @@ backbones:
       fine_tune_epochs: 600
       fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
 - name: ConvNeXt V2-N
   m_parameters: 15.6
   fps_measurements: []
@@ -104,6 +107,7 @@ backbones:
       intermediate_fine_tune_epochs: 90
       intermediate_fine_tune_resolution: 384
     instance_results: []
+    semantic_seg_results: []
 - name: ConvNeXt V2-T
   m_parameters: 28.6
   fps_measurements:
@@ -149,6 +153,7 @@ backbones:
       intermediate_fine_tune_epochs: 90
       intermediate_fine_tune_resolution: 384
     instance_results: []
+    semantic_seg_results: []
 - name: ConvNeXt V2-B
   m_parameters: 89.0
   fps_measurements:
@@ -219,6 +224,21 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 486.0
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 100
+      train_resolution: 512
+      ms_m_iou: 52.1
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1170.0
       fps_measurements: []
 - name: ConvNeXt V2-L
   m_parameters: 198.0
@@ -291,6 +311,21 @@ backbones:
       mAPl: null
       gflops: 875.0
       fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 100
+      train_resolution: 512
+      ms_m_iou: 53.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1573.0
+      fps_measurements: []
 - name: ConvNeXt V2-H
   m_parameters: 660.0
   fps_measurements:
@@ -361,4 +396,19 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 2525.0
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 100
+      train_resolution: 512
+      ms_m_iou: 55.0
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 3272.0
       fps_measurements: []

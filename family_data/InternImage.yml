@@ -85,6 +85,21 @@ backbones:
       mAPl: null
       gflops: 270.0
       fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 100
+      train_resolution: 512
+      ms_m_iou: 48.1
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 47.9
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 944.0
+      fps_measurements: []
 - name: InternImage-S
   m_parameters: 50.0
   fps_measurements: []
@@ -155,6 +170,21 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 340.0
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 100
+      train_resolution: 512
+      ms_m_iou: 50.9
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1017.0
       fps_measurements: []
 - name: InternImage-B
   m_parameters: 97.0
@@ -227,6 +257,21 @@ backbones:
       mAPl: null
       gflops: 501.0
       fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 100
+      train_resolution: 512
+      ms_m_iou: 51.3
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.8
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1185.0
+      fps_measurements: []
 - name: InternImage-L
   m_parameters: 223.0
   fps_measurements: []
@@ -297,6 +342,21 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 1399.0
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 100
+      train_resolution: 640
+      ms_m_iou: 54.1
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 53.9
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 2526.0
       fps_measurements: []
 - name: InternImage-XL
   m_parameters: 335.0
@@ -369,3 +429,22 @@ backbones:
       mAPl: null
       gflops: 1782.0
       fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 100
+      train_resolution: 640
+      ms_m_iou: 55.3
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 55.0
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 3142.0
+      fps_measurements: []
+- name: InternImage-H
+  m_parameters: 1080.0
+  fps_measurements: []
+  pretrained_backbones: []

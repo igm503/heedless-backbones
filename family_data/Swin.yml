@@ -183,6 +183,7 @@ backbones:
         gpu: A100
         precision: FP32
         fps: 12.3
+    semantic_seg_results: []
 - name: Swin-T
   m_parameters: 29.0
   fps_measurements:
@@ -218,6 +219,7 @@ backbones:
       fine_tune_epochs: 30
       fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
   - name: Swin-T-IN1k
     pretrain_dataset: ImageNet-1k
     pretrain_method: Supervised
@@ -323,6 +325,7 @@ backbones:
         gpu: A100
         precision: TF32
         fps: 12.2
+    semantic_seg_results: []
 - name: Swin-S
   m_parameters: 50.0
   fps_measurements:
@@ -358,6 +361,7 @@ backbones:
       fine_tune_epochs: 30
       fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
   - name: Swin-S-IN1k
     pretrain_dataset: ImageNet-1k
     pretrain_method: Supervised
@@ -435,6 +439,7 @@ backbones:
         gpu: A100
         precision: TF32
         fps: 11.4
+    semantic_seg_results: []
 - name: Swin-B
   m_parameters: 88.0
   fps_measurements:
@@ -613,6 +618,7 @@ backbones:
         gpu: A100
         precision: FP32
         fps: 16.7
+    semantic_seg_results: []
   - name: Swin-B-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -762,3 +768,4 @@ backbones:
         gpu: A100
         precision: FP32
         fps: 16.7
+    semantic_seg_results: []

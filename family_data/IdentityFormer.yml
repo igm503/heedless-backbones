@@ -22,6 +22,7 @@ backbones:
       top_5: null
       gflops: 3.6
     instance_results: []
+    semantic_seg_results: []
 - name: IdentityFormer-S24
   m_parameters: 21.3
   fps_measurements: []
@@ -38,6 +39,7 @@ backbones:
       top_5: null
       gflops: 6.8
     instance_results: []
+    semantic_seg_results: []
 - name: IdentityFormer-S36
   m_parameters: 30.8
   fps_measurements: []
@@ -54,6 +56,7 @@ backbones:
       top_5: null
       gflops: 10.0
     instance_results: []
+    semantic_seg_results: []
 - name: IdentityFormer-M36
   m_parameters: 56.1
   fps_measurements: []
@@ -70,6 +73,7 @@ backbones:
       top_5: null
       gflops: 17.6
     instance_results: []
+    semantic_seg_results: []
 - name: IdentityFormer-M48
   m_parameters: 73.3
   fps_measurements: []
@@ -86,3 +90,4 @@ backbones:
       top_5: null
       gflops: 23.0
     instance_results: []
+    semantic_seg_results: []

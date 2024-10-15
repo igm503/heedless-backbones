@@ -117,6 +117,7 @@ backbones:
       mAPl: null
       gflops: 709.0
       fps_measurements: []
+    semantic_seg_results: []
 - name: TransNeXt-S
   m_parameters: 49.7
   fps_measurements:
@@ -228,6 +229,7 @@ backbones:
       mAPl: null
       gflops: 501.0
       fps_measurements: []
+    semantic_seg_results: []
 - name: TransNeXt-T
   m_parameters: 28.2
   fps_measurements:
@@ -303,6 +305,7 @@ backbones:
       mAPl: null
       gflops: 356.0
       fps_measurements: []
+    semantic_seg_results: []
 - name: TransNeXt-Micro
   m_parameters: 12.8
   fps_measurements:
@@ -347,21 +350,5 @@ backbones:
       top_1: 72.6
       top_5: null
       gflops: 2.7
-    instance_results:
-    - head: Cascade Mask R-CNN
-      dataset: COCO (val)
-      instance_type: Instance Segmentation
-      train_dataset: COCO (train)
-      train_epochs: 36
-      mAP: 45.0
-      AP50: 68.4
-      AP75: 49.1
-      mAPs: null
-      mAPm: null
-      mAPl: null
-      gflops: 827.0
-      fps_measurements:
-      - resolution: 1280
-        gpu: A100
-        precision: TF32
-        fps: 12.0
+    instance_results: []
+    semantic_seg_results: []

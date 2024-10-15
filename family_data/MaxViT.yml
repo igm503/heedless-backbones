@@ -31,10 +31,12 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 83.62
+      top_5: null
       gflops: 5.6
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 85.24
+      top_5: null
       gflops: 17.7
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -42,6 +44,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 85.72
+      top_5: null
       gflops: 33.7
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -55,7 +58,11 @@ backbones:
       mAP: 52.1
       AP50: 71.9
       AP75: 56.8
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 475.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -64,7 +71,12 @@ backbones:
       mAP: 44.6
       AP50: 69.1
       AP75: 48.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 475.0
+      fps_measurements: []
+    semantic_seg_results: []
 - name: MaxViT-S
   m_parameters: 69.0
   fps_measurements:
@@ -90,10 +102,12 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 84.45
+      top_5: null
       gflops: 11.7
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 85.74
+      top_5: null
       gflops: 36.1
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -101,6 +115,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 86.19
+      top_5: null
       gflops: 67.6
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -114,7 +129,11 @@ backbones:
       mAP: 53.1
       AP50: 72.5
       AP75: 58.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 595.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -123,7 +142,12 @@ backbones:
       mAP: 45.4
       AP50: 69.8
       AP75: 49.5
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 595.0
+      fps_measurements: []
+    semantic_seg_results: []
 - name: MaxViT-B
   m_parameters: 120.0
   fps_measurements:
@@ -149,10 +173,12 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 84.95
+      top_5: null
       gflops: 23.4
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 86.34
+      top_5: null
       gflops: 74.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -160,6 +186,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 86.66
+      top_5: null
       gflops: 138.5
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -173,7 +200,11 @@ backbones:
       mAP: 53.4
       AP50: 72.9
       AP75: 58.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 856.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -182,7 +213,12 @@ backbones:
       mAP: 45.7
       AP50: 70.3
       AP75: 50.0
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 856.0
+      fps_measurements: []
+    semantic_seg_results: []
   - name: MaxViT-B-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -192,6 +228,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 88.24
+      top_5: null
       gflops: 74.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -199,10 +236,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 88.38
+      top_5: null
       gflops: 138.3
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
+    instance_results: []
+    semantic_seg_results: []
 - name: MaxViT-L
   m_parameters: 212.0
   fps_measurements:
@@ -228,10 +268,12 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 85.17
+      top_5: null
       gflops: 43.9
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 86.4
+      top_5: null
       gflops: 133.1
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -239,10 +281,13 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 86.7
+      top_5: null
       gflops: 245.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
+    instance_results: []
+    semantic_seg_results: []
   - name: MaxViT-L-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -252,6 +297,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 88.32
+      top_5: null
       gflops: 128.7
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -259,12 +305,16 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 88.46
+      top_5: null
       gflops: 245.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
+    instance_results: []
+    semantic_seg_results: []
 - name: MaxViT-XL
   m_parameters: 475.0
+  fps_measurements: []
   pretrained_backbones:
   - name: MaxViT-XL-IN22k
     pretrain_dataset: ImageNet-22k
@@ -275,6 +325,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 88.51
+      top_5: null
       gflops: 293.7
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -282,7 +333,10 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 512
       top_1: 88.7
+      top_5: null
       gflops: 535.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
+    instance_results: []
+    semantic_seg_results: []
