@@ -837,42 +837,10 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 58	Can change fps measurement	15	change_fpsmeasurement
 59	Can delete fps measurement	15	delete_fpsmeasurement
 60	Can view fps measurement	15	view_fpsmeasurement
-61	Can add backbone family	16	add_backbonefamily
-62	Can change backbone family	16	change_backbonefamily
-63	Can delete backbone family	16	delete_backbonefamily
-64	Can view backbone family	16	view_backbonefamily
-65	Can add dataset	17	add_dataset
-66	Can change dataset	17	change_dataset
-67	Can delete dataset	17	delete_dataset
-68	Can view dataset	17	view_dataset
-69	Can add downstream head	18	add_downstreamhead
-70	Can change downstream head	18	change_downstreamhead
-71	Can delete downstream head	18	delete_downstreamhead
-72	Can view downstream head	18	view_downstreamhead
-73	Can add task	19	add_task
-74	Can change task	19	change_task
-75	Can delete task	19	delete_task
-76	Can view task	19	view_task
-77	Can add backbone	20	add_backbone
-78	Can change backbone	20	change_backbone
-79	Can delete backbone	20	delete_backbone
-80	Can view backbone	20	view_backbone
-81	Can add classification result	21	add_classificationresult
-82	Can change classification result	21	change_classificationresult
-83	Can delete classification result	21	delete_classificationresult
-84	Can view classification result	21	view_classificationresult
-85	Can add instance result	22	add_instanceresult
-86	Can change instance result	22	change_instanceresult
-87	Can delete instance result	22	delete_instanceresult
-88	Can view instance result	22	view_instanceresult
-89	Can add pretrained backbone	23	add_pretrainedbackbone
-90	Can change pretrained backbone	23	change_pretrainedbackbone
-91	Can delete pretrained backbone	23	delete_pretrainedbackbone
-92	Can view pretrained backbone	23	view_pretrainedbackbone
-93	Can add fps measurement	24	add_fpsmeasurement
-94	Can change fps measurement	24	change_fpsmeasurement
-95	Can delete fps measurement	24	delete_fpsmeasurement
-96	Can view fps measurement	24	view_fpsmeasurement
+61	Can add semantic segmentation result	17	add_semanticsegmentationresult
+62	Can change semantic segmentation result	17	change_semanticsegmentationresult
+63	Can delete semantic segmentation result	17	delete_semanticsegmentationresult
+64	Can view semantic segmentation result	17	view_semanticsegmentationresult
 \.
 
 
@@ -880,7 +848,10 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 -- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+-- 
 -- REDACTED
+--
+
 
 --
 -- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -1041,7 +1012,6 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 135	2024-08-19 21:33:02.54261-05	45	ConvNeXt-ExtraLarge-IN22k/ImageNet-A/ImageNet-1k/384/	1	[{"added": {}}]	8	1
 136	2024-08-19 21:33:33.41281-05	46	ConvNeXt-ExtraLarge-IN22k/ImageNet-R/ImageNet-1k/384/	1	[{"added": {}}]	8	1
 137	2024-08-19 21:34:06.026201-05	47	ConvNeXt-ExtraLarge-IN22k/ImageNet-Sketch/ImageNet-1k/384/	1	[{"added": {}}]	8	1
-853	2024-10-14 00:03:49.830272-05	6	ADE20K	3		17	1
 139	2024-08-19 22:20:27.622636-05	35	ConvNeXt-Base-IN22k/ImageNet-Sketch/ImageNet-1k/384/	2	[{"changed": {"fields": ["Dataset"]}}]	8	1
 140	2024-08-30 17:39:46.205137-05	1	FPSMeasurement object (1)	1	[{"added": {}}]	15	1
 141	2024-08-30 17:39:47.875877-05	4	TransNeXt-Base	2	[{"changed": {"fields": ["Fps measurements"]}}]	10	1
@@ -1538,7 +1508,6 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 632	2024-09-18 12:59:34.131108-05	20	Swin-L-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
 633	2024-09-18 13:02:25.198472-05	7	ConvNeXt-B-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
 634	2024-09-18 13:03:09.637842-05	5	ConvNeXt-L-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
-850	2024-10-14 00:00:32.931659-05	16	Cityscapes (train)	1	[{"added": {}}]	17	1
 635	2024-09-18 13:03:57.753751-05	5	ConvNeXt-L-IN1k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
 636	2024-09-18 13:05:09.953638-05	8	ConvNeXt-B-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
 637	2024-09-18 13:06:50.201139-05	6	ConvNeXt-L-IN22k	2	[{"changed": {"fields": ["Classification results"]}}]	9	1
@@ -1682,7 +1651,6 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 775	2024-09-25 00:57:17.842886-05	44	Hiera-B-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/100/	1	[{"added": {}}]	7	1
 776	2024-09-25 00:58:07.489419-05	83	Hiera-B+-IN1k/Mask-RCNN/V100/1280/FP32/	1	[{"added": {}}]	15	1
 777	2024-09-25 00:58:09.572537-05	45	Hiera-B+-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/100/	1	[{"added": {}}]	7	1
-851	2024-10-14 00:00:46.236979-05	17	Cityscapes (val)	1	[{"added": {}}]	17	1
 778	2024-09-25 00:58:44.741906-05	46	Hiera-B+-IN1k/Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/100/	1	[{"added": {}}]	7	1
 779	2024-09-25 00:59:40.077958-05	84	Hiera-L-IN1k/V100/1280/FP32/	1	[{"added": {}}]	15	1
 780	2024-09-25 00:59:42.661974-05	47	Hiera-L-IN1k/Mask R-CNN/Object Detection/COCO (val)/COCO (train)/100/	1	[{"added": {}}]	7	1
@@ -1754,12 +1722,15 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 846	2024-09-29 21:51:53.231852-05	14	JFT-300M	1	[{"added": {}}]	13	1
 847	2024-09-29 21:52:56.672542-05	15	JFT-3B	1	[{"added": {}}]	13	1
 848	2024-09-29 22:12:27.55572-05	21	MogaNet	2	[{"changed": {"fields": ["Pub date"]}}]	14	1
-849	2024-10-11 12:16:33.185877-05	36	ConvNeXt-S-IN1k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone"]}}]	22	1
-852	2024-10-14 00:00:56.382318-05	18	Cityscapes (test)	1	[{"added": {}}]	17	1
-854	2024-10-14 00:04:04.697524-05	19	ADE20K (train)	1	[{"added": {}}]	17	1
-855	2024-10-14 00:04:18.034538-05	20	ADE20K (val)	1	[{"added": {}}]	17	1
-856	2024-10-14 00:04:26.932347-05	21	ADE20K (test)	1	[{"added": {}}]	17	1
-857	2024-10-14 00:16:30.236523-05	4	UPerNet	1	[{"added": {}}]	18	1
+853	2024-10-14 00:03:49.830272-05	6	ADE20K	3		13	1
+850	2024-10-14 00:00:32.931659-05	16	Cityscapes (train)	1	[{"added": {}}]	13	1
+851	2024-10-14 00:00:46.236979-05	17	Cityscapes (val)	1	[{"added": {}}]	13	1
+852	2024-10-14 00:00:56.382318-05	18	Cityscapes (test)	1	[{"added": {}}]	13	1
+854	2024-10-14 00:04:04.697524-05	19	ADE20K (train)	1	[{"added": {}}]	13	1
+855	2024-10-14 00:04:18.034538-05	20	ADE20K (val)	1	[{"added": {}}]	13	1
+856	2024-10-14 00:04:26.932347-05	21	ADE20K (test)	1	[{"added": {}}]	13	1
+849	2024-10-11 12:16:33.185877-05	36	ConvNeXt-S-IN1k/Cascade Mask R-CNN/Instance Segmentation/COCO (val)/COCO (train)/36/	2	[{"changed": {"fields": ["Pretrained backbone"]}}]	7	1
+857	2024-10-14 00:16:30.236523-05	4	UPerNet	1	[{"added": {}}]	12	1
 \.
 
 
@@ -1774,24 +1745,16 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 4	auth	user
 5	contenttypes	contenttype
 6	sessions	session
-7	view	instanceresult
-8	view	classificationresult
-9	view	pretrainedbackbone
-10	view	backbone
-11	view	task
-12	view	downstreamhead
-13	view	dataset
-14	view	backbonefamily
-15	view	fpsmeasurement
-16	stats	backbonefamily
-17	stats	dataset
-18	stats	downstreamhead
-19	stats	task
-20	stats	backbone
-21	stats	classificationresult
-22	stats	instanceresult
-23	stats	pretrainedbackbone
-24	stats	fpsmeasurement
+7	stats	instanceresult
+8	stats	classificationresult
+9	stats	pretrainedbackbone
+10	stats	backbone
+11	stats	task
+12	stats	downstreamhead
+13	stats	dataset
+14	stats	backbonefamily
+15	stats	fpsmeasurement
+17	stats	semanticsegmentationresult
 \.
 
 
@@ -1818,48 +1781,28 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 16	auth	0011_update_proxy_permissions	2024-08-18 18:10:57.721389-05
 17	auth	0012_alter_user_first_name_max_length	2024-08-18 18:10:57.723616-05
 18	sessions	0001_initial	2024-08-18 18:10:57.727739-05
-19	view	0001_initial	2024-08-18 18:25:19.492041-05
-20	view	0002_pretrainedbackbone_family_and_more	2024-08-18 18:59:04.376143-05
-21	view	0003_alter_classificationresult_fine_tune_dataset_and_more	2024-08-18 19:10:13.136548-05
-22	view	0004_alter_pretrainedbackbone_classification_results_and_more	2024-08-18 19:12:40.71914-05
-23	view	0005_alter_pretrainedbackbone_classification_results_and_more	2024-08-18 19:12:40.725361-05
-24	view	0006_classificationresult_pretrained_backbone_name_and_more	2024-08-18 19:18:19.359658-05
-25	view	0007_remove_instanceresult_instance_type_and_more	2024-08-18 19:42:35.436634-05
-26	view	0008_fpsmeasurement_and_more	2024-08-30 17:30:28.039648-05
-27	view	0009_rename_pretrained_backbone_name_fpsmeasurement_backbone_name	2024-08-30 17:36:05.393592-05
-28	view	0010_alter_fpsmeasurement_precision	2024-08-30 17:37:59.915059-05
-29	view	0011_classificationresult_resolution_and_more	2024-08-31 17:59:08.76085-05
-30	view	0012_dataset_eval	2024-09-07 23:23:01.213306-05
-31	view	0013_backbonefamily_pretrain_method_and_more	2024-09-09 22:20:22.926349-05
-32	view	0014_backbonefamily_hierarchical	2024-09-09 22:24:28.101072-05
-33	view	0015_classificationresult_intermediate_fine_tune_dataset_and_more	2024-09-22 13:16:30.922005-05
-34	view	0016_instanceresult_intermediate_train_dataset_and_more	2024-09-22 22:10:56.292233-05
-35	view	0017_backbone_github_backbone_paper	2024-09-23 00:19:00.408655-05
-36	view	0018_remove_pretrainedbackbone_classification_results_and_more	2024-09-23 23:44:50.704831-05
-37	view	0019_remove_pretrainedbackbone_classification_results_and_more	2024-09-24 00:16:45.518137-05
-38	view	0020_remove_classificationresult_pretrained_backbone_name_and_more	2024-09-24 00:24:58.054568-05
-39	view	0021_alter_backbone_family_alter_backbone_name_and_more	2024-10-08 19:39:51.295826-05
-40	stats	0001_initial	2024-10-08 20:38:05.319462-05
-41	stats	0002_pretrainedbackbone_family_and_more	2024-10-08 20:38:05.329951-05
-42	stats	0003_alter_classificationresult_fine_tune_dataset_and_more	2024-10-08 20:38:05.353296-05
-43	stats	0004_alter_pretrainedbackbone_classification_results_and_more	2024-10-08 20:38:05.361991-05
-44	stats	0005_alter_pretrainedbackbone_classification_results_and_more	2024-10-08 20:38:05.370152-05
-45	stats	0006_classificationresult_pretrained_backbone_name_and_more	2024-10-08 20:38:05.380504-05
-46	stats	0007_remove_instanceresult_instance_type_and_more	2024-10-08 20:38:05.392702-05
-47	stats	0008_fpsmeasurement_and_more	2024-10-08 20:38:05.4168-05
-48	stats	0009_rename_pretrained_backbone_name_fpsmeasurement_backbone_name	2024-10-08 20:38:05.421526-05
-49	stats	0010_alter_fpsmeasurement_precision	2024-10-08 20:38:05.42526-05
-50	stats	0011_classificationresult_resolution_and_more	2024-10-08 20:38:05.44404-05
-51	stats	0012_dataset_eval	2024-10-08 20:38:05.448481-05
-52	stats	0013_backbonefamily_pretrain_method_and_more	2024-10-08 20:38:05.453441-05
-53	stats	0014_backbonefamily_hierarchical	2024-10-08 20:38:05.457611-05
-54	stats	0015_classificationresult_intermediate_fine_tune_dataset_and_more	2024-10-08 20:38:05.469344-05
-55	stats	0016_instanceresult_intermediate_train_dataset_and_more	2024-10-08 20:38:05.493083-05
-56	stats	0017_backbone_github_backbone_paper	2024-10-08 20:38:05.503432-05
-57	stats	0018_remove_pretrainedbackbone_classification_results_and_more	2024-10-08 20:38:05.637204-05
-58	stats	0019_remove_pretrainedbackbone_classification_results_and_more	2024-10-08 20:38:05.649436-05
-59	stats	0020_remove_classificationresult_pretrained_backbone_name_and_more	2024-10-08 20:38:05.658692-05
-60	stats	0021_alter_backbone_family_alter_backbone_name_and_more	2024-10-08 20:38:05.725254-05
+19	stats	0001_initial	2024-08-18 18:25:19.492041-05
+20	stats	0002_pretrainedbackbone_family_and_more	2024-08-18 18:59:04.376143-05
+21	stats	0003_alter_classificationresult_fine_tune_dataset_and_more	2024-08-18 19:10:13.136548-05
+22	stats	0004_alter_pretrainedbackbone_classification_results_and_more	2024-08-18 19:12:40.71914-05
+23	stats	0005_alter_pretrainedbackbone_classification_results_and_more	2024-08-18 19:12:40.725361-05
+24	stats	0006_classificationresult_pretrained_backbone_name_and_more	2024-08-18 19:18:19.359658-05
+25	stats	0007_remove_instanceresult_instance_type_and_more	2024-08-18 19:42:35.436634-05
+26	stats	0008_fpsmeasurement_and_more	2024-08-30 17:30:28.039648-05
+27	stats	0009_rename_pretrained_backbone_name_fpsmeasurement_backbone_name	2024-08-30 17:36:05.393592-05
+28	stats	0010_alter_fpsmeasurement_precision	2024-08-30 17:37:59.915059-05
+29	stats	0011_classificationresult_resolution_and_more	2024-08-31 17:59:08.76085-05
+30	stats	0012_dataset_eval	2024-09-07 23:23:01.213306-05
+31	stats	0013_backbonefamily_pretrain_method_and_more	2024-09-09 22:20:22.926349-05
+32	stats	0014_backbonefamily_hierarchical	2024-09-09 22:24:28.101072-05
+33	stats	0015_classificationresult_intermediate_fine_tune_dataset_and_more	2024-09-22 13:16:30.922005-05
+34	stats	0016_instanceresult_intermediate_train_dataset_and_more	2024-09-22 22:10:56.292233-05
+35	stats	0017_backbone_github_backbone_paper	2024-09-23 00:19:00.408655-05
+36	stats	0018_remove_pretrainedbackbone_classification_results_and_more	2024-09-23 23:44:50.704831-05
+37	stats	0019_remove_pretrainedbackbone_classification_results_and_more	2024-09-24 00:16:45.518137-05
+38	stats	0020_remove_classificationresult_pretrained_backbone_name_and_more	2024-09-24 00:24:58.054568-05
+39	stats	0021_alter_backbone_family_alter_backbone_name_and_more	2024-10-08 19:39:51.295826-05
+40	stats	0022_alter_backbonefamily_model_type_and_more	2024-10-14 18:51:53.698747-05
 \.
 
 
@@ -1873,6 +1816,7 @@ uox8z129r7zrqrgp7wdvochk6rne5zny	.eJxVjEEOwiAQRe_C2pAAMgwu3XsGAgwjVQNJaVeNd9cmXe
 2izjyuu93flfv42br5wtcv7yn629ogjn	.eJxVjEsOAiEQBe_C2hCaX6tL956BNNDIqIFkmFkZ766TzEK3r6reSwRalxrWwXOYsjgLEIffLVJ6cNtAvlO7dZl6W-Ypyk2ROx3y2jM_L7v7d1Bp1G_tGCG6lKxnQ8zgUdlyQkhknE5asbdgoysFuWTQTPGosVinPWprFIr3B-noN5w:1sgEG6:P-If1l3MC70dEDuv10zWHIf8yZJfymut6jOpEU0W-RA	2024-09-02 21:06:06.284377-05
 fiuyyum8s80xghfwkab6oqxdd9kyoar1	.eJxVjEsOAiEQBe_C2hCaX6tL956BNNDIqIFkmFkZ766TzEK3r6reSwRalxrWwXOYsjgLEIffLVJ6cNtAvlO7dZl6W-Ypyk2ROx3y2jM_L7v7d1Bp1G_tGCG6lKxnQ8zgUdlyQkhknE5asbdgoysFuWTQTPGosVinPWprFIr3B-noN5w:1skuej:eK6KdrFgMgj9ZiWibrI23CxKz-62DpYHlkcy4qDXiu4	2024-09-15 19:10:53.290302-05
 14rc71exn3pbpysbjsrqfhay2yxqrjaq	.eJxVjEsOAiEQBe_C2hCaX6tL956BNNDIqIFkmFkZ766TzEK3r6reSwRalxrWwXOYsjgLEIffLVJ6cNtAvlO7dZl6W-Ypyk2ROx3y2jM_L7v7d1Bp1G_tGCG6lKxnQ8zgUdlyQkhknE5asbdgoysFuWTQTPGosVinPWprFIr3B-noN5w:1sqHvf:Zc90gLHDdJEuJVLSX8rm6__AVxSgk6rez69vIe_LOJw	2024-09-30 15:02:35.425418-05
+d6n44613gkrroaypa6tp6206c48rxnkn	.eJxVjEsOAiEQBe_C2hCaX6tL956BNNDIqIFkmFkZ766TzEK3r6reSwRalxrWwXOYsjgLEIffLVJ6cNtAvlO7dZl6W-Ypyk2ROx3y2jM_L7v7d1Bp1G_tGCG6lKxnQ8zgUdlyQkhknE5asbdgoysFuWTQTPGosVinPWprFIr3B-noN5w:1swVwQ:eee5Q5KtMIgJKz94pN3Gj1_VKTLfk86nSwUOyr7cJqE	2024-10-17 19:13:06.747327-05
 \.
 
 
@@ -3250,7 +3194,7 @@ SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.auth_permission_id_seq', 60, true);
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 64, true);
 
 
 --
@@ -3285,14 +3229,14 @@ SELECT pg_catalog.setval('public.django_admin_log_id_seq', 857, true);
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_content_type_id_seq', 15, true);
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 17, true);
 
 
 --
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 41, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 42, true);
 
 
 --

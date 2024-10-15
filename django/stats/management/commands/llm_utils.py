@@ -174,8 +174,6 @@ def get_pdf_content(url):
     return content
 
 
-
-
 def call_openai_api(prompt):
     load_dotenv()
     client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
