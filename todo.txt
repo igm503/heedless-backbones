@@ -1,7 +1,6 @@
 models to add:
 
 - swinv2
-- UniReplkNet
 - Slak
 - ReplkNet
 - MVit
@@ -45,7 +44,7 @@ leftover cross references
 - VMamba
 -- swin, convnext, deit fps results a100 fp32 (I think)
 
--hiera
+- hiera
 -- vit, mcmae a100 fp16 classificaiton speed 
 -- mvit, vitdet v100 fp32 det speed
 
@@ -62,7 +61,6 @@ other notes
 -- Need to confirm precision of Downstream FPS measurements.
 
 code
-- add semantic seg result ingestion to add_yaml
 - semantic seg dataset and head page default plot options need to be set correctly
 - comparison of same instance results and metrics doesn't show correct results when different heads are selected.
 - add github link
@@ -70,3 +68,4 @@ code
 - too many links will take you to new tab
 - add filter by # citations
 - add filter by model type (CNN, ATT, etc.) and structure (ISO, HIER, etc.)
+- add flip test info for semantic seg

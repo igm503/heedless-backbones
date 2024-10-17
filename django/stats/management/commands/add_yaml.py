@@ -181,7 +181,7 @@ def update_database(data):
                     fps_measurement.save()
                     instance_result.fps_measurements.add(fps_measurement)
 
-            for semantic_data in pretrained_data.get("semantic_results", []):
+            for semantic_data in pretrained_data.get("semantic_seg_results", []):
                 semantic_result = SemanticSegmentationResult(
                     pretrained_backbone=pretrained_backbone,
                     head=DownstreamHead.objects.get(name=semantic_data["head"]),

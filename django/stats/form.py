@@ -26,6 +26,7 @@ from .constants import (
     SEMANTIC_SEG_LEGEND_ATTRIBUTES,
 )
 
+
 class PlotForm(forms.Form):
     y_axis = forms.ChoiceField(choices=AXIS_CHOICES, initial="results")
     x_axis = forms.ChoiceField(choices=AXIS_WITH_GFLOPS, initial="gflops")
@@ -67,11 +68,13 @@ class PlotForm(forms.Form):
 
     def init_result_extras(self, args, axis):
         if self.head:
-            tasks = self.head.tasks.all()
-            self.fields[f"{axis}_task"] = forms.ModelChoiceField(queryset=tasks, required=False)
+            self.fields[f"{axis}_task"] = forms.ModelChoiceField(
+                queryset=self.head.tasks.all(), required=False
+            )
         elif self.dataset:
-            tasks = self.dataset.tasks.all()
-            self.fields[f"{axis}_task"] = forms.ModelChoiceField(queryset=tasks, required=False)
+            self.fields[f"{axis}_task"] = forms.ModelChoiceField(
+                queryset=self.dataset.tasks.all(), required=False
+            )
         else:
             self.fields[f"{axis}_task"] = forms.ModelChoiceField(
                 queryset=Task.objects.all(), required=False
@@ -133,7 +136,9 @@ class PlotForm(forms.Form):
 
     def init_filters(self):
         self.fields["_pretrain_dataset"] = forms.ModelChoiceField(
-            queryset=Dataset.objects.filter(pretrainedbackbone__isnull=False).distinct(),
+            queryset=Dataset.objects.filter(
+                pretrainedbackbone__isnull=False
+            ).distinct(),
             required=False,
         )
         pretrain_methods = {"": "----------"}
@@ -146,8 +151,12 @@ class PlotForm(forms.Form):
     def init_legend(self, args):
         group_attrs = LIMITED_LEGEND_ATTRIBUTES.copy()
         if args.get("x_task") or args.get("y_task"):
-            x_task = Task.objects.get(pk=args["x_task"]).name if args.get("x_task") else None
-            y_task = Task.objects.get(pk=args["y_task"]).name if args.get("y_task") else None
+            x_task = (
+                Task.objects.get(pk=args["x_task"]).name if args.get("x_task") else None
+            )
+            y_task = (
+                Task.objects.get(pk=args["y_task"]).name if args.get("y_task") else None
+            )
             if TaskType.CLASSIFICATION.value in [x_task, y_task]:
                 group_attrs.update(CLASSIFICATION_LEGEND_ATTRIBUTES)
             if TaskType.INSTANCE_SEG.value in [x_task, y_task]:
@@ -166,11 +175,15 @@ class PlotForm(forms.Form):
                 if second in group_attrs:
                     del group_attrs[args["legend_attribute_(second)"]]
         del group_attrs[""]
-        self.fields["legend_attribute"] = forms.ChoiceField(choices=group_attrs, required=True)
+        self.fields["legend_attribute"] = forms.ChoiceField(
+            choices=group_attrs, required=True
+        )
 
     def reorder_fields(self):
         field_names = list(self.fields.keys())
-        self.order_fields(field_order=sorted(field_names, key=lambda x: FIELDS.index(x)))
+        self.order_fields(
+            field_order=sorted(field_names, key=lambda x: FIELDS.index(x))
+        )
 
     def is_ready(self):
         values = [

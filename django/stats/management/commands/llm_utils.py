@@ -21,6 +21,7 @@ from ...models import (
     DownstreamHead,
     GPU,
     TokenMixer,
+    Precision
 )
 
 LLM_OUTPUT_DIR = os.path.abspath(
@@ -33,8 +34,12 @@ LLM_OUTPUT_DIR = os.path.abspath(
         "llm_output",
     )
 )
+if not os.path.exists(LLM_OUTPUT_DIR):
+    os.makedirs(LLM_OUTPUT_DIR)
 
 YAML_DIR = os.path.abspath(os.path.join(LLM_OUTPUT_DIR, os.path.pardir, "family_data"))
+if not os.path.exists(YAML_DIR):
+    os.makedirs(YAML_DIR)
 
 PROMPT = """
 Please analyze the provided paper and generate a YAML 
@@ -51,7 +56,7 @@ Available Datasets, Tasks, Downstream Heads, and GPUs:
 
 {static_data}
 
-However, please ignore Panoptic and Semantic Segmentation.
+However, please ignore Panoptic Segmentation.
 
 The YAML you will generate will be used to populate to 
 create new entries in the tables listed above. An example
@@ -116,6 +121,7 @@ def get_static_data():
         "Tasks": [task.name for task in Task.objects.all()],
         "Downstream Heads": [head.name for head in DownstreamHead.objects.all()],
         "GPUs": [gpu.value for gpu in GPU],
+        "GPU Precisions": [precision.value for precision in Precision],
     }
 
 
