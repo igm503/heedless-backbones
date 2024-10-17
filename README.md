@@ -58,9 +58,10 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
   - [MogaNet](https://arxiv.org/pdf/2211.03295)
   - [CoAtNet](https://arxiv.org/abs/2108.12895)
   - [VMamba](https://arxiv.org/abs/2401.10166)
+  - [UniRepLKNet](https://arxiv.org/abs/2311.15599)
 
 ## Updates
-- 10-16-2024: added ADE20k results for remaining models 
+- 10-16-2024: added ADE20k results for remaining models; added UniRepLKNet
 - 10-15-2024: added ADE20k results for some models; added Semantic Seg to site interface
 - 10-13-2024: added Semantic Segmentation task; added VMamba
 - 10-9-2024: Website is live

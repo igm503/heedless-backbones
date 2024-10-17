@@ -92,7 +92,7 @@ fi
 # 5. Set up Nginx
 echo "Setting up Nginx..."
 
-NGINX_LOG_DIR="$PROJECT_ROOT/logs
+NGINX_LOG_DIR="$PROJECT_ROOT/logs"
 if [ ! -d "$NGINX_LOG_DIR" ]; then
     sudo -u $LINUX_USER mkdir -p $NGINX_LOG_DIR
     echo "Created Nginx log directory: $NGINX_LOG_DIR"
