@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
-import configparser
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -31,14 +30,6 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-host_domain = os.getenv("HOST_DOMAIN")
-if host_domain:
-    ALLOWED_HOSTS.append(host_domain)
-    if host_domain.startswith("www."):
-        ALLOWED_HOSTS.append(host_domain[4:])
-    else:
-        ALLOWED_HOSTS.append("www." + host_domain)
-
 
 # Application definition
 
