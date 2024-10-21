@@ -26,7 +26,20 @@ To speed up adding models to the database, I use an LLM (Claude 3.5 Sonnet, curr
 3. move to the ```django``` directory in your command prompt
 4. run ```python manage.py llm_gen [research paper pdf url] [name for the generated yaml file]```
 
-That will produce a yaml file in the ```family_data/``` dir with the name you specified. Once you've looked it over and edited it to your satisfaction, you can add it to the database with ```python manage.py add_yaml [name of the generated yaml file]```
+That will produce a yaml file in the ```family_data/``` dir with the name you specified. Once you've looked it over and edited it to your satisfaction, you can add it to the database with 
+```
+python manage.py add_yaml [name of the generated yaml file]
+```
+So, for example, if you wanted to add ConvNeXT, you could do the following:
+```
+cd /path-to-this-repo/django
+
+python manage.py llm_gen https://arxiv.org/pdf/2201.03545 ConvNeXT
+
+# edit family_data/ConvNeXT.yaml to your satisfaction
+
+python manage.py add_yaml ConvNeXT
+```
 
 ## Deployment
 I'm running this on a cheap digital ocean server, and you can access it by clicking the headline link or by navigating to [heedlessbackbones.com](https://heedlessbackbones.com) in your browser. If for some reason you want to deploy this yourself, you can follow the instructions [here](https://github.com/igm503/django-deploy/blob/main/README.md)
