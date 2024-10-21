@@ -14,29 +14,30 @@ import os
 import configparser
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Read the config.ini file
-config = configparser.ConfigParser()
-config.read(os.path.join(BASE_DIR.parent, "config.ini"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config["Secret Key"]["key"]
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-host_domain = config["Server"]["domain"]
-ALLOWED_HOSTS.append(host_domain)
-if host_domain.startswith("www."):
-    ALLOWED_HOSTS.append(host_domain[4:])
-else:
-    ALLOWED_HOSTS.append("www." + host_domain)
+host_domain = os.getenv("HOST_DOMAIN")
+if host_domain:
+    ALLOWED_HOSTS.append(host_domain)
+    if host_domain.startswith("www."):
+        ALLOWED_HOSTS.append(host_domain[4:])
+    else:
+        ALLOWED_HOSTS.append("www." + host_domain)
 
 
 # Application definition
@@ -89,11 +90,11 @@ WSGI_APPLICATION = "heedless-backbones.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": config["Database"]["name"],
-        "USER": config["Database"]["user"],
-        "PASSWORD": config["Database"]["password"],
-        "HOST": config["Database"]["host"],
-        "PORT": config["Database"]["port"],
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASS"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT"),
     }
 }
 

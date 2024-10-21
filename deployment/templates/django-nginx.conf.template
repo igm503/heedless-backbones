@@ -1,27 +1,25 @@
-upstream heedless-backbones-server {
-  # fail_timeout=0 means we always retry an upstream even if it failed
-  # to return a good HTTP response (in case the Unicorn master nukes a
-  # single worker for timing out).
-
-  server unix:/path/to/heedless-backbones/run/gunicorn.sock fail_timeout=0;
+upstream $DJANGO_PROJECT_NAME-gunicorn-server {
+    # fail_timeout=0 means we always retry an upstream even if it failed
+    # to return a good HTTP response (in case the Unicorn master nukes a
+    # single worker for timing out).
+    server unix:$REPO_ROOT/run/gunicorn.sock fail_timeout=0;
 }
 
 server {
-
     listen   80;
-    server_name heedlessbackbones.com;
+    server_name $DOMAIN_NAME;
 
     client_max_body_size 4G;
 
-    access_log /path/to/heedless-backbones/logs/nginx-access.log;
-    error_log /path/to/heedless-backbones/logs/nginx-error.log;
+    access_log $REPO_ROOT/logs/nginx-access.log;
+    error_log $REPO_ROOT/logs/nginx-error.log;
  
     location /static/ {
-        alias   /path/to/heedless-backbones/static/;
+        alias   $REPO_ROOT/static/;
     }
     
     location /media/ {
-        alias   /path/to/heedless-backbones/media/;
+        alias   $REPO_ROOT/media/;
     }
 
     location / {
@@ -51,7 +49,7 @@ server {
         # Try to serve static files from nginx, no point in making an
         # *application* server like Unicorn/Rainbows! serve static files.
         if (!-f $request_filename) {
-            proxy_pass http://heedless-backbones-server;
+            proxy_pass http://$DJANGO_PROJECT_NAME-gunicorn-server;
             break;
         }
     }
@@ -59,6 +57,6 @@ server {
     # Error pages
     # error_page 500 502 503 504 /500.html;
     # location = /500.html {
-    #     root /path/to/heedless-backbones/static/;
+    #     root $REPO_ROOT/static/;
     # }
 }
