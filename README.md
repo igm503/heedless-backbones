@@ -18,8 +18,20 @@ In addition, the user interface doesn't allow for interesting queries (e.g. what
 
 Heedless Backbones is an attempt to address these shortcomings of Paperswithcode within the space of computer vision backbones. It is built on a data model that treats pretrained foundation models as first class citizens and because of this allows you to make fairly complicated, interesting visualizations of model performance on different tasks. In addition, for now, I will be solely responsible for entering the data, meaning that while it may take a while before the model you're interested in shows up, once it does, it will have far more metadata than any corresponding entry in Paperswithcode.
 
+## LLM-Assisted Data Entry
+To speed up adding models to the database, I use an LLM (Claude 3.5 Sonnet, currently), to generate yaml files for each model family that I want to add, using research paper pdfs as input. It works alright. If you'd like to use this tool, do the following:
+
+1. copy the ```example.env``` file to ```.env```
+2. replace ANTHROPY_API_KEY with your Anthropic API key (you can use the Open AI key variable as well, but you'd need to modify the code in ```django/stats/management/commands/llm_gen.py```)
+3. move to the ```django``` directory in your command prompt
+4. run ```python manage.py llm_gen [research paper pdf url] [name for the generated yaml file]```
+
+That will produce a yaml file in the ```family_data/``` dir with the name you specified. Once you've looked it over and edited it to your satisfaction, you can add it to the database with ```python manage.py add_yaml [name of the generated yaml file]```
+
+## Deployment
+I'm running this on a cheap digital ocean server, and you can access it by clicking the headline link or by navigating to [heedlessbackbones.com](https://heedlessbackbones.com) in your browser. If for some reason you want to deploy this yourself, you can follow the instructions [here](https://github.com/igm503/django-deploy/blob/main/README.md)
+
 ## TODO
-- Add deployment instructions
 - Filter by prominence (since there will soon be too many models)
 - Comparison of Heads
 - Comparison of Pretraining Datasets
@@ -38,6 +50,7 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
 - Downstream Head Pages
 - Dataset Pages
 - List Pages (Models, Heads, Datasets)
+- LLM-Assisted Data Gen
 - Models Added:
   - [ConvNeXt](https://arxiv.org/abs/2201.03545)
   - [TransNeXt](https://arxiv.org/abs/2311.17132)
