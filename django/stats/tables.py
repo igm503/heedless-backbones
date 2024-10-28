@@ -18,6 +18,7 @@ from .models import (
     PretrainedBackbone,
     SemanticSegmentationResult,
     TaskType,
+    Task,
 )
 
 INSTANCE_TYPES = [TaskType.DETECTION.value, TaskType.INSTANCE_SEG.value]
@@ -54,7 +55,8 @@ def get_plot_table_single(queryset, args, page):
         for result in pb.filtered_results:
             if not check_axis_values(pb, result, args):
                 continue
-            row, row_links = get_base_row(pb, page)
+            task_name = args.y_task or args.x_task or None
+            row, row_links = get_base_row(pb, page, task_name)
             if hasattr(result, "head"):
                 add_head(result.head, row, row_links, "head", page)
                 row["train"] = get_train_string(result)
@@ -74,7 +76,9 @@ def get_plot_table_multi(queryset, args, page):
     for pb in queryset:
         for x_result in pb.x_results:
             for y_result in pb.y_results:
-                if hasattr(x_result, args.x_attr) is None or hasattr(y_result, args.y_attr) is None:
+                if not hasattr(x_result, args.x_attr) or not hasattr(y_result, args.y_attr):
+                    continue
+                if getattr(x_result, args.x_attr) is None or getattr(y_result, args.y_attr) is None:
                     continue
                 if x_title == y_title:
                     if y_result.dataset.name != x_result.dataset.name:
@@ -87,7 +91,8 @@ def get_plot_table_multi(queryset, args, page):
                         x_title = f"{x_title} (x)"
                         y_title = f"{y_title} (y)"
 
-                row, row_links = get_base_row(pb, page)
+                task_name = args.y_task or args.x_task or None
+                row, row_links = get_base_row(pb, page, task_name)
 
                 x_head = x_result.head.name if hasattr(x_result, "head") else False
                 y_head = y_result.head.name if hasattr(y_result, "head") else False
@@ -134,12 +139,10 @@ def get_family_downstream_table(family_name, downstream_type):
     for dataset_name in dataset_names:
         table = get_downstream_table(queryset, dataset_name, downstream_type, page="family")
         table["name"] = dataset_name
-        print(downstream_type.value)
         table["dataset_link"] = (
             reverse("dataset", args=[dataset_name])
             + f"?{urlencode({'task': downstream_type.value})}"
         )
-        print(table["dataset_link"])
         data.append(table)
 
     return data
@@ -193,7 +196,7 @@ def get_downstream_table(queryset, dataset_name, downstream_type, page=""):
         for result in pb.results:
             if dataset_name != result.dataset.name:
                 continue
-            row, row_links = get_base_row(pb, page, task_type=downstream_type)
+            row, row_links = get_base_row(pb, page, task_type=downstream_type.value)
             del row["params (m)"]
             row["head"] = result.head.name
             row["train"] = get_train_string(result)
@@ -319,7 +322,7 @@ def get_base_row(pb, page, task_type=None):
     else:
         row_links = {"family": reverse("family", args=[pb.family.name])}
         if task_type is not None:
-            row_links["family"] += f"?{urlencode({'task': task_type.value})}"
+            row_links["family"] += f"?{urlencode({'task': task_type})}"
 
     return row, row_links
 

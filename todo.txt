@@ -67,4 +67,3 @@ code
 - add filter by model type (CNN, ATT, etc.) and structure (ISO, HIER, etc.)
 - add flip test info for semantic seg
 - mmioums bad formatting in plot form
-- clicking on a link in a plot table should take you there with the same plot args
