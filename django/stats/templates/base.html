@@ -135,27 +135,24 @@
         const options = select.querySelector('.custom-select-options');
         const selectedSpan = select.querySelector('.custom-select-selected');
         const hiddenInput = select.querySelector('input[type="hidden"]');
-
         if (hiddenInput.value) {
           const selectedOption = options.querySelector(`[data-value="${hiddenInput.value}"]`);
           if (selectedOption) {
-            selectedSpan.textContent = selectedOption.textContent;
+            selectedSpan.innerHTML = selectedOption.innerHTML;
             selectedOption.classList.add('selected');
           }
           else {
             hiddenInput.value = '';
           }
         }
-
         header.addEventListener('click', () => {
           select.classList.toggle('open');
           options.style.display = select.classList.contains('open') ? 'block' : 'none';
         });
-
         options.querySelectorAll('.custom-select-option').forEach(option => {
           option.addEventListener('click', () => {
             hiddenInput.value = option.dataset.value;
-            selectedSpan.textContent = option.textContent;
+            selectedSpan.innerHTML = option.innerHTML;
             options.querySelectorAll('.custom-select-option').forEach(opt => opt.classList.toggle('selected', opt === option));
             select.classList.remove('open');
             options.style.display = 'none';

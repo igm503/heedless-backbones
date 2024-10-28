@@ -84,10 +84,17 @@ class PlotRequest:
             group_by_second=args.get("legend_attribute_(second)"),
         )
 
-        if x_args.dataset and y_args.dataset and x_args.dataset != y_args.dataset:
-            self.query_type = PlotRequest.MULTI
-            self.x_args = x_args
-            self.y_args = y_args
+        if x_args.dataset and y_args.dataset:
+            if (
+                x_args.dataset == y_args.dataset
+                and x_args.task == y_args.task
+                and x_args.head == y_args.head
+            ):
+                self.query_type = PlotRequest.SINGLE
+            else:
+                self.query_type = PlotRequest.MULTI
+                self.x_args = x_args
+                self.y_args = y_args
         else:
             if x_args.dataset or y_args.dataset:
                 self.query_type = PlotRequest.SINGLE

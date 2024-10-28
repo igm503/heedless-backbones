@@ -22,7 +22,7 @@ def render_table(table_class, table_data):
             value = row.get(header, "")
             if header in row_links:
                 url = row_links[header]
-                html += f'<td><a href="{url}" target="_blank">{value}</a></td>'
+                html += f'<td><a href="{url}">{value}</a></td>'
             else:
                 html += f"<td>{value}</td>"
         html += "</tr>"
