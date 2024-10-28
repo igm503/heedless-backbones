@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import all, dataset, family, head, datasets, families, heads
+from .views import all, dataset, family, head, datasets, families, heads, about
 
 urlpatterns = [
     path("", all, name="all"),
@@ -10,4 +10,5 @@ urlpatterns = [
     path("datasets/<str:dataset_name>/", dataset, name="dataset"),
     path("heads/", heads, name="heads"),
     path("heads/<str:head_name>/", head, name="head"),
+    path("about/", about, name="about"),
 ]

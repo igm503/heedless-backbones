@@ -168,6 +168,10 @@ def heads(request):
     return render(request, "stats/heads.html", {"heads": head_lists})
 
 
+def about(request):
+    return render(request, "stats/about.html")
+
+
 def get_default_request(family=None, head=None, dataset=None):
     if family:
         return {

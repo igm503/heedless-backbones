@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+{% load custom_filters %}
+{% load table_tag %}
+
+{% block content %}
+
+<style>
+  .drawer::after {
+    content: none !important;
+  }
+
+  .list-disc {
+    list-style: none !important;
+  }
+
+  .list-disc li::before {
+    content: '\25BC';
+    display: inline-block;
+    margin-right: 0.5rem;
+    margin-left: -1.2rem;
+    font-size: 0.6rem;
+    color: black;
+    transform: rotate(270deg);
+  }
+
+  .list-disc .list-disc li::before {
+    font-size: 0.6rem;
+  }
+.drawer {
+  width: 97.2%;
+  margin-top: 2rem;
+  background-color: #f3f4f6;
+  border: 1px solid #000000;
+  border-radius: 0.075rem;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 500;
+  color: #000000;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+</style>
+<main class="container">
+  <section style="max-width: 1200px; margin: 0 auto; line-height: 1.6;">
+    <header class="title-bar" >
+      <h1>About</h1>
+    </header>
+
+    <div style="margin-bottom: 2.5rem;">
+      <p style="font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Heedless Backbones is a web application designed to help researchers and industry practitioners compare the
+        performance of different computer vision backbone models across classification and downstream tasks. The project
+        aims to provide more comprehensive and useful data than existing solutions by focusing specifically on computer
+        vision backbones and treating pretrained foundation models as first-class citizens.
+      </p>
+
+      <div class="drawer">Latest Updates</div>
+      <div class="drawerContents show" style="background-color: #f8f9fa; margin-bottom: 2rem;">
+        <p style="margin-bottom: 0.5rem">(October 16, 2024) Added
+          <a href="{% url "family" "UniRepLKNet" %}">UniRepLKNet</a>
+        </p>
+        <p style="margin-bottom: 0.5rem">(October 13, 2024) Added
+          <a href="{% url "family" "VMamba" %}">VMamba</a>
+        </p>
+      </div>
+
+      <div class="drawer">Why Heedless Backbones</div>
+      <div class="drawerContents show" style="background-color: #f8f9fa; margin-bottom: 2rem;">
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">
+          Paperswithcode's basic data models and user interface aren't useful either for researchers or industry users
+          interested in comparing the performance of different computer vision backbones for different tasks. The
+          (visible) data model doesn't include:
+        </p>
+        <ul class="list-disc" style="padding-left: 1.5rem; margin-bottom: 1rem;">
+          <li style="margin-bottom: 0.5rem">Model Family and Model What head was used for the downstream task (e.g.
+            object detection) or what backbone was used</li>
+          <li style="margin-bottom: 0.5rem">What pretraining dataset was used (e.g. IN-1K, IN-21k)</li>
+          <li style="margin-bottom: 0.5rem">Details of the pretraining, finetuning, or downstream training</li>
+          <li style="margin-bottom: 0.5rem">Throughput, and sometimes even GFLOPS and the number of parameters</li>
+        </ul>
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">This means, for example, that you can't easily: </p>
+        <ul class="list-disc" style="padding-left: 1.5rem; margin-bottom: 1rem;">
+          <li style="margin-bottom: 0.5rem">Compare the performance of different model families (e.g. compare the Swin
+            and ConvNeXt families)</li>
+          <li style="margin-bottom: 0.5rem">Compare model accuracy on multiple tasks</li>
+          <li style="margin-bottom: 0.5rem">Do apples-to-apples accuracy comparison, even on one dataset and one task
+          </li>
+        </ul>
+        <p style="font-size: 0.9rem; margin-bottom: 1rem;">
+          In addition, the user interface doesn't allow for interesting queries (e.g. what's the best model on ImageNet
+          that can do better than 1000 fps on a V100 with AMP?), and the database is inconsistently maintained.
+          Heedless Backbones is an attempt to address these shortcomings of Paperswithcode within the space of computer
+          vision backbones. It is built on a data model that treats pretrained foundation models as first class citizens
+          and because of this allows you to make fairly complicated, interesting visualizations of model performance on
+          different tasks.
+        </p>
+      </div>
+
+      <div class="drawer">Interactive Visualization</div>
+      <div class="drawerContents show" style="background-color: #f8f9fa; margin-bottom: 2rem;">
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">
+          Using this data, you can compare model performance across multiple dimensions:
+        </p>
+        <ul class="list-disc" style="padding-left: 1.5rem; margin-bottom: 1rem;">
+          <li style="margin-bottom: 0.5rem">Compare any two metrics (e.g., accuracy vs. GFLOPS, or performance across
+            different tasks)</li>
+          <li style="margin-bottom: 0.5rem">Filter results by task type, dataset, model head, and resolution</li>
+          <li style="margin-bottom: 0.5rem">See how different pretraining methods and datasets affect downstream
+            performance</li>
+          <li style="margin-bottom: 0.5rem">Customize plot legends to highlight specific model characteristics</li>
+        </ul>
+      </div>
+
+      <div class="drawer">How It Works</div>
+      <div class="drawerContents show" style="background-color: #f8f9fa; margin-bottom: 2rem;">
+        <p style="font-size: 0.9rem; margin-bottom: 2.5rem;">Each computer vision model (e.g. ConvNeXt-Tiny) has the
+          following data:</p>
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Family Information:</strong> Each model belongs to
+          a family (e.g. the ConvNeXt family) with shared characteristics such as:</p>
+        <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem;">
+          <li style="margin-bottom: 0.5rem">Architecture features</li>
+          <li style="margin-bottom: 0.5rem">Publication date</li>
+          <li style="margin-bottom: 0.5rem">Pretraining method</li>
+        </ul>
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Pretrained Models:</strong> Each model has multiple
+          pretrained versions, each with different:</p>
+        <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem;">
+          <li style="margin-bottom: 0.5rem">Pretraining datasets (e.g., ImageNet-1K, ImageNet-21K)</li>
+          <li style="margin-bottom: 0.5rem">Pretraining methods (e.g. Supervised, MAE, etc.)</li>
+          <li style="margin-bottom: 0.5rem">Training configurations (e.g. training resolution, number of epochs)
+          </li>
+          <li style="margin-bottom: 0.5rem">Number of parameters</li>
+        </ul>
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Performance Results:</strong> Each pretrained model
+          has results for different tasks:</p>
+        <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem;">
+          <li style="margin-bottom: 0.5rem">Classification accuracy
+            <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem;">
+              <li style="margin-bottom: 0.5rem">Top-1 and Top-5</li>
+              <li style="margin-bottom: 0.5rem">GFLOPS</li>
+              <li style="margin-bottom: 0.5rem">Eval resolution</li>
+              <li style="margin-bottom: 0.5rem">Finetuning information</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 0.5rem">Detection and Instance Segmentation
+            <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem;">
+              <li style="margin-bottom: 0.5rem">AP metrics</li>
+              <li style="margin-bottom: 0.5rem">GFLOPS</li>
+              <li style="margin-bottom: 0.5rem">Finetuning information</li>
+              <li style="margin-bottom: 0.5rem">What detection or instance segmentation head was used</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 0.5rem">Semantic Segmentation
+            <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem;">
+              <li style="margin-bottom: 0.5rem">mIoU and Pixel Accuracy</li>
+              <li style="margin-bottom: 0.5rem">GFLOPS</li>
+              <li style="margin-bottom: 0.5rem">Eval resolution and single- vs multi-scale</li>
+              <li style="margin-bottom: 0.5rem">Finetuning information</li>
+              <li style="margin-bottom: 0.5rem">What detection or instance segmentation head was used</li>
+            </ul>
+          </li>
+        </ul>
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Throughput Measurements:</strong> Each model has
+          throughput measurements for different tasks, when available:</p>
+        <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem;">
+          <li style="margin-bottom: 0.5rem">Various GPU types (V100, A100, etc.)</li>
+          <li style="margin-bottom: 0.5rem">Different precision modes (FP16, FP32, AMP)</li>
+          <li style="margin-bottom: 0.5rem">Various resolutions</li>
+        </ul>
+      </div>
+
+      <div class="drawer">Data Quality</div>
+      <div class="drawerContents show" style="background-color: #f8f9fa; margin-bottom: 2rem;">
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">
+          Unlike crowd-sourced platforms, all data in Heedless Backbones is carefully curated to ensure consistency and
+          accuracy. The database is populated using a combination of manual review and LLM-assisted data entry, which
+          helps maintain high data quality while enabling regular updates as new models are published.
+        </p>
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">
+          Because of this, each model entry includes detailed metadata about training configurations, ensuring that
+          comparisons are as fair as possible. This includes:
+        </p>
+        <ul class="list-disc" style="padding-left: 1.5rem; margin-bottom: 1rem;">
+          <li style="margin-bottom: 0.5rem">Training protocols (epochs, resolution, datasets used)</li>
+          <li style="margin-bottom: 0.5rem">Evaluation settings (e.g. single-crop vs multi-crop for semantic
+            segmentation)</li>
+          <li style="margin-bottom: 0.5rem">Links to source papers and code repositories</li>
+          <li style="margin-bottom: 0.5rem">Performance measurements under specified conditions</li>
+        </ul>
+      </div>
+
+      <div class="drawer">Caveat: Throughput Metrics</div>
+      <div class="drawerContents show" style="background-color: #f8f9fa; margin-bottom: 2rem;">
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">While Heedless Backbones allows you to compare model
+          throughput (FPS), consider the following limitations:</p>
+        <ul class="list-disc" style="padding-left: 1.5rem; margin-bottom: 1rem;">
+          <li style="margin-bottom: 0.5rem">Deep learning libraries are frequently updated, and different versions can
+            significantly impact throughput even if the configuration (GPU, precision, batch size) is otherwise the same
+          </li>
+          <li style="margin-bottom: 0.5rem">Results vary substantially across different GPUs (V100, A100, etc.) and
+            precision modes (FP16, FP32, AMP), so you won't be able to compare two models unless the paper authors
+            recorded results with the same configuration</li>
+          <li style="margin-bottom: 0.5rem">Batch sizes and other implementation details (which I do not record) can
+            greatly affect measured performance</li>
+        </ul>
+      </div>
+
+      <div class="drawer">Contributing</div>
+      <div class="drawerContents show" style="background-color: #f8f9fa; margin-bottom: 2rem;">
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">
+          While direct contributions to the database are not currently accepted to maintain data consistency, you can:
+        </p>
+        <ul class="list-disc" style="padding-left: 1.5rem; margin-bottom: 1rem;">
+          <li style="margin-bottom: 0.5rem">Report issues or suggest improvements on <a
+              href="https://github.com/igm503/Heedless-Backbones" class="text-blue-600 hover:text-blue-800">GitHub</a>
+          </li>
+          <li style="margin-bottom: 0.5rem">Request specific models or features to be added</li>
+          <li style="margin-bottom: 0.5rem">Use the open-source code to deploy your own instance</li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">
+          Heedless Backbones is maintained by Ian Myers. You can find more of his work on
+          <a href="https://github.com/igm503">GitHub</a>.
+        </p>
+        <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">
+          Last updated: October 2024
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
