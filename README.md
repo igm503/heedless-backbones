@@ -87,6 +87,7 @@ I'm running this on a cheap digital ocean server, and you can access it by click
   - [UniRepLKNet](https://arxiv.org/abs/2311.15599)
 
 ## Updates
+- 10-27-2024: improved plot defaults
 - 10-16-2024: added ADE20k results for remaining models; added UniRepLKNet
 - 10-15-2024: added ADE20k results for some models; added Semantic Seg to site interface
 - 10-13-2024: added Semantic Segmentation task; added VMamba

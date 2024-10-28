@@ -1,4 +1,5 @@
 from collections import defaultdict
+from urllib.parse import urlencode
 
 from django.db.models import Count, Q, Max, Prefetch
 from django.urls import reverse
@@ -11,7 +12,7 @@ from .models import (
     TaskType,
     ClassificationResult,
     InstanceResult,
-    SemanticSegmentationResult
+    SemanticSegmentationResult,
 )
 
 
@@ -25,7 +26,8 @@ def get_dataset_lists():
                 continue
             row["website"] = "link"
             links = {
-                "name": reverse("dataset", args=[dataset.name]),
+                "name": reverse("dataset", args=[dataset.name])
+                + f"?{urlencode({'task': task.pk})}",
                 "website": dataset.website,
             }
             lists[task.name]["rows"].append(row)
@@ -46,7 +48,7 @@ def get_head_lists():
             row["github"] = "link"
             row["paper"] = "link"
             links = {
-                "name": reverse("head", args=[head.name]),
+                "name": reverse("head", args=[head.name]) + f"?{urlencode({'task': task.pk})}",
                 "github": head.github,
                 "paper": head.paper,
             }
@@ -54,9 +56,6 @@ def get_head_lists():
             lists[task.name]["links"].append(links)
     for task, lis in lists.items():
         lists[task]["headers"] = list(lis["rows"][0].keys()) if lis["rows"] else []
-    for task, lis in lists.items():
-        print(task)
-        print(lis)
     return {k: dict(v) for k, v in lists.items()}
 
 
@@ -110,30 +109,23 @@ def get_result_restricting_data(model):
 
 
 def get_count(result_model, result_type=None):
-    if result_model == ClassificationResult:
-        return Count("classificationresult")
-    elif result_model == SemanticSegmentationResult:
-        return Count("semantic_seg_result")
-    elif result_model == InstanceResult:
+    if result_model == InstanceResult:
         return Count(
             "instanceresult",
             filter=Q(instanceresult__instance_type__name=result_type.value),
         )
     else:
-        return 0
+        return Count(result_model._meta.model_name)
 
 
 def get_date(result_model, result_type=None):
-    if result_model == ClassificationResult:
-        return Max("classificationresult__pretrained_backbone__family__pub_date")
-    elif result_model == SemanticSegmentationResult:
-        return Max("semantic_seg_result__pretrained_backbone__family__pub_date")
-    else:
-        assert result_type is not None
+    if result_model == InstanceResult:
         return Max(
             "instanceresult__pretrained_backbone__family__pub_date",
             filter=Q(instanceresult__instance_type__name=result_type.value),
         )
+    else:
+        return Max(result_model._meta.model_name + "__pretrained_backbone__family__pub_date")
 
 
 def get_count_date_row(obj, task):

@@ -61,9 +61,12 @@ other notes
 -- Need to confirm precision of Downstream FPS measurements.
 
 code
-- semantic seg dataset and head page default plot options need to be set correctly
 - comparison of same instance results and metrics doesn't show correct results when different heads are selected.
 - too many links will take you to new tab
 - add filter by # citations
 - add filter by model type (CNN, ATT, etc.) and structure (ISO, HIER, etc.)
 - add flip test info for semantic seg
+- mmioums bad formatting in plot form
+- clicking on a link in a plot table should take you there with the same plot args
+- dataset names in the families or head tables should take you to a plot with that task
+- clicking model names in dataset or head pages should take you to the proper task

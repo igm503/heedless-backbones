@@ -1,8 +1,14 @@
 from django.shortcuts import get_object_or_404, render
 
-from .form import PlotForm
+from .form import PlotForm, get_default_request
 from .lists import get_family_list, get_head_lists, get_dataset_lists
-from .models import BackboneFamily, Backbone, Dataset, DownstreamHead, TaskType
+from .models import (
+    BackboneFamily,
+    Backbone,
+    Dataset,
+    DownstreamHead,
+    TaskType,
+)
 from .plot import PlotRequest, get_plot_and_table
 from .tables import (
     get_family_classification_table,
@@ -46,7 +52,10 @@ def family(request, family_name):
     except BackboneFamily.DoesNotExist:
         backbone = get_object_or_404(Backbone, name=family_name)
         family = backbone.family
-    form = PlotForm(request.GET or get_default_request(family=family))
+    if any(field in request.GET for field in PlotForm.base_fields):
+        form = PlotForm(request.GET)
+    else:
+        form = PlotForm(get_default_request(family=family, task_pk=request.GET.get("task")))
     if form.is_valid() and form.is_ready():
         plot_request = PlotRequest(form.cleaned_data)
         family_plot, family_table = get_plot_and_table(
@@ -76,7 +85,10 @@ def family(request, family_name):
 def head(request, head_name):
     global head_plot, head_table
     head = get_object_or_404(DownstreamHead, name=head_name)
-    form = PlotForm(request.GET or get_default_request(head=head), head=head)
+    if any(field in request.GET for field in PlotForm.base_fields):
+        form = PlotForm(request.GET, head=head)
+    else:
+        form = PlotForm(get_default_request(head=head, task_pk=request.GET.get("task")), head=head)
     if form.is_valid() and form.is_ready():
         form.cleaned_data["x_head"] = head
         form.cleaned_data["y_head"] = head
@@ -111,7 +123,13 @@ def head(request, head_name):
 def dataset(request, dataset_name):
     global dataset_plot, dataset_table
     dataset = get_object_or_404(Dataset, name=dataset_name)
-    form = PlotForm(request.GET or get_default_request(dataset=dataset), dataset=dataset)
+    if any(field in request.GET for field in PlotForm.base_fields):
+        form = PlotForm(request.GET, dataset=dataset)
+    else:
+        form = PlotForm(
+            get_default_request(dataset=dataset, task_pk=request.GET.get("task")),
+            dataset=dataset,
+        )
     if form.is_valid() and form.is_ready():
         form.cleaned_data["x_dataset"] = dataset
         form.cleaned_data["y_dataset"] = dataset
@@ -170,51 +188,3 @@ def heads(request):
 
 def about(request):
     return render(request, "stats/about.html")
-
-
-def get_default_request(family=None, head=None, dataset=None):
-    if family:
-        return {
-            "y_axis": "results",
-            "y_dataset": 1,
-            "y_task": 4,
-            "y_metric": "top_1",
-            "x_axis": "gflops",
-            "legend_attribute": "pretrain_dataset.name",
-        }
-    elif head:
-        tasks = head.tasks.all()
-        first_task = tasks.first()
-        dataset = Dataset.objects.filter(tasks=first_task, eval=True).first()
-        return {
-            "y_axis": "results",
-            "y_task": first_task.pk,
-            "y_dataset": dataset.pk,
-            "y_head": head.pk,
-            "y_metric": "mAP",
-            "x_axis": "gflops",
-            "legend_attribute": "family.name",
-        }
-    elif dataset:
-        task = dataset.tasks.first()
-        if task.name == TaskType.CLASSIFICATION.value:
-            metric = "top_1"
-        else:
-            metric = "mAP"
-        return {
-            "y_axis": "results",
-            "y_task": task.pk,
-            "y_dataset": dataset.pk,
-            "y_metric": metric,
-            "x_axis": "gflops",
-            "legend_attribute": "family.name",
-        }
-    else:
-        return {
-            "y_axis": "results",
-            "y_dataset": 1,
-            "y_task": 4,
-            "y_metric": "top_1",
-            "x_axis": "gflops",
-            "legend_attribute": "family.name",
-        }

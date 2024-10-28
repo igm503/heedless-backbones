@@ -52,9 +52,7 @@ INSTANCE_TASKS = [TaskType.DETECTION.value, TaskType.INSTANCE_SEG.value]
 class Task(models.Model):
     objects = models.Manager()
 
-    name = models.CharField(
-        max_length=100, choices={name.value: name.value for name in TaskType}
-    )
+    name = models.CharField(max_length=100, choices={name.value: name.value for name in TaskType})
 
     def __str__(self):
         return str(self.name)
@@ -90,9 +88,7 @@ class FPSMeasurement(models.Model):
     backbone_name = models.CharField(max_length=100)
     resolution = models.IntegerField()
     fps = models.FloatField()
-    gpu = models.CharField(
-        max_length=100, choices={name.value: name.value for name in GPU}
-    )
+    gpu = models.CharField(max_length=100, choices={name.value: name.value for name in GPU})
     precision = models.CharField(
         choices={name.value: name.value for name in Precision},
         max_length=20,
@@ -183,9 +179,7 @@ class PretrainedBackbone(models.Model):
 class ClassificationResult(models.Model):
     objects = models.Manager()
 
-    pretrained_backbone = models.ForeignKey(
-        PretrainedBackbone, on_delete=models.CASCADE
-    )
+    pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.CASCADE)
     dataset = models.ForeignKey(
         Dataset,
         on_delete=models.RESTRICT,
@@ -270,9 +264,7 @@ class ClassificationResult(models.Model):
 class InstanceResult(models.Model):
     objects = models.Manager()
 
-    pretrained_backbone = models.ForeignKey(
-        PretrainedBackbone, on_delete=models.CASCADE
-    )
+    pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.CASCADE)
     head = models.ForeignKey(DownstreamHead, on_delete=models.RESTRICT)
     dataset = models.ForeignKey(
         Dataset,
@@ -308,9 +300,7 @@ class InstanceResult(models.Model):
     github = models.URLField(blank=True)
 
     def clean(self):
-        if (self.intermediate_train_epochs is None) != (
-            self.intermediate_train_dataset is None
-        ):
+        if (self.intermediate_train_epochs is None) != (self.intermediate_train_dataset is None):
             raise ValidationError(
                 "int train dataset and int train epochs must be provided together"
             )
@@ -337,14 +327,11 @@ class InstanceResult(models.Model):
 
 class SemanticSegmentationResult(models.Model):
     objects = models.Manager()
-    pretrained_backbone = models.ForeignKey(
-        PretrainedBackbone, on_delete=models.CASCADE
-    )
+    pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.CASCADE)
     head = models.ForeignKey(DownstreamHead, on_delete=models.RESTRICT)
     dataset = models.ForeignKey(
         Dataset,
         on_delete=models.RESTRICT,
-        related_name="semantic_seg_result",
         limit_choices_to={"tasks__name": TaskType.SEMANTIC_SEG.value},
     )
     train_dataset = models.ForeignKey(
@@ -379,12 +366,8 @@ class SemanticSegmentationResult(models.Model):
 
     def clean(self):
         if not self.ms_m_iou and not self.ss_m_iou:
-            raise ValidationError(
-                "at least one of ms_m_iou and ss_m_iou must be provided"
-            )
-        if (self.intermediate_train_epochs is None) != (
-            self.intermediate_train_dataset is None
-        ):
+            raise ValidationError("at least one of ms_m_iou and ss_m_iou must be provided")
+        if (self.intermediate_train_epochs is None) != (self.intermediate_train_dataset is None):
             raise ValidationError(
                 "int train dataset and int train epochs must be provided together"
             )
@@ -406,3 +389,18 @@ class SemanticSegmentationResult(models.Model):
                 string += str(item)
                 string += "/"
         return string
+
+
+TASK_TO_TABLE = {
+    TaskType.CLASSIFICATION.value: ClassificationResult,
+    TaskType.INSTANCE_SEG.value: InstanceResult,
+    TaskType.DETECTION.value: InstanceResult,
+    TaskType.SEMANTIC_SEG.value: SemanticSegmentationResult,
+}
+
+TASK_TO_FIRST_METRIC = {
+    TaskType.CLASSIFICATION.value: "top_1",
+    TaskType.INSTANCE_SEG.value: "mAP",
+    TaskType.DETECTION.value: "mAP",
+    TaskType.SEMANTIC_SEG.value: "ms_m_iou",
+}

@@ -1,9 +1,14 @@
+from collections import defaultdict
+
 from django import forms
 
 from .models import (
+    Task,
+    InstanceResult,
+    TASK_TO_TABLE,
+    TASK_TO_FIRST_METRIC,
     Dataset,
     DownstreamHead,
-    Task,
     TaskType,
     GPU,
     Precision,
@@ -72,9 +77,8 @@ class PlotForm(forms.Form):
                 queryset=self.head.tasks.all(), required=False
             )
         elif self.dataset:
-            self.fields[f"{axis}_task"] = forms.ModelChoiceField(
-                queryset=self.dataset.tasks.all(), required=False
-            )
+            tasks = self.dataset.tasks
+            self.fields[f"{axis}_task"] = forms.ModelChoiceField(queryset=tasks, required=False)
         else:
             self.fields[f"{axis}_task"] = forms.ModelChoiceField(
                 queryset=Task.objects.all(), required=False
@@ -136,9 +140,7 @@ class PlotForm(forms.Form):
 
     def init_filters(self):
         self.fields["_pretrain_dataset"] = forms.ModelChoiceField(
-            queryset=Dataset.objects.filter(
-                pretrainedbackbone__isnull=False
-            ).distinct(),
+            queryset=Dataset.objects.filter(pretrainedbackbone__isnull=False).distinct(),
             required=False,
         )
         pretrain_methods = {"": "----------"}
@@ -151,12 +153,8 @@ class PlotForm(forms.Form):
     def init_legend(self, args):
         group_attrs = LIMITED_LEGEND_ATTRIBUTES.copy()
         if args.get("x_task") or args.get("y_task"):
-            x_task = (
-                Task.objects.get(pk=args["x_task"]).name if args.get("x_task") else None
-            )
-            y_task = (
-                Task.objects.get(pk=args["y_task"]).name if args.get("y_task") else None
-            )
+            x_task = Task.objects.get(pk=args["x_task"]).name if args.get("x_task") else None
+            y_task = Task.objects.get(pk=args["y_task"]).name if args.get("y_task") else None
             if TaskType.CLASSIFICATION.value in [x_task, y_task]:
                 group_attrs.update(CLASSIFICATION_LEGEND_ATTRIBUTES)
             if TaskType.INSTANCE_SEG.value in [x_task, y_task]:
@@ -175,15 +173,11 @@ class PlotForm(forms.Form):
                 if second in group_attrs:
                     del group_attrs[args["legend_attribute_(second)"]]
         del group_attrs[""]
-        self.fields["legend_attribute"] = forms.ChoiceField(
-            choices=group_attrs, required=True
-        )
+        self.fields["legend_attribute"] = forms.ChoiceField(choices=group_attrs, required=True)
 
     def reorder_fields(self):
         field_names = list(self.fields.keys())
-        self.order_fields(
-            field_order=sorted(field_names, key=lambda x: FIELDS.index(x))
-        )
+        self.order_fields(field_order=sorted(field_names, key=lambda x: FIELDS.index(x)))
 
     def is_ready(self):
         values = [
@@ -202,3 +196,86 @@ class PlotForm(forms.Form):
             ]
         ]
         return self.init_graph or (None not in values and "" not in values)
+
+
+def get_default_request(family=None, head=None, dataset=None, task_pk=None):
+    if family:
+        return {
+            "y_axis": "results",
+            "y_dataset": 1,
+            "y_task": 4,
+            "y_metric": "top_1",
+            "x_axis": "gflops",
+            "legend_attribute": "pretrain_dataset.name",
+        }
+    elif head:
+        if task_pk is None:
+            task_pk = get_first_task(head)
+        task = Task.objects.get(pk=task_pk)
+        dataset_pk = get_head_task_dataset(head, task)
+        metric = TASK_TO_FIRST_METRIC[task.name]
+        return {
+            "y_axis": "results",
+            "y_task": task.pk,
+            "y_dataset": dataset_pk,
+            "y_head": head.pk,
+            "y_metric": metric,
+            "x_axis": "gflops",
+            "legend_attribute": "family.name",
+        }
+    elif dataset:
+        if task_pk is None:
+            task_pk = get_first_task(dataset)
+        task = Task.objects.get(pk=task_pk)
+        metric = TASK_TO_FIRST_METRIC[task.name]
+        return {
+            "y_axis": "results",
+            "y_task": task.pk,
+            "y_dataset": dataset.pk,
+            "y_metric": metric,
+            "x_axis": "gflops",
+            "legend_attribute": "family.name",
+        }
+    else:
+        return {
+            "y_axis": "results",
+            "y_dataset": 1,
+            "y_task": 4,
+            "y_metric": "top_1",
+            "x_axis": "gflops",
+            "legend_attribute": "family.name",
+        }
+
+
+def get_first_task(dataset_or_head):
+    tasks = dataset_or_head.tasks.all()
+    task_counts = {}
+    for task in tasks:
+        if task.name not in TASK_TO_TABLE:
+            continue
+        result_model = TASK_TO_TABLE[task.name]
+        related_name = result_model._meta.model_name + "_set"
+        if result_model == InstanceResult:
+            count = (
+                getattr(dataset_or_head, related_name).filter(instance_type__name=task.name).count()
+            )
+        else:
+            count = getattr(dataset_or_head, related_name).count()
+
+        task_counts[task.pk] = count
+    return max(task_counts, key=task_counts.get)
+
+
+def get_head_task_dataset(head, task):
+    result_model = TASK_TO_TABLE[task.name]
+    related_name = result_model._meta.model_name + "_set"
+    if result_model == InstanceResult:
+        results = getattr(head, related_name).filter(instance_type__name=task.name).all()
+    else:
+        results = getattr(head, related_name).all()
+
+    dataset_counts = defaultdict(int)
+    for result in results:
+        dataset_counts[result.dataset.pk] += 1
+
+    return max(dataset_counts, key=dataset_counts.get)
