@@ -20,33 +20,22 @@
     display: inline-block;
     margin-right: 0.5rem;
     margin-left: -1.2rem;
-    font-size: 0.6rem;
+    font-size: 0.4rem;
     color: black;
     transform: rotate(270deg);
+    vertical-align: middle;
+    position: relative;
+    top: -0.1rem;     
   }
 
-  .list-disc .list-disc li::before {
-    font-size: 0.6rem;
+  .drawer {
+    width: 97.2%;
   }
-.drawer {
-  width: 97.2%;
-  margin-top: 2rem;
-  background-color: #f3f4f6;
-  border: 1px solid #000000;
-  border-radius: 0.075rem;
-  padding: 0.75rem 1rem;
-  text-align: left;
-  font-weight: 500;
-  color: #000000;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  position: relative;
-  z-index: 2;
-}
+
 </style>
 <main class="container">
   <section style="max-width: 1200px; margin: 0 auto; line-height: 1.6;">
-    <header class="title-bar" >
+    <header class="title-bar">
       <h1>About</h1>
     </header>
 
@@ -121,14 +110,14 @@
           following data:</p>
         <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Family Information:</strong> Each model belongs to
           a family (e.g. the ConvNeXt family) with shared characteristics such as:</p>
-        <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem;">
+        <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 2rem;">
           <li style="margin-bottom: 0.5rem">Architecture features</li>
           <li style="margin-bottom: 0.5rem">Publication date</li>
           <li style="margin-bottom: 0.5rem">Pretraining method</li>
         </ul>
         <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Pretrained Models:</strong> Each model has multiple
           pretrained versions, each with different:</p>
-        <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem;">
+        <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 2rem;">
           <li style="margin-bottom: 0.5rem">Pretraining datasets (e.g., ImageNet-1K, ImageNet-21K)</li>
           <li style="margin-bottom: 0.5rem">Pretraining methods (e.g. Supervised, MAE, etc.)</li>
           <li style="margin-bottom: 0.5rem">Training configurations (e.g. training resolution, number of epochs)
@@ -137,7 +126,7 @@
         </ul>
         <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Performance Results:</strong> Each pretrained model
           has results for different tasks:</p>
-        <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem;">
+        <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 2rem;">
           <li style="margin-bottom: 0.5rem">Classification accuracy
             <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0.5rem;">
               <li style="margin-bottom: 0.5rem">Top-1 and Top-5</li>
@@ -176,7 +165,7 @@
       <div class="drawer">Data Quality</div>
       <div class="drawerContents show" style="background-color: #f8f9fa; margin-bottom: 2rem;">
         <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">
-          Unlike crowd-sourced platforms, all data in Heedless Backbones is carefully curated to ensure consistency and
+          Unlike crowd-sourced platforms, all the data in Heedless Backbones is managed by me ensure consistency and
           accuracy. The database is populated using a combination of manual review and LLM-assisted data entry, which
           helps maintain high data quality while enabling regular updates as new models are published.
         </p>
@@ -225,8 +214,8 @@
 
       <div style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
         <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">
-          Heedless Backbones is maintained by Ian Myers. You can find more of his work on
-          <a href="https://github.com/igm503">GitHub</a>.
+          Heedless Backbones is maintained by
+          <a href="https://github.com/igm503">Ian Myers</a>.
         </p>
         <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">
           Last updated: October 2024
