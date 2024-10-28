@@ -30,7 +30,7 @@ body {
 .top-bar {
   border: 1px solid #000000;
   padding: 1rem 0;
-  max-width: 1300px;
+  max-width: 1500px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 2rem;
@@ -40,7 +40,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 1rem;
 }
