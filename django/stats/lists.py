@@ -113,7 +113,7 @@ def get_count(result_model, result_type=None):
     if result_model == ClassificationResult:
         return Count("classificationresult")
     elif result_model == SemanticSegmentationResult:
-        return Count("semanticsegmentationresult")
+        return Count("semantic_seg_result")
     elif result_model == InstanceResult:
         return Count(
             "instanceresult",
@@ -127,7 +127,7 @@ def get_date(result_model, result_type=None):
     if result_model == ClassificationResult:
         return Max("classificationresult__pretrained_backbone__family__pub_date")
     elif result_model == SemanticSegmentationResult:
-        return Max("semanticsegmentationresult__pretrained_backbone__family__pub_date")
+        return Max("semantic_seg_result__pretrained_backbone__family__pub_date")
     else:
         assert result_type is not None
         return Max(
