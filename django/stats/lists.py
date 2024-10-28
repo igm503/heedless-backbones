@@ -27,7 +27,7 @@ def get_dataset_lists():
             row["website"] = "link"
             links = {
                 "name": reverse("dataset", args=[dataset.name])
-                + f"?{urlencode({'task': task.pk})}",
+                + f"?{urlencode({'task': task.name})}",
                 "website": dataset.website,
             }
             lists[task.name]["rows"].append(row)
@@ -48,7 +48,7 @@ def get_head_lists():
             row["github"] = "link"
             row["paper"] = "link"
             links = {
-                "name": reverse("head", args=[head.name]) + f"?{urlencode({'task': task.pk})}",
+                "name": reverse("head", args=[head.name]) + f"?{urlencode({'task': task.name})}",
                 "github": head.github,
                 "paper": head.paper,
             }

@@ -1,4 +1,5 @@
 from collections import defaultdict
+from urllib.parse import urlencode
 
 from django.db.models import Prefetch
 from django.urls import reverse
@@ -117,6 +118,10 @@ def get_head_downstream_table(head_name, downstream_type):
     for dataset_name in dataset_names:
         table = get_downstream_table(queryset, dataset_name, downstream_type, page="head")
         table["name"] = dataset_name
+        table["dataset_link"] = (
+            reverse("dataset", args=[dataset_name])
+            + f"?{urlencode({'task': downstream_type.value})}"
+        )
         data.append(table)
 
     return data
@@ -129,6 +134,12 @@ def get_family_downstream_table(family_name, downstream_type):
     for dataset_name in dataset_names:
         table = get_downstream_table(queryset, dataset_name, downstream_type, page="family")
         table["name"] = dataset_name
+        print(downstream_type.value)
+        table["dataset_link"] = (
+            reverse("dataset", args=[dataset_name])
+            + f"?{urlencode({'task': downstream_type.value})}"
+        )
+        print(table["dataset_link"])
         data.append(table)
 
     return data

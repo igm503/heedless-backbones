@@ -198,7 +198,7 @@ class PlotForm(forms.Form):
         return self.init_graph or (None not in values and "" not in values)
 
 
-def get_default_request(family=None, head=None, dataset=None, task_pk=None):
+def get_default_request(family=None, head=None, dataset=None, task_name=None):
     if family:
         return {
             "y_axis": "results",
@@ -209,9 +209,9 @@ def get_default_request(family=None, head=None, dataset=None, task_pk=None):
             "legend_attribute": "pretrain_dataset.name",
         }
     elif head:
-        if task_pk is None:
-            task_pk = get_first_task(head)
-        task = Task.objects.get(pk=task_pk)
+        if task_name is None:
+            task_name = get_first_task(head)
+        task = Task.objects.get(name=task_name)
         dataset_pk = get_head_task_dataset(head, task)
         metric = TASK_TO_FIRST_METRIC[task.name]
         return {
@@ -224,9 +224,9 @@ def get_default_request(family=None, head=None, dataset=None, task_pk=None):
             "legend_attribute": "family.name",
         }
     elif dataset:
-        if task_pk is None:
-            task_pk = get_first_task(dataset)
-        task = Task.objects.get(pk=task_pk)
+        if task_name is None:
+            task_name = get_first_task(dataset)
+        task = Task.objects.get(name=task_name)
         metric = TASK_TO_FIRST_METRIC[task.name]
         return {
             "y_axis": "results",
@@ -262,7 +262,7 @@ def get_first_task(dataset_or_head):
         else:
             count = getattr(dataset_or_head, related_name).count()
 
-        task_counts[task.pk] = count
+        task_counts[task.name] = count
     return max(task_counts, key=task_counts.get)
 
 

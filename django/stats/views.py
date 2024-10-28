@@ -55,7 +55,7 @@ def family(request, family_name):
     if any(field in request.GET for field in PlotForm.base_fields):
         form = PlotForm(request.GET)
     else:
-        form = PlotForm(get_default_request(family=family, task_pk=request.GET.get("task")))
+        form = PlotForm(get_default_request(family=family, task_name=request.GET.get("task")))
     if form.is_valid() and form.is_ready():
         plot_request = PlotRequest(form.cleaned_data)
         family_plot, family_table = get_plot_and_table(
@@ -88,7 +88,7 @@ def head(request, head_name):
     if any(field in request.GET for field in PlotForm.base_fields):
         form = PlotForm(request.GET, head=head)
     else:
-        form = PlotForm(get_default_request(head=head, task_pk=request.GET.get("task")), head=head)
+        form = PlotForm(get_default_request(head=head, task_name=request.GET.get("task")), head=head)
     if form.is_valid() and form.is_ready():
         form.cleaned_data["x_head"] = head
         form.cleaned_data["y_head"] = head
@@ -127,7 +127,7 @@ def dataset(request, dataset_name):
         form = PlotForm(request.GET, dataset=dataset)
     else:
         form = PlotForm(
-            get_default_request(dataset=dataset, task_pk=request.GET.get("task")),
+            get_default_request(dataset=dataset, task_name=request.GET.get("task")),
             dataset=dataset,
         )
     if form.is_valid() and form.is_ready():

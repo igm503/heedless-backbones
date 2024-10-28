@@ -47,7 +47,7 @@
   </button>
   <div class="table-container drawerContents" id="detectionTableContainer">
     {% for detection_table in detection_tables %}
-    <h3><a href="{% url "dataset" detection_table.name %}">{{ detection_table.name }}</a></h3>
+    <h3><a href="{{detection_table.dataset_link}}">{{ detection_table.name }}</a></h3>
     {% render_table "detectionFamilyTable" detection_table %}
     {% endfor %}
   </div>
@@ -60,7 +60,7 @@
   </button>
   <div class="table-container drawerContents" id="instanceTableContainer">
     {% for instance_table in instance_tables %}
-    <h3><a href="{% url "dataset" instance_table.name %}">{{ instance_table.name }}</a></h3>
+    <h3><a href="{{instance_table.dataset_link}}">{{ instance_table.name }}</a></h3>
     {% render_table "instanceFamilyTable" instance_table %}
     {% endfor %}
   </div>
@@ -73,7 +73,7 @@
   </button>
   <div class="table-container drawerContents" id="semanticTableContainer">
     {% for semantic_table in semantic_tables %}
-    <h3><a href="{% url "dataset" semantic_table.name %}">{{ semantic_table.name }}</a></h3>
+    <h3><a href="href={{semantic_table.dataset_link}}">{{ semantic_table.name }}</a></h3>
     {% render_table "semanticFamilyTable" semantic_table %}
     {% endfor %}
   </div>
