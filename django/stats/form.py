@@ -3,6 +3,7 @@ from collections import defaultdict
 from django import forms
 
 from .models import (
+    PretrainedBackbone,
     Task,
     InstanceResult,
     TASK_TO_TABLE,
@@ -198,22 +199,25 @@ class PlotForm(forms.Form):
         return self.init_graph or (None not in values and "" not in values)
 
 
-def get_default_request(family=None, head=None, dataset=None, task_name=None):
-    if family:
+def get_default_request(family=None, head=None, dataset=None, task_query=None, dataset_query=None):
+    if family and task_query is not None:
+        task = Task.objects.get(name=task_query)
+        metric = TASK_TO_FIRST_METRIC[task.name]
+        dataset_pk = get_family_task_dataset(family, task)
         return {
             "y_axis": "results",
-            "y_dataset": 1,
-            "y_task": 4,
-            "y_metric": "top_1",
+            "y_task": task.pk,
+            "y_dataset": dataset_pk,
+            "y_metric": metric,
             "x_axis": "gflops",
             "legend_attribute": "pretrain_dataset.name",
         }
     elif head:
-        if task_name is None:
-            task_name = get_first_task(head)
-        task = Task.objects.get(name=task_name)
-        dataset_pk = get_head_task_dataset(head, task)
+        if task_query is None:
+            task_query = get_first_task(head)
+        task = Task.objects.get(name=task_query)
         metric = TASK_TO_FIRST_METRIC[task.name]
+        dataset_pk = get_head_task_dataset(head, task)
         return {
             "y_axis": "results",
             "y_task": task.pk,
@@ -224,9 +228,9 @@ def get_default_request(family=None, head=None, dataset=None, task_name=None):
             "legend_attribute": "family.name",
         }
     elif dataset:
-        if task_name is None:
-            task_name = get_first_task(dataset)
-        task = Task.objects.get(name=task_name)
+        if task_query is None:
+            task_query = get_first_task(dataset)
+        task = Task.objects.get(name=task_query)
         metric = TASK_TO_FIRST_METRIC[task.name]
         return {
             "y_axis": "results",
@@ -247,8 +251,8 @@ def get_default_request(family=None, head=None, dataset=None, task_name=None):
         }
 
 
-def get_first_task(dataset_or_head):
-    tasks = dataset_or_head.tasks.all()
+def get_first_task(model):
+    tasks = model.tasks.all()
     task_counts = {}
     for task in tasks:
         if task.name not in TASK_TO_TABLE:
@@ -256,11 +260,9 @@ def get_first_task(dataset_or_head):
         result_model = TASK_TO_TABLE[task.name]
         related_name = result_model._meta.model_name + "_set"
         if result_model == InstanceResult:
-            count = (
-                getattr(dataset_or_head, related_name).filter(instance_type__name=task.name).count()
-            )
+            count = getattr(model, related_name).filter(instance_type__name=task.name).count()
         else:
-            count = getattr(dataset_or_head, related_name).count()
+            count = getattr(model, related_name).count()
 
         task_counts[task.name] = count
     return max(task_counts, key=task_counts.get)
@@ -269,10 +271,28 @@ def get_first_task(dataset_or_head):
 def get_head_task_dataset(head, task):
     result_model = TASK_TO_TABLE[task.name]
     related_name = result_model._meta.model_name + "_set"
+    results = getattr(head, related_name).select_related("dataset")
     if result_model == InstanceResult:
-        results = getattr(head, related_name).filter(instance_type__name=task.name).all()
+        results = results.filter(instance_type__name=task.name).all()
     else:
-        results = getattr(head, related_name).all()
+        results = results.all()
+
+    dataset_counts = defaultdict(int)
+    for result in results:
+        dataset_counts[result.dataset.pk] += 1
+
+    return max(dataset_counts, key=dataset_counts.get)
+
+
+def get_family_task_dataset(family, task):
+    result_model = TASK_TO_TABLE[task.name]
+    results = result_model.objects.select_related("pretrained_backbone__family", "dataset")
+    if result_model == InstanceResult:
+        results = results.filter(
+            instance_type__name=task.name, pretrained_backbone__family=family
+        ).all()
+    else:
+        results = results.filter(pretrained_backbone__family=family).all()
 
     dataset_counts = defaultdict(int)
     for result in results:

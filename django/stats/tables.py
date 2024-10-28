@@ -193,12 +193,15 @@ def get_downstream_table(queryset, dataset_name, downstream_type, page=""):
         for result in pb.results:
             if dataset_name != result.dataset.name:
                 continue
-            row, row_links = get_base_row(pb, page)
+            row, row_links = get_base_row(pb, page, task_type=downstream_type)
             del row["params (m)"]
             row["head"] = result.head.name
             row["train"] = get_train_string(result)
             row["gflops"] = result.gflops
-            row_links["head"] = reverse("head", args=[result.head.name])
+            row_links["head"] = (
+                reverse("head", args=[result.head.name])
+                + f"?{urlencode({'task': downstream_type.value})}"
+            )
             if page == "head":
                 del row["head"]
             for result_str in result_strs:
@@ -303,7 +306,7 @@ def package_table(rows, links):
         return None
 
 
-def get_base_row(pb, page):
+def get_base_row(pb, page, task_type=None):
     row = {
         "family": pb.family.name,
         "model": pb.backbone.name,
@@ -315,6 +318,8 @@ def get_base_row(pb, page):
         row_links = {"model": get_github(pb)}
     else:
         row_links = {"family": reverse("family", args=[pb.family.name])}
+        if task_type is not None:
+            row_links["family"] += f"?{urlencode({'task': task_type.value})}"
 
     return row, row_links
 

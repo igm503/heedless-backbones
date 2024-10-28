@@ -68,4 +68,3 @@ code
 - add flip test info for semantic seg
 - mmioums bad formatting in plot form
 - clicking on a link in a plot table should take you there with the same plot args
-- clicking model names in dataset or head pages should take you to the proper task
