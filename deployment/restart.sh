@@ -14,5 +14,5 @@ else
     exit 1
 fi
 
-sudo -u "$LINUX_USER" XDG_RUNTIME_DIR=/run/user/$(id -u $LINUX_USER) systemctl --user start $DJANGO_PROJECT_NAME.service
+sudo -u "$LINUX_USER" XDG_RUNTIME_DIR=/run/user/$(id -u $LINUX_USER) systemctl --user restart $DJANGO_PROJECT_NAME.service
 sudo systemctl restart nginx
