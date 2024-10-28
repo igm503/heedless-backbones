@@ -63,8 +63,6 @@ other notes
 code
 - semantic seg dataset and head page default plot options need to be set correctly
 - comparison of same instance results and metrics doesn't show correct results when different heads are selected.
-- add github link
-- add about page
 - too many links will take you to new tab
 - add filter by # citations
 - add filter by model type (CNN, ATT, etc.) and structure (ISO, HIER, etc.)

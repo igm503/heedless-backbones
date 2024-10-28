@@ -37,15 +37,17 @@
       </nav>
     </div>
   </header>
+  <div style="min-height: 88vh; display: flex; flex-direction: column;">
+    {% block content %}
+    {% endblock %}
 
-  {% block content %}
-  {% endblock %}
-
-  <footer>
-    <div class="container">
-      <p>2024 Heedless Backbones by Ian Myers</p>
-    </div>
-  </footer>
+    <footer style="margin-top: auto; padding: 1rem 0;">
+      <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+        <p style="font-size: 0.8rem; color: #666">Heedless Backbones</p>
+        <p style="font-size: 0.8rem; color: #666"><a href="https://github.com/igm503">Ian Myers</a></p>
+      </div>
+    </footer>
+  </div>
 
   <script>
     let dataTable, classificationDataTable, detectionDataTable, instanceDataTable, datasetTable, headTable, familyTable;
