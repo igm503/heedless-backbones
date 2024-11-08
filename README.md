@@ -21,10 +21,13 @@ Heedless Backbones is an attempt to address these shortcomings of Paperswithcode
 ## LLM-Assisted Data Entry
 To speed up adding models to the database, I use an LLM (Claude 3.5 Sonnet, currently), to generate yaml files for each model family that I want to add, using research paper pdfs as input. It works alright. If you'd like to use this tool, do the following:
 
-1. copy the ```example.env``` file to ```.env```
-2. replace ANTHROPY_API_KEY with your Anthropic API key (you can use the Open AI key variable as well, but you'd need to modify the code in ```django/stats/management/commands/llm_gen.py```)
+1. copy the `example.env` file to `.env`
+2. replace ANTHROPY_API_KEY with your Anthropic API key (you can use the Open AI key variable as well, but you'd need to modify the code in `django/stats/management/commands/llm_gen.py`)
 3. move to the ```django``` directory in your command prompt
-4. run ```python manage.py llm_gen [research paper pdf url] [name for the generated yaml file]```
+4. run the following command
+```
+python manage.py llm_gen [research paper pdf url] [name for the generated yaml file]
+```
 
 That will produce a yaml file in the ```family_data/``` dir with the name you specified. Once you've looked it over and edited it to your satisfaction, you can add it to the database with 
 ```
