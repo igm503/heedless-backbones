@@ -64,3 +64,4 @@ code
 - add filter by # citations
 - add filter by model type (CNN, ATT, etc.) and structure (ISO, HIER, etc.)
 - add flip test info for semantic seg
+- static table result sort by multiple result types (e.g. msmiou and ssmiou) doesn't sort right

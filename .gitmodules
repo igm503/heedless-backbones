@@ -1,0 +1,3 @@
+[submodule "django-deploy"]
+	path = django-deploy
+	url = https://github.com/igm503/django-deploy.git
