@@ -1,0 +1,442 @@
+name: FAN (Fully Attentional Networks)
+model_type: Attention
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2022-07-17'
+paper: https://arxiv.org/abs/2204.12451
+github: https://github.com/NVlabs/FAN
+backbones:
+- name: FAN-T-ViT
+  m_parameters: 7.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FAN-T-ViT-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.2
+      top_5: null
+      gflops: 1.3
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 57.5
+      top_5: null
+      gflops: 1.3
+    instance_results: []
+    semantic_segmentation_results: []
+- name: FAN-T-Hybrid
+  m_parameters: 7.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FAN-T-Hybrid-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.1
+      top_5: null
+      gflops: 3.5
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 57.4
+      top_5: null
+      gflops: 3.5
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.8
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 50.2
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+    semantic_segmentation_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: null
+      ss_m_iou: 57.1
+      gflops: null
+- name: FAN-S-ViT
+  m_parameters: 28.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FAN-S-ViT-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.9
+      top_5: null
+      gflops: 5.3
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 64.5
+      top_5: null
+      gflops: 5.3
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 29.1
+      top_5: null
+      gflops: 5.3
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 50.4
+      top_5: null
+      gflops: 5.3
+    instance_results: []
+    semantic_segmentation_results: []
+- name: FAN-S-Hybrid
+  m_parameters: 26.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FAN-S-Hybrid-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.5
+      top_5: null
+      gflops: 6.7
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 64.7
+      top_5: null
+      gflops: 6.7
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 33.9
+      top_5: null
+      gflops: 6.7
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 50.7
+      top_5: null
+      gflops: 6.7
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 49.1
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 53.3
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+    semantic_segmentation_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: null
+      ss_m_iou: 66.4
+      gflops: null
+- name: FAN-B-ViT
+  m_parameters: 54.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FAN-B-ViT-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.6
+      top_5: null
+      gflops: 10.4
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 67.0
+      top_5: null
+      gflops: 10.4
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 35.4
+      top_5: null
+      gflops: 10.4
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 51.8
+      top_5: null
+      gflops: 10.4
+    instance_results: []
+    semantic_segmentation_results: []
+- name: FAN-B-Hybrid
+  m_parameters: 50.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FAN-B-Hybrid-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.9
+      top_5: null
+      gflops: 11.3
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 66.4
+      top_5: null
+      gflops: 11.3
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 39.6
+      top_5: null
+      gflops: 11.3
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 52.9
+      top_5: null
+      gflops: 11.3
+    instance_results:
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 53.3
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+    semantic_segmentation_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: null
+      ss_m_iou: 66.9
+      gflops: null
+  - name: FAN-B-Hybrid-IN22k
+    pretrain_dataset: ImageNet-22k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 90
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 85.6
+      top_5: null
+      gflops: 11.3
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 70.5
+      top_5: null
+      gflops: 11.3
+    instance_results:
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 40.6
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+    semantic_segmentation_results: []
+- name: FAN-L-ViT
+  m_parameters: 81.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FAN-L-ViT-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.9
+      top_5: null
+      gflops: 15.8
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 67.7
+      top_5: null
+      gflops: 15.8
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 37.2
+      top_5: null
+      gflops: 15.8
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 53.1
+      top_5: null
+      gflops: 15.8
+    instance_results: []
+    semantic_segmentation_results: []
+- name: FAN-L-Hybrid
+  m_parameters: 76.8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FAN-L-Hybrid-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.3
+      top_5: null
+      gflops: 16.9
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 68.3
+      top_5: null
+      gflops: 16.9
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 41.8
+      top_5: null
+      gflops: 16.9
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 53.2
+      top_5: null
+      gflops: 16.9
+    instance_results:
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 54.1
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+    semantic_segmentation_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      train_resolution: 512
+      ms_m_iou: null
+      ss_m_iou: 68.7
+      gflops: null
+  - name: FAN-L-Hybrid-IN22k
+    pretrain_dataset: ImageNet-22k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 90
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 86.5
+      top_5: null
+      gflops: 16.9
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 87.1
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 73.6
+      top_5: null
+      gflops: 16.9
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 60.7
+      top_5: null
+      gflops: 16.9
+    - dataset: ImageNet-A
+      resolution: 384
+      top_1: 74.5
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 64.3
+      top_5: null
+      gflops: 16.9
+    - dataset: ImageNet-R
+      resolution: 384
+      top_1: 71.1
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results:
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 55.1
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+    semantic_segmentation_results: []

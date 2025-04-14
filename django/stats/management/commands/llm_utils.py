@@ -4,10 +4,9 @@ import io
 import os
 
 from django.db.models.fields.related import ForeignKey, ManyToManyField
+from django.core.exceptions import ValidationError
 from dotenv import load_dotenv
 from pypdf import PdfReader
-import anthropic
-import openai
 
 from ...models import (
     BackboneFamily,
@@ -21,7 +20,7 @@ from ...models import (
     DownstreamHead,
     GPU,
     TokenMixer,
-    Precision
+    Precision,
 )
 
 LLM_OUTPUT_DIR = os.path.abspath(
@@ -38,8 +37,6 @@ if not os.path.exists(LLM_OUTPUT_DIR):
     os.makedirs(LLM_OUTPUT_DIR)
 
 YAML_DIR = os.path.abspath(os.path.join(LLM_OUTPUT_DIR, os.path.pardir, "family_data"))
-if not os.path.exists(YAML_DIR):
-    os.makedirs(YAML_DIR)
 
 PROMPT = """
 Please analyze the provided paper and generate a YAML 
@@ -181,6 +178,8 @@ def get_pdf_content(url):
 
 
 def call_openai_api(prompt):
+    import openai
+
     load_dotenv()
     client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
     message = client.chat.completions.create(
@@ -191,14 +190,29 @@ def call_openai_api(prompt):
 
 
 def call_anthropic_api(prompt):
+    import anthropic
+
     load_dotenv()
     client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
     message = client.messages.create(
-        model="claude-3-5-sonnet-20240620",
+        model="claude-3-7-sonnet-20250219",
         max_tokens=8192,
         messages=[{"role": "user", "content": prompt}],
     )
     return message.content[0].text
+
+
+def call_together_api(prompt):
+    from together import Together
+
+    load_dotenv()
+    client = Together(api_key=os.getenv("TOGETHER_API_KEY"))
+    response = client.chat.completions.create(
+        model="deepseek-ai/DeepSeek-R1",
+        messages=[{"role": "user", "content": prompt}],
+    )
+    print(response.choices[0].message.content)
+    return response.choices[0].message.content
 
 
 def parse_model_output(model_output):

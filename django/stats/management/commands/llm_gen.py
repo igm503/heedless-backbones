@@ -10,12 +10,13 @@ from .llm_utils import (
     get_prompt_with_examples,
     call_anthropic_api,
     call_openai_api,
+    call_together_api,
     parse_model_output,
 )
 
 
 class Command(BaseCommand):
-    help = "Generates a YAML file with information about a new AI model family using Claude 3.5"
+    help = "Generates a YAML file with information about a new AI model family using Claude 3.7"
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -41,6 +42,9 @@ class Command(BaseCommand):
         try:
             prompt = get_prompt_with_examples(pdf_content, 5)
             llm_output = call_anthropic_api(prompt)
+            # Deepseek R1
+            # llm_output = call_together_api(prompt)
+            # GPT-4o
             # llm_output = call_openai_api(prompt)
         except Exception as e:
             self.stdout.write(self.style.ERROR(f"Error calling LLM API: {str(e)}"))

@@ -51,6 +51,9 @@ leftover cross references
 - MetaFormers
 -- Swin and Convnext a100 TF32 throughput that differs from convnext report (is faster)
 
+- FAN
+-- out of distribution and corrupted results for other models
+
 other notes
 - CSwin
 -- Need to confirm pub date and CMaskRNN FPS details (this also goes for cswin and swin upernet fps results)
