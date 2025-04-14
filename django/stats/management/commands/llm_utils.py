@@ -14,6 +14,7 @@ from ...models import (
     PretrainedBackbone,
     ClassificationResult,
     InstanceResult,
+    SemanticSegmentationResult,
     FPSMeasurement,
     Dataset,
     Task,
@@ -130,6 +131,7 @@ def get_model_definitions():
         Backbone,
         PretrainedBackbone,
         ClassificationResult,
+        SemanticSegmentationResult,
         InstanceResult,
         FPSMeasurement,
     ]:

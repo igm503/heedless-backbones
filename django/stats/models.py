@@ -35,6 +35,9 @@ class GPU(Enum):
     A100 = "A100"
     H100 = "H100"
     T4 = "T4"
+    RTX2080TI = "2080Ti"
+    RTX3090 = "3090"
+    RTX4090 = "4090"
 
 
 class Precision(Enum):
