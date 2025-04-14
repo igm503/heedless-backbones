@@ -135,7 +135,7 @@ backbones:
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
-      train_resolution: 512
+      crop_size: 512
       ms_m_iou: 53.7
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
@@ -149,7 +149,7 @@ backbones:
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
-      train_resolution: 512
+      crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
@@ -288,7 +288,7 @@ backbones:
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
-      train_resolution: 512
+      crop_size: 512
       ms_m_iou: 52.8
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
@@ -302,7 +302,7 @@ backbones:
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
-      train_resolution: 512
+      crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
@@ -401,25 +401,11 @@ backbones:
       gflops: null
       fps_measurements: []
     semantic_seg_results:
-    - head: UPerNet
-      dataset: ADE20K (val)
-      train_dataset: Cityscapes (train)
-      train_epochs: 128
-      train_resolution: 512
-      ms_m_iou: 51.7
-      ms_pixel_accuracy: null
-      ms_mean_accuracy: null
-      ss_m_iou: 51.1
-      ss_pixel_accuracy: null
-      ss_mean_accuracy: null
-      flip_test: true
-      gflops: 978.0
-      fps_measurements: []
     - head: Mask2Former
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
-      train_resolution: 512
+      crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
@@ -428,6 +414,20 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: null
+      fps_measurements: []
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 51.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 51.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: true
+      gflops: 978.0
       fps_measurements: []
 - name: TransNeXt-Micro
   m_parameters: 12.8

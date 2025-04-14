@@ -74,7 +74,7 @@ backbones:
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
-      train_resolution: 512
+      crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
@@ -152,7 +152,7 @@ backbones:
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
-      train_resolution: 512
+      crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
@@ -248,7 +248,7 @@ backbones:
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
-      train_resolution: 512
+      crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
@@ -331,7 +331,7 @@ backbones:
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
-      train_resolution: 512
+      crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
@@ -388,7 +388,7 @@ backbones:
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
-      train_resolution: 512
+      crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
@@ -461,7 +461,7 @@ backbones:
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
-      train_resolution: 640
+      crop_size: 640
       ms_m_iou: null
       ms_pixel_accuracy: null
       ms_mean_accuracy: null

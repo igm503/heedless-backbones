@@ -23,6 +23,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 77.0
+      top_5: null
       gflops: 0.6
     instance_results: []
     semantic_seg_results: []
@@ -43,6 +44,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 78.6
+      top_5: null
       gflops: 0.9
     instance_results: []
     semantic_seg_results: []
@@ -63,6 +65,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 80.2
+      top_5: null
       gflops: 1.6
     instance_results: []
     semantic_seg_results: []
@@ -83,6 +86,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 81.6
+      top_5: null
       gflops: 2.8
     instance_results: []
     semantic_seg_results: []
@@ -103,6 +107,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 83.2
+      top_5: null
       gflops: 4.9
     instance_results:
     - head: Cascade Mask R-CNN
@@ -117,6 +122,7 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 749.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -129,6 +135,7 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 749.0
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -143,6 +150,7 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: 946.0
+      fps_measurements: []
 - name: UniRepLKNet-S
   m_parameters: 55.6
   fps_measurements:
@@ -160,6 +168,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 83.9
+      top_5: null
       gflops: 9.1
     instance_results:
     - head: Cascade Mask R-CNN
@@ -174,6 +183,7 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 835.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -186,6 +196,7 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 835.0
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -200,6 +211,7 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: 1036.0
+      fps_measurements: []
   - name: UniRepLKNet-S-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -209,6 +221,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 86.4
+      top_5: null
       gflops: 26.7
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -226,6 +239,7 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 835.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -238,6 +252,7 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 835.0
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -252,6 +267,7 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: 1618.0
+      fps_measurements: []
 - name: UniRepLKNet-B
   m_parameters: 97.9
   fps_measurements:
@@ -269,6 +285,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 87.4
+      top_5: null
       gflops: 47.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -286,6 +303,7 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 978.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -298,6 +316,7 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 978.0
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -312,6 +331,7 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: 1850.0
+      fps_measurements: []
 - name: UniRepLKNet-L
   m_parameters: 218.3
   fps_measurements:
@@ -329,6 +349,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 87.9
+      top_5: null
       gflops: 105.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 20
@@ -346,6 +367,7 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 1385.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -358,6 +380,7 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 1385.0
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -372,6 +395,7 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: 2507.0
+      fps_measurements: []
 - name: UniRepLKNet-XL
   m_parameters: 386.4
   fps_measurements:
@@ -389,6 +413,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 88.0
+      top_5: null
       gflops: 187.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 20
@@ -406,6 +431,7 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 1952.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -418,6 +444,7 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 1952.0
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -432,3 +459,4 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: 3420.0
+      fps_measurements: []
