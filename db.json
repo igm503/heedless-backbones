@@ -332,6 +332,18 @@
   }
 },
 {
+  "model": "stats.dataset",
+  "pk": 25,
+  "fields": {
+    "name": "MegData73M",
+    "eval": false,
+    "website": "https://arxiv.org/pdf/2203.06717",
+    "tasks": [
+      4
+    ]
+  }
+},
+{
   "model": "stats.downstreamhead",
   "pk": 1,
   "fields": {
@@ -2681,6 +2693,123 @@
   }
 },
 {
+  "model": "stats.fpsmeasurement",
+  "pk": 202,
+  "fields": {
+    "backbone_name": "SLaK-T",
+    "resolution": 224,
+    "fps": 709.0,
+    "gpu": "A100",
+    "precision": "FP32",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 203,
+  "fields": {
+    "backbone_name": "RepLKNet-31B",
+    "resolution": 224,
+    "fps": 295.5,
+    "gpu": "2080Ti",
+    "precision": "FP32",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 204,
+  "fields": {
+    "backbone_name": "RepLKNet-31B",
+    "resolution": 384,
+    "fps": 97.0,
+    "gpu": "2080Ti",
+    "precision": "FP32",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 205,
+  "fields": {
+    "backbone_name": "RepLKNet-31L",
+    "resolution": 384,
+    "fps": 50.2,
+    "gpu": "2080Ti",
+    "precision": "FP32",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 206,
+  "fields": {
+    "backbone_name": "RepLKNet-XL",
+    "resolution": 320,
+    "fps": 39.1,
+    "gpu": "2080Ti",
+    "precision": "FP32",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 207,
+  "fields": {
+    "backbone_name": "RepLKNet-31B",
+    "resolution": 224,
+    "fps": 295.5,
+    "gpu": "2080Ti",
+    "precision": "FP32",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 208,
+  "fields": {
+    "backbone_name": "RepLKNet-31B",
+    "resolution": 384,
+    "fps": 97.0,
+    "gpu": "2080Ti",
+    "precision": "FP32",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 209,
+  "fields": {
+    "backbone_name": "RepLKNet-31L",
+    "resolution": 384,
+    "fps": 50.2,
+    "gpu": "2080Ti",
+    "precision": "FP32",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 210,
+  "fields": {
+    "backbone_name": "RepLKNet-XL",
+    "resolution": 320,
+    "fps": 39.1,
+    "gpu": "2080Ti",
+    "precision": "FP32",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
   "model": "stats.backbonefamily",
   "pk": 1,
   "fields": {
@@ -2942,7 +3071,7 @@
 },
 {
   "model": "stats.backbonefamily",
-  "pk": 36,
+  "pk": 37,
   "fields": {
     "name": "SLaK",
     "model_type": "Convolution",
@@ -2951,6 +3080,19 @@
     "pub_date": "2023-03-03",
     "paper": "https://arxiv.org/abs/2207.03620",
     "github": "https://github.com/VITA-Group/SLaK"
+  }
+},
+{
+  "model": "stats.backbonefamily",
+  "pk": 39,
+  "fields": {
+    "name": "RepLKNet",
+    "model_type": "Convolution",
+    "hierarchical": true,
+    "pretrain_method": "Supervised",
+    "pub_date": "2022-04-02",
+    "paper": "https://arxiv.org/abs/2203.06717",
+    "github": "https://github.com/megvii-research/RepLKNet"
   }
 },
 {
@@ -4462,24 +4604,24 @@
 },
 {
   "model": "stats.backbone",
-  "pk": 177,
+  "pk": 180,
   "fields": {
     "name": "SLaK-T",
-    "family": 36,
+    "family": 37,
     "m_parameters": 30.0,
     "paper": "",
     "github": "",
     "fps_measurements": [
-      201
+      202
     ]
   }
 },
 {
   "model": "stats.backbone",
-  "pk": 178,
+  "pk": 181,
   "fields": {
     "name": "SLaK-S",
-    "family": 36,
+    "family": 37,
     "m_parameters": 55.0,
     "paper": "",
     "github": "",
@@ -4488,14 +4630,57 @@
 },
 {
   "model": "stats.backbone",
-  "pk": 179,
+  "pk": 182,
   "fields": {
     "name": "SLaK-B",
-    "family": 36,
+    "family": 37,
     "m_parameters": 95.0,
     "paper": "",
     "github": "",
     "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 186,
+  "fields": {
+    "name": "RepLKNet-31B",
+    "family": 39,
+    "m_parameters": 79.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      207,
+      208
+    ]
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 187,
+  "fields": {
+    "name": "RepLKNet-31L",
+    "family": 39,
+    "m_parameters": 172.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      209
+    ]
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 188,
+  "fields": {
+    "name": "RepLKNet-XL",
+    "family": 39,
+    "m_parameters": 335.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      210
+    ]
   }
 },
 {
@@ -6630,11 +6815,11 @@
 },
 {
   "model": "stats.pretrainedbackbone",
-  "pk": 211,
+  "pk": 214,
   "fields": {
     "name": "SLaK-T-IN1k",
-    "backbone": 177,
-    "family": 36,
+    "backbone": 180,
+    "family": 37,
     "pretrain_dataset": 1,
     "pretrain_method": "Supervised",
     "pretrain_resolution": 224,
@@ -6645,11 +6830,11 @@
 },
 {
   "model": "stats.pretrainedbackbone",
-  "pk": 212,
+  "pk": 215,
   "fields": {
     "name": "SLaK-S-IN1k",
-    "backbone": 178,
-    "family": 36,
+    "backbone": 181,
+    "family": 37,
     "pretrain_dataset": 1,
     "pretrain_method": "Supervised",
     "pretrain_resolution": 224,
@@ -6660,15 +6845,75 @@
 },
 {
   "model": "stats.pretrainedbackbone",
-  "pk": 213,
+  "pk": 216,
   "fields": {
     "name": "SLaK-B-IN1k",
-    "backbone": 179,
-    "family": 36,
+    "backbone": 182,
+    "family": 37,
     "pretrain_dataset": 1,
     "pretrain_method": "Supervised",
     "pretrain_resolution": 224,
     "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 221,
+  "fields": {
+    "name": "RepLKNet-31B-IN1k",
+    "backbone": 186,
+    "family": 39,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 222,
+  "fields": {
+    "name": "RepLKNet-31B-IN22k",
+    "backbone": 186,
+    "family": 39,
+    "pretrain_dataset": 2,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 90,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 223,
+  "fields": {
+    "name": "RepLKNet-31L-IN22k",
+    "backbone": 187,
+    "family": 39,
+    "pretrain_dataset": 2,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 90,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 224,
+  "fields": {
+    "name": "RepLKNet-XL-MegData73M",
+    "backbone": 188,
+    "family": 39,
+    "pretrain_dataset": 25,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 320,
+    "pretrain_epochs": 15,
     "paper": "",
     "github": ""
   }
@@ -16075,9 +16320,9 @@
 },
 {
   "model": "stats.classificationresult",
-  "pk": 629,
+  "pk": 633,
   "fields": {
-    "pretrained_backbone": 211,
+    "pretrained_backbone": 214,
     "dataset": 1,
     "resolution": 224,
     "fine_tune_dataset": null,
@@ -16095,9 +16340,9 @@
 },
 {
   "model": "stats.classificationresult",
-  "pk": 630,
+  "pk": 634,
   "fields": {
-    "pretrained_backbone": 212,
+    "pretrained_backbone": 215,
     "dataset": 1,
     "resolution": 224,
     "fine_tune_dataset": null,
@@ -16115,9 +16360,9 @@
 },
 {
   "model": "stats.classificationresult",
-  "pk": 631,
+  "pk": 635,
   "fields": {
-    "pretrained_backbone": 213,
+    "pretrained_backbone": 216,
     "dataset": 1,
     "resolution": 224,
     "fine_tune_dataset": null,
@@ -16135,20 +16380,140 @@
 },
 {
   "model": "stats.classificationresult",
-  "pk": 632,
+  "pk": 636,
   "fields": {
-    "pretrained_backbone": 213,
+    "pretrained_backbone": 216,
     "dataset": 1,
     "resolution": 384,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 384,
     "intermediate_fine_tune_dataset": null,
     "intermediate_fine_tune_epochs": null,
     "intermediate_fine_tune_resolution": null,
     "top_1": 85.5,
     "top_5": null,
     "gflops": 50.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 643,
+  "fields": {
+    "pretrained_backbone": 221,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 83.5,
+    "top_5": null,
+    "gflops": 15.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 644,
+  "fields": {
+    "pretrained_backbone": 221,
+    "dataset": 1,
+    "resolution": 384,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 384,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 84.8,
+    "top_5": null,
+    "gflops": 45.1,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 645,
+  "fields": {
+    "pretrained_backbone": 222,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 224,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 85.2,
+    "top_5": null,
+    "gflops": 15.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 646,
+  "fields": {
+    "pretrained_backbone": 222,
+    "dataset": 1,
+    "resolution": 384,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 384,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 86.0,
+    "top_5": null,
+    "gflops": 45.1,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 647,
+  "fields": {
+    "pretrained_backbone": 223,
+    "dataset": 1,
+    "resolution": 384,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 384,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 86.6,
+    "top_5": null,
+    "gflops": 96.0,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 648,
+  "fields": {
+    "pretrained_backbone": 224,
+    "dataset": 1,
+    "resolution": 320,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 320,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 87.8,
+    "top_5": null,
+    "gflops": 128.7,
     "paper": "",
     "github": ""
   }
@@ -21141,9 +21506,9 @@
 },
 {
   "model": "stats.instanceresult",
-  "pk": 283,
+  "pk": 286,
   "fields": {
-    "pretrained_backbone": 211,
+    "pretrained_backbone": 214,
     "head": 2,
     "dataset": 4,
     "instance_type": 2,
@@ -21165,9 +21530,9 @@
 },
 {
   "model": "stats.instanceresult",
-  "pk": 284,
+  "pk": 287,
   "fields": {
-    "pretrained_backbone": 211,
+    "pretrained_backbone": 214,
     "head": 2,
     "dataset": 4,
     "instance_type": 3,
@@ -21189,9 +21554,9 @@
 },
 {
   "model": "stats.instanceresult",
-  "pk": 285,
+  "pk": 288,
   "fields": {
-    "pretrained_backbone": 211,
+    "pretrained_backbone": 214,
     "head": 12,
     "dataset": 24,
     "instance_type": 2,
@@ -21206,6 +21571,222 @@
     "mAPm": null,
     "mAPl": null,
     "gflops": 205.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 298,
+  "fields": {
+    "pretrained_backbone": 221,
+    "head": 11,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 24,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 47.0,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 437.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 299,
+  "fields": {
+    "pretrained_backbone": 221,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 52.2,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 965.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 300,
+  "fields": {
+    "pretrained_backbone": 221,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 45.2,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 965.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 301,
+  "fields": {
+    "pretrained_backbone": 222,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 53.0,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 965.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 302,
+  "fields": {
+    "pretrained_backbone": 222,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 46.0,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 965.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 303,
+  "fields": {
+    "pretrained_backbone": 223,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 53.9,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 1321.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 304,
+  "fields": {
+    "pretrained_backbone": 223,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 46.5,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 1321.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 305,
+  "fields": {
+    "pretrained_backbone": 224,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 55.5,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 1958.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 306,
+  "fields": {
+    "pretrained_backbone": 224,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 48.0,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 1958.0,
     "paper": "",
     "github": "",
     "fps_measurements": []
@@ -23050,9 +23631,9 @@
 },
 {
   "model": "stats.semanticsegmentationresult",
-  "pk": 84,
+  "pk": 87,
   "fields": {
-    "pretrained_backbone": 211,
+    "pretrained_backbone": 214,
     "head": 4,
     "dataset": 20,
     "train_dataset": 19,
@@ -23075,9 +23656,9 @@
 },
 {
   "model": "stats.semanticsegmentationresult",
-  "pk": 85,
+  "pk": 88,
   "fields": {
-    "pretrained_backbone": 212,
+    "pretrained_backbone": 215,
     "head": 4,
     "dataset": 20,
     "train_dataset": 19,
@@ -23100,9 +23681,9 @@
 },
 {
   "model": "stats.semanticsegmentationresult",
-  "pk": 86,
+  "pk": 89,
   "fields": {
-    "pretrained_backbone": 213,
+    "pretrained_backbone": 216,
     "head": 4,
     "dataset": 20,
     "train_dataset": 19,
@@ -23118,6 +23699,131 @@
     "ss_mean_accuracy": null,
     "flip_test": false,
     "gflops": 1172.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 95,
+  "fields": {
+    "pretrained_backbone": 221,
+    "head": 4,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 160,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 50.6,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 49.9,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": 1170.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 96,
+  "fields": {
+    "pretrained_backbone": 221,
+    "head": 4,
+    "dataset": 17,
+    "train_dataset": 16,
+    "train_epochs": 80,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 83.5,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 83.1,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": 2315.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 97,
+  "fields": {
+    "pretrained_backbone": 222,
+    "head": 4,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 160,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 52.3,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 51.5,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": 1829.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 98,
+  "fields": {
+    "pretrained_backbone": 223,
+    "head": 4,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 160,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 52.7,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 52.4,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": 2404.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 99,
+  "fields": {
+    "pretrained_backbone": 224,
+    "head": 4,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 160,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 640,
+    "ms_m_iou": 56.0,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 55.2,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": 3431.0,
     "paper": "",
     "github": "",
     "fps_measurements": []

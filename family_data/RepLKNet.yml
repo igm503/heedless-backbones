@@ -1,5 +1,5 @@
 name: RepLKNet
-model_type: CONV
+model_type: Convolution
 hierarchical: true
 pretrain_method: Supervised
 pub_date: '2022-04-02'
@@ -27,10 +27,12 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 83.5
+      top_5: null
       gflops: 15.3
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 84.8
+      top_5: null
       gflops: 45.1
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -42,38 +44,68 @@ backbones:
       train_dataset: COCO (train)
       train_epochs: 24
       mAP: 47.0
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 437.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
       train_dataset: COCO (train)
       train_epochs: 36
       mAP: 52.2
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 965.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 36
       mAP: 45.2
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 965.0
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 160
-      train_resolution: 512
-      ss_m_iou: 49.9
+      crop_size: 512
       ms_m_iou: 50.6
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.9
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
       gflops: 1170.0
+      fps_measurements: []
     - head: UPerNet
       dataset: Cityscapes (val)
       train_dataset: Cityscapes (train)
       train_epochs: 80
-      train_resolution: 512
-      ss_m_iou: 83.1
+      crop_size: 512
       ms_m_iou: 83.5
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 83.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
       gflops: 2315.0
+      fps_measurements: []
   - name: RepLKNet-31B-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -83,6 +115,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 85.2
+      top_5: null
       gflops: 15.3
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -90,6 +123,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 86.0
+      top_5: null
       gflops: 45.1
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -101,23 +135,41 @@ backbones:
       train_dataset: COCO (train)
       train_epochs: 36
       mAP: 53.0
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 965.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 36
       mAP: 46.0
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 965.0
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 160
-      train_resolution: 512
-      ss_m_iou: 51.5
+      crop_size: 512
       ms_m_iou: 52.3
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 51.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
       gflops: 1829.0
+      fps_measurements: []
 - name: RepLKNet-31L
   m_parameters: 172.0
   fps_measurements:
@@ -135,6 +187,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 86.6
+      top_5: null
       gflops: 96.0
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -146,23 +199,41 @@ backbones:
       train_dataset: COCO (train)
       train_epochs: 36
       mAP: 53.9
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 1321.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 36
       mAP: 46.5
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 1321.0
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 160
-      train_resolution: 512
-      ss_m_iou: 52.4
+      crop_size: 512
       ms_m_iou: 52.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 52.4
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
       gflops: 2404.0
+      fps_measurements: []
 - name: RepLKNet-XL
   m_parameters: 335.0
   fps_measurements:
@@ -172,7 +243,7 @@ backbones:
     fps: 39.1
   pretrained_backbones:
   - name: RepLKNet-XL-MegData73M
-    pretrain_dataset: ImageNet-1k
+    pretrain_dataset: MegData73M
     pretrain_method: Supervised
     pretrain_resolution: 320
     pretrain_epochs: 15
@@ -180,6 +251,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 320
       top_1: 87.8
+      top_5: null
       gflops: 128.7
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
@@ -191,41 +263,38 @@ backbones:
       train_dataset: COCO (train)
       train_epochs: 36
       mAP: 55.5
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 1958.0
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 36
       mAP: 48.0
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
       gflops: 1958.0
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 160
-      train_resolution: 640
-      ss_m_iou: 55.2
+      crop_size: 640
       ms_m_iou: 56.0
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 55.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
       gflops: 3431.0
-- name: RepLKNet-13
-  m_parameters: 73.7
-  pretrained_backbones:
-  - name: RepLKNet-13-IN1k
-    pretrain_dataset: ImageNet-1k
-    pretrain_method: Supervised
-    pretrain_resolution: 224
-    pretrain_epochs: 120
-    classification_results:
-    - dataset: ImageNet-1k
-      resolution: 224
-      top_1: 83.0
-      gflops: 13.4
-    semantic_seg_results:
-    - head: UPerNet
-      dataset: ADE20K (val)
-      train_dataset: ADE20K (train)
-      train_epochs: 80
-      train_resolution: 512
-      ss_m_iou: 48.4
-      gflops: 1130.0
+      fps_measurements: []

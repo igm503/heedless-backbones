@@ -102,10 +102,11 @@ I'm running this on a cheap digital ocean server, and you can access it by click
   - [UniRepLKNet](https://arxiv.org/abs/2311.15599)
   - [FAN](https://arxiv.org/abs/2204.12451)
   - [SLaK](https://arxiv.org/abs/2207.03620)
+  - [RepLKNet](https://arxiv.org/abs/2203.06717)
 
 ## Updates
 
-- 4-15-2025: added SLaK
+- 4-15-2025: added SLaK, RepLKNet
 - 4-14-2025: added FAN
 - 10-27-2024: improved plot defaults; bug fixes
 - 10-16-2024: added ADE20k results for remaining models; added UniRepLKNet
