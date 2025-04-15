@@ -2,6 +2,7 @@ import requests
 import yaml
 import io
 import os
+import re
 
 from django.db.models.fields.related import ForeignKey, ManyToManyField
 from django.core.exceptions import ValidationError
@@ -176,7 +177,10 @@ def get_pdf_content(url):
     pdf_file = io.BytesIO(response.content)
     pdf_reader = PdfReader(pdf_file)
     content = "\n".join(page.extract_text() for page in pdf_reader.pages)
-    return content
+
+    content = re.sub(r"/uni\d+/uni\d+[^\s]*", "", content)
+
+    return content.strip()
 
 
 def call_openai_api(prompt):
