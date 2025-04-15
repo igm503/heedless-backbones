@@ -33,6 +33,8 @@ left in papers
 -- ade20k FPS for swin, convnext, and metaformers (unclear what the precision is)
 - VMamba
 -- fps results for higher resolutions (not trained at higher res though)
+- FAN
+-- object and semantic seg results for corrupted datasets
 
 leftover cross references
 - efficientNetv2
@@ -53,6 +55,12 @@ leftover cross references
 
 - FAN
 -- out of distribution and corrupted results for other models
+
+RepLKNet
+-- swin 2080ti throughput
+
+SLaK
+-- convnext PASCAL VOC 2007 w/ Faster R-CNN OD
 
 other notes
 - CSwin
