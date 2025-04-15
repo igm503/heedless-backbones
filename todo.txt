@@ -1,8 +1,6 @@
 models to add:
 
 - swinv2
-- Slak
-- ReplkNet
 - MVit
 - EfficientVit https://arxiv.org/pdf/2205.14756
 - BiFormer

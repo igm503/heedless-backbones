@@ -73,7 +73,7 @@
   </button>
   <div class="table-container drawerContents" id="semanticTableContainer">
     {% for semantic_table in semantic_tables %}
-    <h3><a href="href={{semantic_table.dataset_link}}">{{ semantic_table.name }}</a></h3>
+    <h3><a href="{{semantic_table.dataset_link}}">{{ semantic_table.name }}</a></h3>
     {% render_table "semanticFamilyTable" semantic_table %}
     {% endfor %}
   </div>
