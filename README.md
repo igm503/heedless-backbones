@@ -109,10 +109,11 @@ I'm running this on a cheap digital ocean server, and you can access it by click
   - [Vim/Hier-Vim](https://arxiv.org/abs/2306.00989)
   - [PlainMamba](https://arxiv.org/abs/2403.17695)
   - [LocalVim/LocalVMamba](https://arxiv.org/abs/2403.09338)
+  - [EfficientVMamba](https://arxiv.org/pdf/2403.09977)
 
 ## Updates
 
-- 4-20-2025: added BiFormer, MambaOut, GroupMamba, Vim/Hier-Vim, PlainMamba, LocalVim/LocalVMamba
+- 4-20-2025: added BiFormer, MambaOut, GroupMamba, Vim/Hier-Vim, PlainMamba, LocalVim/LocalVMamba, EfficientVMamba
 - 4-15-2025: added SLaK, RepLKNet
 - 4-14-2025: added FAN
 - 10-27-2024: improved plot defaults; bug fixes

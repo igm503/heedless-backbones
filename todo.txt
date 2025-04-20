@@ -2,7 +2,6 @@ models to add:
 
 - swinv2
 - EfficientVit https://arxiv.org/pdf/2205.14756
-- EfficientVMamba
 - Exploring Plain Vision Transformer Backbones
 
 other data sources:

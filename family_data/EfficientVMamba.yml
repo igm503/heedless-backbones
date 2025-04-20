@@ -1,0 +1,296 @@
+name: EfficientVMamba
+model_type: State Space Model
+hierarchical: true
+pretrain_method: Supervised
+pub_date: "2024-03-15"
+paper: https://arxiv.org/abs/2403.09977
+github: https://github.com/TerryPei/EfficientVMamba
+backbones:
+  - name: EfficientVMamba-T
+    m_parameters: 6.0
+    fps_measurements: []
+    pretrained_backbones:
+      - name: EfficientVMamba-T-IN1k
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 76.5
+            top_5: null
+            gflops: 0.8
+        instance_results:
+          - head: RetinaNet
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 12
+            mAP: 37.5
+            AP50: 57.8
+            AP75: 39.6
+            mAPs: 22.6
+            mAPm: 40.7
+            mAPl: 49.1
+            gflops: null
+            fps_measurements: []
+          - head: Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 12
+            mAP: 35.6
+            AP50: 57.7
+            AP75: 38.0
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: 60.0
+            fps_measurements: []
+          - head: Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Instance Segmentation
+            train_dataset: COCO (train)
+            train_epochs: 12
+            mAP: 33.2
+            AP50: 54.4
+            AP75: 35.1
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: 60.0
+            fps_measurements: []
+          - head: Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 36
+            mAP: 38.3
+            AP50: 60.3
+            AP75: 41.6
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: 60.0
+            fps_measurements: []
+          - head: Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Instance Segmentation
+            train_dataset: COCO (train)
+            train_epochs: 36
+            mAP: 35.3
+            AP50: 57.2
+            AP75: 37.6
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: 60.0
+            fps_measurements: []
+        semantic_seg_results:
+          - head: UPerNet
+            dataset: ADE20K (val)
+            train_dataset: ADE20K (train)
+            train_epochs: 128
+            crop_size: 512
+            ms_m_iou: 39.3
+            ms_pixel_accuracy: null
+            ms_mean_accuracy: null
+            ss_m_iou: 38.9
+            ss_pixel_accuracy: null
+            ss_mean_accuracy: null
+            flip_test: false
+            gflops: 230.0
+            fps_measurements: []
+  - name: EfficientVMamba-S
+    m_parameters: 11.0
+    fps_measurements: []
+    pretrained_backbones:
+      - name: EfficientVMamba-S-IN1k
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 78.7
+            top_5: null
+            gflops: 1.3
+        instance_results:
+          - head: RetinaNet
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 12
+            mAP: 39.1
+            AP50: 60.3
+            AP75: 41.2
+            mAPs: 23.9
+            mAPm: 43.0
+            mAPl: 51.3
+            gflops: null
+            fps_measurements: []
+          - head: Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 12
+            mAP: 39.3
+            AP50: 61.8
+            AP75: 42.6
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: 197.0
+            fps_measurements: []
+          - head: Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Instance Segmentation
+            train_dataset: COCO (train)
+            train_epochs: 12
+            mAP: 36.7
+            AP50: 58.9
+            AP75: 39.2
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: 197.0
+            fps_measurements: []
+          - head: Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 36
+            mAP: 41.6
+            AP50: 63.9
+            AP75: 45.6
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: 197.0
+            fps_measurements: []
+          - head: Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Instance Segmentation
+            train_dataset: COCO (train)
+            train_epochs: 36
+            mAP: 38.2
+            AP50: 60.8
+            AP75: 40.7
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: 197.0
+            fps_measurements: []
+        semantic_seg_results:
+          - head: UPerNet
+            dataset: ADE20K (val)
+            train_dataset: ADE20K (train)
+            train_epochs: 128
+            crop_size: 512
+            ms_m_iou: 42.1
+            ms_pixel_accuracy: null
+            ms_mean_accuracy: null
+            ss_m_iou: 41.5
+            ss_pixel_accuracy: null
+            ss_mean_accuracy: null
+            flip_test: false
+            gflops: 505.0
+            fps_measurements: []
+  - name: EfficientVMamba-B
+    m_parameters: 33.0
+    fps_measurements: []
+    pretrained_backbones:
+      - name: EfficientVMamba-B-IN1k
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 81.8
+            top_5: null
+            gflops: 4.0
+        instance_results:
+          - head: RetinaNet
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 12
+            mAP: 42.8
+            AP50: 63.9
+            AP75: 45.8
+            mAPs: 27.3
+            mAPm: 46.9
+            mAPl: 55.1
+            gflops: null
+            fps_measurements: []
+          - head: Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 12
+            mAP: 43.7
+            AP50: 66.2
+            AP75: 47.9
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: 252.0
+            fps_measurements: []
+          - head: Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Instance Segmentation
+            train_dataset: COCO (train)
+            train_epochs: 12
+            mAP: 40.2
+            AP50: 63.3
+            AP75: 42.9
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: 252.0
+            fps_measurements: []
+          - head: Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 36
+            mAP: 45.0
+            AP50: 66.9
+            AP75: 49.2
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: 252.0
+            fps_measurements: []
+          - head: Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Instance Segmentation
+            train_dataset: COCO (train)
+            train_epochs: 36
+            mAP: 40.8
+            AP50: 64.1
+            AP75: 43.7
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: 252.0
+            fps_measurements: []
+        semantic_seg_results:
+          - head: UPerNet
+            dataset: ADE20K (val)
+            train_dataset: ADE20K (train)
+            train_epochs: 128
+            crop_size: 512
+            ms_m_iou: 47.3
+            ms_pixel_accuracy: null
+            ms_mean_accuracy: null
+            ss_m_iou: 46.5
+            ss_pixel_accuracy: null
+            ss_mean_accuracy: null
+            flip_test: false
+            gflops: 930.0
+            fps_measurements: []
