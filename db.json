@@ -3151,7 +3151,7 @@
   "model": "stats.backbonefamily",
   "pk": 45,
   "fields": {
-    "name": "ViM",
+    "name": "Vim",
     "model_type": "State Space Model",
     "hierarchical": false,
     "pretrain_method": "Supervised",
@@ -3164,7 +3164,7 @@
   "model": "stats.backbonefamily",
   "pk": 46,
   "fields": {
-    "name": "Hier-ViM",
+    "name": "Hier-Vim",
     "model_type": "State Space Model",
     "hierarchical": true,
     "pretrain_method": "Supervised",
