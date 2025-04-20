@@ -3,7 +3,6 @@ models to add:
 - swinv2
 - MVit
 - EfficientVit https://arxiv.org/pdf/2205.14756
-- BiFormer
 - mamba out (they say they report macs but seem to be reporting flops)
 - groupmamba
 - plain mamba

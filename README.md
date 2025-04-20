@@ -103,9 +103,11 @@ I'm running this on a cheap digital ocean server, and you can access it by click
   - [FAN](https://arxiv.org/abs/2204.12451)
   - [SLaK](https://arxiv.org/abs/2207.03620)
   - [RepLKNet](https://arxiv.org/abs/2203.06717)
+  - [BiFormer](https://arxiv.org/abs/2303.08810)
 
 ## Updates
 
+- 4-20-2025: added BiFormer
 - 4-15-2025: added SLaK, RepLKNet
 - 4-14-2025: added FAN
 - 10-27-2024: improved plot defaults; bug fixes
