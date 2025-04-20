@@ -104,10 +104,11 @@ I'm running this on a cheap digital ocean server, and you can access it by click
   - [SLaK](https://arxiv.org/abs/2207.03620)
   - [RepLKNet](https://arxiv.org/abs/2203.06717)
   - [BiFormer](https://arxiv.org/abs/2303.08810)
+  - [MambaOut](https://arxiv.org/abs/2405.07992)
 
 ## Updates
 
-- 4-20-2025: added BiFormer
+- 4-20-2025: added BiFormer, MambaOut   
 - 4-15-2025: added SLaK, RepLKNet
 - 4-14-2025: added FAN
 - 10-27-2024: improved plot defaults; bug fixes
