@@ -60,17 +60,22 @@ However, please ignore Panoptic Segmentation.
 The YAML you will generate will be used to populate to 
 create new entries in the tables listed above. An example
 of the desired YAML structure to generate the tables is
-given below. Note that foreign key and many to many
-relationships are indicated by nesting. Note also that
-classification results and instance (this means instance
-segmentation or object detection) results can take
-more than just one metric. For example, instance results 
-can take mAP, AP50, AP75, mAPs, mAPm, mAPl, and gflops.
-If some of these metrics are not included for a given
-experiment, you are welcome to leave the keys out of the 
-YAML. However, please include all metrics that are listed.
-Finally, please include relevant gflop measurements along
-with each result.
+given below. 
+
+A few notes:
+
+- Foreign key and many to many relationships are indicated by nesting.
+- Classification results and instance results (this means instance
+  segmentation or object detection) can take more than just one metric. 
+  For example, instance results  can take mAP, AP50, AP75, mAPs, mAPm, 
+  mAPl, and gflops.
+- If some of these metrics are not included for a given experiment, you 
+  may indicate this by using the keyword "null" in the YAML. 
+- Please include all metrics that are listed.
+- Please include relevant gflop measurements along with each result.
+- Be careful when reporting train epochs for semantic segmentation results.
+  Often the training settings report iterations instead of epochs. Make sure
+  to convert the iterations to epochs if this is the case.
 
 The following examples show the desired YAML structure:
 
