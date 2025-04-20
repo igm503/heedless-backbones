@@ -3096,6 +3096,19 @@
   }
 },
 {
+  "model": "stats.backbonefamily",
+  "pk": 41,
+  "fields": {
+    "name": "BiFormer",
+    "model_type": "Attention",
+    "hierarchical": true,
+    "pretrain_method": "Supervised",
+    "pub_date": "2023-03-15",
+    "paper": "https://arxiv.org/abs/2303.08810",
+    "github": "https://github.com/rayleizhu/BiFormer"
+  }
+},
+{
   "model": "stats.backbone",
   "pk": 1,
   "fields": {
@@ -4681,6 +4694,42 @@
     "fps_measurements": [
       210
     ]
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 191,
+  "fields": {
+    "name": "BiFormer-T",
+    "family": 41,
+    "m_parameters": 13.1,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 192,
+  "fields": {
+    "name": "BiFormer-S",
+    "family": 41,
+    "m_parameters": 26.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 193,
+  "fields": {
+    "name": "BiFormer-B",
+    "family": 41,
+    "m_parameters": 57.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
   }
 },
 {
@@ -6914,6 +6963,81 @@
     "pretrain_method": "Supervised",
     "pretrain_resolution": 320,
     "pretrain_epochs": 15,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 227,
+  "fields": {
+    "name": "BiFormer-T-IN1k",
+    "backbone": 191,
+    "family": 41,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 228,
+  "fields": {
+    "name": "BiFormer-S-IN1k",
+    "backbone": 192,
+    "family": 41,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 229,
+  "fields": {
+    "name": "BiFormer-S-IN1k-TL",
+    "backbone": 192,
+    "family": 41,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Sup. + TL",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 230,
+  "fields": {
+    "name": "BiFormer-B-IN1k",
+    "backbone": 193,
+    "family": 41,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 231,
+  "fields": {
+    "name": "BiFormer-B-IN1k-TL",
+    "backbone": 193,
+    "family": 41,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Sup. + TL",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
     "paper": "",
     "github": ""
   }
@@ -16519,6 +16643,106 @@
   }
 },
 {
+  "model": "stats.classificationresult",
+  "pk": 651,
+  "fields": {
+    "pretrained_backbone": 227,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 81.4,
+    "top_5": null,
+    "gflops": 2.2,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 652,
+  "fields": {
+    "pretrained_backbone": 228,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 83.8,
+    "top_5": null,
+    "gflops": 4.5,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 653,
+  "fields": {
+    "pretrained_backbone": 229,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 84.3,
+    "top_5": null,
+    "gflops": 4.5,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 654,
+  "fields": {
+    "pretrained_backbone": 230,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 84.3,
+    "top_5": null,
+    "gflops": 9.8,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 655,
+  "fields": {
+    "pretrained_backbone": 231,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 85.4,
+    "top_5": null,
+    "gflops": 9.8,
+    "paper": "",
+    "github": ""
+  }
+},
+{
   "model": "stats.instanceresult",
   "pk": 3,
   "fields": {
@@ -21793,6 +22017,150 @@
   }
 },
 {
+  "model": "stats.instanceresult",
+  "pk": 310,
+  "fields": {
+    "pretrained_backbone": 228,
+    "head": 3,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 45.9,
+    "AP50": 66.9,
+    "AP75": 49.4,
+    "mAPs": 30.2,
+    "mAPm": 49.6,
+    "mAPl": 61.7,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 311,
+  "fields": {
+    "pretrained_backbone": 228,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 47.8,
+    "AP50": 69.8,
+    "AP75": 52.3,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 312,
+  "fields": {
+    "pretrained_backbone": 228,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 43.2,
+    "AP50": 66.8,
+    "AP75": 46.5,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 313,
+  "fields": {
+    "pretrained_backbone": 230,
+    "head": 3,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 47.1,
+    "AP50": 68.5,
+    "AP75": 50.4,
+    "mAPs": 31.3,
+    "mAPm": 50.8,
+    "mAPl": 62.6,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 314,
+  "fields": {
+    "pretrained_backbone": 230,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 48.6,
+    "AP50": 70.5,
+    "AP75": 53.8,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 315,
+  "fields": {
+    "pretrained_backbone": 230,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 43.7,
+    "AP50": 67.6,
+    "AP75": 47.1,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
   "model": "stats.semanticsegmentationresult",
   "pk": 3,
   "fields": {
@@ -23824,6 +24192,106 @@
     "ss_mean_accuracy": null,
     "flip_test": false,
     "gflops": 3431.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 101,
+  "fields": {
+    "pretrained_backbone": 228,
+    "head": 4,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 160,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 50.8,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 49.8,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 102,
+  "fields": {
+    "pretrained_backbone": 228,
+    "head": 9,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 80,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": null,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 48.9,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 103,
+  "fields": {
+    "pretrained_backbone": 230,
+    "head": 4,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 160,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 51.7,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 51.0,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 104,
+  "fields": {
+    "pretrained_backbone": 230,
+    "head": 9,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 80,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": null,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 49.9,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": null,
     "paper": "",
     "github": "",
     "fps_measurements": []

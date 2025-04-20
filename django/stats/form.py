@@ -211,6 +211,7 @@ def get_default_request(family=None, head=None, dataset=None, task_query=None, d
             "y_metric": metric,
             "x_axis": "gflops",
             "legend_attribute": "pretrain_dataset.name",
+            "legend_attribute_(second)": "pretrain_method",
         }
     elif head:
         if task_query is None:

@@ -40,7 +40,8 @@ class Command(BaseCommand):
             return
 
         try:
-            prompt = get_prompt_with_examples(pdf_content, 5)
+            prompt = get_prompt_with_examples(pdf_content, 3)
+            print(prompt)
             llm_output = call_anthropic_api(prompt)
             # Deepseek R1
             # llm_output = call_together_api(prompt)

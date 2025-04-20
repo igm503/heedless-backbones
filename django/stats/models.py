@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 
 class PretrainMethod(Enum):
     SUPERVISED = "Supervised"
+    TOKEN_LABELLING = "Sup. + TL"
     FCMAE = "FCMAE"
     MAE = "MAE"
     CONTRASTIVE = "CL"
