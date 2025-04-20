@@ -2,8 +2,11 @@ models to add:
 
 - swinv2
 - EfficientVit https://arxiv.org/pdf/2205.14756
-- groupmamba
 - plain mamba
+- LocalVMamba
+- ViM
+- LocalViM
+- EfficientVMamba
 - Exploring Plain Vision Transformer Backbones
 
 other data sources:
@@ -51,11 +54,14 @@ leftover cross references
 - FAN
 -- out of distribution and corrupted results for other models
 
-RepLKNet
+- RepLKNet
 -- swin 2080ti throughput
 
-SLaK
+- SLaK
 -- convnext PASCAL VOC 2007 w/ Faster R-CNN OD
+
+- GroupMamba
+-- A100 throughput for other mamba models
 
 other notes
 - CSwin
