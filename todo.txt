@@ -28,6 +28,8 @@ left in papers
 -- fps results for higher resolutions (not trained at higher res though)
 - FAN
 -- object and semantic seg results for corrupted datasets
+- RMT
+-- throughput results, but no details about gpu and precision
 
 leftover cross references
 - efficientNetv2
@@ -57,6 +59,9 @@ leftover cross references
 
 - GroupMamba
 -- A100 throughput for other mamba models
+
+- RMT
+-- lots of stuff for other models
 
 other notes
 - CSwin
