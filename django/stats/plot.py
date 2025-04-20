@@ -326,15 +326,20 @@ def get_plot_div(title, x_title, y_title, data):
         family="Inter, sans-serif",
         color="black",
     )
-    axis = dict(
+    xaxis = dict(
         gridcolor="rgba(0,0,0,1)",
         linecolor="black",
         showline=True,
         zerolinecolor="black",
         zerolinewidth=1,
     )
-    x_axis = dict(title=dict(text=x_title), **axis)
-    y_axis = dict(title=dict(text=y_title), **axis)
+    yaxis = xaxis.copy()
+    if y_title in ["Images / Second", "Parameters (M)", "GFLOPs"]:
+        yaxis["type"] = "log"
+    if x_title in ["Images / Second", "Parameters (M)", "GFLOPs"]:
+        xaxis["type"] = "log"
+    x_axis = dict(title=dict(text=x_title), **xaxis)
+    y_axis = dict(title=dict(text=y_title), **yaxis)
 
     layout = go.Layout(
         title=title,
