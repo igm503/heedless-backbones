@@ -4,7 +4,6 @@ models to add:
 - EfficientVit https://arxiv.org/pdf/2205.14756
 - plain mamba
 - LocalVMamba
-- ViM
 - LocalViM
 - EfficientVMamba
 - Exploring Plain Vision Transformer Backbones

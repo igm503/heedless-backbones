@@ -1,0 +1,145 @@
+name: ViM
+model_type: State Space Model
+hierarchical: false
+pretrain_method: Supervised
+pub_date: "2024-02-29"
+paper: https://arxiv.org/abs/2401.09417
+github: https://github.com/hustvl/Vim
+backbones:
+  - name: Vim-Ti
+    m_parameters: 7.0
+    fps_measurements: []
+    pretrained_backbones:
+      - name: Vim-Ti-IN1k
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 76.1
+            gflops: null
+        instance_results:
+          - head: Cascade Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 200
+            mAP: 45.7
+            AP50: 63.9
+            AP75: 49.6
+            mAPs: 26.1
+            mAPm: 49.0
+            mAPl: 63.2
+            gflops: null
+            fps_measurements: []
+          - head: Cascade Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Instance Segmentation
+            train_dataset: COCO (train)
+            train_epochs: 200
+            mAP: 39.2
+            AP50: 60.9
+            AP75: 41.7
+            mAPs: 18.2
+            mAPm: 41.8
+            mAPl: 60.2
+            gflops: null
+            fps_measurements: []
+        semantic_seg_results:
+          - head: UPerNet
+            dataset: ADE20K (val)
+            train_dataset: ADE20K (train)
+            train_epochs: 128
+            crop_size: 512
+            ss_m_iou: 41.0
+            flip_test: false
+            gflops: null
+            fps_measurements: []
+      - name: Vim-Ti-IN1k-LS
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 78.3
+            gflops: null
+            fine_tune_dataset: ImageNet-1k
+            fine_tune_epochs: 30
+            fine_tune_resolution: 224
+        instance_results: []
+        semantic_seg_results: []
+  - name: Vim-S
+    m_parameters: 26.0
+    fps_measurements: []
+    pretrained_backbones:
+      - name: Vim-S-IN1k
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 80.3
+            gflops: null
+        instance_results: []
+        semantic_seg_results:
+          - head: UPerNet
+            dataset: ADE20K (val)
+            train_dataset: ADE20K (train)
+            train_epochs: 128
+            crop_size: 512
+            ss_m_iou: 44.9
+            flip_test: false
+            gflops: null
+            fps_measurements: []
+      - name: Vim-S-IN1k-LS
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 81.4
+            gflops: null
+            fine_tune_dataset: ImageNet-1k
+            fine_tune_epochs: 30
+            fine_tune_resolution: 224
+        instance_results: []
+        semantic_seg_results: []
+  - name: Vim-B
+    m_parameters: 98.0
+    fps_measurements: []
+    pretrained_backbones:
+      - name: Vim-B-IN1k
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 81.9
+            gflops: null
+        instance_results: []
+        semantic_seg_results: []
+      - name: Vim-B-IN1k-LS
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 83.2
+            gflops: null
+            fine_tune_dataset: ImageNet-1k
+            fine_tune_epochs: 30
+            fine_tune_resolution: 224
+        instance_results: []
+        semantic_seg_results: []

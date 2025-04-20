@@ -1,0 +1,56 @@
+name: Hier-ViM
+model_type: State Space Model
+hierarchical: true
+pretrain_method: Supervised
+pub_date: "2024-02-29"
+paper: https://arxiv.org/abs/2401.09417
+github: https://github.com/hustvl/Vim
+backbones:
+  - name: Hier-Vim-T
+    m_parameters: 30.0
+    fps_measurements: []
+    pretrained_backbones:
+      - name: Hier-Vim-T-IN1k
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 82.5
+            gflops: null
+        instance_results: []
+        semantic_seg_results: []
+  - name: Hier-Vim-S
+    m_parameters: 50.0
+    fps_measurements: []
+    pretrained_backbones:
+      - name: Hier-Vim-S-IN1k
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 83.4
+            gflops: null
+        instance_results: []
+        semantic_seg_results: []
+  - name: Hier-Vim-B
+    m_parameters: 89.0
+    fps_measurements: []
+    pretrained_backbones:
+      - name: Hier-Vim-B-IN1k
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 83.9
+            gflops: null
+        instance_results: []
+        semantic_seg_results: []

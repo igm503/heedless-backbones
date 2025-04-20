@@ -106,10 +106,11 @@ I'm running this on a cheap digital ocean server, and you can access it by click
   - [BiFormer](https://arxiv.org/abs/2303.08810)
   - [MambaOut](https://arxiv.org/abs/2405.07992)
   - [GroupMamba](https://arxiv.org/abs/2407.13772)
+  - [ViM/Hier-Vim](https://arxiv.org/abs/2306.00989)
 
 ## Updates
 
-- 4-20-2025: added BiFormer, MambaOut, GroupMamba
+- 4-20-2025: added BiFormer, MambaOut, GroupMamba, ViM/Hier-ViM
 - 4-15-2025: added SLaK, RepLKNet
 - 4-14-2025: added FAN
 - 10-27-2024: improved plot defaults; bug fixes
