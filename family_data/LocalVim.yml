@@ -1,0 +1,96 @@
+name: LocalVim
+model_type: State Space Model
+hierarchical: false
+pretrain_method: Supervised
+pub_date: "2024-03-14"
+paper: https://arxiv.org/abs/2403.09338
+github: https://github.com/hunto/LocalMamba
+backbones:
+  - name: LocalVim-T
+    m_parameters: 8.0
+    fps_measurements: []
+    pretrained_backbones:
+      - name: LocalVim-T-IN1k
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 76.2
+            top_5: null
+            gflops: 1.5
+        instance_results:
+          - head: Cascade Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 200
+            mAP: 45.3
+            AP50: 66.2
+            AP75: 49.1
+            mAPs: 26.0
+            mAPm: 49.5
+            mAPl: 61.7
+            gflops: 403.0
+            fps_measurements: []
+          - head: Cascade Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Instance Segmentation
+            train_dataset: COCO (train)
+            train_epochs: 200
+            mAP: 39.9
+            AP50: 63.0
+            AP75: 42.5
+            mAPs: 17.7
+            mAPm: 43.0
+            mAPl: 60.5
+            gflops: 403.0
+            fps_measurements: []
+        semantic_seg_results:
+          - head: UPerNet
+            dataset: ADE20K (val)
+            train_dataset: ADE20K (train)
+            train_epochs: 128
+            crop_size: 512
+            ms_m_iou: 44.4
+            ms_pixel_accuracy: null
+            ms_mean_accuracy: null
+            ss_m_iou: 43.4
+            ss_pixel_accuracy: null
+            ss_mean_accuracy: null
+            flip_test: false
+            gflops: 181.0
+            fps_measurements: []
+  - name: LocalVim-S
+    m_parameters: 28.0
+    fps_measurements: []
+    pretrained_backbones:
+      - name: LocalVim-S-IN1k
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Supervised
+        pretrain_resolution: 224
+        pretrain_epochs: 300
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 81.2
+            top_5: null
+            gflops: 4.8
+        instance_results: []
+        semantic_seg_results:
+          - head: UPerNet
+            dataset: ADE20K (val)
+            train_dataset: ADE20K (train)
+            train_epochs: 128
+            crop_size: 512
+            ms_m_iou: 47.5
+            ms_pixel_accuracy: null
+            ms_mean_accuracy: null
+            ss_m_iou: 46.4
+            ss_pixel_accuracy: null
+            ss_mean_accuracy: null
+            flip_test: false
+            gflops: 297.0
+            fps_measurements: []
