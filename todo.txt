@@ -3,6 +3,7 @@ models to add:
 - swinv2
 - EfficientVit https://arxiv.org/pdf/2205.14756
 - Exploring Plain Vision Transformer Backbones
+- LV ViT (first token labelling paper)
 
 other data sources:
 - Detrex (no flops)

@@ -2823,6 +2823,578 @@
   }
 },
 {
+  "model": "stats.fpsmeasurement",
+  "pk": 224,
+  "fields": {
+    "backbone_name": "NAT-M",
+    "resolution": 224,
+    "fps": 2135.0,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 225,
+  "fields": {
+    "backbone_name": "NAT-M",
+    "resolution": 1280,
+    "fps": 54.1,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 226,
+  "fields": {
+    "backbone_name": "NAT-M",
+    "resolution": 1280,
+    "fps": 54.1,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 227,
+  "fields": {
+    "backbone_name": "NAT-M",
+    "resolution": 1280,
+    "fps": 27.8,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 228,
+  "fields": {
+    "backbone_name": "NAT-M",
+    "resolution": 1280,
+    "fps": 27.8,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 229,
+  "fields": {
+    "backbone_name": "NAT-M",
+    "resolution": 512,
+    "fps": 24.5,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 230,
+  "fields": {
+    "backbone_name": "NAT-T",
+    "resolution": 224,
+    "fps": 1541.0,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 231,
+  "fields": {
+    "backbone_name": "NAT-T",
+    "resolution": 1280,
+    "fps": 44.5,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 232,
+  "fields": {
+    "backbone_name": "NAT-T",
+    "resolution": 1280,
+    "fps": 44.5,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 233,
+  "fields": {
+    "backbone_name": "NAT-T",
+    "resolution": 1280,
+    "fps": 24.9,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 234,
+  "fields": {
+    "backbone_name": "NAT-T",
+    "resolution": 1280,
+    "fps": 24.9,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 235,
+  "fields": {
+    "backbone_name": "NAT-T",
+    "resolution": 512,
+    "fps": 21.4,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 236,
+  "fields": {
+    "backbone_name": "NAT-S",
+    "resolution": 224,
+    "fps": 1051.0,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 237,
+  "fields": {
+    "backbone_name": "NAT-S",
+    "resolution": 1280,
+    "fps": 34.8,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 238,
+  "fields": {
+    "backbone_name": "NAT-S",
+    "resolution": 1280,
+    "fps": 34.8,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 239,
+  "fields": {
+    "backbone_name": "NAT-S",
+    "resolution": 1280,
+    "fps": 21.7,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 240,
+  "fields": {
+    "backbone_name": "NAT-S",
+    "resolution": 1280,
+    "fps": 21.7,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 241,
+  "fields": {
+    "backbone_name": "NAT-S",
+    "resolution": 512,
+    "fps": 17.9,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 242,
+  "fields": {
+    "backbone_name": "NAT-B",
+    "resolution": 224,
+    "fps": 783.0,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 243,
+  "fields": {
+    "backbone_name": "NAT-B",
+    "resolution": 1280,
+    "fps": 18.6,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 244,
+  "fields": {
+    "backbone_name": "NAT-B",
+    "resolution": 1280,
+    "fps": 18.6,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 245,
+  "fields": {
+    "backbone_name": "NAT-B",
+    "resolution": 512,
+    "fps": 15.6,
+    "gpu": "A100",
+    "precision": null,
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 246,
+  "fields": {
+    "backbone_name": "NAT-M",
+    "resolution": 224,
+    "fps": 2135.0,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 247,
+  "fields": {
+    "backbone_name": "NAT-M",
+    "resolution": 1280,
+    "fps": 54.1,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 248,
+  "fields": {
+    "backbone_name": "NAT-M",
+    "resolution": 1280,
+    "fps": 54.1,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 249,
+  "fields": {
+    "backbone_name": "NAT-M",
+    "resolution": 1280,
+    "fps": 27.8,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 250,
+  "fields": {
+    "backbone_name": "NAT-M",
+    "resolution": 1280,
+    "fps": 27.8,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 251,
+  "fields": {
+    "backbone_name": "NAT-M",
+    "resolution": 512,
+    "fps": 24.5,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 252,
+  "fields": {
+    "backbone_name": "NAT-T",
+    "resolution": 224,
+    "fps": 1541.0,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 253,
+  "fields": {
+    "backbone_name": "NAT-T",
+    "resolution": 1280,
+    "fps": 44.5,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 254,
+  "fields": {
+    "backbone_name": "NAT-T",
+    "resolution": 1280,
+    "fps": 44.5,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 255,
+  "fields": {
+    "backbone_name": "NAT-T",
+    "resolution": 1280,
+    "fps": 24.9,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 256,
+  "fields": {
+    "backbone_name": "NAT-T",
+    "resolution": 1280,
+    "fps": 24.9,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 257,
+  "fields": {
+    "backbone_name": "NAT-T",
+    "resolution": 512,
+    "fps": 21.4,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 258,
+  "fields": {
+    "backbone_name": "NAT-S",
+    "resolution": 224,
+    "fps": 1051.0,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 259,
+  "fields": {
+    "backbone_name": "NAT-S",
+    "resolution": 1280,
+    "fps": 34.8,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 260,
+  "fields": {
+    "backbone_name": "NAT-S",
+    "resolution": 1280,
+    "fps": 34.8,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 261,
+  "fields": {
+    "backbone_name": "NAT-S",
+    "resolution": 1280,
+    "fps": 21.7,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 262,
+  "fields": {
+    "backbone_name": "NAT-S",
+    "resolution": 1280,
+    "fps": 21.7,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 263,
+  "fields": {
+    "backbone_name": "NAT-S",
+    "resolution": 512,
+    "fps": 17.9,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 264,
+  "fields": {
+    "backbone_name": "NAT-B",
+    "resolution": 224,
+    "fps": 783.0,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 265,
+  "fields": {
+    "backbone_name": "NAT-B",
+    "resolution": 1280,
+    "fps": 18.6,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 266,
+  "fields": {
+    "backbone_name": "NAT-B",
+    "resolution": 1280,
+    "fps": 18.6,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
+  "pk": 267,
+  "fields": {
+    "backbone_name": "NAT-B",
+    "resolution": 512,
+    "fps": 15.6,
+    "gpu": "A100",
+    "precision": "AMP",
+    "batch_size": null,
+    "source": ""
+  }
+},
+{
   "model": "stats.backbonefamily",
   "pk": 1,
   "fields": {
@@ -3071,19 +3643,6 @@
 },
 {
   "model": "stats.backbonefamily",
-  "pk": 34,
-  "fields": {
-    "name": "FAN (Fully Attentional Networks)",
-    "model_type": "Attention",
-    "hierarchical": true,
-    "pretrain_method": "Supervised",
-    "pub_date": "2022-07-17",
-    "paper": "https://arxiv.org/abs/2204.12451",
-    "github": "https://github.com/NVlabs/FAN"
-  }
-},
-{
-  "model": "stats.backbonefamily",
   "pk": 37,
   "fields": {
     "name": "SLaK",
@@ -3275,6 +3834,45 @@
     "pub_date": "2023-09-04",
     "paper": "https://arxiv.org/abs/2309.01430",
     "github": "https://github.com/LeapLabTHU/DAT"
+  }
+},
+{
+  "model": "stats.backbonefamily",
+  "pk": 61,
+  "fields": {
+    "name": "FAN",
+    "model_type": "Attention",
+    "hierarchical": true,
+    "pretrain_method": "Supervised",
+    "pub_date": "2022-07-17",
+    "paper": "https://arxiv.org/abs/2204.12451",
+    "github": "https://github.com/NVlabs/FAN"
+  }
+},
+{
+  "model": "stats.backbonefamily",
+  "pk": 66,
+  "fields": {
+    "name": "DAT",
+    "model_type": "Attn + Conv",
+    "hierarchical": true,
+    "pretrain_method": "Supervised",
+    "pub_date": "2022-05-24",
+    "paper": "https://arxiv.org/abs/2201.00520",
+    "github": "https://github.com/LeapLabTHU/DAT"
+  }
+},
+{
+  "model": "stats.backbonefamily",
+  "pk": 70,
+  "fields": {
+    "name": "NAT",
+    "model_type": "Attention",
+    "hierarchical": true,
+    "pretrain_method": "Supervised",
+    "pub_date": "2022-04-15",
+    "paper": "https://arxiv.org/abs/2204.07143",
+    "github": "https://github.com/SHI-Labs/Neighborhood-Attention-Transformer"
   }
 },
 {
@@ -4690,102 +5288,6 @@
 },
 {
   "model": "stats.backbone",
-  "pk": 168,
-  "fields": {
-    "name": "FAN-T-ViT",
-    "family": 34,
-    "m_parameters": 7.0,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.backbone",
-  "pk": 169,
-  "fields": {
-    "name": "FAN-T-Hybrid",
-    "family": 34,
-    "m_parameters": 7.0,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.backbone",
-  "pk": 170,
-  "fields": {
-    "name": "FAN-S-ViT",
-    "family": 34,
-    "m_parameters": 28.0,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.backbone",
-  "pk": 171,
-  "fields": {
-    "name": "FAN-S-Hybrid",
-    "family": 34,
-    "m_parameters": 26.0,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.backbone",
-  "pk": 172,
-  "fields": {
-    "name": "FAN-B-ViT",
-    "family": 34,
-    "m_parameters": 54.0,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.backbone",
-  "pk": 173,
-  "fields": {
-    "name": "FAN-B-Hybrid",
-    "family": 34,
-    "m_parameters": 50.0,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.backbone",
-  "pk": 174,
-  "fields": {
-    "name": "FAN-L-ViT",
-    "family": 34,
-    "m_parameters": 81.0,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.backbone",
-  "pk": 175,
-  "fields": {
-    "name": "FAN-L-Hybrid",
-    "family": 34,
-    "m_parameters": 76.8,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.backbone",
   "pk": 180,
   "fields": {
     "name": "SLaK-T",
@@ -5345,6 +5847,194 @@
     "paper": "",
     "github": "",
     "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 253,
+  "fields": {
+    "name": "FAN-T-ViT",
+    "family": 61,
+    "m_parameters": 7.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 254,
+  "fields": {
+    "name": "FAN-T-Hybrid",
+    "family": 61,
+    "m_parameters": 7.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 255,
+  "fields": {
+    "name": "FAN-S-ViT",
+    "family": 61,
+    "m_parameters": 28.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 256,
+  "fields": {
+    "name": "FAN-S-Hybrid",
+    "family": 61,
+    "m_parameters": 26.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 257,
+  "fields": {
+    "name": "FAN-B-ViT",
+    "family": 61,
+    "m_parameters": 54.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 258,
+  "fields": {
+    "name": "FAN-B-Hybrid",
+    "family": 61,
+    "m_parameters": 50.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 259,
+  "fields": {
+    "name": "FAN-L-ViT",
+    "family": 61,
+    "m_parameters": 81.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 260,
+  "fields": {
+    "name": "FAN-L-Hybrid",
+    "family": 61,
+    "m_parameters": 76.8,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 271,
+  "fields": {
+    "name": "DAT-T",
+    "family": 66,
+    "m_parameters": 29.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 272,
+  "fields": {
+    "name": "DAT-S",
+    "family": 66,
+    "m_parameters": 50.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 273,
+  "fields": {
+    "name": "DAT-B",
+    "family": 66,
+    "m_parameters": 88.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 281,
+  "fields": {
+    "name": "NAT-M",
+    "family": 70,
+    "m_parameters": 20.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      246
+    ]
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 282,
+  "fields": {
+    "name": "NAT-T",
+    "family": 70,
+    "m_parameters": 28.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      252
+    ]
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 283,
+  "fields": {
+    "name": "NAT-S",
+    "family": 70,
+    "m_parameters": 51.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      258
+    ]
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 284,
+  "fields": {
+    "name": "NAT-B",
+    "family": 70,
+    "m_parameters": 90.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      264
+    ]
   }
 },
 {
@@ -7329,156 +8019,6 @@
 },
 {
   "model": "stats.pretrainedbackbone",
-  "pk": 200,
-  "fields": {
-    "name": "FAN-T-ViT-IN1k",
-    "backbone": 168,
-    "family": 34,
-    "pretrain_dataset": 1,
-    "pretrain_method": "Supervised",
-    "pretrain_resolution": 224,
-    "pretrain_epochs": 300,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.pretrainedbackbone",
-  "pk": 201,
-  "fields": {
-    "name": "FAN-T-Hybrid-IN1k",
-    "backbone": 169,
-    "family": 34,
-    "pretrain_dataset": 1,
-    "pretrain_method": "Supervised",
-    "pretrain_resolution": 224,
-    "pretrain_epochs": 300,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.pretrainedbackbone",
-  "pk": 202,
-  "fields": {
-    "name": "FAN-S-ViT-IN1k",
-    "backbone": 170,
-    "family": 34,
-    "pretrain_dataset": 1,
-    "pretrain_method": "Supervised",
-    "pretrain_resolution": 224,
-    "pretrain_epochs": 300,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.pretrainedbackbone",
-  "pk": 203,
-  "fields": {
-    "name": "FAN-S-Hybrid-IN1k",
-    "backbone": 171,
-    "family": 34,
-    "pretrain_dataset": 1,
-    "pretrain_method": "Supervised",
-    "pretrain_resolution": 224,
-    "pretrain_epochs": 300,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.pretrainedbackbone",
-  "pk": 204,
-  "fields": {
-    "name": "FAN-B-ViT-IN1k",
-    "backbone": 172,
-    "family": 34,
-    "pretrain_dataset": 1,
-    "pretrain_method": "Supervised",
-    "pretrain_resolution": 224,
-    "pretrain_epochs": 300,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.pretrainedbackbone",
-  "pk": 205,
-  "fields": {
-    "name": "FAN-B-Hybrid-IN1k",
-    "backbone": 173,
-    "family": 34,
-    "pretrain_dataset": 1,
-    "pretrain_method": "Supervised",
-    "pretrain_resolution": 224,
-    "pretrain_epochs": 300,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.pretrainedbackbone",
-  "pk": 206,
-  "fields": {
-    "name": "FAN-B-Hybrid-IN22k",
-    "backbone": 173,
-    "family": 34,
-    "pretrain_dataset": 2,
-    "pretrain_method": "Supervised",
-    "pretrain_resolution": 224,
-    "pretrain_epochs": 90,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.pretrainedbackbone",
-  "pk": 207,
-  "fields": {
-    "name": "FAN-L-ViT-IN1k",
-    "backbone": 174,
-    "family": 34,
-    "pretrain_dataset": 1,
-    "pretrain_method": "Supervised",
-    "pretrain_resolution": 224,
-    "pretrain_epochs": 300,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.pretrainedbackbone",
-  "pk": 208,
-  "fields": {
-    "name": "FAN-L-Hybrid-IN1k",
-    "backbone": 175,
-    "family": 34,
-    "pretrain_dataset": 1,
-    "pretrain_method": "Supervised",
-    "pretrain_resolution": 224,
-    "pretrain_epochs": 300,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.pretrainedbackbone",
-  "pk": 209,
-  "fields": {
-    "name": "FAN-L-Hybrid-IN22k",
-    "backbone": 175,
-    "family": 34,
-    "pretrain_dataset": 2,
-    "pretrain_method": "Supervised",
-    "pretrain_resolution": 224,
-    "pretrain_epochs": 90,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.pretrainedbackbone",
   "pk": 214,
   "fields": {
     "name": "SLaK-T-IN1k",
@@ -8294,6 +8834,321 @@
     "name": "DAT-B++-IN1k",
     "backbone": 235,
     "family": 57,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 308,
+  "fields": {
+    "name": "FAN-T-ViT-IN1k",
+    "backbone": 253,
+    "family": 61,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 309,
+  "fields": {
+    "name": "FAN-T-Hybrid-IN1k",
+    "backbone": 254,
+    "family": 61,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 310,
+  "fields": {
+    "name": "FAN-T-Hybrid-IN1k-TL",
+    "backbone": 254,
+    "family": 61,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Sup. + TL",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 350,
+    "paper": "https://arxiv.org/pdf/2401.03844",
+    "github": "https://github.com/NVlabs/STL"
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 311,
+  "fields": {
+    "name": "FAN-S-ViT-IN1k",
+    "backbone": 255,
+    "family": 61,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 312,
+  "fields": {
+    "name": "FAN-S-Hybrid-IN1k",
+    "backbone": 256,
+    "family": 61,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 313,
+  "fields": {
+    "name": "FAN-S-Hybrid-IN1k-TL",
+    "backbone": 256,
+    "family": 61,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Sup. + TL",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 350,
+    "paper": "https://arxiv.org/pdf/2401.03844",
+    "github": "https://github.com/NVlabs/STL"
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 314,
+  "fields": {
+    "name": "FAN-B-ViT-IN1k",
+    "backbone": 257,
+    "family": 61,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 315,
+  "fields": {
+    "name": "FAN-B-Hybrid-IN1k",
+    "backbone": 258,
+    "family": 61,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 316,
+  "fields": {
+    "name": "FAN-B-Hybrid-IN1k-TL",
+    "backbone": 258,
+    "family": 61,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Sup. + TL",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 350,
+    "paper": "https://arxiv.org/pdf/2401.03844",
+    "github": "https://github.com/NVlabs/STL"
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 317,
+  "fields": {
+    "name": "FAN-B-Hybrid-IN22k",
+    "backbone": 258,
+    "family": 61,
+    "pretrain_dataset": 2,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 90,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 318,
+  "fields": {
+    "name": "FAN-L-ViT-IN1k",
+    "backbone": 259,
+    "family": 61,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 319,
+  "fields": {
+    "name": "FAN-L-Hybrid-IN1k",
+    "backbone": 260,
+    "family": 61,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 320,
+  "fields": {
+    "name": "FAN-L-Hybrid-IN22k",
+    "backbone": 260,
+    "family": 61,
+    "pretrain_dataset": 2,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 90,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 321,
+  "fields": {
+    "name": "FAN-L-Hybrid-IN1k-TL",
+    "backbone": 260,
+    "family": 61,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Sup. + TL",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 350,
+    "paper": "https://arxiv.org/pdf/2401.03844",
+    "github": "https://github.com/NVlabs/STL"
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 332,
+  "fields": {
+    "name": "DAT-T-IN1k",
+    "backbone": 271,
+    "family": 66,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 333,
+  "fields": {
+    "name": "DAT-S-IN1k",
+    "backbone": 272,
+    "family": 66,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 334,
+  "fields": {
+    "name": "DAT-B-IN1k",
+    "backbone": 273,
+    "family": 66,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 342,
+  "fields": {
+    "name": "NAT-M-IN1k",
+    "backbone": 281,
+    "family": 70,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 343,
+  "fields": {
+    "name": "NAT-T-IN1k",
+    "backbone": 282,
+    "family": 70,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 344,
+  "fields": {
+    "name": "NAT-S-IN1k",
+    "backbone": 283,
+    "family": 70,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 345,
+  "fields": {
+    "name": "NAT-B-IN1k",
+    "backbone": 284,
+    "family": 70,
     "pretrain_dataset": 1,
     "pretrain_method": "Supervised",
     "pretrain_resolution": 224,
@@ -17004,706 +17859,6 @@
 },
 {
   "model": "stats.classificationresult",
-  "pk": 593,
-  "fields": {
-    "pretrained_backbone": 200,
-    "dataset": 1,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 79.2,
-    "top_5": null,
-    "gflops": 1.3,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 594,
-  "fields": {
-    "pretrained_backbone": 201,
-    "dataset": 1,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 80.1,
-    "top_5": null,
-    "gflops": 3.5,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 595,
-  "fields": {
-    "pretrained_backbone": 202,
-    "dataset": 1,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 82.9,
-    "top_5": null,
-    "gflops": 5.3,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 596,
-  "fields": {
-    "pretrained_backbone": 202,
-    "dataset": 10,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 47.7,
-    "top_5": null,
-    "gflops": 5.3,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 597,
-  "fields": {
-    "pretrained_backbone": 202,
-    "dataset": 7,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 29.1,
-    "top_5": null,
-    "gflops": 5.3,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 598,
-  "fields": {
-    "pretrained_backbone": 202,
-    "dataset": 8,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 50.4,
-    "top_5": null,
-    "gflops": 5.3,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 599,
-  "fields": {
-    "pretrained_backbone": 203,
-    "dataset": 1,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 83.5,
-    "top_5": null,
-    "gflops": 6.7,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 600,
-  "fields": {
-    "pretrained_backbone": 203,
-    "dataset": 10,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 47.8,
-    "top_5": null,
-    "gflops": 6.7,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 601,
-  "fields": {
-    "pretrained_backbone": 203,
-    "dataset": 7,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 33.9,
-    "top_5": null,
-    "gflops": 6.7,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 602,
-  "fields": {
-    "pretrained_backbone": 203,
-    "dataset": 8,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 50.7,
-    "top_5": null,
-    "gflops": 6.7,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 603,
-  "fields": {
-    "pretrained_backbone": 204,
-    "dataset": 1,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 83.6,
-    "top_5": null,
-    "gflops": 10.4,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 604,
-  "fields": {
-    "pretrained_backbone": 204,
-    "dataset": 10,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 44.4,
-    "top_5": null,
-    "gflops": 10.4,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 605,
-  "fields": {
-    "pretrained_backbone": 204,
-    "dataset": 7,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 35.4,
-    "top_5": null,
-    "gflops": 10.4,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 606,
-  "fields": {
-    "pretrained_backbone": 204,
-    "dataset": 8,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 51.8,
-    "top_5": null,
-    "gflops": 10.4,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 607,
-  "fields": {
-    "pretrained_backbone": 205,
-    "dataset": 1,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 83.9,
-    "top_5": null,
-    "gflops": 11.3,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 608,
-  "fields": {
-    "pretrained_backbone": 205,
-    "dataset": 10,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 45.2,
-    "top_5": null,
-    "gflops": 11.3,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 609,
-  "fields": {
-    "pretrained_backbone": 205,
-    "dataset": 7,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 39.6,
-    "top_5": null,
-    "gflops": 11.3,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 610,
-  "fields": {
-    "pretrained_backbone": 205,
-    "dataset": 8,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 52.9,
-    "top_5": null,
-    "gflops": 11.3,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 611,
-  "fields": {
-    "pretrained_backbone": 206,
-    "dataset": 1,
-    "resolution": 224,
-    "fine_tune_dataset": 1,
-    "fine_tune_epochs": 30,
-    "fine_tune_resolution": 224,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 85.6,
-    "top_5": null,
-    "gflops": 11.3,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 612,
-  "fields": {
-    "pretrained_backbone": 207,
-    "dataset": 1,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 83.9,
-    "top_5": null,
-    "gflops": 15.8,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 613,
-  "fields": {
-    "pretrained_backbone": 207,
-    "dataset": 10,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 43.3,
-    "top_5": null,
-    "gflops": 15.8,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 614,
-  "fields": {
-    "pretrained_backbone": 207,
-    "dataset": 7,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 37.2,
-    "top_5": null,
-    "gflops": 15.8,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 615,
-  "fields": {
-    "pretrained_backbone": 207,
-    "dataset": 8,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 53.1,
-    "top_5": null,
-    "gflops": 15.8,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 616,
-  "fields": {
-    "pretrained_backbone": 208,
-    "dataset": 1,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 84.3,
-    "top_5": null,
-    "gflops": 16.9,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 617,
-  "fields": {
-    "pretrained_backbone": 208,
-    "dataset": 10,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 43.0,
-    "top_5": null,
-    "gflops": 16.9,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 618,
-  "fields": {
-    "pretrained_backbone": 208,
-    "dataset": 7,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 41.8,
-    "top_5": null,
-    "gflops": 16.9,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 619,
-  "fields": {
-    "pretrained_backbone": 208,
-    "dataset": 8,
-    "resolution": 224,
-    "fine_tune_dataset": null,
-    "fine_tune_epochs": null,
-    "fine_tune_resolution": null,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 53.2,
-    "top_5": null,
-    "gflops": 16.9,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 620,
-  "fields": {
-    "pretrained_backbone": 209,
-    "dataset": 1,
-    "resolution": 224,
-    "fine_tune_dataset": 1,
-    "fine_tune_epochs": 30,
-    "fine_tune_resolution": 224,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 86.5,
-    "top_5": null,
-    "gflops": 16.9,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 621,
-  "fields": {
-    "pretrained_backbone": 209,
-    "dataset": 1,
-    "resolution": 384,
-    "fine_tune_dataset": 1,
-    "fine_tune_epochs": 30,
-    "fine_tune_resolution": 384,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 87.1,
-    "top_5": null,
-    "gflops": null,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 622,
-  "fields": {
-    "pretrained_backbone": 209,
-    "dataset": 10,
-    "resolution": 224,
-    "fine_tune_dataset": 1,
-    "fine_tune_epochs": 30,
-    "fine_tune_resolution": 224,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 35.8,
-    "top_5": null,
-    "gflops": 16.9,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 623,
-  "fields": {
-    "pretrained_backbone": 209,
-    "dataset": 10,
-    "resolution": 384,
-    "fine_tune_dataset": 1,
-    "fine_tune_epochs": 30,
-    "fine_tune_resolution": 384,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 36.0,
-    "top_5": null,
-    "gflops": 16.9,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 624,
-  "fields": {
-    "pretrained_backbone": 209,
-    "dataset": 7,
-    "resolution": 224,
-    "fine_tune_dataset": 1,
-    "fine_tune_epochs": 30,
-    "fine_tune_resolution": 224,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 60.7,
-    "top_5": null,
-    "gflops": 16.9,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 625,
-  "fields": {
-    "pretrained_backbone": 209,
-    "dataset": 7,
-    "resolution": 384,
-    "fine_tune_dataset": 1,
-    "fine_tune_epochs": 30,
-    "fine_tune_resolution": 384,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 74.5,
-    "top_5": null,
-    "gflops": null,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 626,
-  "fields": {
-    "pretrained_backbone": 209,
-    "dataset": 8,
-    "resolution": 224,
-    "fine_tune_dataset": 1,
-    "fine_tune_epochs": 30,
-    "fine_tune_resolution": 224,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 64.3,
-    "top_5": null,
-    "gflops": 16.9,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
-  "pk": 627,
-  "fields": {
-    "pretrained_backbone": 209,
-    "dataset": 8,
-    "resolution": 384,
-    "fine_tune_dataset": 1,
-    "fine_tune_epochs": 30,
-    "fine_tune_resolution": 384,
-    "intermediate_fine_tune_dataset": null,
-    "intermediate_fine_tune_epochs": null,
-    "intermediate_fine_tune_resolution": null,
-    "top_1": 71.1,
-    "top_5": null,
-    "gflops": null,
-    "paper": "",
-    "github": ""
-  }
-},
-{
-  "model": "stats.classificationresult",
   "pk": 633,
   "fields": {
     "pretrained_backbone": 214,
@@ -18878,6 +19033,1126 @@
     "top_1": 85.9,
     "top_5": null,
     "gflops": 49.7,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 800,
+  "fields": {
+    "pretrained_backbone": 308,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 79.2,
+    "top_5": null,
+    "gflops": 1.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 801,
+  "fields": {
+    "pretrained_backbone": 309,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 80.1,
+    "top_5": null,
+    "gflops": 3.5,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 802,
+  "fields": {
+    "pretrained_backbone": 310,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 79.9,
+    "top_5": null,
+    "gflops": 3.6,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 803,
+  "fields": {
+    "pretrained_backbone": 311,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 82.9,
+    "top_5": null,
+    "gflops": 5.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 804,
+  "fields": {
+    "pretrained_backbone": 311,
+    "dataset": 10,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 47.7,
+    "top_5": null,
+    "gflops": 5.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 805,
+  "fields": {
+    "pretrained_backbone": 311,
+    "dataset": 7,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 29.1,
+    "top_5": null,
+    "gflops": 5.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 806,
+  "fields": {
+    "pretrained_backbone": 311,
+    "dataset": 8,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 50.4,
+    "top_5": null,
+    "gflops": 5.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 807,
+  "fields": {
+    "pretrained_backbone": 312,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 83.5,
+    "top_5": null,
+    "gflops": 6.7,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 808,
+  "fields": {
+    "pretrained_backbone": 312,
+    "dataset": 10,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 47.8,
+    "top_5": null,
+    "gflops": 6.7,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 809,
+  "fields": {
+    "pretrained_backbone": 312,
+    "dataset": 7,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 33.9,
+    "top_5": null,
+    "gflops": 6.7,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 810,
+  "fields": {
+    "pretrained_backbone": 312,
+    "dataset": 8,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 50.7,
+    "top_5": null,
+    "gflops": 6.7,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 811,
+  "fields": {
+    "pretrained_backbone": 313,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 83.5,
+    "top_5": null,
+    "gflops": 6.8,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 812,
+  "fields": {
+    "pretrained_backbone": 313,
+    "dataset": 7,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 38.2,
+    "top_5": null,
+    "gflops": 6.8,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 813,
+  "fields": {
+    "pretrained_backbone": 313,
+    "dataset": 8,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 51.8,
+    "top_5": null,
+    "gflops": 6.8,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 814,
+  "fields": {
+    "pretrained_backbone": 313,
+    "dataset": 10,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 47.3,
+    "top_5": null,
+    "gflops": 6.8,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 815,
+  "fields": {
+    "pretrained_backbone": 314,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 83.6,
+    "top_5": null,
+    "gflops": 10.4,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 816,
+  "fields": {
+    "pretrained_backbone": 314,
+    "dataset": 10,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 44.4,
+    "top_5": null,
+    "gflops": 10.4,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 817,
+  "fields": {
+    "pretrained_backbone": 314,
+    "dataset": 7,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 35.4,
+    "top_5": null,
+    "gflops": 10.4,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 818,
+  "fields": {
+    "pretrained_backbone": 314,
+    "dataset": 8,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 51.8,
+    "top_5": null,
+    "gflops": 10.4,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 819,
+  "fields": {
+    "pretrained_backbone": 315,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 83.9,
+    "top_5": null,
+    "gflops": 11.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 820,
+  "fields": {
+    "pretrained_backbone": 315,
+    "dataset": 10,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 45.2,
+    "top_5": null,
+    "gflops": 11.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 821,
+  "fields": {
+    "pretrained_backbone": 315,
+    "dataset": 7,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 39.6,
+    "top_5": null,
+    "gflops": 11.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 822,
+  "fields": {
+    "pretrained_backbone": 315,
+    "dataset": 8,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 52.9,
+    "top_5": null,
+    "gflops": 11.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 823,
+  "fields": {
+    "pretrained_backbone": 316,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 84.5,
+    "top_5": null,
+    "gflops": 11.4,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 824,
+  "fields": {
+    "pretrained_backbone": 316,
+    "dataset": 7,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 42.6,
+    "top_5": null,
+    "gflops": 11.4,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 825,
+  "fields": {
+    "pretrained_backbone": 316,
+    "dataset": 8,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 55.3,
+    "top_5": null,
+    "gflops": 11.4,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 826,
+  "fields": {
+    "pretrained_backbone": 316,
+    "dataset": 10,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 43.6,
+    "top_5": null,
+    "gflops": 11.4,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 827,
+  "fields": {
+    "pretrained_backbone": 317,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 224,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 85.6,
+    "top_5": null,
+    "gflops": 11.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 828,
+  "fields": {
+    "pretrained_backbone": 318,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 83.9,
+    "top_5": null,
+    "gflops": 15.8,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 829,
+  "fields": {
+    "pretrained_backbone": 318,
+    "dataset": 10,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 43.3,
+    "top_5": null,
+    "gflops": 15.8,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 830,
+  "fields": {
+    "pretrained_backbone": 318,
+    "dataset": 7,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 37.2,
+    "top_5": null,
+    "gflops": 15.8,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 831,
+  "fields": {
+    "pretrained_backbone": 318,
+    "dataset": 8,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 53.1,
+    "top_5": null,
+    "gflops": 15.8,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 832,
+  "fields": {
+    "pretrained_backbone": 319,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 84.3,
+    "top_5": null,
+    "gflops": 16.9,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 833,
+  "fields": {
+    "pretrained_backbone": 319,
+    "dataset": 10,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 43.0,
+    "top_5": null,
+    "gflops": 16.9,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 834,
+  "fields": {
+    "pretrained_backbone": 319,
+    "dataset": 7,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 41.8,
+    "top_5": null,
+    "gflops": 16.9,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 835,
+  "fields": {
+    "pretrained_backbone": 319,
+    "dataset": 8,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 53.2,
+    "top_5": null,
+    "gflops": 16.9,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 836,
+  "fields": {
+    "pretrained_backbone": 320,
+    "dataset": 1,
+    "resolution": 384,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 384,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 87.1,
+    "top_5": null,
+    "gflops": null,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 837,
+  "fields": {
+    "pretrained_backbone": 320,
+    "dataset": 10,
+    "resolution": 224,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 224,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 35.8,
+    "top_5": null,
+    "gflops": 16.9,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 838,
+  "fields": {
+    "pretrained_backbone": 320,
+    "dataset": 10,
+    "resolution": 384,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 384,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 36.0,
+    "top_5": null,
+    "gflops": 16.9,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 839,
+  "fields": {
+    "pretrained_backbone": 320,
+    "dataset": 7,
+    "resolution": 224,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 224,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 60.7,
+    "top_5": null,
+    "gflops": 16.9,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 840,
+  "fields": {
+    "pretrained_backbone": 320,
+    "dataset": 7,
+    "resolution": 384,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 384,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 74.5,
+    "top_5": null,
+    "gflops": null,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 841,
+  "fields": {
+    "pretrained_backbone": 320,
+    "dataset": 8,
+    "resolution": 224,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 224,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 64.3,
+    "top_5": null,
+    "gflops": 16.9,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 842,
+  "fields": {
+    "pretrained_backbone": 320,
+    "dataset": 8,
+    "resolution": 384,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 384,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 71.1,
+    "top_5": null,
+    "gflops": null,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 843,
+  "fields": {
+    "pretrained_backbone": 320,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 224,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 86.5,
+    "top_5": null,
+    "gflops": 16.9,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 844,
+  "fields": {
+    "pretrained_backbone": 321,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 84.7,
+    "top_5": null,
+    "gflops": 17.0,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 845,
+  "fields": {
+    "pretrained_backbone": 321,
+    "dataset": 7,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 46.1,
+    "top_5": null,
+    "gflops": 17.0,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 846,
+  "fields": {
+    "pretrained_backbone": 321,
+    "dataset": 8,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 56.6,
+    "top_5": null,
+    "gflops": 17.0,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 847,
+  "fields": {
+    "pretrained_backbone": 321,
+    "dataset": 10,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 42.5,
+    "top_5": null,
+    "gflops": 17.0,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 861,
+  "fields": {
+    "pretrained_backbone": 332,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 82.0,
+    "top_5": null,
+    "gflops": 4.6,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 862,
+  "fields": {
+    "pretrained_backbone": 333,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 83.7,
+    "top_5": null,
+    "gflops": 9.0,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 863,
+  "fields": {
+    "pretrained_backbone": 334,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 84.0,
+    "top_5": null,
+    "gflops": 15.8,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 864,
+  "fields": {
+    "pretrained_backbone": 334,
+    "dataset": 1,
+    "resolution": 384,
+    "fine_tune_dataset": 1,
+    "fine_tune_epochs": 30,
+    "fine_tune_resolution": 384,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 84.8,
+    "top_5": null,
+    "gflops": 49.8,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 872,
+  "fields": {
+    "pretrained_backbone": 342,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 81.8,
+    "top_5": null,
+    "gflops": 2.7,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 873,
+  "fields": {
+    "pretrained_backbone": 343,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 83.2,
+    "top_5": null,
+    "gflops": 4.3,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 874,
+  "fields": {
+    "pretrained_backbone": 344,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 83.7,
+    "top_5": null,
+    "gflops": 7.8,
+    "paper": "",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 875,
+  "fields": {
+    "pretrained_backbone": 345,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 84.3,
+    "top_5": null,
+    "gflops": 13.7,
     "paper": "",
     "github": ""
   }
@@ -23678,198 +24953,6 @@
 },
 {
   "model": "stats.instanceresult",
-  "pk": 272,
-  "fields": {
-    "pretrained_backbone": 201,
-    "head": 1,
-    "dataset": 4,
-    "instance_type": 2,
-    "train_dataset": 3,
-    "train_epochs": 36,
-    "intermediate_train_dataset": null,
-    "intermediate_train_epochs": null,
-    "mAP": 45.8,
-    "AP50": null,
-    "AP75": null,
-    "mAPs": null,
-    "mAPm": null,
-    "mAPl": null,
-    "gflops": null,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.instanceresult",
-  "pk": 273,
-  "fields": {
-    "pretrained_backbone": 201,
-    "head": 2,
-    "dataset": 4,
-    "instance_type": 2,
-    "train_dataset": 3,
-    "train_epochs": 36,
-    "intermediate_train_dataset": null,
-    "intermediate_train_epochs": null,
-    "mAP": 50.2,
-    "AP50": null,
-    "AP75": null,
-    "mAPs": null,
-    "mAPm": null,
-    "mAPl": null,
-    "gflops": null,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.instanceresult",
-  "pk": 274,
-  "fields": {
-    "pretrained_backbone": 203,
-    "head": 1,
-    "dataset": 4,
-    "instance_type": 2,
-    "train_dataset": 3,
-    "train_epochs": 36,
-    "intermediate_train_dataset": null,
-    "intermediate_train_epochs": null,
-    "mAP": 49.1,
-    "AP50": null,
-    "AP75": null,
-    "mAPs": null,
-    "mAPm": null,
-    "mAPl": null,
-    "gflops": null,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.instanceresult",
-  "pk": 275,
-  "fields": {
-    "pretrained_backbone": 203,
-    "head": 2,
-    "dataset": 4,
-    "instance_type": 2,
-    "train_dataset": 3,
-    "train_epochs": 36,
-    "intermediate_train_dataset": null,
-    "intermediate_train_epochs": null,
-    "mAP": 53.3,
-    "AP50": null,
-    "AP75": null,
-    "mAPs": null,
-    "mAPm": null,
-    "mAPl": null,
-    "gflops": null,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.instanceresult",
-  "pk": 276,
-  "fields": {
-    "pretrained_backbone": 205,
-    "head": 2,
-    "dataset": 4,
-    "instance_type": 2,
-    "train_dataset": 3,
-    "train_epochs": 36,
-    "intermediate_train_dataset": null,
-    "intermediate_train_epochs": null,
-    "mAP": 53.3,
-    "AP50": null,
-    "AP75": null,
-    "mAPs": null,
-    "mAPm": null,
-    "mAPl": null,
-    "gflops": null,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.instanceresult",
-  "pk": 277,
-  "fields": {
-    "pretrained_backbone": 206,
-    "head": 2,
-    "dataset": 4,
-    "instance_type": 2,
-    "train_dataset": 3,
-    "train_epochs": 36,
-    "intermediate_train_dataset": null,
-    "intermediate_train_epochs": null,
-    "mAP": 40.6,
-    "AP50": null,
-    "AP75": null,
-    "mAPs": null,
-    "mAPm": null,
-    "mAPl": null,
-    "gflops": null,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.instanceresult",
-  "pk": 278,
-  "fields": {
-    "pretrained_backbone": 208,
-    "head": 2,
-    "dataset": 4,
-    "instance_type": 2,
-    "train_dataset": 3,
-    "train_epochs": 36,
-    "intermediate_train_dataset": null,
-    "intermediate_train_epochs": null,
-    "mAP": 54.1,
-    "AP50": null,
-    "AP75": null,
-    "mAPs": null,
-    "mAPm": null,
-    "mAPl": null,
-    "gflops": null,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.instanceresult",
-  "pk": 279,
-  "fields": {
-    "pretrained_backbone": 209,
-    "head": 2,
-    "dataset": 4,
-    "instance_type": 2,
-    "train_dataset": 3,
-    "train_epochs": 36,
-    "intermediate_train_dataset": null,
-    "intermediate_train_epochs": null,
-    "mAP": 55.1,
-    "AP50": null,
-    "AP75": null,
-    "mAPs": null,
-    "mAPm": null,
-    "mAPl": null,
-    "gflops": null,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.instanceresult",
   "pk": 286,
   "fields": {
     "pretrained_backbone": 214,
@@ -26845,6 +27928,1066 @@
   }
 },
 {
+  "model": "stats.instanceresult",
+  "pk": 461,
+  "fields": {
+    "pretrained_backbone": 309,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 45.8,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 462,
+  "fields": {
+    "pretrained_backbone": 309,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 50.2,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 463,
+  "fields": {
+    "pretrained_backbone": 312,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 49.1,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 464,
+  "fields": {
+    "pretrained_backbone": 312,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 53.3,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 465,
+  "fields": {
+    "pretrained_backbone": 313,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 53.4,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 466,
+  "fields": {
+    "pretrained_backbone": 316,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 53.9,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 467,
+  "fields": {
+    "pretrained_backbone": 319,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 54.1,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 468,
+  "fields": {
+    "pretrained_backbone": 320,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 55.1,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 469,
+  "fields": {
+    "pretrained_backbone": 321,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 54.1,
+    "AP50": null,
+    "AP75": null,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 540,
+  "fields": {
+    "pretrained_backbone": 332,
+    "head": 3,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 42.8,
+    "AP50": 64.4,
+    "AP75": 45.2,
+    "mAPs": 28.0,
+    "mAPm": 45.8,
+    "mAPl": 57.8,
+    "gflops": 253.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 541,
+  "fields": {
+    "pretrained_backbone": 332,
+    "head": 3,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 45.6,
+    "AP50": 67.2,
+    "AP75": 48.5,
+    "mAPs": 31.3,
+    "mAPm": 49.1,
+    "mAPl": 60.8,
+    "gflops": 253.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 542,
+  "fields": {
+    "pretrained_backbone": 332,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 44.4,
+    "AP50": 67.6,
+    "AP75": 48.5,
+    "mAPs": 28.3,
+    "mAPm": 47.5,
+    "mAPl": 58.5,
+    "gflops": 272.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 543,
+  "fields": {
+    "pretrained_backbone": 332,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 40.4,
+    "AP50": 64.2,
+    "AP75": 43.1,
+    "mAPs": 23.9,
+    "mAPm": 43.8,
+    "mAPl": 55.5,
+    "gflops": 272.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 544,
+  "fields": {
+    "pretrained_backbone": 332,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 47.1,
+    "AP50": 69.2,
+    "AP75": 51.6,
+    "mAPs": 32.0,
+    "mAPm": 50.3,
+    "mAPl": 61.0,
+    "gflops": 272.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 545,
+  "fields": {
+    "pretrained_backbone": 332,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 42.4,
+    "AP50": 66.1,
+    "AP75": 45.5,
+    "mAPs": 27.2,
+    "mAPm": 45.8,
+    "mAPl": 57.1,
+    "gflops": 272.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 546,
+  "fields": {
+    "pretrained_backbone": 332,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 49.1,
+    "AP50": 68.2,
+    "AP75": 52.9,
+    "mAPs": 31.2,
+    "mAPm": 52.4,
+    "mAPl": 65.1,
+    "gflops": 750.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 547,
+  "fields": {
+    "pretrained_backbone": 332,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 42.5,
+    "AP50": 65.4,
+    "AP75": 45.8,
+    "mAPs": 25.2,
+    "mAPm": 45.9,
+    "mAPl": 58.6,
+    "gflops": 750.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 548,
+  "fields": {
+    "pretrained_backbone": 332,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 51.3,
+    "AP50": 70.1,
+    "AP75": 55.8,
+    "mAPs": 34.1,
+    "mAPm": 54.6,
+    "mAPl": 66.9,
+    "gflops": 750.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 549,
+  "fields": {
+    "pretrained_backbone": 332,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 44.5,
+    "AP50": 67.5,
+    "AP75": 48.1,
+    "mAPs": 27.9,
+    "mAPm": 47.9,
+    "mAPl": 60.3,
+    "gflops": 750.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 550,
+  "fields": {
+    "pretrained_backbone": 333,
+    "head": 3,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 45.7,
+    "AP50": 67.7,
+    "AP75": 48.5,
+    "mAPs": 30.5,
+    "mAPm": 49.3,
+    "mAPl": 61.3,
+    "gflops": 359.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 551,
+  "fields": {
+    "pretrained_backbone": 333,
+    "head": 3,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 47.9,
+    "AP50": 69.6,
+    "AP75": 51.2,
+    "mAPs": 32.3,
+    "mAPm": 51.8,
+    "mAPl": 63.4,
+    "gflops": 359.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 552,
+  "fields": {
+    "pretrained_backbone": 333,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 47.1,
+    "AP50": 69.9,
+    "AP75": 51.5,
+    "mAPs": 30.5,
+    "mAPm": 50.1,
+    "mAPl": 62.1,
+    "gflops": 378.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 553,
+  "fields": {
+    "pretrained_backbone": 333,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 12,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 42.5,
+    "AP50": 66.7,
+    "AP75": 45.4,
+    "mAPs": 25.5,
+    "mAPm": 45.8,
+    "mAPl": 58.5,
+    "gflops": 378.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 554,
+  "fields": {
+    "pretrained_backbone": 333,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 49.0,
+    "AP50": 70.9,
+    "AP75": 53.8,
+    "mAPs": 32.7,
+    "mAPm": 52.6,
+    "mAPl": 64.0,
+    "gflops": 378.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 555,
+  "fields": {
+    "pretrained_backbone": 333,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 44.0,
+    "AP50": 68.0,
+    "AP75": 47.5,
+    "mAPs": 27.8,
+    "mAPm": 47.7,
+    "mAPl": 59.5,
+    "gflops": 378.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 556,
+  "fields": {
+    "pretrained_backbone": 333,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 52.7,
+    "AP50": 71.7,
+    "AP75": 57.2,
+    "mAPs": 37.3,
+    "mAPm": 56.3,
+    "mAPl": 68.0,
+    "gflops": 857.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 557,
+  "fields": {
+    "pretrained_backbone": 333,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 45.5,
+    "AP50": 69.1,
+    "AP75": 49.3,
+    "mAPs": 30.2,
+    "mAPm": 49.2,
+    "mAPl": 60.9,
+    "gflops": 857.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 558,
+  "fields": {
+    "pretrained_backbone": 334,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 53.0,
+    "AP50": 71.9,
+    "AP75": 57.6,
+    "mAPs": 36.0,
+    "mAPm": 56.8,
+    "mAPl": 69.1,
+    "gflops": 1003.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 559,
+  "fields": {
+    "pretrained_backbone": 334,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 45.8,
+    "AP50": 69.3,
+    "AP75": 49.5,
+    "mAPs": 29.2,
+    "mAPm": 49.5,
+    "mAPl": 61.9,
+    "gflops": 1003.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 583,
+  "fields": {
+    "pretrained_backbone": 342,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 46.5,
+    "AP50": 68.1,
+    "AP75": 51.3,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 225.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      247
+    ]
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 584,
+  "fields": {
+    "pretrained_backbone": 342,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 41.7,
+    "AP50": 65.2,
+    "AP75": 44.7,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 225.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      248
+    ]
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 585,
+  "fields": {
+    "pretrained_backbone": 342,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 50.3,
+    "AP50": 68.9,
+    "AP75": 54.9,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 704.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      249
+    ]
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 586,
+  "fields": {
+    "pretrained_backbone": 342,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 43.6,
+    "AP50": 66.4,
+    "AP75": 47.2,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 704.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      250
+    ]
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 587,
+  "fields": {
+    "pretrained_backbone": 343,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 47.7,
+    "AP50": 69.0,
+    "AP75": 52.6,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 258.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      253
+    ]
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 588,
+  "fields": {
+    "pretrained_backbone": 343,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 42.6,
+    "AP50": 66.1,
+    "AP75": 45.9,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 258.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      254
+    ]
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 589,
+  "fields": {
+    "pretrained_backbone": 343,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 51.4,
+    "AP50": 70.0,
+    "AP75": 55.9,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 737.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      255
+    ]
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 590,
+  "fields": {
+    "pretrained_backbone": 343,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 44.5,
+    "AP50": 67.6,
+    "AP75": 47.9,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 737.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      256
+    ]
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 591,
+  "fields": {
+    "pretrained_backbone": 344,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 48.4,
+    "AP50": 69.8,
+    "AP75": 53.2,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 330.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      259
+    ]
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 592,
+  "fields": {
+    "pretrained_backbone": 344,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 43.2,
+    "AP50": 66.9,
+    "AP75": 46.5,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 330.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      260
+    ]
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 593,
+  "fields": {
+    "pretrained_backbone": 344,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 52.0,
+    "AP50": 70.4,
+    "AP75": 56.3,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 809.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      261
+    ]
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 594,
+  "fields": {
+    "pretrained_backbone": 344,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 44.9,
+    "AP50": 68.1,
+    "AP75": 48.6,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 809.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      262
+    ]
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 595,
+  "fields": {
+    "pretrained_backbone": 345,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 52.5,
+    "AP50": 71.1,
+    "AP75": 57.1,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 931.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      265
+    ]
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 596,
+  "fields": {
+    "pretrained_backbone": 345,
+    "head": 2,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 36,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 45.2,
+    "AP50": 68.6,
+    "AP75": 49.0,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 931.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      266
+    ]
+  }
+},
+{
   "model": "stats.semanticsegmentationresult",
   "pk": 3,
   "fields": {
@@ -28583,106 +30726,6 @@
 },
 {
   "model": "stats.semanticsegmentationresult",
-  "pk": 80,
-  "fields": {
-    "pretrained_backbone": 201,
-    "head": 10,
-    "dataset": 17,
-    "train_dataset": 16,
-    "train_epochs": 128,
-    "intermediate_train_dataset": null,
-    "intermediate_train_epochs": null,
-    "crop_size": 1024,
-    "ms_m_iou": null,
-    "ms_pixel_accuracy": null,
-    "ms_mean_accuracy": null,
-    "ss_m_iou": 81.2,
-    "ss_pixel_accuracy": null,
-    "ss_mean_accuracy": null,
-    "flip_test": false,
-    "gflops": null,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.semanticsegmentationresult",
-  "pk": 81,
-  "fields": {
-    "pretrained_backbone": 203,
-    "head": 10,
-    "dataset": 17,
-    "train_dataset": 16,
-    "train_epochs": 128,
-    "intermediate_train_dataset": null,
-    "intermediate_train_epochs": null,
-    "crop_size": 1024,
-    "ms_m_iou": null,
-    "ms_pixel_accuracy": null,
-    "ms_mean_accuracy": null,
-    "ss_m_iou": 81.5,
-    "ss_pixel_accuracy": null,
-    "ss_mean_accuracy": null,
-    "flip_test": false,
-    "gflops": null,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.semanticsegmentationresult",
-  "pk": 82,
-  "fields": {
-    "pretrained_backbone": 205,
-    "head": 10,
-    "dataset": 17,
-    "train_dataset": 16,
-    "train_epochs": 128,
-    "intermediate_train_dataset": null,
-    "intermediate_train_epochs": null,
-    "crop_size": 1024,
-    "ms_m_iou": null,
-    "ms_pixel_accuracy": null,
-    "ms_mean_accuracy": null,
-    "ss_m_iou": 82.2,
-    "ss_pixel_accuracy": null,
-    "ss_mean_accuracy": null,
-    "flip_test": false,
-    "gflops": null,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.semanticsegmentationresult",
-  "pk": 83,
-  "fields": {
-    "pretrained_backbone": 208,
-    "head": 10,
-    "dataset": 17,
-    "train_dataset": 16,
-    "train_epochs": 128,
-    "intermediate_train_dataset": null,
-    "intermediate_train_epochs": null,
-    "crop_size": 1024,
-    "ms_m_iou": null,
-    "ms_pixel_accuracy": null,
-    "ms_mean_accuracy": null,
-    "ss_m_iou": 82.3,
-    "ss_pixel_accuracy": null,
-    "ss_mean_accuracy": null,
-    "flip_test": false,
-    "gflops": null,
-    "paper": "",
-    "github": "",
-    "fps_measurements": []
-  }
-},
-{
-  "model": "stats.semanticsegmentationresult",
   "pk": 87,
   "fields": {
     "pretrained_backbone": 214,
@@ -29829,6 +31872,414 @@
     "paper": "",
     "github": "",
     "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 154,
+  "fields": {
+    "pretrained_backbone": 309,
+    "head": 10,
+    "dataset": 17,
+    "train_dataset": 16,
+    "train_epochs": 128,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 1024,
+    "ms_m_iou": null,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 81.2,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 155,
+  "fields": {
+    "pretrained_backbone": 312,
+    "head": 10,
+    "dataset": 17,
+    "train_dataset": 16,
+    "train_epochs": 128,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 1024,
+    "ms_m_iou": null,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 81.5,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 156,
+  "fields": {
+    "pretrained_backbone": 315,
+    "head": 10,
+    "dataset": 17,
+    "train_dataset": 16,
+    "train_epochs": 128,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 1024,
+    "ms_m_iou": null,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 82.2,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 157,
+  "fields": {
+    "pretrained_backbone": 316,
+    "head": 10,
+    "dataset": 17,
+    "train_dataset": 16,
+    "train_epochs": 128,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 1024,
+    "ms_m_iou": null,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 82.5,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 158,
+  "fields": {
+    "pretrained_backbone": 319,
+    "head": 10,
+    "dataset": 17,
+    "train_dataset": 16,
+    "train_epochs": 128,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 1024,
+    "ms_m_iou": null,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 82.3,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 159,
+  "fields": {
+    "pretrained_backbone": 321,
+    "head": 10,
+    "dataset": 17,
+    "train_dataset": 16,
+    "train_epochs": 128,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 1024,
+    "ms_m_iou": null,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 82.8,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": null,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 177,
+  "fields": {
+    "pretrained_backbone": 332,
+    "head": 4,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 128,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 46.44,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 45.54,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": 57.95,
+    "flip_test": true,
+    "gflops": 957.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 178,
+  "fields": {
+    "pretrained_backbone": 332,
+    "head": 9,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 32,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 44.22,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 42.56,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": 54.72,
+    "flip_test": true,
+    "gflops": 198.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 179,
+  "fields": {
+    "pretrained_backbone": 333,
+    "head": 4,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 128,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 49.84,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 48.31,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": 60.44,
+    "flip_test": true,
+    "gflops": 1079.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 180,
+  "fields": {
+    "pretrained_backbone": 333,
+    "head": 9,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 32,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 48.46,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 46.08,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": 58.17,
+    "flip_test": true,
+    "gflops": 320.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 181,
+  "fields": {
+    "pretrained_backbone": 334,
+    "head": 4,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 128,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 50.55,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 49.38,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": 61.82,
+    "flip_test": true,
+    "gflops": 1212.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 182,
+  "fields": {
+    "pretrained_backbone": 334,
+    "head": 9,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 32,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 49.01,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 47.02,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": 59.47,
+    "flip_test": true,
+    "gflops": 481.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 189,
+  "fields": {
+    "pretrained_backbone": 342,
+    "head": 4,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 128,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 46.4,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 45.1,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": 900.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      251
+    ]
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 190,
+  "fields": {
+    "pretrained_backbone": 343,
+    "head": 4,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 128,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 48.4,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 47.1,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": 934.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      257
+    ]
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 191,
+  "fields": {
+    "pretrained_backbone": 344,
+    "head": 4,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 128,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 49.5,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 48.0,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": 1010.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      263
+    ]
+  }
+},
+{
+  "model": "stats.semanticsegmentationresult",
+  "pk": 192,
+  "fields": {
+    "pretrained_backbone": 345,
+    "head": 4,
+    "dataset": 20,
+    "train_dataset": 19,
+    "train_epochs": 128,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "crop_size": 512,
+    "ms_m_iou": 49.7,
+    "ms_pixel_accuracy": null,
+    "ms_mean_accuracy": null,
+    "ss_m_iou": 48.5,
+    "ss_pixel_accuracy": null,
+    "ss_mean_accuracy": null,
+    "flip_test": false,
+    "gflops": 1137.0,
+    "paper": "",
+    "github": "",
+    "fps_measurements": [
+      267
+    ]
   }
 }
 ]

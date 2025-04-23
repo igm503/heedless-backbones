@@ -115,10 +115,12 @@ I'm running this on a cheap digital ocean server, and you can access it by click
   - [RMT](https://arxiv.org/abs/2309.11523)
   - [DAT++](https://arxiv.org/abs/2309.01430)
   - [FAN STL](https://arxiv.org/pdf/2401.03844)
+  - [DAT](https://arxiv.org/abs/2201.00520)
+  - [NAT](https://arxiv.org/abs/2204.07143)
 
 ## Updates
 
-- 4-22-2025: added FAN STL
+- 4-22-2025: added FAN STL, DAT, NAT
 - 4-20-2025: added BiFormer, MambaOut, GroupMamba, Vim/Hier-Vim, PlainMamba, LocalVim/LocalVMamba, EfficientVMamba, DAMamba, VSSD, RMT, DAT++
 - 4-15-2025: added SLaK, RepLKNet
 - 4-14-2025: added FAN

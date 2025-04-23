@@ -1,0 +1,391 @@
+name: DAT
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2022-05-24'
+paper: https://arxiv.org/abs/2201.00520
+github: https://github.com/LeapLabTHU/DAT
+backbones:
+- name: DAT-T
+  m_parameters: 29.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: DAT-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.0
+      top_5: null
+      gflops: 4.6
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.8
+      AP50: 64.4
+      AP75: 45.2
+      mAPs: 28.0
+      mAPm: 45.8
+      mAPl: 57.8
+      gflops: 253.0
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.6
+      AP50: 67.2
+      AP75: 48.5
+      mAPs: 31.3
+      mAPm: 49.1
+      mAPl: 60.8
+      gflops: 253.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.4
+      AP50: 67.6
+      AP75: 48.5
+      mAPs: 28.3
+      mAPm: 47.5
+      mAPl: 58.5
+      gflops: 272.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 40.4
+      AP50: 64.2
+      AP75: 43.1
+      mAPs: 23.9
+      mAPm: 43.8
+      mAPl: 55.5
+      gflops: 272.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 47.1
+      AP50: 69.2
+      AP75: 51.6
+      mAPs: 32.0
+      mAPm: 50.3
+      mAPl: 61.0
+      gflops: 272.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 42.4
+      AP50: 66.1
+      AP75: 45.5
+      mAPs: 27.2
+      mAPm: 45.8
+      mAPl: 57.1
+      gflops: 272.0
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 49.1
+      AP50: 68.2
+      AP75: 52.9
+      mAPs: 31.2
+      mAPm: 52.4
+      mAPl: 65.1
+      gflops: 750.0
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.5
+      AP50: 65.4
+      AP75: 45.8
+      mAPs: 25.2
+      mAPm: 45.9
+      mAPl: 58.6
+      gflops: 750.0
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 51.3
+      AP50: 70.1
+      AP75: 55.8
+      mAPs: 34.1
+      mAPm: 54.6
+      mAPl: 66.9
+      gflops: 750.0
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 44.5
+      AP50: 67.5
+      AP75: 48.1
+      mAPs: 27.9
+      mAPm: 47.9
+      mAPl: 60.3
+      gflops: 750.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 46.44
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 45.54
+      ss_mean_accuracy: 57.95
+      ss_pixel_accuracy: null
+      flip_test: true
+      gflops: 957.0
+      fps_measurements: []
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 32
+      crop_size: 512
+      ms_m_iou: 44.22
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 42.56
+      ss_mean_accuracy: 54.72
+      ss_pixel_accuracy: null
+      flip_test: true
+      gflops: 198.0
+      fps_measurements: []
+- name: DAT-S
+  m_parameters: 50.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: DAT-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.7
+      top_5: null
+      gflops: 9.0
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 45.7
+      AP50: 67.7
+      AP75: 48.5
+      mAPs: 30.5
+      mAPm: 49.3
+      mAPl: 61.3
+      gflops: 359.0
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 47.9
+      AP50: 69.6
+      AP75: 51.2
+      mAPs: 32.3
+      mAPm: 51.8
+      mAPl: 63.4
+      gflops: 359.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.1
+      AP50: 69.9
+      AP75: 51.5
+      mAPs: 30.5
+      mAPm: 50.1
+      mAPl: 62.1
+      gflops: 378.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.5
+      AP50: 66.7
+      AP75: 45.4
+      mAPs: 25.5
+      mAPm: 45.8
+      mAPl: 58.5
+      gflops: 378.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 49.0
+      AP50: 70.9
+      AP75: 53.8
+      mAPs: 32.7
+      mAPm: 52.6
+      mAPl: 64.0
+      gflops: 378.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 44.0
+      AP50: 68.0
+      AP75: 47.5
+      mAPs: 27.8
+      mAPm: 47.7
+      mAPl: 59.5
+      gflops: 378.0
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 52.7
+      AP50: 71.7
+      AP75: 57.2
+      mAPs: 37.3
+      mAPm: 56.3
+      mAPl: 68.0
+      gflops: 857.0
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.5
+      AP50: 69.1
+      AP75: 49.3
+      mAPs: 30.2
+      mAPm: 49.2
+      mAPl: 60.9
+      gflops: 857.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 49.84
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 48.31
+      ss_mean_accuracy: 60.44
+      ss_pixel_accuracy: null
+      flip_test: true
+      gflops: 1079.0
+      fps_measurements: []
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 32
+      crop_size: 512
+      ms_m_iou: 48.46
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 46.08
+      ss_mean_accuracy: 58.17
+      ss_pixel_accuracy: null
+      flip_test: true
+      gflops: 320.0
+      fps_measurements: []
+- name: DAT-B
+  m_parameters: 88.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: DAT-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.0
+      top_5: null
+      gflops: 15.8
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 84.8
+      top_5: null
+      gflops: 49.8
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results:
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 53.0
+      AP50: 71.9
+      AP75: 57.6
+      mAPs: 36.0
+      mAPm: 56.8
+      mAPl: 69.1
+      gflops: 1003.0
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.8
+      AP50: 69.3
+      AP75: 49.5
+      mAPs: 29.2
+      mAPm: 49.5
+      mAPl: 61.9
+      gflops: 1003.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 50.55
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.38
+      ss_mean_accuracy: 61.82
+      ss_pixel_accuracy: null
+      flip_test: true
+      gflops: 1212.0
+      fps_measurements: []
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 32
+      crop_size: 512
+      ms_m_iou: 49.01
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 47.02
+      ss_mean_accuracy: 59.47
+      ss_pixel_accuracy: null
+      flip_test: true
+      gflops: 481.0
+      fps_measurements: []
