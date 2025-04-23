@@ -51,6 +51,9 @@ leftover cross references
 - FAN
 -- out of distribution and corrupted results for other models
 
+- FAN STL
+-- cityscapes c for self and other models
+
 - RepLKNet
 -- swin 2080ti throughput
 

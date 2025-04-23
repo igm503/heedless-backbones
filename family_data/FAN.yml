@@ -1,4 +1,4 @@
-name: FAN (Fully Attentional Networks)
+name: FAN
 model_type: Attention
 hierarchical: true
 pretrain_method: Supervised
@@ -51,6 +51,7 @@ backbones:
             mAPm: null
             mAPl: null
             gflops: null
+            fps_measurements: []
           - head: Cascade Mask R-CNN
             dataset: COCO (val)
             instance_type: Object Detection
@@ -63,6 +64,7 @@ backbones:
             mAPm: null
             mAPl: null
             gflops: null
+            fps_measurements: []
         semantic_seg_results:
           - head: SETR
             dataset: Cityscapes (val)
@@ -70,9 +72,27 @@ backbones:
             train_epochs: 128
             crop_size: 1024
             ms_m_iou: null
+            ms_pixel_accuracy: null
+            ms_mean_accuracy: null
             ss_m_iou: 81.2
+            ss_pixel_accuracy: null
+            ss_mean_accuracy: null
             flip_test: false
             gflops: null
+            fps_measurements: []
+      - name: FAN-T-Hybrid-IN1k-TL
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Sup. + TL
+        pretrain_resolution: 224
+        pretrain_epochs: 350
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 79.9
+            top_5: null
+            gflops: 3.6
+        paper: https://arxiv.org/pdf/2401.03844
+        github: https://github.com/NVlabs/STL
   - name: FAN-S-ViT
     m_parameters: 28.0
     fps_measurements: []
@@ -148,6 +168,7 @@ backbones:
             mAPm: null
             mAPl: null
             gflops: null
+            fps_measurements: []
           - head: Cascade Mask R-CNN
             dataset: COCO (val)
             instance_type: Object Detection
@@ -160,6 +181,7 @@ backbones:
             mAPm: null
             mAPl: null
             gflops: null
+            fps_measurements: []
         semantic_seg_results:
           - head: SETR
             dataset: Cityscapes (val)
@@ -167,9 +189,56 @@ backbones:
             train_epochs: 128
             crop_size: 1024
             ms_m_iou: null
+            ms_pixel_accuracy: null
+            ms_mean_accuracy: null
             ss_m_iou: 81.5
+            ss_pixel_accuracy: null
+            ss_mean_accuracy: null
             flip_test: false
             gflops: null
+            fps_measurements: []
+      - name: FAN-S-Hybrid-IN1k-TL
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Sup. + TL
+        pretrain_resolution: 224
+        pretrain_epochs: 350
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 83.5
+            top_5: null
+            gflops: 6.8
+          - dataset: ImageNet-A
+            resolution: 224
+            top_1: 38.2
+            top_5: null
+            gflops: 6.8
+          - dataset: ImageNet-R
+            resolution: 224
+            top_1: 51.8
+            top_5: null
+            gflops: 6.8
+          - dataset: ImageNet-C
+            resolution: 224
+            top_1: 47.3
+            top_5: null
+            gflops: 6.8
+        instance_results:
+          - head: Cascade Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 36
+            mAP: 53.4
+            AP50: null
+            AP75: null
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: null
+            fps_measurements: []
+        paper: https://arxiv.org/pdf/2401.03844
+        github: https://github.com/NVlabs/STL
   - name: FAN-B-ViT
     m_parameters: 54.0
     fps_measurements: []
@@ -232,19 +301,7 @@ backbones:
             top_1: 52.9
             top_5: null
             gflops: 11.3
-        instance_results:
-          - head: Cascade Mask R-CNN
-            dataset: COCO (val)
-            instance_type: Object Detection
-            train_dataset: COCO (train)
-            train_epochs: 36
-            mAP: 53.3
-            AP50: null
-            AP75: null
-            mAPs: null
-            mAPm: null
-            mAPl: null
-            gflops: null
+        instance_results: []
         semantic_seg_results:
           - head: SETR
             dataset: Cityscapes (val)
@@ -252,9 +309,71 @@ backbones:
             train_epochs: 128
             crop_size: 1024
             ms_m_iou: null
+            ms_pixel_accuracy: null
+            ms_mean_accuracy: null
             ss_m_iou: 82.2
+            ss_pixel_accuracy: null
+            ss_mean_accuracy: null
             flip_test: false
             gflops: null
+            fps_measurements: []
+      - name: FAN-B-Hybrid-IN1k-TL
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Sup. + TL
+        pretrain_resolution: 224
+        pretrain_epochs: 350
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 84.5
+            top_5: null
+            gflops: 11.4
+          - dataset: ImageNet-A
+            resolution: 224
+            top_1: 42.6
+            top_5: null
+            gflops: 11.4
+          - dataset: ImageNet-R
+            resolution: 224
+            top_1: 55.3
+            top_5: null
+            gflops: 11.4
+          - dataset: ImageNet-C
+            resolution: 224
+            top_1: 43.6
+            top_5: null
+            gflops: 11.4
+        instance_results:
+          - head: Cascade Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 36
+            mAP: 53.9
+            AP50: null
+            AP75: null
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: null
+            fps_measurements: []
+        semantic_seg_results:
+          - head: SETR
+            dataset: Cityscapes (val)
+            train_dataset: Cityscapes (train)
+            train_epochs: 128
+            crop_size: 1024
+            ms_m_iou: null
+            ms_pixel_accuracy: null
+            ms_mean_accuracy: null
+            ss_m_iou: 82.5
+            ss_pixel_accuracy: null
+            ss_mean_accuracy: null
+            flip_test: false
+            gflops: null
+            fps_measurements: []
+        paper: https://arxiv.org/pdf/2401.03844
+        github: https://github.com/NVlabs/STL
       - name: FAN-B-Hybrid-IN22k
         pretrain_dataset: ImageNet-22k
         pretrain_method: Supervised
@@ -269,19 +388,7 @@ backbones:
             fine_tune_dataset: ImageNet-1k
             fine_tune_epochs: 30
             fine_tune_resolution: 224
-        instance_results:
-          - head: Cascade Mask R-CNN
-            dataset: COCO (val)
-            instance_type: Object Detection
-            train_dataset: COCO (train)
-            train_epochs: 36
-            mAP: 40.6
-            AP50: null
-            AP75: null
-            mAPs: null
-            mAPm: null
-            mAPl: null
-            gflops: null
+        instance_results: []
         semantic_seg_results: []
   - name: FAN-L-ViT
     m_parameters: 81.0
@@ -358,6 +465,7 @@ backbones:
             mAPm: null
             mAPl: null
             gflops: null
+            fps_measurements: []
         semantic_seg_results:
           - head: SETR
             dataset: Cityscapes (val)
@@ -365,23 +473,20 @@ backbones:
             train_epochs: 128
             crop_size: 1024
             ms_m_iou: null
+            ms_pixel_accuracy: null
+            ms_mean_accuracy: null
             ss_m_iou: 82.3
+            ss_pixel_accuracy: null
+            ss_mean_accuracy: null
             flip_test: false
             gflops: null
+            fps_measurements: []
       - name: FAN-L-Hybrid-IN22k
         pretrain_dataset: ImageNet-22k
         pretrain_method: Supervised
         pretrain_resolution: 224
         pretrain_epochs: 90
         classification_results:
-          - dataset: ImageNet-1k
-            resolution: 224
-            top_1: 86.5
-            top_5: null
-            gflops: 16.9
-            fine_tune_dataset: ImageNet-1k
-            fine_tune_epochs: 30
-            fine_tune_resolution: 224
           - dataset: ImageNet-1k
             resolution: 384
             top_1: 87.1
@@ -438,6 +543,14 @@ backbones:
             fine_tune_dataset: ImageNet-1k
             fine_tune_epochs: 30
             fine_tune_resolution: 384
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 86.5
+            top_5: null
+            gflops: 16.9
+            fine_tune_dataset: ImageNet-1k
+            fine_tune_epochs: 30
+            fine_tune_resolution: 224
         instance_results:
           - head: Cascade Mask R-CNN
             dataset: COCO (val)
@@ -451,4 +564,62 @@ backbones:
             mAPm: null
             mAPl: null
             gflops: null
+            fps_measurements: []
         semantic_seg_results: []
+      - name: FAN-L-Hybrid-IN1k-TL
+        pretrain_dataset: ImageNet-1k
+        pretrain_method: Sup. + TL
+        pretrain_resolution: 224
+        pretrain_epochs: 350
+        classification_results:
+          - dataset: ImageNet-1k
+            resolution: 224
+            top_1: 84.7
+            top_5: null
+            gflops: 17.0
+          - dataset: ImageNet-A
+            resolution: 224
+            top_1: 46.1
+            top_5: null
+            gflops: 17.0
+          - dataset: ImageNet-R
+            resolution: 224
+            top_1: 56.6
+            top_5: null
+            gflops: 17.0
+          - dataset: ImageNet-C
+            resolution: 224
+            top_1: 42.5
+            top_5: null
+            gflops: 17.0
+        instance_results:
+          - head: Cascade Mask R-CNN
+            dataset: COCO (val)
+            instance_type: Object Detection
+            train_dataset: COCO (train)
+            train_epochs: 36
+            mAP: 54.1
+            AP50: null
+            AP75: null
+            mAPs: null
+            mAPm: null
+            mAPl: null
+            gflops: null
+            fps_measurements: []
+        semantic_seg_results:
+          - head: SETR
+            dataset: Cityscapes (val)
+            train_dataset: Cityscapes (train)
+            train_epochs: 128
+            crop_size: 1024
+            ms_m_iou: null
+            ms_pixel_accuracy: null
+            ms_mean_accuracy: null
+            ss_m_iou: 82.8
+            ss_pixel_accuracy: null
+            ss_mean_accuracy: null
+            flip_test: false
+            gflops: null
+            fps_measurements: []
+        paper: https://arxiv.org/pdf/2401.03844
+        github: https://github.com/NVlabs/STL

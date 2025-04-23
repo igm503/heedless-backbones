@@ -87,6 +87,7 @@ def update_database(data):
                 gpu=fps_data["gpu"],
                 precision=fps_data["precision"],
                 fps=fps_data["fps"],
+                source=fps_data.get("source", ""),
             )
             fps_measurement.full_clean()
             fps_measurement.save()
@@ -96,19 +97,17 @@ def update_database(data):
                 name=pretrained_data["name"],
                 backbone=backbone,
                 family=family,
-                pretrain_dataset=Dataset.objects.get(
-                    name=pretrained_data["pretrain_dataset"]
-                ),
+                pretrain_dataset=Dataset.objects.get(name=pretrained_data["pretrain_dataset"]),
                 pretrain_method=pretrained_data["pretrain_method"],
                 pretrain_resolution=pretrained_data["pretrain_resolution"],
                 pretrain_epochs=pretrained_data["pretrain_epochs"],
+                paper=pretrained_data.get("paper", ""),
+                github=pretrained_data.get("github", ""),
             )
             pretrained_backbone.full_clean()
             pretrained_backbone.save()
 
-            for classification_data in pretrained_data.get(
-                "classification_results", []
-            ):
+            for classification_data in pretrained_data.get("classification_results", []):
                 classification_result = ClassificationResult(
                     pretrained_backbone=pretrained_backbone,
                     dataset=Dataset.objects.get(name=classification_data["dataset"]),
@@ -116,15 +115,13 @@ def update_database(data):
                     top_1=classification_data["top_1"],
                     top_5=classification_data.get("top_5"),
                     gflops=classification_data["gflops"],
+                    paper=classification_data.get("paper", ""),
+                    github=classification_data.get("github", ""),
                 )
                 if "fine_tune_dataset" in classification_data:
-                    ft_dataset = Dataset.objects.get(
-                        name=classification_data["fine_tune_dataset"]
-                    )
+                    ft_dataset = Dataset.objects.get(name=classification_data["fine_tune_dataset"])
                     classification_result.fine_tune_dataset = ft_dataset
-                    classification_result.fine_tune_epochs = classification_data[
-                        "fine_tune_epochs"
-                    ]
+                    classification_result.fine_tune_epochs = classification_data["fine_tune_epochs"]
                     classification_result.fine_tune_resolution = classification_data[
                         "fine_tune_resolution"
                     ]
@@ -133,12 +130,12 @@ def update_database(data):
                         name=classification_data["intermediate_fine_tune_dataset"]
                     )
                     classification_result.intermediate_fine_tune_dataset = inter_dataset
-                    classification_result.intermediate_fine_tune_epochs = (
-                        classification_data["intermediate_fine_tune_epochs"]
-                    )
-                    classification_result.intermediate_fine_tune_resolution = (
-                        classification_data["intermediate_fine_tune_resolution"]
-                    )
+                    classification_result.intermediate_fine_tune_epochs = classification_data[
+                        "intermediate_fine_tune_epochs"
+                    ]
+                    classification_result.intermediate_fine_tune_resolution = classification_data[
+                        "intermediate_fine_tune_resolution"
+                    ]
                 classification_result.full_clean()
                 classification_result.save()
 
@@ -148,9 +145,7 @@ def update_database(data):
                     head=DownstreamHead.objects.get(name=instance_data["head"]),
                     dataset=Dataset.objects.get(name=instance_data["dataset"]),
                     instance_type=Task.objects.get(name=instance_data["instance_type"]),
-                    train_dataset=Dataset.objects.get(
-                        name=instance_data["train_dataset"]
-                    ),
+                    train_dataset=Dataset.objects.get(name=instance_data["train_dataset"]),
                     train_epochs=instance_data["train_epochs"],
                     mAP=instance_data["mAP"],
                     AP50=instance_data.get("AP50"),
@@ -159,6 +154,8 @@ def update_database(data):
                     mAPm=instance_data.get("mAPm"),
                     mAPl=instance_data.get("mAPl"),
                     gflops=instance_data["gflops"],
+                    paper=instance_data.get("paper", ""),
+                    github=instance_data.get("github", ""),
                 )
                 if "intermediate_train_dataset" in instance_data:
                     instance_result.intermediate_train_dataset = Dataset.objects.get(
@@ -176,6 +173,7 @@ def update_database(data):
                         gpu=fps_data["gpu"],
                         precision=fps_data["precision"],
                         fps=fps_data["fps"],
+                        source=fps_data.get("source", ""),
                     )
                     fps_measurement.full_clean()
                     fps_measurement.save()
@@ -186,9 +184,7 @@ def update_database(data):
                     pretrained_backbone=pretrained_backbone,
                     head=DownstreamHead.objects.get(name=semantic_data["head"]),
                     dataset=Dataset.objects.get(name=semantic_data["dataset"]),
-                    train_dataset=Dataset.objects.get(
-                        name=semantic_data["train_dataset"]
-                    ),
+                    train_dataset=Dataset.objects.get(name=semantic_data["train_dataset"]),
                     train_epochs=semantic_data["train_epochs"],
                     crop_size=semantic_data["crop_size"],
                     ms_m_iou=semantic_data.get("ms_m_iou"),
@@ -199,6 +195,8 @@ def update_database(data):
                     ss_mean_accuracy=semantic_data.get("ss_mean_accuracy"),
                     flip_test=semantic_data["flip_test"],
                     gflops=semantic_data["gflops"],
+                    paper=semantic_data.get("paper", ""),
+                    github=semantic_data.get("github", ""),
                 )
                 if "intermediate_train_dataset" in semantic_data:
                     semantic_result.intermediate_train_dataset = Dataset.objects.get(
@@ -216,6 +214,7 @@ def update_database(data):
                         gpu=fps_data["gpu"],
                         precision=fps_data["precision"],
                         fps=fps_data["fps"],
+                        source=fps_data.get("source", ""),
                     )
                     fps_measurement.full_clean()
                     fps_measurement.save()

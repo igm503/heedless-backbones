@@ -52,6 +52,13 @@
         <div style="margin-bottom: 1rem;">
           <p style="margin-bottom: 0.3rem; font-weight: 600;">April 20, 2025</p>
           <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0; margin-bottom: 0.5rem;">
+            <li style="margin-bottom: 0.3rem;">Added <a href="{% url "family" "FAN" %}">FAN STL</a></li>
+          </ul>
+        </div>
+        <!-- April 20, 2025 -->
+        <div style="margin-bottom: 1rem;">
+          <p style="margin-bottom: 0.3rem; font-weight: 600;">April 20, 2025</p>
+          <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0; margin-bottom: 0.5rem;">
             <li style="margin-bottom: 0.3rem;">Added <a href="{% url "family" "BiFormer" %}">BiFormer</a></li>
             <li style="margin-bottom: 0.3rem;">Added <a href="{% url "family" "MambaOut" %}">MambaOut</a></li>
             <li style="margin-bottom: 0.3rem;">Added <a href="{% url "family" "GroupMamba" %}">GroupMamba</a></li>
@@ -67,7 +74,7 @@
             <li style="margin-bottom: 0.3rem;">Added <a href="{% url "family" "DAT++" %}">DAT++</a></li>
           </ul>
         </div>
-        
+
         <!-- April 15, 2025 -->
         <div style="margin-bottom: 1rem;">
           <p style="margin-bottom: 0.3rem; font-weight: 600;">April 15, 2025</p>
@@ -76,15 +83,16 @@
             <li style="margin-bottom: 0.3rem;">Added <a href="{% url "family" "RepLKNet" %}">RepLKNet</a></li>
           </ul>
         </div>
-        
+
         <!-- April 14, 2025 -->
         <div style="margin-bottom: 1rem;">
           <p style="margin-bottom: 0.3rem; font-weight: 600;">April 14, 2025</p>
           <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0; margin-bottom: 0.5rem;">
-            <li style="margin-bottom: 0.3rem;">Added <a href="{% url "family" "FAN (Fully Attentional Networks)" %}">FAN (Fully Attentional Networks)</a></li>
+            <li style="margin-bottom: 0.3rem;">Added <a href="{% url "family" "FAN (Fully Attentional Networks)"
+                %}">FAN (Fully Attentional Networks)</a></li>
           </ul>
         </div>
-        
+
         <!-- October 16, 2024 -->
         <div style="margin-bottom: 1rem;">
           <p style="margin-bottom: 0.3rem; font-weight: 600;">October 16, 2024</p>
@@ -92,7 +100,7 @@
             <li style="margin-bottom: 0.3rem;">Added <a href="{% url "family" "UniRepLKNet" %}">UniRepLKNet</a></li>
           </ul>
         </div>
-        
+
         <!-- October 13, 2024 -->
         <div style="margin-bottom: 1rem;">
           <p style="margin-bottom: 0.3rem; font-weight: 600;">October 13, 2024</p>
@@ -100,7 +108,7 @@
             <li style="margin-bottom: 0.3rem;">Added <a href="{% url "family" "VMamba" %}">VMamba</a></li>
           </ul>
         </div>
-        
+
         <!-- September 29, 2024 -->
         <div style="margin-bottom: 1rem;">
           <p style="margin-bottom: 0.3rem; font-weight: 600;">September 29, 2024</p>
@@ -122,10 +130,10 @@
             <li style="margin-bottom: 0.3rem;">Added <a href="{% url "family" "CoAtNet" %}">CoAtNet</a></li>
           </ul>
         </div>
-        
+
         <!-- September 24, 2024 -->
         <div style="margin-bottom: 1rem;">
-          <p style="margin-bottom: 0.3rem; font-weight: 500;">(September 24, 2024)</p>
+          <p style="margin-bottom: 0.3rem; font-weight: 600;">September 24, 2024</p>
           <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0; margin-bottom: 0.5rem;">
             <li style="margin-bottom: 0.3rem;">Added <a href="{% url "family" "Hiera" %}">Hiera</a></li>
           </ul>
@@ -140,8 +148,8 @@
           (visible) data model doesn't include:
         </p>
         <ul class="list-disc" style="padding-left: 1.5rem; margin-bottom: 1rem;">
-          <li style="margin-bottom: 0.5rem">Model Family and Model What head was used for the downstream task (e.g.
-            object detection) or what backbone was used</li>
+          <li style="margin-bottom: 0.5rem">A distinciton between Backbone Model Family and Model, on one hand, and
+            Downstream Head, on the other</li>
           <li style="margin-bottom: 0.5rem">What pretraining dataset was used (e.g. IN-1K, IN-21k)</li>
           <li style="margin-bottom: 0.5rem">Details of the pretraining, finetuning, or downstream training</li>
           <li style="margin-bottom: 0.5rem">Throughput, and sometimes even GFLOPS and the number of parameters</li>
