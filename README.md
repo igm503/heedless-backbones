@@ -7,7 +7,7 @@ A simple web application for comparing computer vision backbones performance on 
 
 Paperswithcode's basic data models and user interface aren't useful either for researchers or industry users interested in comparing the performance of different computer vision backbones for different tasks. The (visible) data model doesn't include:
 
-- Model Family and Model What head was used for the downstream task (e.g. object detection) or what backbone was used
+- Model Family, Model, What Dead was used for the downstream task (e.g. object detection) or What Backbone was used
 - What pretraining dataset was used (e.g. IN-1K, IN-21k)
 - Details of the pretraining, finetuning, or downstream training
 - Throughput, and sometimes even GFLOPS and the number of parameters
