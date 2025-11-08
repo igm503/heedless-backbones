@@ -23,6 +23,7 @@ from ...models import (
     GPU,
     TokenMixer,
     Precision,
+    PretrainMethod,
 )
 
 LLM_OUTPUT_DIR = os.path.abspath(
@@ -77,26 +78,134 @@ A few notes:
   Often the training settings report iterations instead of epochs. Make sure
   to convert the iterations to epochs if this is the case.
 
-The following examples show the desired YAML structure:
+The following example shows the desired YAML structure:
 
-{example_yamls}
+{example_yaml}
 
+YAML Structure:
 
-- Include every backbone from the model family introduced in the paper. 
-- For each bacbkbone, include every pretrained backbone introduced in the 
-paper.
-- Include every image classification result for the pretrained backbones 
-- Include every object detection and instance segmentation result for 
-the pretrained backbones, provided the downstream head used in the task
-exists in the list given above. 
-- Sometimes not all of the pretrained backbones will have instance results,
-or different sizes will use different heads and training schemes. Keep this
-in mind, and include all and only those instance results found in the paper.
-- Include every FPS result available for the models, including for 
-instance tasks (instance segmentation and object detection). 
-- FPS measurements are not always available, so the fps fields are optional. Only
-include measurements if they are available, and if you can find the gpu + float 
-precision used to take the measurement.
+model_family [object]
+├─ name [string, required]
+├─ model_type [string, required]
+├─ hierarchical [boolean, required]
+├─ pretrain_method [string, required]
+├─ pub_date [date, required]
+├─ paper [url, required]
+├─ github [url, optional]
+└─ backbones [list, required, min 1]
+   ├─ name [string, required]
+   ├─ m_parameters [float, required]
+   ├─ fps_measurements [list, optional]
+   │  ├─ resolution [int, required]
+   │  ├─ fps [float, required]
+   │  ├─ gpu [string, required]
+   │  └─ precision [string, required]
+   └─ pretrained_backbones [list, required, min 1]
+      ├─ name [string, required]
+      ├─ pretrain_dataset [string, required]
+      ├─ pretrain_method [string, required]
+      ├─ pretrain_resolution [int, required]
+      ├─ pretrain_epochs [int, required]
+      ├─ classification_results [list, optional]
+      │  ├─ dataset [string, required]
+      │  ├─ resolution [int, required]
+      │  ├─ top_1 [float, required]
+      │  ├─ top_5 [float, optional]
+      │  ├─ gflops [float, required]
+      │  ├─ fine_tune_dataset [string, conditional]
+      │  ├─ fine_tune_epochs [int, conditional]
+      │  ├─ fine_tune_resolution [int, conditional]
+      │  ├─ intermediate_fine_tune_dataset [string, optional]
+      │  ├─ intermediate_fine_tune_epochs [int, optional]
+      │  └─ intermediate_fine_tune_resolution [int, optional]
+      ├─ instance_results [list, optional]
+      │  ├─ head [string, required]
+      │  ├─ dataset [string, required]
+      │  ├─ instance_type [enum: "Object Detection"|"Instance Segmentation", required]
+      │  ├─ train_dataset [string, required]
+      │  ├─ train_epochs [int, required]
+      │  ├─ mAP [float, required]
+      │  ├─ AP50 [float, optional]
+      │  ├─ AP75 [float, optional]
+      │  ├─ mAPs [float, optional]
+      │  ├─ mAPm [float, optional]
+      │  ├─ mAPl [float, optional]
+      │  ├─ gflops [float, required]
+      │  ├─ intermediate_train_dataset [string, optional]
+      │  ├─ intermediate_train_epochs [int, optional]
+      │  └─ fps_measurements [list, optional]
+      │     └─ [same structure as backbone fps_measurements]
+      └─ semantic_seg_results [list, optional]
+         ├─ head [string, required]
+         ├─ dataset [string, required]
+         ├─ train_dataset [string, required]
+         ├─ train_epochs [int, required]
+         ├─ crop_size [int, required]
+         ├─ ms_m_iou [float, required if ss_m_iou absent]
+         ├─ ms_pixel_accuracy [float, optional]
+         ├─ ms_mean_accuracy [float, optional]
+         ├─ ss_m_iou [float, required if ms_m_iou absent]
+         ├─ ss_pixel_accuracy [float, optional]
+         ├─ ss_mean_accuracy [float, optional]
+         ├─ flip_test [boolean, required]
+         ├─ gflops [float, required]
+         └─ fps_measurements [list, optional]
+            └─ [same structure as backbone fps_measurements]
+
+Field Semantics and Rules:
+
+model_type: Describes the channel mixing approach used by the model architecture
+
+backbones: Each backbone represents a different size/scale variant of the model family introduced in the paper. You must include every backbone size mentioned in the paper. The backbone name generally follow the convention FamilyName-SizeAbbrev such as ConvNeXt V2-T or ConvNeXt V2-B.
+
+m_parameters: The number of parameters in millions for the backbone model.
+
+pretrained_backbones: Different training runs of the same backbone architecture. Include every distinct pretraining configuration reported in the paper. A pretrained backbone represents a specific instance of a backbone that has been trained with particular hyperparameters and datasets.
+
+pretrain_resolution: The resolution in pixels at which the backbone was pretrained. This is typically a square resolution, so 224 means 224x224 pixels.
+
+pretrain_epochs: The total number of training epochs used during pretraining.
+
+classification_results - Scope: For each pretrained backbone, include every image classification result reported in the paper. This includes results on different datasets, at different resolutions, and with different training configurations.
+
+classification_results - Fine-tuning conditions: A result requires fine-tuning fields when any of these conditions hold:
+- The pretraining dataset differs from the evaluation dataset (e.g., pretrained on ImageNet-22k, evaluated on ImageNet-1k)
+- The pretraining resolution differs from the evaluation resolution (e.g., pretrained at 224px, evaluated at 384px)
+- The pretraining method differs from the training method used for classification (e.g., pretrained with FCMAE, fine-tuned with supervised learning)
+
+When fine-tuning occurs, populate fine_tune_dataset, fine_tune_epochs, and fine_tune_resolution.
+
+classification_results - Intermediate fine-tuning: Some papers report a three-stage training process: pretraining then intermediate fine-tuning then final fine-tuning. For example, a model might be pretrained with FCMAE on ImageNet-22k at 224px, then supervised fine-tuned on ImageNet-22k at 224px (intermediate), then finally supervised fine-tuned on ImageNet-1k at 224px (final). When this occurs, populate the intermediate_fine_tune_dataset, intermediate_fine_tune_epochs, and intermediate_fine_tune_resolution fields with the intermediate stage's parameters.
+
+gflops: The computational cost in giga floating-point operations for a forward pass through the model at the specified resolution. For classification results, this is just the backbone. For instance and semantic segmentation results, this includes both the backbone and the downstream head.
+
+instance_results - Scope: For each pretrained backbone, include every object detection and instance segmentation result reported in the paper.
+
+instance_results - Instance type: Must be either Object Detection or Instance Segmentation. These are different tasks that may use the same head architecture but produce different outputs.
+
+instance_results - Head: The name of the detection/segmentation head used, such as Mask R-CNN, Cascade R-CNN, RetinaNet, etc.
+
+instance_results - Training datasets: The train_dataset field specifies the dataset used for training the full model (backbone plus head). This is typically the same as the evaluation dataset but may differ in some cases.
+
+instance_results - Intermediate training: Some papers train object detectors in two stages: first training the backbone plus head on a large dataset like Objects365, then training on the target dataset like COCO. When this occurs, populate intermediate_train_dataset and intermediate_train_epochs.
+
+instance_results - AP metrics: mAP is always required. AP50, AP75, mAPs (small objects), mAPm (medium objects), and mAPl (large objects) are optional but should be included when reported in the paper.
+
+semantic_seg_results - Scope: For each pretrained backbone, include every semantic segmentation result reported in the paper.
+
+semantic_seg_results - Head: The name of the segmentation head used, such as UPerNet, Panoptic FPN, etc. NOTE: Semantic FPN should be replaced with Panoptic FPN.
+
+semantic_seg_results - Crop size: The size of image crops used during training. Semantic segmentation models are typically trained on crops rather than full images.
+
+semantic_seg_results - Multi-scale vs single-scale: Papers report either multi-scale evaluation (ms_m_iou) or single-scale evaluation (ss_m_iou), or sometimes both. At least one must be present. Multi-scale evaluation typically yields higher scores as it averages predictions across multiple image scales. The ms_ prefix indicates multi-scale metrics, the ss_ prefix indicates single-scale metrics.
+
+semantic_seg_results - Flip test: A boolean indicating whether the model was evaluated with horizontal flip augmentation (averaging predictions from the original and horizontally flipped images).
+
+fps_measurements - Context: FPS measurements can appear at three levels: on the backbone itself, on instance results (backbone plus detection/segmentation head), and on semantic segmentation results (backbone plus segmentation head). Include these when reported in the paper, provided all required information is available.
+
+fps_measurements - GPU: The specific GPU model used for the measurement, such as A100, V100, RTX 3090, etc.
+
+fps_measurements - Precision: The numerical precision used, such as FP32, FP16, INT8, etc.
 
 The following is the paper content:
 
@@ -109,24 +218,27 @@ Please enclose your yaml in tags as follows:
 """
 
 
-def get_prompt_with_examples(pdf_content, num_examples, exclude_name=None):
+def get_prompt_with_example(pdf_content, example_name):
     return PROMPT.format(
         pdf_content=pdf_content,
         static_data=get_static_data(),
         model_definitions=get_model_definitions(),
-        example_yamls=get_example_yamls(num_examples, exclude_name),
+        example_yaml=get_example_yaml(example_name),
     )
 
 
 def get_static_data():
     return {
-        "Model Types": [mixer.name for mixer in TokenMixer],
+        "Model Types": [mixer.value for mixer in TokenMixer],
+        "Pretrain Methods": [method.value for method in PretrainMethod],
         "Datasets": [dataset.name for dataset in Dataset.objects.all()],
         "Tasks": [task.name for task in Task.objects.all()],
         "Downstream Heads": [head.name for head in DownstreamHead.objects.all()],
         "GPUs": [gpu.value for gpu in GPU],
         "GPU Precisions": [precision.value for precision in Precision],
     }
+
+
 
 
 def get_model_definitions():
@@ -164,16 +276,22 @@ def get_example_yamls(k, family_name):
         name = file.split(".")[0]
         if "_" in name or name == family_name:
             continue
-        yaml_path = os.path.join(YAML_DIR, file)
-        with open(yaml_path, "r") as f:
-            example_yamls += f"Example {i}:\n\n```yaml\n"
-            example_yamls += f.read()
-            example_yamls += "```\n\n"
-            i += 1
+        example_yamls += get_example_yaml(file)
+        i += 1
         if i > k:
             break
 
     return example_yamls
+
+
+def get_example_yaml(filename):
+    path = os.path.join(YAML_DIR, filename)
+    example_yaml = ""
+    with open(path, "r") as f:
+        example_yaml += "Example: \n\n```yaml\n"
+        example_yaml += f.read()
+        example_yaml += "```\n\n"
+    return example_yaml
 
 
 def get_pdf_content(url):
@@ -206,8 +324,8 @@ def call_anthropic_api(prompt):
     load_dotenv()
     client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
     message = client.messages.create(
-        model="claude-3-7-sonnet-20250219",
-        max_tokens=8192,
+        model="claude-sonnet-4-5-20250929",
+        max_tokens=16384,
         messages=[{"role": "user", "content": prompt}],
     )
     return message.content[0].text

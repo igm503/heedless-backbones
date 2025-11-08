@@ -10,6 +10,7 @@ class PretrainMethod(Enum):
     FCMAE = "FCMAE"
     MAE = "MAE"
     CONTRASTIVE = "CL"
+    MAP = "MAP"
 
 
 class TokenMixer(Enum):
@@ -37,8 +38,10 @@ class GPU(Enum):
     H100 = "H100"
     T4 = "T4"
     RTX2080TI = "2080Ti"
+    RTX3080 = "3080"
     RTX3090 = "3090"
     RTX4090 = "4090"
+    L40S = "L40S"
 
 
 class Precision(Enum):

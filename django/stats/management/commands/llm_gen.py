@@ -7,7 +7,7 @@ from .llm_utils import (
     LLM_OUTPUT_DIR,
     YAML_DIR,
     get_pdf_content,
-    get_prompt_with_examples,
+    get_prompt_with_example,
     call_anthropic_api,
     call_openai_api,
     call_together_api,
@@ -40,7 +40,7 @@ class Command(BaseCommand):
             return
 
         try:
-            prompt = get_prompt_with_examples(pdf_content, 3)
+            prompt = get_prompt_with_example(pdf_content, "NAT.yml")
             print(prompt)
             llm_output = call_anthropic_api(prompt)
             # Deepseek R1

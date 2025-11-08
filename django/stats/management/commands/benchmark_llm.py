@@ -8,7 +8,7 @@ from django.core.management.base import BaseCommand
 from .llm_utils import (
     YAML_DIR,
     get_pdf_content,
-    get_prompt_with_examples,
+    get_prompt_with_example,
     call_anthropic_api,
     parse_model_output,
 )
@@ -36,7 +36,7 @@ class Command(BaseCommand):
             return
 
         try:
-            prompt = get_prompt_with_examples(pdf_content, 5, family.name)
+            prompt = get_prompt_with_example(pdf_content, "NAT.yml")
             llm_output = call_anthropic_api(prompt)
         except Exception as e:
             self.stdout.write(self.style.ERROR(f"Error calling Anthropic API: {str(e)}"))
@@ -68,19 +68,23 @@ def sort_nested_structures(item):
 
 
 def dict_sort(item):
-    if "name" in item:
-        return item["name"]
-    elif "gpu" in item:
-        return str(item["gpu"]) + str(item["precision"]) + str(item["resolution"])
-    elif "mAP" in item:
-        return str(item["dataset"]) + str(item["head"]) + str(item["mAP"])
-    else:
-        return (
-            item["dataset"]
-            + str(item["resolution"])
-            + str(item.get("fine_tune_dataset"))
-            + str(item["top_1"])
-        )
+    try:
+        if "name" in item:
+            return item["name"]
+        elif "gpu" in item:
+            return str(item["gpu"]) + str(item["precision"]) + str(item["resolution"])
+        elif "mAP" in item:
+            return str(item["dataset"]) + str(item["head"]) + str(item["mAP"])
+        else:
+            return (
+                item["dataset"]
+                + str(item["resolution"])
+                + str(item.get("fine_tune_dataset"))
+                + str(item["top_1"])
+            )
+    except KeyError as e:
+        print(item)
+        return ""
 
 
 def compare_yamls(generated_yaml, reference_yaml):
