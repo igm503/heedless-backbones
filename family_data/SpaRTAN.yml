@@ -1,0 +1,52 @@
+name: SpaRTAN
+model_type: Convolution
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-07-15'
+paper: https://arxiv.org/abs/2507.10999
+github: https://github.com/henry-pay/SpaRTAN
+backbones:
+- name: SpaRTAN-XT
+  m_parameters: 2.2
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SpaRTAN-XT-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 73.9
+      top_5: null
+      gflops: 0.64
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 74.4
+      top_5: null
+      gflops: 0.83
+    instance_results: []
+    semantic_seg_results: []
+- name: SpaRTAN-T
+  m_parameters: 3.8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SpaRTAN-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 77.1
+      top_5: null
+      gflops: 0.83
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 77.7
+      top_5: null
+      gflops: 1.08
+    instance_results: []
+    semantic_seg_results: []

@@ -1,0 +1,199 @@
+name: HybridNet
+model_type: Conv + SSM
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-05-23'
+paper: https://arxiv.org/abs/2410.00871
+github: https://github.com/yunzeliu/MAP
+backbones:
+- name: HybridNet-T
+  m_parameters: 12.0
+  pretrained_backbones:
+  - name: HybridNet-T-Sup
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 77.7
+      top_5: null
+      gflops: 7.6
+  - name: HybridNet-T-MAP
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: MAP
+    pretrain_resolution: 224
+    pretrain_epochs: 1600
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 400
+      fine_tune_resolution: 224
+      top_1: 78.6
+      top_5: null
+      gflops: 7.6
+    instance_results:
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 46.4
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 39.8
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+- name: HybridNet-S
+  m_parameters: 37.0
+  pretrained_backbones:
+  - name: HybridNet-S-Sup
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.3
+      top_5: null
+      gflops: 14.6
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 45.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+  - name: HybridNet-S-MAP
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: MAP
+    pretrain_resolution: 224
+    pretrain_epochs: 1600
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 400
+      fine_tune_resolution: 224
+      top_1: 82.5
+      top_5: null
+      gflops: 14.6
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 46.9
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+- name: HybridNet-B
+  m_parameters: 128.0
+  pretrained_backbones:
+  - name: HybridNet-B-Sup
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.1
+      top_5: null
+      gflops: 30.0
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 84.5
+      top_5: null
+      gflops: 76.1
+  - name: HybridNet-B-MAP
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: MAP
+    pretrain_resolution: 224
+    pretrain_epochs: 1600
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 400
+      fine_tune_resolution: 224
+      top_1: 84.9
+      top_5: null
+      gflops: 30.0
+    - dataset: ImageNet-1k
+      resolution: 384
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 400
+      fine_tune_resolution: 384
+      top_1: 85.5
+      top_5: null
+      gflops: 76.1
+- name: HybridNet-L
+  m_parameters: 443.0
+  pretrained_backbones:
+  - name: HybridNet-L-Sup
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.2
+      top_5: null
+      gflops: 78.3
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 84.6
+      top_5: null
+      gflops: null
+  - name: HybridNet-L-MAP
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: MAP
+    pretrain_resolution: 224
+    pretrain_epochs: 1600
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 400
+      fine_tune_resolution: 224
+      top_1: 85.0
+      top_5: null
+      gflops: 78.3
+    - dataset: ImageNet-1k
+      resolution: 384
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 400
+      fine_tune_resolution: 384
+      top_1: 86.2
+      top_5: null
+      gflops: null

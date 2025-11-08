@@ -1,0 +1,185 @@
+name: VMINet
+model_type: Attention
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-01-03'
+paper: https://arxiv.org/abs/2501.02040
+github: https://github.com/yws-wxs/VMINet
+backbones:
+- name: VMINet-Ti
+  m_parameters: 2.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: VMINet-Ti-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 70.7
+      top_5: null
+      gflops: 0.3
+- name: VMINet-XS
+  m_parameters: 7.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: VMINet-XS-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.6
+      top_5: null
+      gflops: 1.4
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 38.9
+      AP50: 61.9
+      AP75: 42.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 189.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 36.4
+      AP50: 58.7
+      AP75: 38.8
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 189.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 95
+      crop_size: 512
+      ms_m_iou: 42.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+- name: VMINet-S
+  m_parameters: 13.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: VMINet-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.5
+      top_5: null
+      gflops: 2.3
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.2
+      AP50: 65.3
+      AP75: 47.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 201.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 39.3
+      AP50: 62.2
+      AP75: 42.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 201.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 95
+      crop_size: 512
+      ms_m_iou: 44.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+- name: VMINet-B
+  m_parameters: 28.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: VMINet-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.4
+      top_5: null
+      gflops: 4.8
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.5
+      AP50: 66.7
+      AP75: 48.6
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 276.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 40.5
+      AP50: 63.7
+      AP75: 43.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 276.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 95
+      crop_size: 512
+      ms_m_iou: 47.2
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null

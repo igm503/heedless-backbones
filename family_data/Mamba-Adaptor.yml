@@ -1,0 +1,146 @@
+name: Mamba-Adaptor
+model_type: State Space Model
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-05-19'
+paper: https://arxiv.org/abs/2505.12685
+github: https://github.com
+backbones:
+- name: Mamba-Adaptor-b1
+  m_parameters: 7.8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Mamba-Adaptor-b1-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.4
+      top_5: null
+      gflops: 1.4
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.2
+      AP50: 65.5
+      AP75: 47.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 218.0
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 39.5
+      AP50: 60.1
+      AP75: 42.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 218.0
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.1
+      AP50: 67.2
+      AP75: 49.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 218.0
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 41.2
+      AP50: 61.9
+      AP75: 43.8
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 218.0
+      fps_measurements: []
+    semantic_seg_results: []
+- name: Mamba-Adaptor-b2
+  m_parameters: 32.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Mamba-Adaptor-b2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.0
+      top_5: null
+      gflops: 5.4
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.3
+      AP50: 69.8
+      AP75: 52.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 259.0
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.4
+      AP50: 66.9
+      AP75: 46.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 259.0
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 49.1
+      AP50: 71.5
+      AP75: 54.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 259.0
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 44.8
+      AP50: 67.3
+      AP75: 48.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 259.0
+      fps_measurements: []
+    semantic_seg_results: []

@@ -1,0 +1,167 @@
+name: InceptionMamba
+model_type: Conv + SSM
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-07-24'
+paper: https://arxiv.org/abs/2506.08735
+github: https://github.com/Wake1021/InceptionMamba
+backbones:
+- name: InceptionMamba-T
+  m_parameters: 25.4
+  pretrained_backbones:
+  - name: InceptionMamba-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.1
+      top_5: null
+      gflops: 4.0
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 46.0
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 233.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 41.8
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 233.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 1250
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 47.3
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 928.0
+- name: InceptionMamba-S
+  m_parameters: 46.0
+  pretrained_backbones:
+  - name: InceptionMamba-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.1
+      top_5: null
+      gflops: 7.8
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.5
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 301.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.6
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 301.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 1250
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1006.0
+- name: InceptionMamba-B
+  m_parameters: 83.0
+  pretrained_backbones:
+  - name: InceptionMamba-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.7
+      top_5: null
+      gflops: 14.3
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 48.1
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 421.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.1
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 421.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 1250
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1145.0

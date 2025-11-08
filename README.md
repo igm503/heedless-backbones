@@ -117,9 +117,27 @@ I'm running this on a cheap digital ocean server, and you can access it by click
   - [FAN STL](https://arxiv.org/pdf/2401.03844)
   - [DAT](https://arxiv.org/abs/2201.00520)
   - [NAT](https://arxiv.org/abs/2204.07143)
+  - [CoCAViT](https://arxiv.org/abs/2508.05307)
+  - [FractalMamba++](https://arxiv.org/abs/2505.14062)
+  - [HybridNet](https://arxiv.org/abs/2410.00871)
+  - [InceptionMamba](https://arxiv.org/abs/2506.08735)
+  - [Iwin](https://arxiv.org/abs/2507.18405)
+  - [MAViT](https://arxiv.org/html/2507.00698v3)
+  - [AnchorFormer](https://arxiv.org/abs/2505.16463)
+  - [Mamba-Adaptor](https://arxiv.org/abs/2505.12685)
+  - [RecNeXt](https://arxiv.org/abs/2412.19628)
+  - [S2AFormer](https://arxiv.org/abs/2505.22195)
+  - [SSViT](https://arxiv.org/abs/2405.13335v1)
+  - [A2Mamba](https://arxiv.org/abs/2507.16624)
+  - [SpaRTAN](https://arxiv.org/abs/2507.10999)
+  - [UniConvNet](https://arxiv.org/abs/2508.09000)
+  - [UniNeXt](https://arxiv.org/abs/2304.13700)
+  - [VCMamba](https://arxiv.org/abs/2509.04669)
+  - [VMINet](https://arxiv.org/abs/2501.02040)
 
 ## Updates
 
+- 11-8-2025: added CoCAViT, FractalMamba++, HybridNet, InceptionMamba, Iwin, MAViT, AnchorFormer, Mamba-Adaptor, RecNeXt, S2AFormer, SSViT, A2Mamba, SpaRTAN, UniConvNet, UniNeXt, VCMamba, VMINet
 - 4-22-2025: added FAN STL, DAT, NAT
 - 4-20-2025: added BiFormer, MambaOut, GroupMamba, Vim/Hier-Vim, PlainMamba, LocalVim/LocalVMamba, EfficientVMamba, DAMamba, VSSD, RMT, DAT++
 - 4-15-2025: added SLaK, RepLKNet

@@ -1,0 +1,836 @@
+name: UniConvNet
+model_type: Convolution
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-08-12'
+paper: https://arxiv.org/abs/2508.09000v1
+github: https://github.com/ai-paperwithcode/UniConvNet
+backbones:
+- name: UniConvNet-A
+  m_parameters: 3.4
+  pretrained_backbones:
+  - name: UniConvNet-A-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 77.0
+      top_5: null
+      gflops: 0.589
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 40.0
+      AP50: 60.4
+      AP75: 42.9
+      mAPs: 23.3
+      mAPm: 44.2
+      mAPl: 53.2
+      gflops: 16.3
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 38.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 4.2
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 37.9
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 3.8
+- name: UniConvNet-P0
+  m_parameters: 5.2
+  pretrained_backbones:
+  - name: UniConvNet-P0-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.1
+      top_5: null
+      gflops: 0.832
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 41.1
+      AP50: 61.4
+      AP75: 43.9
+      mAPs: 24.2
+      mAPm: 45.2
+      mAPl: 55.2
+      gflops: 16.8
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 39.7
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 5.3
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 39.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 4.8
+- name: UniConvNet-P1
+  m_parameters: 6.1
+  pretrained_backbones:
+  - name: UniConvNet-P1-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.6
+      top_5: null
+      gflops: 0.895
+- name: UniConvNet-P2
+  m_parameters: 7.6
+  pretrained_backbones:
+  - name: UniConvNet-P2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.5
+      top_5: null
+      gflops: 1.25
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.2
+      AP50: 62.5
+      AP75: 45.2
+      mAPs: 25.1
+      mAPm: 45.9
+      mAPl: 56.2
+      gflops: 16.8
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 40.0
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 7.8
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 39.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 7.3
+- name: UniConvNet-N0
+  m_parameters: 10.2
+  pretrained_backbones:
+  - name: UniConvNet-N0-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.6
+      top_5: null
+      gflops: 1.65
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.8
+      AP50: 63.2
+      AP75: 45.7
+      mAPs: 25.2
+      mAPm: 47.0
+      mAPl: 56.8
+      gflops: 18.8
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 41.0
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 11.0
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 40.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 10.4
+- name: UniConvNet-N1
+  m_parameters: 13.1
+  pretrained_backbones:
+  - name: UniConvNet-N1-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.2
+      top_5: null
+      gflops: 1.88
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.6
+      AP50: 65.7
+      AP75: 47.9
+      mAPs: 27.9
+      mAPm: 49.0
+      mAPl: 59.2
+      gflops: 19.4
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 42.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 12.3
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 42.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 11.6
+- name: UniConvNet-N2
+  m_parameters: 15.0
+  pretrained_backbones:
+  - name: UniConvNet-N2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.7
+      top_5: null
+      gflops: 2.47
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 45.5
+      AP50: 66.4
+      AP75: 48.9
+      mAPs: 28.4
+      mAPm: 50.2
+      mAPl: 60.4
+      gflops: 20.7
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 46.6
+      AP50: 68.0
+      AP75: 51.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 220.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 41.9
+      AP50: 65.1
+      AP75: 45.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 220.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 48.4
+      AP50: 69.7
+      AP75: 53.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 220.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 43.2
+      AP50: 66.7
+      AP75: 46.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 220.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 48.9
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 47.9
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 893.0
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 42.9
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 15.7
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 42.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 15.1
+- name: UniConvNet-N3
+  m_parameters: 19.7
+  pretrained_backbones:
+  - name: UniConvNet-N3-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.2
+      top_5: null
+      gflops: 3.37
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.0
+      AP50: 68.6
+      AP75: 51.8
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 239.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.4
+      AP50: 65.6
+      AP75: 45.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 239.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 49.4
+      AP50: 70.7
+      AP75: 54.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 239.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 44.2
+      AP50: 67.9
+      AP75: 47.5
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 239.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 50.0
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.0
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 912.0
+- name: UniConvNet-T
+  m_parameters: 30.3
+  pretrained_backbones:
+  - name: UniConvNet-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.2
+      top_5: null
+      gflops: 5.1
+    - dataset: ImageNet-1k
+      resolution: 384
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+      top_1: 85.4
+      top_5: null
+      gflops: 15.0
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 48.2
+      AP50: 69.8
+      AP75: 52.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 265.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.3
+      AP50: 66.6
+      AP75: 45.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 265.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 50.1
+      AP50: 71.0
+      AP75: 54.8
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 265.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 44.5
+      AP50: 68.4
+      AP75: 48.0
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 265.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 51.2
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.3
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 939.0
+- name: UniConvNet-S
+  m_parameters: 50.0
+  pretrained_backbones:
+  - name: UniConvNet-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.5
+      top_5: null
+      gflops: 8.48
+    - dataset: ImageNet-1k
+      resolution: 384
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+      top_1: 85.7
+      top_5: null
+      gflops: 24.9
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 48.8
+      AP50: 70.4
+      AP75: 53.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 336.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.8
+      AP50: 67.4
+      AP75: 47.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 336.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 50.8
+      AP50: 71.6
+      AP75: 55.6
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 336.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.2
+      AP50: 69.3
+      AP75: 48.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 336.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 52.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 52.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1015.0
+- name: UniConvNet-B
+  m_parameters: 97.6
+  pretrained_backbones:
+  - name: UniConvNet-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 85.0
+      top_5: null
+      gflops: 15.9
+    - dataset: ImageNet-1k
+      resolution: 384
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+      top_1: 85.9
+      top_5: null
+      gflops: 46.6
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 50.0
+      AP50: 71.7
+      AP75: 55.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 498.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 45.0
+      AP50: 69.0
+      AP75: 48.5
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 498.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 51.2
+      AP50: 72.2
+      AP75: 56.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 498.0
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.6
+      AP50: 69.6
+      AP75: 49.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 498.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 52.9
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 52.3
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1179.0
+- name: UniConvNet-L
+  m_parameters: 201.8
+  pretrained_backbones:
+  - name: UniConvNet-L-IN22k
+    pretrain_dataset: ImageNet-22k
+    pretrain_method: Supervised
+    pretrain_resolution: 192
+    pretrain_epochs: 90
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 384
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+      top_1: 88.2
+      top_5: null
+      gflops: 100.1
+    instance_results:
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 55.7
+      AP50: 74.4
+      AP75: 60.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 1288.0
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 48.3
+      AP50: 71.9
+      AP75: 52.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 1288.0
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 56.6
+      AP50: 75.6
+      AP75: 61.8
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 1288.0
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 48.9
+      AP50: 73.0
+      AP75: 53.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 1288.0
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 640
+      ms_m_iou: 55.4
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 55.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 2310.0
+- name: UniConvNet-XL
+  m_parameters: 226.7
+  pretrained_backbones:
+  - name: UniConvNet-XL-IN22k
+    pretrain_dataset: ImageNet-22k
+    pretrain_method: Supervised
+    pretrain_resolution: 192
+    pretrain_epochs: 90
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 384
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+      top_1: 88.4
+      top_5: null
+      gflops: 115.2

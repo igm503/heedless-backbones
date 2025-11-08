@@ -1,0 +1,85 @@
+name: AnchorFormer
+model_type: Attention
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-06-18'
+paper: https://arxiv.org/abs/2505.16463
+github: https://github.com
+backbones:
+- name: AnchorFormer-T
+  m_parameters: 4.2
+  fps_measurements: []
+  pretrained_backbones:
+  - name: AnchorFormer-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.12
+      top_5: 93.86
+      gflops: 0.7
+    instance_results: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 43.81
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: 56.57
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 193.7
+- name: AnchorFormer-S
+  m_parameters: 18.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: AnchorFormer-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.69
+      top_5: 96.82
+      gflops: 2.7
+    instance_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 46.28
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: 56.33
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 928.1
+- name: AnchorFormer-B
+  m_parameters: 63.5
+  fps_measurements: []
+  pretrained_backbones:
+  - name: AnchorFormer-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 86.62
+      top_5: 97.84
+      gflops: 9.2
+    instance_results: []
+    semantic_seg_results: []

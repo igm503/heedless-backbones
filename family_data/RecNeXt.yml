@@ -1,0 +1,377 @@
+name: RecNeXt
+model_type: Convolution
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2024-12-27'
+paper: https://arxiv.org/abs/2412.19628
+github: https://github.com/suous/RecNeXt
+backbones:
+- name: RecNeXt-M0
+  m_parameters: 2.5
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-M0-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 73.2
+      top_5: null
+      gflops: 0.4
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 74.7
+      top_5: null
+      gflops: 0.4
+    instance_results: []
+    semantic_seg_results: []
+- name: RecNeXt-A0
+  m_parameters: 2.8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-A0-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 73.6
+      top_5: null
+      gflops: 0.4
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 75.0
+      top_5: null
+      gflops: 0.4
+    instance_results: []
+    semantic_seg_results: []
+- name: RecNeXt-M1
+  m_parameters: 5.2
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-M1-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.0
+      top_5: null
+      gflops: 0.9
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 79.2
+      top_5: null
+      gflops: 0.9
+    instance_results: []
+    semantic_seg_results: []
+- name: RecNeXt-A1
+  m_parameters: 5.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-A1-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.3
+      top_5: null
+      gflops: 0.9
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 79.6
+      top_5: null
+      gflops: 0.9
+    instance_results: []
+    semantic_seg_results: []
+- name: RecNeXt-M2
+  m_parameters: 6.8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-M2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.2
+      top_5: null
+      gflops: 1.2
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 80.3
+      top_5: null
+      gflops: 1.2
+    instance_results: []
+    semantic_seg_results: []
+- name: RecNeXt-A2
+  m_parameters: 7.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-A2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.6
+      top_5: null
+      gflops: 1.2
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 80.8
+      top_5: null
+      gflops: 1.2
+    instance_results: []
+    semantic_seg_results: []
+- name: RecNeXt-M3
+  m_parameters: 8.2
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-M3-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.6
+      top_5: null
+      gflops: 1.4
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 80.9
+      top_5: null
+      gflops: 1.4
+    instance_results: []
+- name: RecNeXt-A3
+  m_parameters: 9.0
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-A3-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.1
+      top_5: null
+      gflops: 1.4
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 81.1
+      top_5: null
+      gflops: 1.4
+    instance_results: []
+- name: RecNeXt-M4
+  m_parameters: 14.1
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-M4-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.4
+      top_5: null
+      gflops: 2.4
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 82.5
+      top_5: null
+      gflops: 2.4
+    instance_results: []
+- name: RecNeXt-A4
+  m_parameters: 15.8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-A4-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.6
+      top_5: null
+      gflops: 2.4
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 82.5
+      top_5: null
+      gflops: 2.4
+    instance_results: []
+- name: RecNeXt-M5
+  m_parameters: 22.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-M5-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.9
+      top_5: null
+      gflops: 4.7
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 83.3
+      top_5: null
+      gflops: 4.7
+    instance_results: []
+- name: RecNeXt-A5
+  m_parameters: 25.7
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-A5-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.1
+      top_5: null
+      gflops: 4.7
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 83.5
+      top_5: null
+      gflops: 4.7
+    instance_results: []
+- name: RecNeXt-T
+  m_parameters: 12.1
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 75.2
+      top_5: null
+      gflops: 0.3
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 76.8
+      top_5: null
+      gflops: 0.3
+    instance_results: []
+    semantic_seg_results: []
+- name: RecNeXt-S
+  m_parameters: 15.8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.3
+      top_5: null
+      gflops: 0.7
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 79.5
+      top_5: null
+      gflops: 0.7
+    instance_results: []
+    semantic_seg_results: []
+- name: RecNeXt-B
+  m_parameters: 19.2
+  fps_measurements: []
+  pretrained_backbones:
+  - name: RecNeXt-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.3
+      top_5: null
+      gflops: 1.1
+    - dataset: ImageNet-1k
+      resolution: 224
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
+      top_1: 81.5
+      top_5: null
+      gflops: 1.1
+    instance_results: []
+    semantic_seg_results: []
