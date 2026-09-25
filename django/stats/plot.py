@@ -6,6 +6,7 @@ from plotly.offline import plot
 import plotly.graph_objs as go
 
 from .request import PlotRequest
+from .queries import backbone_queryset, result_queryset
 from .tables import get_plot_table
 from .data_utils import (
     get_value,
@@ -18,7 +19,6 @@ from .models import (
     ClassificationResult,
     SemanticSegmentationResult,
     InstanceResult,
-    PretrainedBackbone,
     FPSMeasurement,
     TaskType,
 )
@@ -35,7 +35,7 @@ def get_plot_and_table(plot_request, page="", family_name=None):
 
 
 def get_plot_data(request, family_name=None):
-    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
+    queryset = backbone_queryset()
 
     if family_name:
         queryset = queryset.filter(family__name=family_name)
@@ -121,7 +121,7 @@ def get_classification_prefetch(name, args):
         "resolution": args.resolution,
     }
     filter_args = {k: v for k, v in filter_args.items() if v is not None}
-    queryset = ClassificationResult.objects.filter(**filter_args)
+    queryset = result_queryset(ClassificationResult).filter(**filter_args)
     if args.fps:
         fps_subquery = FPSMeasurement.objects.filter(
             backbone=OuterRef("pretrained_backbone__backbone"),
@@ -138,45 +138,30 @@ def get_classification_prefetch(name, args):
 
 
 def get_semantic_prefetch(name, args):
-    filter_args = {
-        "dataset": args.dataset,
-        "crop_size": args.resolution,
-        "head": args.head,
-    }
-    filter_args = {k: v for k, v in filter_args.items() if v is not None}
-    queryset = SemanticSegmentationResult.objects.filter(**filter_args)
-    if args.fps:
-        fps_subquery = FPSMeasurement.objects.filter(
-            semanticsegmentationresult=OuterRef("pk"),
-            gpu=args.gpu,
-            precision=args.precision,
-        )
-        queryset = queryset.filter(
-            fps_measurements__gpu=args.gpu,
-            fps_measurements__precision=args.precision,
-        ).annotate(fps=Subquery(fps_subquery.values("fps")[:1]))
-    return Prefetch("semanticsegmentationresult_set", queryset, name)
+    return get_downstream_prefetch(
+        SemanticSegmentationResult, name, args, crop_size=args.resolution
+    )
 
 
 def get_instance_prefetch(name, args):
-    filter_args = {
-        "dataset": args.dataset,
-        "instance_type": args.task,
-        "head": args.head,
-    }
-    filter_args = {k: v for k, v in filter_args.items() if v is not None}
-    queryset = InstanceResult.objects.filter(**filter_args)
+    return get_downstream_prefetch(InstanceResult, name, args, instance_type=args.task)
+
+
+def get_downstream_prefetch(model, name, args, **filters):
+    filters.update(dataset=args.dataset, head=args.head)
+    filters = {key: value for key, value in filters.items() if value is not None}
+    queryset = result_queryset(model).filter(**filters)
+    related_name = model._meta.model_name
+    # The same throughput lookup applies to both downstream result types.
     if args.fps:
         fps_subquery = FPSMeasurement.objects.filter(
-            instanceresult=OuterRef("pk"),
-            gpu=args.gpu,
-            precision=args.precision,
+            **{related_name: OuterRef("pk")}, gpu=args.gpu, precision=args.precision
         )
         queryset = queryset.filter(
             fps_measurements__gpu=args.gpu,
             fps_measurements__precision=args.precision,
         ).annotate(fps=Subquery(fps_subquery.values("fps")[:1]))
-    return Prefetch("instanceresult_set", queryset, name)
+    return Prefetch(related_name + "_set", queryset, name)
 
 
 def get_plot(queryset, request):
@@ -246,30 +231,15 @@ def add_point(pb, x_result, y_result, args, x_title, y_title, data, keys):
 
 def get_group_key(pb, x_result, y_result, attr):
     attrs = attr.split(".")
-    if attrs[0] == "classification":
-        assert (
-            type(x_result) is ClassificationResult
-            or type(y_result) is ClassificationResult
-        )
-        if type(x_result) is ClassificationResult:
-            return get_nested_attr(x_result, attrs[1:])
-        elif type(y_result) is ClassificationResult:
-            return get_nested_attr(y_result, attrs[1:])
-    elif attrs[0] == "instance":
-        assert type(x_result) is InstanceResult or type(y_result) is InstanceResult
-        if type(x_result) is InstanceResult:
-            return get_nested_attr(x_result, attrs[1:])
-        elif type(y_result) is InstanceResult:
-            return get_nested_attr(y_result, attrs[1:])
-    elif attrs[0] == "semantic":
-        assert (
-            type(x_result) is SemanticSegmentationResult
-            or type(y_result) is SemanticSegmentationResult
-        )
-        if type(x_result) is SemanticSegmentationResult:
-            return get_nested_attr(x_result, attrs[1:])
-        elif type(y_result) is SemanticSegmentationResult:
-            return get_nested_attr(y_result, attrs[1:])
+    result_model = {
+        "classification": ClassificationResult,
+        "instance": InstanceResult,
+        "semantic": SemanticSegmentationResult,
+    }.get(attrs[0])
+    if result_model is not None:
+        assert type(x_result) is result_model or type(y_result) is result_model
+        result = x_result if type(x_result) is result_model else y_result
+        return get_nested_attr(result, attrs[1:])
     return get_nested_attr(pb, attrs)
 
 

@@ -57,6 +57,18 @@ python manage.py add_yaml ConvNeXT
 
 I'm running this on a cheap digital ocean server, and you can access it by clicking the headline link or by navigating to [heedlessbackbones.com](https://heedlessbackbones.com) in your browser. If for some reason you want to deploy this yourself, you can follow the instructions [here](https://github.com/igm503/django-deploy/blob/main/README.md)
 
+## Tests
+
+With the project dependencies installed, run:
+
+```sh
+python django/manage.py test stats --settings=heedless-backbones.test_settings
+```
+
+The tests load `db.json` into an isolated in-memory SQLite database. They cover
+plot and table rendering, task comparisons, filters, throughput, source links,
+and database query budgets. They do not connect to the database configured in `.env`.
+
 ## TODO
 
 - Filter by prominence (since there will soon be too many models)

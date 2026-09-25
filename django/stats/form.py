@@ -1,9 +1,8 @@
-from collections import defaultdict
+from collections import Counter
 
 from django import forms
 
 from .models import (
-    PretrainedBackbone,
     Task,
     InstanceResult,
     TASK_TO_TABLE,
@@ -38,16 +37,8 @@ class PlotForm(forms.Form):
     x_axis = forms.ChoiceField(choices=AXIS_WITH_GFLOPS, initial="gflops")
 
     def __init__(self, *args, **kwargs):
-        if "head" in kwargs:
-            self.head = kwargs["head"]
-            del kwargs["head"]
-        else:
-            self.head = None
-        if "dataset" in kwargs:
-            self.dataset = kwargs["dataset"]
-            del kwargs["dataset"]
-        else:
-            self.dataset = None
+        self.head = kwargs.pop("head", None)
+        self.dataset = kwargs.pop("dataset", None)
 
         super().__init__(*args, **kwargs)
 
@@ -92,24 +83,15 @@ class PlotForm(forms.Form):
                     required=False,
                 )
             if task_name == TaskType.CLASSIFICATION.value:
-                if args.get(f"{axis}_dataset"):
-                    dataset_name = Dataset.objects.get(pk=args[f"{axis}_dataset"]).name
-                    if dataset_name == "ImageNet-C":
-                        self.fields[f"{axis}_metric"] = forms.ChoiceField(
-                            choices=IMAGENET_C_METRICS, required=False
-                        )
-                    elif dataset_name == "ImageNet-C-bar":
-                        self.fields[f"{axis}_metric"] = forms.ChoiceField(
-                            choices=IMAGENET_C_BAR_METRICS, required=False
-                        )
-                    else:
-                        self.fields[f"{axis}_metric"] = forms.ChoiceField(
-                            choices=CLASSIFICATION_METRICS, required=False
-                        )
-                else:
-                    self.fields[f"{axis}_metric"] = forms.ChoiceField(
-                        choices=CLASSIFICATION_METRICS, required=False
-                    )
+                dataset_pk = args.get(f"{axis}_dataset")
+                dataset_name = Dataset.objects.get(pk=dataset_pk).name if dataset_pk else None
+                metrics = {
+                    "ImageNet-C": IMAGENET_C_METRICS,
+                    "ImageNet-C-bar": IMAGENET_C_BAR_METRICS,
+                }.get(dataset_name, CLASSIFICATION_METRICS)
+                self.fields[f"{axis}_metric"] = forms.ChoiceField(
+                    choices=metrics, required=False
+                )
                 self.fields[f"{axis}_resolution"] = forms.ChoiceField(
                     choices=CLASSIFICATION_RESOLUTIONS, required=False
                 )
@@ -271,32 +253,19 @@ def get_first_task(model):
 
 def get_head_task_dataset(head, task):
     result_model = TASK_TO_TABLE[task.name]
-    related_name = result_model._meta.model_name + "_set"
-    results = getattr(head, related_name).select_related("dataset")
-    if result_model == InstanceResult:
-        results = results.filter(instance_type__name=task.name).all()
-    else:
-        results = results.all()
-
-    dataset_counts = defaultdict(int)
-    for result in results:
-        dataset_counts[result.dataset.pk] += 1
-
-    return max(dataset_counts, key=dataset_counts.get)
+    results = result_model.objects.filter(head=head)
+    return get_most_common_dataset(results, task)
 
 
 def get_family_task_dataset(family, task):
     result_model = TASK_TO_TABLE[task.name]
-    results = result_model.objects.select_related("pretrained_backbone__family", "dataset")
-    if result_model == InstanceResult:
-        results = results.filter(
-            instance_type__name=task.name, pretrained_backbone__family=family
-        ).all()
-    else:
-        results = results.filter(pretrained_backbone__family=family).all()
+    results = result_model.objects.filter(pretrained_backbone__family=family)
+    return get_most_common_dataset(results, task)
 
-    dataset_counts = defaultdict(int)
-    for result in results:
-        dataset_counts[result.dataset.pk] += 1
 
-    return max(dataset_counts, key=dataset_counts.get)
+def get_most_common_dataset(results, task):
+    if results.model == InstanceResult:
+        results = results.filter(instance_type__name=task.name)
+    # Keep first-seen tie breaking, without loading entire results and datasets.
+    counts = Counter(results.values_list("dataset_id", flat=True))
+    return max(counts, key=counts.get)

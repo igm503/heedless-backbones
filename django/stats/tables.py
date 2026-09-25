@@ -5,6 +5,7 @@ from django.db.models import Prefetch
 from django.urls import reverse
 
 from .request import PlotRequest
+from .queries import backbone_queryset, result_queryset
 from .data_utils import (
     get_value,
     get_pretrain_string,
@@ -15,10 +16,8 @@ from .constants import INSTANCE_SEG_METRICS, DETECTION_METRICS, SEMANTIC_SEG_MET
 from .models import (
     ClassificationResult,
     InstanceResult,
-    PretrainedBackbone,
     SemanticSegmentationResult,
     TaskType,
-    Task,
 )
 
 INSTANCE_TYPES = [TaskType.DETECTION.value, TaskType.INSTANCE_SEG.value]
@@ -118,33 +117,25 @@ def get_plot_table_multi(queryset, args, page):
 
 def get_head_downstream_table(head_name, downstream_type):
     queryset = get_downstream_data(downstream_type, head_name=head_name)
-    dataset_names = {result.dataset.name for pb in queryset for result in pb.results}
-    data = []
-    for dataset_name in dataset_names:
-        table = get_downstream_table(queryset, dataset_name, downstream_type, page="head")
-        table["name"] = dataset_name
-        table["dataset_link"] = (
-            reverse("dataset", args=[dataset_name])
-            + f"?{urlencode({'task': downstream_type.value})}"
-        )
-        data.append(table)
-
-    return data
+    return get_downstream_tables(queryset, downstream_type, page="head")
 
 
 def get_family_downstream_table(family_name, downstream_type):
     queryset = get_downstream_data(downstream_type, family_name=family_name)
+    return get_downstream_tables(queryset, downstream_type, page="family")
+
+
+def get_downstream_tables(queryset, downstream_type, page):
     dataset_names = {result.dataset.name for pb in queryset for result in pb.results}
     data = []
     for dataset_name in dataset_names:
-        table = get_downstream_table(queryset, dataset_name, downstream_type, page="family")
+        table = get_downstream_table(queryset, dataset_name, downstream_type, page=page)
         table["name"] = dataset_name
         table["dataset_link"] = (
             reverse("dataset", args=[dataset_name])
             + f"?{urlencode({'task': downstream_type.value})}"
         )
         data.append(table)
-
     return data
 
 
@@ -154,29 +145,22 @@ def get_dataset_downstream_table(dataset_name, downstream_type):
 
 
 def get_downstream_data(downstream_type, head_name=None, family_name=None, dataset_name=None):
-    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
+    queryset = backbone_queryset()
     if family_name:
         queryset = queryset.filter(family__name=family_name)
     if downstream_type.value in INSTANCE_TYPES:
-        prefetch_queryset = InstanceResult.objects.select_related("dataset").filter(
+        prefetch_queryset = result_queryset(InstanceResult).filter(
             instance_type__name=downstream_type.value
         )
     else:
-        prefetch_queryset = SemanticSegmentationResult.objects.select_related("dataset")
+        prefetch_queryset = result_queryset(SemanticSegmentationResult)
     if head_name:
         prefetch_queryset = prefetch_queryset.filter(head__name=head_name)
     if dataset_name:
         prefetch_queryset = prefetch_queryset.filter(dataset__name=dataset_name)
 
-    if downstream_type.value in INSTANCE_TYPES:
-        queryset = queryset.prefetch_related(
-            Prefetch("instanceresult_set", prefetch_queryset, "results")
-        )
-    else:
-        queryset = queryset.prefetch_related(
-            Prefetch("semanticsegmentationresult_set", prefetch_queryset, "results")
-        )
-    return queryset
+    related_name = prefetch_queryset.model._meta.model_name + "_set"
+    return queryset.prefetch_related(Prefetch(related_name, prefetch_queryset, "results"))
 
 
 def get_downstream_table(queryset, dataset_name, downstream_type, page=""):
@@ -290,10 +274,10 @@ def get_dataset_classification_table(dataset_name):
 
 
 def get_classification_data(dataset_name=None, family_name=None):
-    queryset = PretrainedBackbone.objects.select_related("family", "backbone")
+    queryset = backbone_queryset()
     if family_name is not None:
         queryset = queryset.filter(family__name=family_name)
-    prefetch_queryset = ClassificationResult.objects.select_related("dataset", "fine_tune_dataset")
+    prefetch_queryset = result_queryset(ClassificationResult)
     if dataset_name is not None:
         prefetch_queryset = prefetch_queryset.filter(dataset__name=dataset_name)
     return queryset.prefetch_related(
@@ -356,24 +340,15 @@ def add_head(head, row, links, head_key, page):
 
 
 def get_paper(result, pb):
-    if result.paper:
-        return result.paper
-    elif pb.paper:
-        return pb.paper
-    elif pb.github:
-        return pb.github
-    elif pb.backbone.paper:
-        return pb.backbone.paper
-    elif pb.backbone.github:
-        return pb.backbone.github
-    else:
-        return pb.backbone.family.paper
+    return (
+        result.paper
+        or pb.paper
+        or pb.github
+        or pb.backbone.paper
+        or pb.backbone.github
+        or pb.backbone.family.paper
+    )
 
 
 def get_github(pb):
-    if pb.github:
-        return pb.github
-    elif pb.backbone.github:
-        return pb.backbone.github
-    else:
-        return pb.backbone.family.github
+    return pb.github or pb.backbone.github or pb.backbone.family.github

@@ -17,46 +17,33 @@ from .models import (
 
 
 def get_dataset_lists():
-    datasets = get_result_restricting_data(Dataset)
-    lists = defaultdict(lambda: defaultdict(list))
-    for dataset in datasets:
-        for task in dataset._tasks:
-            row = get_count_date_row(dataset, task)
-            if not row["# results"]:
-                continue
-            row["website"] = "link"
-            links = {
-                "name": reverse("dataset", args=[dataset.name])
-                + f"?{urlencode({'task': task.name})}",
-                "website": dataset.website,
-            }
-            lists[task.name]["rows"].append(row)
-            lists[task.name]["links"].append(links)
-    for task, lis in lists.items():
-        lists[task]["headers"] = list(lis["rows"][0].keys()) if lis["rows"] else []
-    return {k: dict(v) for k, v in lists.items()}
+    return get_task_lists(Dataset, "dataset", ("website",))
 
 
 def get_head_lists():
-    heads = get_result_restricting_data(DownstreamHead)
+    return get_task_lists(DownstreamHead, "head", ("github", "paper"))
+
+
+def get_task_lists(model, view_name, link_fields):
     lists = defaultdict(lambda: defaultdict(list))
-    for head in heads:
-        for task in head._tasks:
-            row = get_count_date_row(head, task)
+    for obj in get_result_restricting_data(model):
+        for task in obj._tasks:
+            row = get_count_date_row(obj, task)
             if not row["# results"]:
                 continue
-            row["github"] = "link"
-            row["paper"] = "link"
             links = {
-                "name": reverse("head", args=[head.name]) + f"?{urlencode({'task': task.name})}",
-                "github": head.github,
-                "paper": head.paper,
+                "name": reverse(view_name, args=[obj.name])
+                + f"?{urlencode({'task': task.name})}",
             }
+            for field in link_fields:
+                row[field] = "link"
+                links[field] = getattr(obj, field)
             lists[task.name]["rows"].append(row)
             lists[task.name]["links"].append(links)
-    for task, lis in lists.items():
-        lists[task]["headers"] = list(lis["rows"][0].keys()) if lis["rows"] else []
-    return {k: dict(v) for k, v in lists.items()}
+    return {
+        task: dict(table, headers=list(table["rows"][0]))
+        for task, table in lists.items()
+    }
 
 
 def get_family_list():
