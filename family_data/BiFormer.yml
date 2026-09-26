@@ -24,7 +24,7 @@ backbones:
     instance_results: []
     semantic_seg_results: []
 - name: BiFormer-S
-  m_parameters: 26.0
+  m_parameters: 26
   fps_measurements: []
   pretrained_backbones:
   - name: BiFormer-S-IN1k
@@ -82,7 +82,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 160
+      train_epochs: 128
       crop_size: 512
       ms_m_iou: 50.8
       ms_pixel_accuracy: null
@@ -96,7 +96,7 @@ backbones:
     - head: Panoptic FPN
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 80
+      train_epochs: 128
       crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -121,7 +121,7 @@ backbones:
     instance_results: []
     semantic_seg_results: []
 - name: BiFormer-B
-  m_parameters: 57.0
+  m_parameters: 57
   fps_measurements: []
   pretrained_backbones:
   - name: BiFormer-B-IN1k
@@ -179,12 +179,12 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 160
+      train_epochs: 128
       crop_size: 512
       ms_m_iou: 51.7
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
-      ss_m_iou: 51.0
+      ss_m_iou: 51
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
@@ -193,7 +193,7 @@ backbones:
     - head: Panoptic FPN
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 80
+      train_epochs: 128
       crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null

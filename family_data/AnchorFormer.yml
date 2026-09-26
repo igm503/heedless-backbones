@@ -36,6 +36,7 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: 193.7
+      fps_measurements: []
 - name: AnchorFormer-S
   m_parameters: 18.6
   fps_measurements: []
@@ -66,6 +67,7 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: 928.1
+      fps_measurements: []
 - name: AnchorFormer-B
   m_parameters: 63.5
   fps_measurements: []

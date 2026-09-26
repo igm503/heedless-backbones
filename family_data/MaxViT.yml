@@ -7,7 +7,7 @@ paper: https://doi.org/10.48550/arXiv.2204.01697
 github: https://github.com/google-research/maxvit
 backbones:
 - name: MaxViT-T
-  m_parameters: 31.0
+  m_parameters: 31
   fps_measurements:
   - resolution: 224
     gpu: V100
@@ -61,7 +61,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 475.0
+      gflops: 475
       fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
@@ -74,11 +74,11 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 475.0
+      gflops: 475
       fps_measurements: []
     semantic_seg_results: []
 - name: MaxViT-S
-  m_parameters: 69.0
+  m_parameters: 69
   fps_measurements:
   - resolution: 224
     gpu: V100
@@ -132,7 +132,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 595.0
+      gflops: 595
       fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
@@ -145,11 +145,11 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 595.0
+      gflops: 595
       fps_measurements: []
     semantic_seg_results: []
 - name: MaxViT-B
-  m_parameters: 120.0
+  m_parameters: 120
   fps_measurements:
   - resolution: 224
     gpu: V100
@@ -162,7 +162,7 @@ backbones:
   - resolution: 512
     gpu: V100
     precision: AMP
-    fps: 24.0
+    fps: 24
   pretrained_backbones:
   - name: MaxViT-B-IN1k
     pretrain_dataset: ImageNet-1k
@@ -203,7 +203,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 856.0
+      gflops: 856
       fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
@@ -212,11 +212,11 @@ backbones:
       train_epochs: 36
       mAP: 45.7
       AP50: 70.3
-      AP75: 50.0
+      AP75: 50
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 856.0
+      gflops: 856
       fps_measurements: []
     semantic_seg_results: []
   - name: MaxViT-B-IN22k
@@ -244,7 +244,7 @@ backbones:
     instance_results: []
     semantic_seg_results: []
 - name: MaxViT-L
-  m_parameters: 212.0
+  m_parameters: 212
   fps_measurements:
   - resolution: 224
     gpu: V100
@@ -313,7 +313,7 @@ backbones:
     instance_results: []
     semantic_seg_results: []
 - name: MaxViT-XL
-  m_parameters: 475.0
+  m_parameters: 475
   fps_measurements: []
   pretrained_backbones:
   - name: MaxViT-XL-IN22k

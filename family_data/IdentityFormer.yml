@@ -54,7 +54,7 @@ backbones:
       resolution: 224
       top_1: 79.3
       top_5: null
-      gflops: 5.0
+      gflops: 5
     instance_results: []
     semantic_seg_results: []
 - name: IdentityFormer-M36
@@ -69,7 +69,7 @@ backbones:
     classification_results:
     - dataset: ImageNet-1k
       resolution: 224
-      top_1: 80.0
+      top_1: 80
       top_5: null
       gflops: 8.8
     instance_results: []

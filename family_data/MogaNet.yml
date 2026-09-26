@@ -7,7 +7,7 @@ paper: https://arxiv.org/abs/2211.03295
 github: https://github.com/Westlake-AI/MogaNet
 backbones:
 - name: MogaNet-XT
-  m_parameters: 3.0
+  m_parameters: 3
   fps_measurements: []
   pretrained_backbones:
   - name: MogaNet-XT-IN1k
@@ -36,12 +36,12 @@ backbones:
       train_dataset: COCO (train)
       train_epochs: 12
       mAP: 39.7
-      AP50: 60.0
+      AP50: 60
       AP75: 42.4
       mAPs: 23.8
       mAPm: 43.6
       mAPl: 51.7
-      gflops: 167.0
+      gflops: 167
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -54,7 +54,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 185.0
+      gflops: 185
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -67,7 +67,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 185.0
+      gflops: 185
       fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
@@ -82,7 +82,7 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 856.0
+      gflops: 856
       fps_measurements: []
 - name: MogaNet-T
   m_parameters: 5.2
@@ -96,12 +96,12 @@ backbones:
     classification_results:
     - dataset: ImageNet-1k
       resolution: 224
-      top_1: 79.0
+      top_1: 79
       top_5: null
       gflops: 1.1
     - dataset: ImageNet-1k
       resolution: 256
-      top_1: 80.0
+      top_1: 80
       top_5: null
       gflops: 1.44
       fine_tune_dataset: ImageNet-1k
@@ -119,7 +119,7 @@ backbones:
       mAPs: 25.1
       mAPm: 45.7
       mAPl: 53.6
-      gflops: 173.0
+      gflops: 173
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -127,12 +127,12 @@ backbones:
       train_dataset: COCO (train)
       train_epochs: 12
       mAP: 42.6
-      AP50: 64.0
+      AP50: 64
       AP75: 46.4
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 192.0
+      gflops: 192
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -141,11 +141,11 @@ backbones:
       train_epochs: 12
       mAP: 39.1
       AP50: 61.3
-      AP75: 42.0
+      AP75: 42
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 192.0
+      gflops: 192
       fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
@@ -160,7 +160,7 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 862.0
+      gflops: 862
       fps_measurements: []
 - name: MogaNet-S
   m_parameters: 25.3
@@ -185,11 +185,11 @@ backbones:
       train_epochs: 12
       mAP: 45.8
       AP50: 66.6
-      AP75: 49.0
+      AP75: 49
       mAPs: 29.1
       mAPm: 50.1
       mAPl: 59.8
-      gflops: 253.0
+      gflops: 253
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -197,12 +197,12 @@ backbones:
       train_dataset: COCO (train)
       train_epochs: 12
       mAP: 46.7
-      AP50: 68.0
+      AP50: 68
       AP75: 51.3
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 272.0
+      gflops: 272
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -215,7 +215,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 272.0
+      gflops: 272
       fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
@@ -228,7 +228,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 750.0
+      gflops: 750
       fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
@@ -241,7 +241,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 750.0
+      gflops: 750
       fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
@@ -256,7 +256,7 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 946.0
+      gflops: 946
       fps_measurements: []
 - name: MogaNet-B
   m_parameters: 43.8
@@ -280,12 +280,12 @@ backbones:
       train_dataset: COCO (train)
       train_epochs: 12
       mAP: 47.9
-      AP50: 70.0
+      AP50: 70
       AP75: 52.7
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 373.0
+      gflops: 373
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -293,12 +293,12 @@ backbones:
       train_dataset: COCO (train)
       train_epochs: 12
       mAP: 43.2
-      AP50: 67.0
+      AP50: 67
       AP75: 46.6
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 373.0
+      gflops: 373
       fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
@@ -306,25 +306,25 @@ backbones:
       train_dataset: COCO (train)
       train_epochs: 36
       mAP: 52.6
-      AP50: 72.0
+      AP50: 72
       AP75: 57.3
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 851.0
+      gflops: 851
       fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 36
-      mAP: 46.0
+      mAP: 46
       AP50: 69.6
       AP75: 49.7
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 851.0
+      gflops: 851
       fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
@@ -339,7 +339,7 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 1050.0
+      gflops: 1050
       fps_measurements: []
 - name: MogaNet-L
   m_parameters: 82.5
@@ -368,7 +368,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 974.0
+      gflops: 974
       fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
@@ -381,7 +381,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 974.0
+      gflops: 974
       fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
@@ -396,7 +396,7 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 1176.0
+      gflops: 1176
       fps_measurements: []
 - name: MogaNet-XL
   m_parameters: 180.8
@@ -425,7 +425,7 @@ backbones:
       resolution: 384
       top_1: 87.8
       top_5: null
-      gflops: 102.0
+      gflops: 102
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
@@ -436,12 +436,12 @@ backbones:
       train_dataset: COCO (train)
       train_epochs: 36
       mAP: 56.2
-      AP50: 75.0
+      AP50: 75
       AP75: 61.2
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 1355.0
+      gflops: 1355
       fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
@@ -454,7 +454,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 1355.0
+      gflops: 1355
       fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
@@ -465,9 +465,9 @@ backbones:
       ms_m_iou: null
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
-      ss_m_iou: 54.0
+      ss_m_iou: 54
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 2451.0
+      gflops: 2451
       fps_measurements: []

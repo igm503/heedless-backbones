@@ -19,6 +19,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 78.9
+      top_5: null
       gflops: 1.2
     instance_results: []
     semantic_seg_results: []
@@ -35,6 +36,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 82.7
+      top_5: null
       gflops: 4.5
     instance_results:
     - head: Mask R-CNN
@@ -45,28 +47,38 @@ backbones:
       mAP: 45.1
       AP50: 67.3
       AP75: 49.6
-      gflops: 262.0
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 262
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 12
-      mAP: 41.0
+      mAP: 41
       AP50: 64.1
       AP75: 44.1
-      gflops: 262.0
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 262
       fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 160
+      train_epochs: 128
       crop_size: 512
       ms_m_iou: 48.6
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
       ss_m_iou: 47.4
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
       flip_test: false
-      gflops: 938.0
+      gflops: 938
       fps_measurements: []
 - name: MambaOut-S
   m_parameters: 48.5
@@ -81,7 +93,8 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 84.1
-      gflops: 9.0
+      top_5: null
+      gflops: 9
     instance_results:
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -91,7 +104,10 @@ backbones:
       mAP: 47.4
       AP50: 69.1
       AP75: 52.4
-      gflops: 354.0
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 354
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -101,18 +117,25 @@ backbones:
       mAP: 42.7
       AP50: 66.1
       AP75: 46.2
-      gflops: 354.0
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 354
       fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 160
+      train_epochs: 128
       crop_size: 512
       ms_m_iou: 50.6
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
       ss_m_iou: 49.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
       flip_test: false
-      gflops: 1032.0
+      gflops: 1032
       fps_measurements: []
 - name: MambaOut-B
   m_parameters: 84.8
@@ -127,6 +150,7 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 224
       top_1: 84.2
+      top_5: null
       gflops: 15.8
     instance_results:
     - head: Mask R-CNN
@@ -137,26 +161,36 @@ backbones:
       mAP: 47.4
       AP50: 69.3
       AP75: 52.2
-      gflops: 495.0
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 495
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 12
-      mAP: 43.0
+      mAP: 43
       AP50: 66.4
       AP75: 46.3
-      gflops: 495.0
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 495
       fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 160
+      train_epochs: 128
       crop_size: 512
-      ms_m_iou: 51.0
+      ms_m_iou: 51
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
       ss_m_iou: 49.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
       flip_test: false
-      gflops: 1178.0
+      gflops: 1178
       fps_measurements: []

@@ -71,7 +71,7 @@ backbones:
       resolution: 224
       top_1: 81.2
       top_5: null
-      gflops: 9.0
+      gflops: 9
     instance_results: []
     semantic_seg_results: []
 - name: RandFormer-M48

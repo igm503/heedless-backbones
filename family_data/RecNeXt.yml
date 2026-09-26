@@ -23,12 +23,12 @@ backbones:
       gflops: 0.4
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 74.7
       top_5: null
       gflops: 0.4
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
     semantic_seg_results: []
 - name: RecNeXt-A0
@@ -48,12 +48,12 @@ backbones:
       gflops: 0.4
     - dataset: ImageNet-1k
       resolution: 224
+      top_1: 75
+      top_5: null
+      gflops: 0.4
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 300
       fine_tune_resolution: 224
-      top_1: 75.0
-      top_5: null
-      gflops: 0.4
     instance_results: []
     semantic_seg_results: []
 - name: RecNeXt-M1
@@ -68,17 +68,17 @@ backbones:
     classification_results:
     - dataset: ImageNet-1k
       resolution: 224
-      top_1: 78.0
+      top_1: 78
       top_5: null
       gflops: 0.9
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 79.2
       top_5: null
       gflops: 0.9
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
     semantic_seg_results: []
 - name: RecNeXt-A1
@@ -98,12 +98,12 @@ backbones:
       gflops: 0.9
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 79.6
       top_5: null
       gflops: 0.9
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
     semantic_seg_results: []
 - name: RecNeXt-M2
@@ -123,12 +123,12 @@ backbones:
       gflops: 1.2
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 80.3
       top_5: null
       gflops: 1.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
     semantic_seg_results: []
 - name: RecNeXt-A2
@@ -148,12 +148,12 @@ backbones:
       gflops: 1.2
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 80.8
       top_5: null
       gflops: 1.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
     semantic_seg_results: []
 - name: RecNeXt-M3
@@ -173,15 +173,16 @@ backbones:
       gflops: 1.4
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 80.9
       top_5: null
       gflops: 1.4
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
 - name: RecNeXt-A3
-  m_parameters: 9.0
+  m_parameters: 9
   fps_measurements: []
   pretrained_backbones:
   - name: RecNeXt-A3-IN1k
@@ -197,13 +198,14 @@ backbones:
       gflops: 1.4
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 81.1
       top_5: null
       gflops: 1.4
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
 - name: RecNeXt-M4
   m_parameters: 14.1
   fps_measurements: []
@@ -221,13 +223,14 @@ backbones:
       gflops: 2.4
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 82.5
       top_5: null
       gflops: 2.4
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
 - name: RecNeXt-A4
   m_parameters: 15.8
   fps_measurements: []
@@ -245,13 +248,14 @@ backbones:
       gflops: 2.4
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 82.5
       top_5: null
       gflops: 2.4
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
 - name: RecNeXt-M5
   m_parameters: 22.9
   fps_measurements: []
@@ -269,13 +273,14 @@ backbones:
       gflops: 4.7
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 83.3
       top_5: null
       gflops: 4.7
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
 - name: RecNeXt-A5
   m_parameters: 25.7
   fps_measurements: []
@@ -293,13 +298,14 @@ backbones:
       gflops: 4.7
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 83.5
       top_5: null
       gflops: 4.7
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
+    semantic_seg_results: []
 - name: RecNeXt-T
   m_parameters: 12.1
   fps_measurements: []
@@ -317,12 +323,12 @@ backbones:
       gflops: 0.3
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 76.8
       top_5: null
       gflops: 0.3
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
     semantic_seg_results: []
 - name: RecNeXt-S
@@ -342,12 +348,12 @@ backbones:
       gflops: 0.7
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 79.5
       top_5: null
       gflops: 0.7
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
     semantic_seg_results: []
 - name: RecNeXt-B
@@ -367,11 +373,11 @@ backbones:
       gflops: 1.1
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
       top_1: 81.5
       top_5: null
       gflops: 1.1
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 300
+      fine_tune_resolution: 224
     instance_results: []
     semantic_seg_results: []

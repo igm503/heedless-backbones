@@ -8,6 +8,7 @@ github: https://github.com/Wake1021/InceptionMamba
 backbones:
 - name: InceptionMamba-T
   m_parameters: 25.4
+  fps_measurements: []
   pretrained_backbones:
   - name: InceptionMamba-T-IN1k
     pretrain_dataset: ImageNet-1k
@@ -19,20 +20,21 @@ backbones:
       resolution: 224
       top_1: 83.1
       top_5: null
-      gflops: 4.0
+      gflops: 4
     instance_results:
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
       train_dataset: COCO (train)
       train_epochs: 12
-      mAP: 46.0
+      mAP: 46
       AP50: null
       AP75: null
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 233.0
+      gflops: 233
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -44,7 +46,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 233.0
+      gflops: 233
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -58,9 +61,11 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 928.0
+      gflops: 928
+      fps_measurements: []
 - name: InceptionMamba-S
-  m_parameters: 46.0
+  m_parameters: 46
+  fps_measurements: []
   pretrained_backbones:
   - name: InceptionMamba-S-IN1k
     pretrain_dataset: ImageNet-1k
@@ -85,7 +90,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 301.0
+      gflops: 301
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -97,7 +103,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 301.0
+      gflops: 301
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -111,9 +118,11 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 1006.0
+      gflops: 1006
+      fps_measurements: []
 - name: InceptionMamba-B
-  m_parameters: 83.0
+  m_parameters: 83
+  fps_measurements: []
   pretrained_backbones:
   - name: InceptionMamba-B-IN1k
     pretrain_dataset: ImageNet-1k
@@ -138,7 +147,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 421.0
+      gflops: 421
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -150,7 +160,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 421.0
+      gflops: 421
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -164,4 +175,5 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 1145.0
+      gflops: 1145
+      fps_measurements: []

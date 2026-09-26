@@ -8,6 +8,7 @@ github: https://github.com/Wertyuui345/VCMamba
 backbones:
 - name: VCMamba-S
   m_parameters: 10.5
+  fps_measurements: []
   pretrained_backbones:
   - name: VCMamba-S-IN1k
     pretrain_dataset: ImageNet-1k
@@ -20,6 +21,7 @@ backbones:
       top_1: 78.7
       top_5: null
       gflops: 1.1
+    instance_results: []
     semantic_seg_results:
     - head: Panoptic FPN
       dataset: ADE20K (val)
@@ -29,13 +31,15 @@ backbones:
       ms_m_iou: null
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
-      ss_m_iou: 42.0
+      ss_m_iou: 42
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
       gflops: null
+      fps_measurements: []
 - name: VCMamba-M
-  m_parameters: 21.0
+  m_parameters: 21
+  fps_measurements: []
   pretrained_backbones:
   - name: VCMamba-M-IN1k
     pretrain_dataset: ImageNet-1k
@@ -48,8 +52,11 @@ backbones:
       top_1: 81.5
       top_5: null
       gflops: 2.3
+    instance_results: []
+    semantic_seg_results: []
 - name: VCMamba-B
   m_parameters: 31.5
+  fps_measurements: []
   pretrained_backbones:
   - name: VCMamba-B-IN1k
     pretrain_dataset: ImageNet-1k
@@ -61,7 +68,8 @@ backbones:
       resolution: 224
       top_1: 82.6
       top_5: null
-      gflops: 4.0
+      gflops: 4
+    instance_results: []
     semantic_seg_results:
     - head: Panoptic FPN
       dataset: ADE20K (val)
@@ -76,3 +84,4 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: null
+      fps_measurements: []

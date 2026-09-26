@@ -7,7 +7,8 @@ paper: https://arxiv.org/abs/2507.00698
 github: https://github.com/qhfan/MALA
 backbones:
 - name: MA ViT-T
-  m_parameters: 16.0
+  m_parameters: 16
+  fps_measurements: []
   pretrained_backbones:
   - name: MA ViT-T-IN1k
     pretrain_dataset: ImageNet-1k
@@ -32,7 +33,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 219.0
+      gflops: 219
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -44,7 +46,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 219.0
+      gflops: 219
+      fps_measurements: []
     - head: RetinaNet
       dataset: COCO (val)
       instance_type: Object Detection
@@ -56,7 +59,8 @@ backbones:
       mAPs: 28.9
       mAPm: 49.7
       mAPl: 61.1
-      gflops: 201.0
+      gflops: 201
+      fps_measurements: []
     semantic_seg_results:
     - head: Panoptic FPN
       dataset: ADE20K (val)
@@ -70,7 +74,8 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 136.0
+      gflops: 136
+      fps_measurements: []
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
@@ -83,9 +88,11 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 893.0
+      gflops: 893
+      fps_measurements: []
 - name: MA ViT-S
-  m_parameters: 27.0
+  m_parameters: 27
+  fps_measurements: []
   pretrained_backbones:
   - name: MA ViT-S-IN1k
     pretrain_dataset: ImageNet-1k
@@ -110,7 +117,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 262.0
+      gflops: 262
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -122,7 +130,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 262.0
+      gflops: 262
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -134,7 +143,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 262.0
+      gflops: 262
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -146,7 +156,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 262.0
+      gflops: 262
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -158,19 +169,21 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 741.0
+      gflops: 741
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 36
-      mAP: 47.0
+      mAP: 47
       AP50: 70.5
       AP75: 51.1
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 741.0
+      gflops: 741
+      fps_measurements: []
     - head: RetinaNet
       dataset: COCO (val)
       instance_type: Object Detection
@@ -181,8 +194,9 @@ backbones:
       AP75: 52.2
       mAPs: 31.8
       mAPm: 52.6
-      mAPl: 64.0
-      gflops: 244.0
+      mAPl: 64
+      gflops: 244
+      fps_measurements: []
     semantic_seg_results:
     - head: Panoptic FPN
       dataset: ADE20K (val)
@@ -196,7 +210,8 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 180.0
+      gflops: 180
+      fps_measurements: []
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
@@ -205,13 +220,15 @@ backbones:
       ms_m_iou: null
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
-      ss_m_iou: 51.0
+      ss_m_iou: 51
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 937.0
+      gflops: 937
+      fps_measurements: []
 - name: MA ViT-B
-  m_parameters: 50.0
+  m_parameters: 50
+  fps_measurements: []
   pretrained_backbones:
   - name: MA ViT-B-IN1k
     pretrain_dataset: ImageNet-1k
@@ -232,11 +249,12 @@ backbones:
       train_epochs: 12
       mAP: 51.7
       AP50: 73.3
-      AP75: 57.0
+      AP75: 57
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 372.0
+      gflops: 372
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -248,7 +266,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 372.0
+      gflops: 372
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -260,43 +279,47 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 372.0
+      gflops: 372
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 36
-      mAP: 47.0
+      mAP: 47
       AP50: 71.5
       AP75: 51.1
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 372.0
+      gflops: 372
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
       train_dataset: COCO (train)
       train_epochs: 36
       mAP: 55.5
-      AP50: 74.0
+      AP50: 74
       AP75: 60.4
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 851.0
+      gflops: 851
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 36
-      mAP: 48.0
+      mAP: 48
       AP50: 71.7
       AP75: 52.5
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 851.0
+      gflops: 851
+      fps_measurements: []
     - head: RetinaNet
       dataset: COCO (val)
       instance_type: Object Detection
@@ -308,7 +331,8 @@ backbones:
       mAPs: 33.7
       mAPm: 54.5
       mAPl: 65.5
-      gflops: 353.0
+      gflops: 353
+      fps_measurements: []
     semantic_seg_results:
     - head: Panoptic FPN
       dataset: ADE20K (val)
@@ -322,7 +346,8 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 292.0
+      gflops: 292
+      fps_measurements: []
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
@@ -335,9 +360,11 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 1050.0
+      gflops: 1050
+      fps_measurements: []
 - name: MA ViT-L
-  m_parameters: 98.0
+  m_parameters: 98
+  fps_measurements: []
   pretrained_backbones:
   - name: MA ViT-L-IN1k
     pretrain_dataset: ImageNet-1k
@@ -347,7 +374,7 @@ backbones:
     classification_results:
     - dataset: ImageNet-1k
       resolution: 224
-      top_1: 86.0
+      top_1: 86
       top_5: null
       gflops: 16.1
     instance_results:
@@ -362,19 +389,21 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 501.0
+      gflops: 501
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 12
       mAP: 46.5
-      AP50: 71.0
+      AP50: 71
       AP75: 50.6
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 501.0
+      gflops: 501
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -386,7 +415,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 501.0
+      gflops: 501
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -398,19 +428,21 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 501.0
+      gflops: 501
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
       train_dataset: COCO (train)
       train_epochs: 36
-      mAP: 56.0
+      mAP: 56
       AP50: 74.6
       AP75: 60.9
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 979.0
+      gflops: 979
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -422,7 +454,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 979.0
+      gflops: 979
+      fps_measurements: []
     - head: RetinaNet
       dataset: COCO (val)
       instance_type: Object Detection
@@ -434,7 +467,8 @@ backbones:
       mAPs: 34.1
       mAPm: 55.3
       mAPl: 65.6
-      gflops: 482.0
+      gflops: 482
+      fps_measurements: []
     semantic_seg_results:
     - head: Panoptic FPN
       dataset: ADE20K (val)
@@ -448,7 +482,8 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 424.0
+      gflops: 424
+      fps_measurements: []
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
@@ -461,4 +496,5 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 1182.0
+      gflops: 1182
+      fps_measurements: []

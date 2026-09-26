@@ -7,17 +7,71 @@ paper: https://doi.org/10.48550/arXiv.2204.07118
 github: https://github.com/facebookresearch/deit/blob/main/README_revenge.md
 backbones:
 - name: ViT-S (DeiT III)
-  m_parameters: 22.0
+  m_parameters: 22
   fps_measurements:
   - resolution: 224
     gpu: V100
     precision: AMP
-    fps: 1891.0
+    fps: 1891
   - resolution: 384
     gpu: V100
     precision: AMP
-    fps: 424.0
+    fps: 424
   pretrained_backbones:
+  - name: ViT-S (DeiT III)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 192
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.4
+      top_5: null
+      gflops: 4.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 70.5
+      top_5: null
+      gflops: 4.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 83.4
+      top_5: null
+      gflops: 15.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 384
+    - dataset: ImageNet-V2
+      resolution: 384
+      top_1: 73.1
+      top_5: null
+      gflops: 15.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 46.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 45.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 588
+      fps_measurements: []
   - name: ViT-S (DeiT III)-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -42,71 +96,17 @@ backbones:
       fine_tune_resolution: 224
     instance_results: []
     semantic_seg_results: []
-  - name: ViT-S (DeiT III)-IN1k
-    pretrain_dataset: ImageNet-1k
-    pretrain_method: Supervised
-    pretrain_resolution: 192
-    pretrain_epochs: 800
-    classification_results:
-    - dataset: ImageNet-1k
-      resolution: 224
-      top_1: 81.4
-      top_5: null
-      gflops: 4.6
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 20
-      fine_tune_resolution: 224
-    - dataset: ImageNet-1k
-      resolution: 384
-      top_1: 83.4
-      top_5: null
-      gflops: 15.5
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 20
-      fine_tune_resolution: 384
-    - dataset: ImageNet-V2
-      resolution: 384
-      top_1: 73.1
-      top_5: null
-      gflops: 15.5
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 20
-      fine_tune_resolution: 384
-    - dataset: ImageNet-V2
-      resolution: 224
-      top_1: 70.5
-      top_5: null
-      gflops: 4.6
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 20
-      fine_tune_resolution: 224
-    instance_results: []
-    semantic_seg_results:
-    - head: UPerNet
-      dataset: ADE20K (val)
-      train_dataset: ADE20K (train)
-      train_epochs: 128
-      crop_size: 512
-      ms_m_iou: 46.8
-      ms_pixel_accuracy: null
-      ms_mean_accuracy: null
-      ss_m_iou: 45.6
-      ss_pixel_accuracy: null
-      ss_mean_accuracy: null
-      flip_test: false
-      gflops: 588.0
-      fps_measurements: []
 - name: ViT-B (DeiT III)
   m_parameters: 86.6
   fps_measurements:
   - resolution: 224
     gpu: V100
     precision: AMP
-    fps: 831.0
+    fps: 831
   - resolution: 384
     gpu: V100
     precision: AMP
-    fps: 190.0
+    fps: 190
   pretrained_backbones:
   - name: ViT-B (DeiT III)-IN1k
     pretrain_dataset: ImageNet-1k
@@ -114,6 +114,14 @@ backbones:
     pretrain_resolution: 192
     pretrain_epochs: 800
     classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.8
+      top_5: null
+      gflops: 17.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
     - dataset: ImageNet-V2
       resolution: 224
       top_1: 73.6
@@ -124,20 +132,12 @@ backbones:
       fine_tune_resolution: 224
     - dataset: ImageNet-1k
       resolution: 384
-      top_1: 85.0
+      top_1: 85
       top_5: null
       gflops: 55.5
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 20
       fine_tune_resolution: 384
-    - dataset: ImageNet-1k
-      resolution: 224
-      top_1: 83.8
-      top_5: null
-      gflops: 17.5
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 20
-      fine_tune_resolution: 224
     - dataset: ImageNet-V2
       resolution: 384
       top_1: 74.8
@@ -160,7 +160,7 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 1283.0
+      gflops: 1283
       fps_measurements: []
   - name: ViT-B (DeiT III)-IN22k
     pretrain_dataset: ImageNet-22k
@@ -168,6 +168,14 @@ backbones:
     pretrain_resolution: 224
     pretrain_epochs: 90
     classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 85.7
+      top_5: null
+      gflops: 17.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 224
     - dataset: ImageNet-V2
       resolution: 224
       top_1: 76.5
@@ -184,14 +192,6 @@ backbones:
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 50
       fine_tune_resolution: 384
-    - dataset: ImageNet-1k
-      resolution: 224
-      top_1: 85.7
-      top_5: null
-      gflops: 17.6
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 50
-      fine_tune_resolution: 224
     - dataset: ImageNet-V2
       resolution: 384
       top_1: 77.9
@@ -214,7 +214,7 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 1283.0
+      gflops: 1283
       fps_measurements: []
 - name: ViT-L (DeiT III)
   m_parameters: 304.4
@@ -222,11 +222,11 @@ backbones:
   - resolution: 224
     gpu: V100
     precision: AMP
-    fps: 277.0
+    fps: 277
   - resolution: 384
     gpu: V100
     precision: AMP
-    fps: 67.0
+    fps: 67
   pretrained_backbones:
   - name: ViT-L (DeiT III)-IN1k
     pretrain_dataset: ImageNet-1k
@@ -243,14 +243,6 @@ backbones:
       fine_tune_epochs: 20
       fine_tune_resolution: 224
     - dataset: ImageNet-V2
-      resolution: 384
-      top_1: 76.6
-      top_5: null
-      gflops: 191.2
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 20
-      fine_tune_resolution: 384
-    - dataset: ImageNet-V2
       resolution: 224
       top_1: 75.1
       top_5: null
@@ -266,6 +258,14 @@ backbones:
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 20
       fine_tune_resolution: 384
+    - dataset: ImageNet-V2
+      resolution: 384
+      top_1: 76.6
+      top_5: null
+      gflops: 191.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 384
     instance_results: []
     semantic_seg_results:
     - head: UPerNet
@@ -273,14 +273,14 @@ backbones:
       train_dataset: ADE20K (train)
       train_epochs: 128
       crop_size: 512
-      ms_m_iou: 52.0
+      ms_m_iou: 52
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
       ss_m_iou: 51.5
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 2231.0
+      gflops: 2231
       fps_measurements: []
   - name: ViT-L (DeiT III)-IN22k
     pretrain_dataset: ImageNet-22k
@@ -290,20 +290,12 @@ backbones:
     classification_results:
     - dataset: ImageNet-1k
       resolution: 224
-      top_1: 87.0
+      top_1: 87
       top_5: null
       gflops: 61.6
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 50
       fine_tune_resolution: 224
-    - dataset: ImageNet-V2
-      resolution: 384
-      top_1: 79.1
-      top_5: null
-      gflops: 191.2
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 50
-      fine_tune_resolution: 384
     - dataset: ImageNet-V2
       resolution: 224
       top_1: 78.6
@@ -315,6 +307,14 @@ backbones:
     - dataset: ImageNet-1k
       resolution: 384
       top_1: 87.7
+      top_5: null
+      gflops: 191.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 50
+      fine_tune_resolution: 384
+    - dataset: ImageNet-V2
+      resolution: 384
+      top_1: 79.1
       top_5: null
       gflops: 191.2
       fine_tune_dataset: ImageNet-1k
@@ -334,7 +334,7 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 2231.0
+      gflops: 2231
       fps_measurements: []
 - name: ViT-H (DeiT III)
   m_parameters: 632.1
@@ -342,7 +342,7 @@ backbones:
   - resolution: 224
     gpu: V100
     precision: AMP
-    fps: 112.0
+    fps: 112
   pretrained_backbones:
   - name: ViT-H (DeiT III)-IN1k
     pretrain_dataset: ImageNet-1k

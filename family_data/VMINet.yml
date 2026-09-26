@@ -7,7 +7,7 @@ paper: https://arxiv.org/abs/2501.02040
 github: https://github.com/yws-wxs/VMINet
 backbones:
 - name: VMINet-Ti
-  m_parameters: 2.0
+  m_parameters: 2
   fps_measurements: []
   pretrained_backbones:
   - name: VMINet-Ti-IN1k
@@ -21,8 +21,10 @@ backbones:
       top_1: 70.7
       top_5: null
       gflops: 0.3
+    instance_results: []
+    semantic_seg_results: []
 - name: VMINet-XS
-  m_parameters: 7.0
+  m_parameters: 7
   fps_measurements: []
   pretrained_backbones:
   - name: VMINet-XS-IN1k
@@ -48,7 +50,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 189.0
+      gflops: 189
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -60,7 +63,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 189.0
+      gflops: 189
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -75,8 +79,9 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: null
+      fps_measurements: []
 - name: VMINet-S
-  m_parameters: 13.0
+  m_parameters: 13
   fps_measurements: []
   pretrained_backbones:
   - name: VMINet-S-IN1k
@@ -102,7 +107,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 201.0
+      gflops: 201
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -114,7 +120,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 201.0
+      gflops: 201
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -129,8 +136,9 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: null
+      fps_measurements: []
 - name: VMINet-B
-  m_parameters: 28.0
+  m_parameters: 28
   fps_measurements: []
   pretrained_backbones:
   - name: VMINet-B-IN1k
@@ -156,7 +164,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 276.0
+      gflops: 276
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -168,7 +177,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 276.0
+      gflops: 276
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -183,3 +193,4 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: null
+      fps_measurements: []

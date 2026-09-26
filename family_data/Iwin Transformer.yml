@@ -13,7 +13,6 @@ backbones:
     gpu: V100
     precision: FP32
     fps: 729
-    batch_size: 256
   pretrained_backbones:
   - name: Iwin-T-IN1k
     pretrain_dataset: ImageNet-1k
@@ -23,7 +22,7 @@ backbones:
     classification_results:
     - dataset: ImageNet-1k
       resolution: 224
-      top_1: 82.0
+      top_1: 82
       top_5: null
       gflops: 4.7
     instance_results:
@@ -38,7 +37,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 268.0
+      gflops: 268
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -50,7 +50,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 268.0
+      gflops: 268
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -62,7 +63,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 268.0
+      gflops: 268
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -74,7 +76,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 268.0
+      gflops: 268
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -86,7 +89,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 747.0
+      gflops: 747
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -98,7 +102,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 747.0
+      gflops: 747
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -110,7 +115,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 747.0
+      gflops: 747
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -122,7 +128,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 747.0
+      gflops: 747
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -136,7 +143,8 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 946.0
+      gflops: 946
+      fps_measurements: []
 - name: Iwin-S
   m_parameters: 51.6
   fps_measurements:
@@ -144,7 +152,6 @@ backbones:
     gpu: V100
     precision: FP32
     fps: 410
-    batch_size: 256
   pretrained_backbones:
   - name: Iwin-S-IN1k
     pretrain_dataset: ImageNet-1k
@@ -156,31 +163,31 @@ backbones:
       resolution: 224
       top_1: 83.4
       top_5: null
-      gflops: 9.0
+      gflops: 9
     - dataset: ImageNet-1k
       resolution: 384
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 30
-      fine_tune_resolution: 384
       top_1: 84.3
       top_5: null
       gflops: 27.7
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
     - dataset: ImageNet-1k
       resolution: 512
+      top_1: 84.4
+      top_5: null
+      gflops: 52
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 512
-      top_1: 84.4
-      top_5: null
-      gflops: 52.0
     - dataset: ImageNet-1k
       resolution: 1024
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 30
-      fine_tune_resolution: 1024
       top_1: 83.8
       top_5: null
       gflops: 207.9
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 1024
     instance_results:
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -188,24 +195,26 @@ backbones:
       train_dataset: COCO (train)
       train_epochs: 12
       mAP: 43.7
-      AP50: 67.0
+      AP50: 67
       AP75: 47.4
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 358.0
+      gflops: 358
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 12
-      mAP: 40.0
+      mAP: 40
       AP50: 63.9
       AP75: 42.5
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 358.0
+      gflops: 358
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -217,19 +226,21 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 358.0
+      gflops: 358
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 36
-      mAP: 41.0
+      mAP: 41
       AP50: 64.3
-      AP75: 44.0
+      AP75: 44
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 358.0
+      gflops: 358
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -241,19 +252,21 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 837.0
+      gflops: 837
+      fps_measurements: []
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 36
-      mAP: 43.0
+      mAP: 43
       AP50: 65.6
       AP75: 46.4
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 837.0
+      gflops: 837
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -267,7 +280,8 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 1038.0
+      gflops: 1038
+      fps_measurements: []
 - name: Iwin-B
   m_parameters: 91.2
   fps_measurements:
@@ -275,7 +289,6 @@ backbones:
     gpu: V100
     precision: FP32
     fps: 271
-    batch_size: 256
   pretrained_backbones:
   - name: Iwin-B-IN1k
     pretrain_dataset: ImageNet-1k
@@ -290,28 +303,29 @@ backbones:
       gflops: 15.9
     - dataset: ImageNet-1k
       resolution: 384
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 30
-      fine_tune_resolution: 384
       top_1: 84.9
       top_5: null
       gflops: 48.3
-    - dataset: ImageNet-1k
-      resolution: 512
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
-      fine_tune_resolution: 512
+      fine_tune_resolution: 384
+    - dataset: ImageNet-1k
+      resolution: 512
       top_1: 85.1
       top_5: null
       gflops: 89.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 512
     - dataset: ImageNet-1k
       resolution: 1024
+      top_1: 85
+      top_5: null
+      gflops: 358.2
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 1024
-      top_1: 85.0
-      top_5: null
-      gflops: 358.2
+    instance_results: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -325,7 +339,8 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 1189.0
+      gflops: 1189
+      fps_measurements: []
   - name: Iwin-B-IN22k
     pretrain_dataset: ImageNet-22k
     pretrain_method: Supervised
@@ -334,36 +349,38 @@ backbones:
     classification_results:
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 30
-      fine_tune_resolution: 224
       top_1: 85.5
       top_5: null
       gflops: 15.9
-    - dataset: ImageNet-1k
-      resolution: 384
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
-      fine_tune_resolution: 384
+      fine_tune_resolution: 224
+    - dataset: ImageNet-1k
+      resolution: 384
       top_1: 86.6
       top_5: null
       gflops: 48.3
-    - dataset: ImageNet-1k
-      resolution: 512
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
-      fine_tune_resolution: 512
+      fine_tune_resolution: 384
+    - dataset: ImageNet-1k
+      resolution: 512
       top_1: 86.1
       top_5: null
       gflops: 89.5
-    - dataset: ImageNet-1k
-      resolution: 1024
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
-      fine_tune_resolution: 1024
+      fine_tune_resolution: 512
+    - dataset: ImageNet-1k
+      resolution: 1024
       top_1: 85.6
       top_5: null
       gflops: 358.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 1024
+    instance_results: []
+    semantic_seg_results: []
 - name: Iwin-L
   m_parameters: 204.3
   fps_measurements:
@@ -371,7 +388,6 @@ backbones:
     gpu: V100
     precision: FP32
     fps: 138
-    batch_size: 256
   pretrained_backbones:
   - name: Iwin-L-IN22k
     pretrain_dataset: ImageNet-22k
@@ -381,17 +397,19 @@ backbones:
     classification_results:
     - dataset: ImageNet-1k
       resolution: 224
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 30
-      fine_tune_resolution: 224
       top_1: 86.4
       top_5: null
       gflops: 35.4
-    - dataset: ImageNet-1k
-      resolution: 384
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
-      fine_tune_resolution: 384
+      fine_tune_resolution: 224
+    - dataset: ImageNet-1k
+      resolution: 384
       top_1: 87.4
       top_5: null
       gflops: 106.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []

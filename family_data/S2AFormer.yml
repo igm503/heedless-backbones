@@ -13,7 +13,6 @@ backbones:
     gpu: H100
     precision: FP32
     fps: 6330
-    batch_size: null
   pretrained_backbones:
   - name: S2AFormer-mini-IN1k
     pretrain_dataset: ImageNet-1k
@@ -43,7 +42,8 @@ backbones:
       mAPs: 19.9
       mAPm: 36.3
       mAPl: 44.5
-      gflops: 159.0
+      gflops: 159
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -55,7 +55,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 177.0
+      gflops: 177
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -67,7 +68,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 177.0
+      gflops: 177
+      fps_measurements: []
     semantic_seg_results:
     - head: Panoptic FPN
       dataset: ADE20K (val)
@@ -81,7 +83,8 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 23.0
+      gflops: 23
+      fps_measurements: []
 - name: S2AFormer-T
   m_parameters: 5.8
   fps_measurements:
@@ -89,7 +92,6 @@ backbones:
     gpu: H100
     precision: FP32
     fps: 4768
-    batch_size: null
   pretrained_backbones:
   - name: S2AFormer-T-IN1k
     pretrain_dataset: ImageNet-1k
@@ -114,12 +116,13 @@ backbones:
       train_dataset: COCO (train)
       train_epochs: 12
       mAP: 36.7
-      AP50: 57.0
+      AP50: 57
       AP75: 39.1
       mAPs: 21.1
       mAPm: 39.7
       mAPl: 48.6
-      gflops: 164.0
+      gflops: 164
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -131,7 +134,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 182.0
+      gflops: 182
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -143,7 +147,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 182.0
+      gflops: 182
+      fps_measurements: []
     semantic_seg_results:
     - head: Panoptic FPN
       dataset: ADE20K (val)
@@ -153,11 +158,12 @@ backbones:
       ms_m_iou: null
       ms_pixel_accuracy: null
       ms_mean_accuracy: null
-      ss_m_iou: 38.0
+      ss_m_iou: 38
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 25.0
+      gflops: 25
+      fps_measurements: []
 - name: S2AFormer-XS
   m_parameters: 6.54
   fps_measurements:
@@ -165,7 +171,6 @@ backbones:
     gpu: H100
     precision: FP32
     fps: 4185
-    batch_size: null
   pretrained_backbones:
   - name: S2AFormer-XS-IN1k
     pretrain_dataset: ImageNet-1k
@@ -195,7 +200,8 @@ backbones:
       mAPs: 22.9
       mAPm: 41.5
       mAPl: 49.8
-      gflops: 166.0
+      gflops: 166
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -207,7 +213,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 185.0
+      gflops: 185
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -219,7 +226,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 185.0
+      gflops: 185
+      fps_measurements: []
     semantic_seg_results:
     - head: Panoptic FPN
       dataset: ADE20K (val)
@@ -233,7 +241,8 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 25.0
+      gflops: 25
+      fps_measurements: []
 - name: S2AFormer-S
   m_parameters: 10.69
   fps_measurements:
@@ -241,7 +250,6 @@ backbones:
     gpu: H100
     precision: FP32
     fps: 2644
-    batch_size: null
   pretrained_backbones:
   - name: S2AFormer-S-IN1k
     pretrain_dataset: ImageNet-1k
@@ -265,25 +273,27 @@ backbones:
       instance_type: Object Detection
       train_dataset: COCO (train)
       train_epochs: 12
-      mAP: 40.0
+      mAP: 40
       AP50: 60.9
       AP75: 42.7
       mAPs: 24.4
       mAPm: 43.6
       mAPl: 52.9
-      gflops: 178.0
+      gflops: 178
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
       train_dataset: COCO (train)
       train_epochs: 12
-      mAP: 41.0
+      mAP: 41
       AP50: 62.5
-      AP75: 45.0
+      AP75: 45
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 197.0
+      gflops: 197
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
@@ -295,7 +305,8 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 197.0
+      gflops: 197
+      fps_measurements: []
     semantic_seg_results:
     - head: Panoptic FPN
       dataset: ADE20K (val)
@@ -309,7 +320,8 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 28.0
+      gflops: 28
+      fps_measurements: []
 - name: S2AFormer-M
   m_parameters: 24.87
   fps_measurements:
@@ -317,7 +329,6 @@ backbones:
     gpu: H100
     precision: FP32
     fps: 1652
-    batch_size: null
   pretrained_backbones:
   - name: S2AFormer-M-IN1k
     pretrain_dataset: ImageNet-1k
@@ -347,7 +358,8 @@ backbones:
       mAPs: 25.8
       mAPm: 44.6
       mAPl: 55.4
-      gflops: 234.0
+      gflops: 234
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Object Detection
@@ -359,19 +371,21 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 253.0
+      gflops: 253
+      fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
       instance_type: Instance Segmentation
       train_dataset: COCO (train)
       train_epochs: 12
       mAP: 39.3
-      AP50: 62.0
+      AP50: 62
       AP75: 41.7
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 253.0
+      gflops: 253
+      fps_measurements: []
     semantic_seg_results:
     - head: Panoptic FPN
       dataset: ADE20K (val)
@@ -385,4 +399,5 @@ backbones:
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
       flip_test: false
-      gflops: 43.0
+      gflops: 43
+      fps_measurements: []

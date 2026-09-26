@@ -33,7 +33,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 218.0
+      gflops: 218
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -46,7 +46,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 218.0
+      gflops: 218
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -59,7 +59,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 218.0
+      gflops: 218
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -72,11 +72,11 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 218.0
+      gflops: 218
       fps_measurements: []
     semantic_seg_results: []
 - name: Mamba-Adaptor-b2
-  m_parameters: 32.0
+  m_parameters: 32
   fps_measurements: []
   pretrained_backbones:
   - name: Mamba-Adaptor-b2-IN1k
@@ -87,7 +87,7 @@ backbones:
     classification_results:
     - dataset: ImageNet-1k
       resolution: 224
-      top_1: 83.0
+      top_1: 83
       top_5: null
       gflops: 5.4
     instance_results:
@@ -102,7 +102,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 259.0
+      gflops: 259
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -115,7 +115,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 259.0
+      gflops: 259
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -128,7 +128,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 259.0
+      gflops: 259
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -141,6 +141,6 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 259.0
+      gflops: 259
       fps_measurements: []
     semantic_seg_results: []
