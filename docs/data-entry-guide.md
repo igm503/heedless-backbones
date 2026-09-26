@@ -69,6 +69,13 @@ A convention never overrides what the paper states.
   them under the existing pretrained backbone, with this paper as the source. Never
   create a family, backbone or pretrained backbone for a baseline. A different value
   for a result that is already stored is a correction proposal.
+- **Check every baseline row.** Look up each baseline in every comparison table
+  (classification, robustness sets such as ImageNet-A/R/Sketch/V2, detection and
+  segmentation). A result on a dataset, head or setting not yet stored for that model
+  is a gap to fill. When you propose a new head or dataset, add the baseline rows that
+  use it for models in the database. Baselines not in the database are skipped: the
+  original ResNet and DeiT are not `ResNet (RSB)` or `DeiT III`, which are different
+  trained models.
 - **Best recipe only.** When the contribution is a training procedure reported at
   several budgets (ResNet strikes back's A1/A2/A3), keep only the headline recipe (A1).
 - **Main results only.** Include the configurations in the headline comparison tables
@@ -97,6 +104,12 @@ A convention never overrides what the paper states.
   `DAT++`).
   One paper can define several families (MetaFormer: IdentityFormer, RandFormer,
   ConvFormer, CAFormer).
+- **A family is one architecture.** When a paper applies its idea to several base
+  architectures, each base is its own family, named with the paper's labels. LocalViT
+  adds its block to DeiT, T2T-ViT, TNT, PVT and Swin: `LocalViT` (the DeiT-based T and
+  S), `LocalViT-T2T`, `LocalViT-TNT`, `LocalViT-PVT` and `LocalViT-Swin` (Swin-M and
+  Swin). `model_type`, `hierarchical` and `pretrain_method` must be true of every model
+  in the family; never choose the majority value for a mixed group.
 - **Backbone name**: `Family-Size` using the paper's size labels (`ConvNeXt V2-T`,
   `ResNet-50 (RSB)`, `CoAtNet-3`). Include every size in the main results.
 - **Parameters**: millions, backbone only (never the detector or segmenter).
