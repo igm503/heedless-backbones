@@ -30,8 +30,9 @@ papers in full, following the [data entry guide](docs/data-entry-guide.md). The 
 checks the paper's official repository, fills gaps in other models' results, validates
 its own output against the paper text, and submits evidence-backed records through an
 audited importer. Uncertain or conflicting data waits for review on a page in the admin
-that shows each value next to a crop of its source. Every added family gets a reference
-YAML file in `family_data/`. The job runs manually, or on a Mac with `deploy/local-agent`.
+that shows each value next to a crop of its source. Every publish opens a pull request for
+the family with its reference YAML in `family_data/`, a regenerated `db.json`, and a row in
+the [model table](#models). The job runs manually, or on a Mac with `deploy/local-agent`.
 
 Hand-written family files can still be imported with `python manage.py add_yaml <file>`.
 
@@ -73,61 +74,67 @@ and database query budgets. They do not connect to the database configured in `.
 - Dataset Pages
 - List Pages (Models, Heads, Datasets)
 - LLM-Assisted Data Gen
-- Models Added:
-  - [ConvNeXt](https://arxiv.org/abs/2201.03545)
-  - [TransNeXt](https://arxiv.org/abs/2311.17132)
-  - [Swin](https://arxiv.org/abs/2103.14030)
-  - [DeiT III](https://arxiv.org/abs/2204.07118)
-  - [ConvNextV2](https://arxiv.org/abs/2301.00808)
-  - [ResNet (RSB)](https://arxiv.org/abs/2110.00476)
-  - [Hiera](https://arxiv.org/abs/2306.00989)
-  - [FocalNet](https://arxiv.org/abs/2203.11926)
-  - [InternImage](https://arxiv.org/abs/2211.05778)
-  - [CSwin](https://arxiv.org/abs/2107.00652)
-  - [MetaFormers](https://arxiv.org/abs/2210.13452)
-    - IdentityFormer
-    - RandFormer
-    - ConvFormer
-    - CAFormer
-  - [MaxViT](https://arxiv.org/abs/2204.01697)
-  - [MogaNet](https://arxiv.org/pdf/2211.03295)
-  - [CoAtNet](https://arxiv.org/abs/2108.12895)
-  - [VMamba](https://arxiv.org/abs/2401.10166)
-  - [UniRepLKNet](https://arxiv.org/abs/2311.15599)
-  - [FAN](https://arxiv.org/abs/2204.12451)
-  - [SLaK](https://arxiv.org/abs/2207.03620)
-  - [RepLKNet](https://arxiv.org/abs/2203.06717)
-  - [BiFormer](https://arxiv.org/abs/2303.08810)
-  - [MambaOut](https://arxiv.org/abs/2405.07992)
-  - [GroupMamba](https://arxiv.org/abs/2407.13772)
-  - [Vim/Hier-Vim](https://arxiv.org/abs/2306.00989)
-  - [PlainMamba](https://arxiv.org/abs/2403.17695)
-  - [LocalVim/LocalVMamba](https://arxiv.org/abs/2403.09338)
-  - [EfficientVMamba](https://arxiv.org/pdf/2403.09977)
-  - [DAMamba](https://arxiv.org/abs/2502.12627)
-  - [VSSD](https://arxiv.org/abs/2407.18559)
-  - [RMT](https://arxiv.org/abs/2309.11523)
-  - [DAT++](https://arxiv.org/abs/2309.01430)
-  - [FAN STL](https://arxiv.org/pdf/2401.03844)
-  - [DAT](https://arxiv.org/abs/2201.00520)
-  - [NAT](https://arxiv.org/abs/2204.07143)
-  - [CoCAViT](https://arxiv.org/abs/2508.05307)
-  - [FractalMamba++](https://arxiv.org/abs/2505.14062)
-  - [HybridNet](https://arxiv.org/abs/2410.00871)
-  - [InceptionMamba](https://arxiv.org/abs/2506.08735)
-  - [Iwin](https://arxiv.org/abs/2507.18405)
-  - [MAViT](https://arxiv.org/html/2507.00698v3)
-  - [AnchorFormer](https://arxiv.org/abs/2505.16463)
-  - [Mamba-Adaptor](https://arxiv.org/abs/2505.12685)
-  - [RecNeXt](https://arxiv.org/abs/2412.19628)
-  - [S2AFormer](https://arxiv.org/abs/2505.22195)
-  - [SSViT](https://arxiv.org/abs/2405.13335v1)
-  - [A2Mamba](https://arxiv.org/abs/2507.16624)
-  - [SpaRTAN](https://arxiv.org/abs/2507.10999)
-  - [UniConvNet](https://arxiv.org/abs/2508.09000)
-  - [UniNeXt](https://arxiv.org/abs/2304.13700)
-  - [VCMamba](https://arxiv.org/abs/2509.04669)
-  - [VMINet](https://arxiv.org/abs/2501.02040)
+- Models: see [Models](#models)
+
+## Models
+
+| Model | Paper | Added |
+|---|---|---|
+| ConvNeXt | [arXiv 2201.03545](https://arxiv.org/abs/2201.03545) | 2024-09-03 |
+| TransNeXt | [arXiv 2311.17132](https://arxiv.org/abs/2311.17132) | 2024-09-03 |
+| Swin | [arXiv 2103.14030](https://arxiv.org/abs/2103.14030) | 2024-09-23 |
+| DeiT III | [arXiv 2204.07118](https://arxiv.org/abs/2204.07118) | 2024-09-23 |
+| ConvNeXt V2 | [arXiv 2301.00808](https://arxiv.org/abs/2301.00808) | 2024-09-23 |
+| ResNet (RSB) | [arXiv 2110.00476](https://arxiv.org/abs/2110.00476) | 2024-09-23 |
+| Hiera | [arXiv 2306.00989](https://arxiv.org/abs/2306.00989) | 2024-09-25 |
+| FocalNet | [arXiv 2203.11926](https://arxiv.org/abs/2203.11926) | 2024-09-29 |
+| InternImage | [arXiv 2211.05778](https://arxiv.org/abs/2211.05778) | 2024-09-29 |
+| CSWin | [arXiv 2107.00652](https://arxiv.org/abs/2107.00652) | 2024-09-29 |
+| IdentityFormer | [arXiv 2210.13452](https://arxiv.org/abs/2210.13452) | 2024-09-29 |
+| RandFormer | [arXiv 2210.13452](https://arxiv.org/abs/2210.13452) | 2024-09-29 |
+| ConvFormer | [arXiv 2210.13452](https://arxiv.org/abs/2210.13452) | 2024-09-29 |
+| CAFormer | [arXiv 2210.13452](https://arxiv.org/abs/2210.13452) | 2024-09-29 |
+| MaxViT | [arXiv 2204.01697](https://arxiv.org/abs/2204.01697) | 2024-09-29 |
+| MogaNet | [arXiv 2211.03295](https://arxiv.org/pdf/2211.03295) | 2024-09-29 |
+| CoAtNet | [arXiv 2106.04803](https://arxiv.org/abs/2106.04803) | 2024-09-29 |
+| VMamba | [arXiv 2401.10166](https://arxiv.org/abs/2401.10166) | 2024-10-14 |
+| UniRepLKNet | [arXiv 2410.08049](https://arxiv.org/abs/2410.08049) | 2024-10-16 |
+| FAN | [arXiv 2204.12451](https://arxiv.org/abs/2204.12451) | 2025-04-14 |
+| SLaK | [arXiv 2207.03620](https://arxiv.org/abs/2207.03620) | 2025-04-15 |
+| RepLKNet | [arXiv 2203.06717](https://arxiv.org/abs/2203.06717) | 2025-04-15 |
+| BiFormer | [arXiv 2303.08810](https://arxiv.org/abs/2303.08810) | 2025-04-20 |
+| MambaOut | [arXiv 2405.07992](https://arxiv.org/abs/2405.07992) | 2025-04-20 |
+| GroupMamba | [arXiv 2407.13772](https://arxiv.org/abs/2407.13772) | 2025-04-20 |
+| Vim | [arXiv 2401.09417](https://arxiv.org/abs/2401.09417) | 2025-04-20 |
+| Hier-Vim | [arXiv 2401.09417](https://arxiv.org/abs/2401.09417) | 2025-04-20 |
+| PlainMamba | [arXiv 2403.17695](https://arxiv.org/abs/2403.17695) | 2025-04-20 |
+| LocalVim | [arXiv 2403.09338](https://arxiv.org/abs/2403.09338) | 2025-04-20 |
+| LocalVMamba | [arXiv 2403.09338](https://arxiv.org/abs/2403.09338) | 2025-04-20 |
+| EfficientVMamba | [arXiv 2403.09977](https://arxiv.org/pdf/2403.09977) | 2025-04-20 |
+| DAMamba | [arXiv 2502.12627](https://arxiv.org/abs/2502.12627) | 2025-04-20 |
+| VSSD | [arXiv 2407.18559](https://arxiv.org/abs/2407.18559) | 2025-04-20 |
+| RMT | [arXiv 2309.11523](https://arxiv.org/abs/2309.11523) | 2025-04-20 |
+| DAT++ | [arXiv 2309.01430](https://arxiv.org/abs/2309.01430) | 2025-04-20 |
+| FAN STL | [arXiv 2401.03844](https://arxiv.org/pdf/2401.03844) | 2025-04-22 |
+| DAT | [arXiv 2201.00520](https://arxiv.org/abs/2201.00520) | 2025-04-22 |
+| NAT | [arXiv 2204.07143](https://arxiv.org/abs/2204.07143) | 2025-04-22 |
+| CoCA ViT | [arXiv 2508.05307](https://arxiv.org/abs/2508.05307) | 2025-11-08 |
+| FractalMamba++ | [arXiv 2505.14062](https://arxiv.org/abs/2505.14062) | 2025-11-08 |
+| HybridNet | [arXiv 2410.00871](https://arxiv.org/abs/2410.00871) | 2025-11-08 |
+| InceptionMamba | [arXiv 2506.08735](https://arxiv.org/abs/2506.08735) | 2025-11-08 |
+| Iwin Transformer | [arXiv 2507.18405](https://arxiv.org/abs/2507.18405) | 2025-11-08 |
+| MA ViT | [arXiv 2507.00698](https://arxiv.org/html/2507.00698v3) | 2025-11-08 |
+| AnchorFormer | [arXiv 2505.16463](https://arxiv.org/abs/2505.16463) | 2025-11-08 |
+| Mamba-Adaptor | [arXiv 2505.12685](https://arxiv.org/abs/2505.12685) | 2025-11-08 |
+| RecNeXt | [arXiv 2412.19628](https://arxiv.org/abs/2412.19628) | 2025-11-08 |
+| S2AFormer | [arXiv 2505.22195](https://arxiv.org/abs/2505.22195) | 2025-11-08 |
+| SSViT | [arXiv 2405.13335](https://arxiv.org/abs/2405.13335v1) | 2025-11-08 |
+| A2Mamba | [arXiv 2507.16624](https://arxiv.org/abs/2507.16624) | 2025-11-08 |
+| SpaRTAN | [arXiv 2507.10999](https://arxiv.org/abs/2507.10999) | 2025-11-08 |
+| UniConvNet | [arXiv 2508.09000](https://arxiv.org/abs/2508.09000) | 2025-11-08 |
+| UniNeXt | [arXiv 2304.13700](https://arxiv.org/abs/2304.13700) | 2025-11-08 |
+| VCMamba | [arXiv 2509.04669](https://arxiv.org/abs/2509.04669) | 2025-11-08 |
+| VMINet | [arXiv 2501.02040](https://arxiv.org/abs/2501.02040) | 2025-11-08 |
 
 ## Updates
 
