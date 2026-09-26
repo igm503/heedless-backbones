@@ -4365,6 +4365,20 @@
   }
 },
 {
+  "model": "stats.backbonefamily",
+  "pk": 138,
+  "fields": {
+    "source_record": null,
+    "name": "LocalViT-Swin",
+    "model_type": "Attn + Conv",
+    "hierarchical": true,
+    "pretrain_method": "Supervised",
+    "pub_date": "2025-02-12",
+    "paper": "https://arxiv.org/abs/2104.05707v2",
+    "github": "https://github.com/ofsoundof/LocalViT"
+  }
+},
+{
   "model": "stats.backbone",
   "pk": 1,
   "fields": {
@@ -7829,6 +7843,32 @@
     "name": "LocalViT-PVT",
     "family": 137,
     "m_parameters": 13.5,
+    "paper": "https://arxiv.org/abs/2104.05707v2",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 510,
+  "fields": {
+    "source_record": null,
+    "name": "LocalViT-Swin-M",
+    "family": 138,
+    "m_parameters": 21.7,
+    "paper": "https://arxiv.org/abs/2104.05707v2",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 511,
+  "fields": {
+    "source_record": null,
+    "name": "LocalViT-Swin",
+    "family": 138,
+    "m_parameters": 29.1,
     "paper": "https://arxiv.org/abs/2104.05707v2",
     "github": "",
     "fps_measurements": []
@@ -12594,6 +12634,38 @@
     "name": "LocalViT-PVT-IN1k",
     "backbone": 509,
     "family": 137,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2104.05707v2",
+    "github": "https://github.com/ofsoundof/LocalViT"
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 582,
+  "fields": {
+    "source_record": null,
+    "name": "LocalViT-Swin-M-IN1k",
+    "backbone": 510,
+    "family": 138,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2104.05707v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 583,
+  "fields": {
+    "source_record": null,
+    "name": "LocalViT-Swin-IN1k",
+    "backbone": 511,
+    "family": 138,
     "pretrain_dataset": 1,
     "pretrain_method": "Supervised",
     "pretrain_resolution": 224,
@@ -28033,6 +28105,48 @@
     "top_1": 78.2,
     "top_5": 94.2,
     "gflops": 4.8,
+    "paper": "https://arxiv.org/abs/2104.05707v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 1209,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 582,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 80.4,
+    "top_5": 95.0,
+    "gflops": 3.0,
+    "paper": "https://arxiv.org/abs/2104.05707v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 1210,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 583,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 81.86,
+    "top_5": 95.72,
+    "gflops": 4.5,
     "paper": "https://arxiv.org/abs/2104.05707v2",
     "github": ""
   }
