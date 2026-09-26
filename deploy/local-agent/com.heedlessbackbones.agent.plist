@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.heedlessbackbones.agent</string>
+  <key>ProgramArguments</key>
+  <array><string>/bin/bash</string><string>__REPO__/deploy/local-agent/run.sh</string></array>
+  <!-- Every 3 hours while you are logged in; runs missed while asleep happen on wake. -->
+  <key>StartInterval</key><integer>10800</integer>
+  <key>RunAtLoad</key><false/>
+  <key>StandardOutPath</key><string>__HOME__/Library/Logs/heedless-agent.log</string>
+  <key>StandardErrorPath</key><string>__HOME__/Library/Logs/heedless-agent.log</string>
+</dict>
+</plist>
