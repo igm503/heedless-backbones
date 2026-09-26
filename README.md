@@ -135,9 +135,11 @@ and database query budgets. They do not connect to the database configured in `.
 | UniNeXt | [arXiv 2304.13700](https://arxiv.org/abs/2304.13700) | 2025-11-08 |
 | VCMamba | [arXiv 2509.04669](https://arxiv.org/abs/2509.04669) | 2025-11-08 |
 | VMINet | [arXiv 2501.02040](https://arxiv.org/abs/2501.02040) | 2025-11-08 |
+| GG | [arXiv 2106.02277](https://arxiv.org/abs/2106.02277) | 2026-09-26 |
 
 ## Updates
 
+- 9-26-2026: added GG
 - 11-8-2025: added CoCAViT, FractalMamba++, HybridNet, InceptionMamba, Iwin, MAViT, AnchorFormer, Mamba-Adaptor, RecNeXt, S2AFormer, SSViT, A2Mamba, SpaRTAN, UniConvNet, UniNeXt, VCMamba, VMINet
 - 4-22-2025: added FAN STL, DAT, NAT
 - 4-20-2025: added BiFormer, MambaOut, GroupMamba, Vim/Hier-Vim, PlainMamba, LocalVim/LocalVMamba, EfficientVMamba, DAMamba, VSSD, RMT, DAT++
