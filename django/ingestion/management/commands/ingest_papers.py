@@ -10,7 +10,7 @@ from django.utils import timezone
 
 from ingestion.agent import AgentRunner, screen
 from ingestion.models import IngestionRun, PaperVersion
-from ingestion.importer import apply_run
+from ingestion.publication import publish_ready
 from ingestion.pipeline import candidates, current_paper_ids, discover, shortlist
 from ingestion.sources import Troller
 
@@ -87,12 +87,8 @@ class Command(BaseCommand):
             if options["discover_only"]:
                 return
             remaining = options["limit"]
-            if options["publish"] and not options["paper_id"]:
-                for run in IngestionRun.objects.filter(status=IngestionRun.Status.READY).order_by("pk")[:remaining]:
-                    apply_run(run, publish=True)
-                    self.stdout.write(f"Saved run {run.pk}: {run.status}")
-                    remaining -= 1
-            reader = AgentRunner(publish=options["publish"], model=options["model"], timeout=options["agent_timeout"])
+            # Reads only validate; clean runs are left ready and published below (or on the server).
+            reader = AgentRunner(publish=False, model=options["model"], timeout=options["agent_timeout"])
             if options["paper_id"]:
                 paper = PaperVersion.objects.filter(pk=options["paper_id"]).first()
                 if paper is None:
@@ -105,6 +101,9 @@ class Command(BaseCommand):
                     self.report(run)
                 for run in shortlist(remaining):
                     self.report(reader.read(run))
+            if options["publish"]:
+                published, blocked = publish_ready()
+                self.stdout.write(f"Published {len(published)} ready runs" + (f"; {len(blocked)} blocked" if blocked else ""))
             if client and options["publish"]:
                 client.sync(os.getenv("ARXIV_TROLLER_SOURCE_TAG", "backbones"),
                             os.getenv("ARXIV_TROLLER_TAG", "heedless-backbones"), sorted(current_paper_ids()))

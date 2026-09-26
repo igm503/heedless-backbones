@@ -1,7 +1,8 @@
 #!/bin/bash
 # One scheduled agent run on this Mac: tunnel to the server's database, discover and screen
-# papers, have Claude Code read up to $LIMIT shortlisted papers, then copy the new PDFs to the
-# server so its review page can show crops. Configuration: ~/.config/heedless-agent/env
+# papers, have Claude Code read up to $LIMIT shortlisted papers (validation only), copy the new
+# PDFs to the server for the review page, then have the server publish the clean runs and
+# record them in git (auto.<family> branches and pull requests). Config: ~/.config/heedless-agent/env
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 CONFIG="${HEEDLESS_AGENT_ENV:-$HOME/.config/heedless-agent/env}"
@@ -22,9 +23,13 @@ for _ in $(seq 20); do nc -z localhost "$DB_PORT" 2>/dev/null && break; sleep 0.
 
 cd "$REPO/django"
 # caffeinate keeps the Mac from idle-sleeping until the run finishes (closing the lid still sleeps it).
-caffeinate -i "$PYTHON" manage.py ingest_papers --limit "${LIMIT:-5}" \
-  --screen-limit "${SCREEN_LIMIT:-25}" ${PUBLISH:+--publish}
+caffeinate -i "$PYTHON" manage.py ingest_papers --limit "${LIMIT:-5}" --screen-limit "${SCREEN_LIMIT:-25}"
 # The review page on the server needs the PDFs this run downloaded.
 if [ -d "$INGESTION_STORAGE/papers" ]; then
   rsync -a --rsync-path="sudo -u django rsync" "$INGESTION_STORAGE/papers/" "$SSH_HOST:$REMOTE_STORAGE/papers/"
+fi
+# Publishing happens on the server, through the same function as approvals on the review page.
+if [ -n "${PUBLISH:-}" ]; then
+  ssh "$SSH_HOST" "cd ${REMOTE_DJANGO:-/home/django/heedless-backbones/django} && sudo -u django ../venv/bin/python \
+    manage.py publish_ready --settings=${REMOTE_SETTINGS:-heedless-backbones.settings_django_deploy}"
 fi

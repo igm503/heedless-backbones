@@ -67,6 +67,7 @@ class RunAdmin(AuditAdmin):
         view = self.admin_site.admin_view
         return [
             path("review/", view(self.review_list), name="ingestion_review"),
+            path("review/refresh-prs/", view(self.refresh_prs), name="ingestion_refresh_prs"),
             path("review/<int:pk>/", view(self.review_run), name="ingestion_review_run"),
             path("review/<int:pk>/crop/<int:record>/<int:index>/", view(self.review_crop), name="ingestion_review_crop"),
         ] + super().get_urls()
@@ -80,6 +81,17 @@ class RunAdmin(AuditAdmin):
                    "imported": runs.filter(status=IngestionRun.Status.IMPORTED)[:50],
                    "retries": runs.filter(status=IngestionRun.Status.SHORTLISTED, retry_of__isnull=False)}
         return TemplateResponse(request, "admin/ingestion/review_list.html", context)
+
+    def refresh_prs(self, request):
+        from .publication import configured, start_refresh
+        if request.method != "POST" or not self.has_change_permission(request):
+            raise PermissionDenied
+        if not configured():
+            self.message_user(request, "Record keeping is not configured (RECORDS_REPO)", messages.ERROR)
+        else:
+            start_refresh()
+            self.message_user(request, "Refreshing the open auto PRs in the background", messages.SUCCESS)
+        return redirect("admin:ingestion_review")
 
     def review_run(self, request, pk):
         run = get_object_or_404(IngestionRun.objects.select_related("paper"), pk=pk)
@@ -158,8 +170,10 @@ class RunAdmin(AuditAdmin):
         self.process(request, queryset, publish=True)
 
     def process(self, request, queryset, publish):
+        from .publication import publish as publish_run
         for run in queryset:
-            errors = apply_run(run, publish=publish, actor=request.user.get_username())
+            actor = request.user.get_username()
+            errors = publish_run(run, actor) if publish else apply_run(run, actor=actor)
             self.message_user(request, f"Run {run.pk}: " + ("; ".join(errors) if errors else run.status),
                               messages.ERROR if errors else messages.SUCCESS)
 

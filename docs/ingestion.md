@@ -11,9 +11,9 @@ until `ingest_papers` is run, by hand or by the optional launchd job on a Mac
 2. On a Mac, copy `deploy/local-agent/env.example` to `~/.config/heedless-agent/env`, fill
    it in, test with `deploy/local-agent/run.sh`, then schedule it with
    `deploy/local-agent/install.sh` (every three hours while logged in).
-3. Each run discovers papers, screens abstracts, has Claude Code read up to five
-   shortlisted papers (retries first), and publishes clean extractions; published
-   families are written to `family_data/` for you to commit.
+3. Each run discovers papers, screens abstracts, and has Claude Code read up to five
+   shortlisted papers (retries first); the server then publishes the clean extractions and
+   opens a pull request per family with its YAML, `db.json` and README row.
 4. Review everything else in the admin: *Ingestion runs → Review*
    (`/admin/ingestion/ingestionrun/review/`). See [Review page](#review-page).
 5. Change the rules by editing the [data entry guide](data-entry-guide.md).
@@ -127,12 +127,34 @@ A new dataset or head is approved with `review_ingestion <run> --approve`. A
 disagreement with a stored value is reported as a proposed correction, with both
 values; `review_ingestion <run> --approve --allow-updates` applies it.
 
-## Reference YAML
+## Publishing and records
 
-Every publish, automatic or manual, rewrites `family_data/<family>.yml` from the
-database for each family it touched (`FAMILY_DATA_DIR` overrides the directory).
-These files use the original `add_yaml` format. They are written on the server, so
-commit them from there or copy them back to the repository.
+Every publish goes through one function, `publication.publish()`, on the server: your
+approval on the review page, `review_ingestion --publish`, the admin action, and the
+agent's clean runs (the scheduled job validates on your Mac, then runs `publish_ready` on
+the server over SSH). After a successful import it records the change in git, in the
+background: for each family the run touched it rebuilds a branch `auto.<family>` from the
+latest `main` with
+
+- `family_data/<family>.yml`, regenerated from the database;
+- `db.json`, regenerated from the database for the families in the branch (links to
+  extraction records are blanked, so the fixture loads without the ingestion tables);
+- the README's model table (a row with the date the family was first published) and an
+  Updates entry,
+
+commits it ("Add <family>" or "Update <family>"), force-pushes, and opens or updates a pull
+request describing what was added. The run's review page links the pull request (or shows
+why recording failed; the publish itself always stands).
+
+Merge the pull requests on GitHub in any order. Because the generated files are rebuilt
+rather than merged, the other open auto branches are rebuilt on the new `main` at the next
+publish or scheduled run, or at once with *Refresh auto PRs* on the review list
+(`manage.py refresh_auto_prs`).
+
+Server setup: `RECORDS_REPO` points at a clone used only for this (never the site's
+checkout), with a git identity, and `gh` logged in as the `django` user with a token that
+can push and open pull requests (`gh auth setup-git` lets git use it). Without
+`RECORDS_REPO`, publishing works and the run notes that nothing was recorded.
 
 ## Manual review
 
@@ -153,7 +175,8 @@ python manage.py add_yaml family_data/review/FixtureNet-run42.yml --run 42 --act
 
 This validates the file with the same model checks, imports it atomically, marks run
 42 as imported, records every change with the file and run in `ImportChange`, and
-writes the reference `family_data/FixtureNet.yml`. New records without a paper link
+records the family like any other publish (an `auto.<family>` pull request; without
+`RECORDS_REPO` it writes `family_data/FixtureNet.yml` locally instead). New records without a paper link
 get the run's arXiv version. `add_yaml` without `--run` still imports a hand-written
 family file. Existing records are never changed without `--allow-updates`.
 
@@ -224,8 +247,8 @@ python manage.py ingest_papers --limit 5 --publish
 ### Scheduled runs on a Mac
 
 `deploy/local-agent/run.sh` opens an SSH tunnel to the server's PostgreSQL, runs
-`ingest_papers`, and copies new PDFs to the server's storage for
-the review page. Configure `~/.config/heedless-agent/env` from `env.example`, then
+`ingest_papers` (validation only), copies new PDFs to the server's storage for the review
+page, and then runs `publish_ready` on the server over SSH (with `PUBLISH=1`). Configure `~/.config/heedless-agent/env` from `env.example`, then
 `deploy/local-agent/install.sh` installs a launchd job that runs every three hours
 while you are logged in (log: `~/Library/Logs/heedless-agent.log`). A run missed while the
 Mac was asleep happens once on wake; during a run the Mac is kept from idle sleep. If a run

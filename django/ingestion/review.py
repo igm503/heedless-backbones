@@ -272,6 +272,7 @@ def page_data(run, show="flagged"):
             "total": len(records), "removed": len(records) - len(active),
             "uncertain": sum(len(record.uncertain) for record in active),
             "agent": next((call for call in run.calls if call.get("stage") == "agent"), None),
+            "records": [call for call in run.calls if call.get("stage") == "records"],
             "editable": run.status != IngestionRun.Status.IMPORTED}
 
 
@@ -331,9 +332,9 @@ def accept(record, field, actor, note):
 
 def approve(run, actor, note, allow_updates=False):
     """Approve the run's proposals and publish; returns the problems that still block it."""
+    from .publication import publish
     approve_run(run, actor, note)
-    problems = apply_run(run, publish=True, actor=actor, allow_updates=allow_updates)
-    return problems
+    return publish(run, actor, allow_updates=allow_updates)
 
 
 def remove(record, actor, note):

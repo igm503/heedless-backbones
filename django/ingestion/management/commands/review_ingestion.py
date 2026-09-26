@@ -52,8 +52,11 @@ class Command(BaseCommand):
             try:
                 if options["approve"]:
                     approve_run(run, options["actor"], options["note"])
-                problems = apply_run(run, publish=options["publish"], actor=options["actor"] or "automatic",
-                                     allow_updates=options["allow_updates"])
+                if options["publish"]:
+                    from ingestion.publication import publish
+                    problems = publish(run, options["actor"] or "automatic", allow_updates=options["allow_updates"])
+                else:
+                    problems = apply_run(run, actor=options["actor"] or "automatic", allow_updates=options["allow_updates"])
             except ValueError as exc:
                 raise CommandError(str(exc)) from exc
             if problems:

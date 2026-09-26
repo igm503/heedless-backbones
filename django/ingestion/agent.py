@@ -375,7 +375,11 @@ def submit(folder, run=None, agent=None, publish=False, actor="agent"):
         run.finished_at = timezone.now()
         run.save(update_fields=["status", "finished_at"])
         return run
-    apply_run(run, publish=publish, actor=actor)
+    if publish:
+        from .publication import publish as publish_run
+        publish_run(run, actor)
+    else:
+        apply_run(run, actor=actor)  # Validation only: a clean run is left ready to publish.
     run.finished_at = timezone.now()
     run.save(update_fields=["finished_at"])
     return run

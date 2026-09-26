@@ -179,13 +179,6 @@ class ImportTests(TestCase):
         with self.assertRaisesMessage(CommandError, "already been imported"):
             call_command("add_yaml", str(draft_path), run=self.run.pk)
 
-    def test_publish_writes_reference_yaml(self):
-        self.assertEqual(apply_run(self.run, publish=True), [])
-        reference = yaml.safe_load((Path(settings.FAMILY_DATA_DIR) / "FixtureNet.yml").read_text())
-        self.assertEqual(reference["model_type"], "Convolution")
-        self.assertEqual(reference["paper"], self.paper.url)
-        self.assertEqual(reference["backbones"][0]["pretrained_backbones"][0]["classification_results"][0]["top_1"], 83.1)
-
     def test_conflicting_existing_result_is_not_overwritten(self):
         self.assertEqual(apply_run(self.run, publish=True), [])
         result = InstanceResult.objects.get(pretrained_backbone__name="FixtureNet-T-IN1k")

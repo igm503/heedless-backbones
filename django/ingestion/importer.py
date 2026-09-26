@@ -337,7 +337,7 @@ def apply_run(run, *, publish=False, actor="automatic", allow_updates=False):
                    .select_related("run__paper").order_by("pk"))
     for record in records:
         record.issues = []
-    problem, families = None, []
+    problem = None
     try:
         with transaction.atomic():
             lock_imports()
@@ -356,7 +356,6 @@ def apply_run(run, *, publish=False, actor="automatic", allow_updates=False):
             resolved = apply_all(((record.key, record) for record in records),
                                  lambda record, resolved: apply_record(record, resolved, actor, allow_updates))
             if publish:
-                families = families_of(obj for obj in resolved.values() if obj is not None)
                 run.records.exclude(kind="category").exclude(status=ExtractedRecord.Status.REJECTED).update(
                     status=ExtractedRecord.Status.IMPORTED)
                 run.status = IngestionRun.Status.IMPORTED
@@ -376,10 +375,6 @@ def apply_run(run, *, publish=False, actor="automatic", allow_updates=False):
         if not publish:
             run.status = IngestionRun.Status.READY
         run.error = ""
-        if families:
-            _, errors = write_family_files(families)
-            if errors:
-                run.error = "Imported, but YAML was not written: " + "; ".join(errors)
     for record in records:
         record.save(update_fields=["issues"])
     run.save(update_fields=["status", "error"])

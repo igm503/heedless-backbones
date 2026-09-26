@@ -36,6 +36,12 @@ class Command(BaseCommand):
                                      allow_updates=options["allow_updates"])
         except (ImportProblem, ValueError, ValidationError) as exc:
             raise CommandError(f"Nothing was imported: {exc}") from exc
+        from ingestion.publication import configured, record
+        if configured():
+            # Recorded like every other publish: an auto.<family> branch and pull request each.
+            for outcome in record([run] if run else [], families=families):
+                self.stdout.write(self.style.SUCCESS(f"Imported; recorded: {outcome}"))
+            return
         written, errors = write_family_files(families)
         for written_path in written:
             self.stdout.write(self.style.SUCCESS(f"Imported; reference YAML: {written_path}"))

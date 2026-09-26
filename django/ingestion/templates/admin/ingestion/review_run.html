@@ -32,6 +32,11 @@
   <a href="?show=all" {% if show == "all" %}class="current"{% endif %}>everything</a>
   — {{ total }} records{% if removed %}, {{ removed }} removed{% endif %}
 </p>
+{% for entry in records %}<div class="review-note">
+  {% if entry.url %}Recorded: <a href="{{ entry.url }}" rel="noopener" target="_blank">{{ entry.family }} pull request</a>{% if entry.unchanged %} (unchanged){% endif %}
+  {% elif entry.skipped %}Records for {{ entry.family }}: {{ entry.skipped }}
+  {% else %}<span class="flag flag-issue">record keeping failed</span> {{ entry.family }} {{ entry.error }}{% endif %}
+  <small>({{ entry.at|slice:":16" }})</small></div>{% endfor %}
 {% if run.retry_of %}<div class="review-note">Retry of <a href="{% url 'admin:ingestion_review_run' run.retry_of.pk %}">run {{ run.retry_of.pk }}</a>. Feedback: {{ run.feedback }}</div>{% endif %}
 {% for retry in run.retries.all %}<div class="review-note">Retried as <a href="{% url 'admin:ingestion_review_run' retry.pk %}">run {{ retry.pk }}</a> ({{ retry.get_status_display }}).</div>{% endfor %}
 {% if agent %}<details class="review-note"><summary><strong>Agent summary</strong> ({{ agent.turns }} turns, {{ agent.seconds }} s)</summary>{{ agent.summary|linebreaksbr }}</details>{% endif %}

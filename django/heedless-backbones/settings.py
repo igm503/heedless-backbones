@@ -166,3 +166,8 @@ FAMILY_DATA_DIR = Path(os.getenv("FAMILY_DATA_DIR", BASE_DIR.parent / "family_da
 
 # Eval mode results (evaluate_ingestion); never stored in the database.
 EVAL_DIR = Path(os.getenv("EVAL_DIR", BASE_DIR.parent / "evals"))
+
+# Git records of every publish (ingestion/publication.py): a clone used only for auto.<family>
+# branches and pull requests. Unset disables record keeping.
+RECORDS_REPO = os.getenv("RECORDS_REPO")
+RECORDS_BASE = os.getenv("RECORDS_BASE", "main")
