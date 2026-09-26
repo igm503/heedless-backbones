@@ -22,36 +22,18 @@ In addition, the user interface doesn't allow for interesting queries (e.g. what
 
 Heedless Backbones is an attempt to address these shortcomings of Paperswithcode within the space of computer vision backbones. It is built on a data model that treats pretrained foundation models as first class citizens and because of this allows you to make fairly complicated, interesting visualizations of model performance on different tasks. In addition, for now, I will be solely responsible for entering the data, meaning that while it may take a while before the model you're interested in shows up, once it does, it will have far more metadata than any corresponding entry in Paperswithcode.
 
-## LLM-Assisted Data Entry
+## Paper ingestion
 
-To speed up adding models to the database, I use an LLM (Claude 3.5 Sonnet, currently), to generate yaml files for each model family that I want to add, using research paper pdfs as input. It works alright. If you'd like to use this tool, do the following:
+New models are added by a [paper ingestion job](docs/ingestion.md): Arxiv Troller
+discovery, then local Claude Code sessions that screen abstracts and read shortlisted
+papers in full, following the [data entry guide](docs/data-entry-guide.md). The agent
+checks the paper's official repository, fills gaps in other models' results, validates
+its own output against the paper text, and submits evidence-backed records through an
+audited importer. Uncertain or conflicting data waits for review on a page in the admin
+that shows each value next to a crop of its source. Every added family gets a reference
+YAML file in `family_data/`. The job runs manually, or on a Mac with `deploy/local-agent`.
 
-1. copy the `example.env` file to `.env`
-2. replace ANTHROPY_API_KEY with your Anthropic API key (you can use the Open AI key variable as well, but you'd need to modify the code in `django/stats/management/commands/llm_gen.py`)
-3. move to the `django` directory in your command prompt
-4. run the following command
-
-```
-python manage.py llm_gen [research paper pdf url] [name for the generated yaml file]
-```
-
-That will produce a yaml file in the `family_data/` dir with the name you specified. Once you've looked it over and edited it to your satisfaction, you can add it to the database with
-
-```
-python manage.py add_yaml [name of the generated yaml file]
-```
-
-So, for example, if you wanted to add ConvNeXT, you could do the following:
-
-```
-cd /path-to-this-repo/django
-
-python manage.py llm_gen https://arxiv.org/pdf/2201.03545 ConvNeXT
-
-# edit family_data/ConvNeXT.yaml to your satisfaction
-
-python manage.py add_yaml ConvNeXT
-```
+Hand-written family files can still be imported with `python manage.py add_yaml <file>`.
 
 ## Deployment
 
@@ -62,7 +44,7 @@ I'm running this on a cheap digital ocean server, and you can access it by click
 With the project dependencies installed, run:
 
 ```sh
-python django/manage.py test stats --settings=heedless-backbones.test_settings
+python django/manage.py test stats ingestion --settings=heedless-backbones.test_settings
 ```
 
 The tests load `db.json` into an isolated in-memory SQLite database. They cover
