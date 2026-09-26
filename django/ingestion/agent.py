@@ -18,6 +18,7 @@ import shlex
 import subprocess
 import sys
 import time
+from decimal import Decimal
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -182,6 +183,25 @@ def agent_settings(folder):
     return path
 
 
+def model_used(result, fallback=None):
+    """The model Claude Code ran (the one with the most output in modelUsage), else the fallback."""
+    usage = result.get("modelUsage") or {}
+    if usage:
+        return max(usage, key=lambda name: usage[name].get("outputTokens") or 0)
+    return fallback
+
+
+def add_usage(run, call, share=1):
+    """Add a Claude Code call's tokens and cost to the run (a screening batch is split evenly)."""
+    usage = call.get("usage") or {}
+    inputs = sum(usage.get(key) or 0 for key in ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens"))
+    run.input_tokens += round(inputs / share)
+    run.output_tokens += round((usage.get("output_tokens") or 0) / share)
+    if call.get("cost_usd") is not None:
+        cost = Decimal(str(call["cost_usd"])) / share
+        run.estimated_cost = ((run.estimated_cost or 0) + cost).quantize(Decimal("0.000001"))
+
+
 def run_agent(folder, model=None, timeout=3600, claude="claude"):
     """Run Claude Code in folder; returns the result event (cost, turns, errors) and log path."""
     folder = Path(folder)
@@ -193,7 +213,7 @@ def run_agent(folder, model=None, timeout=3600, claude="claude"):
         command += ["--model", model]
     log_path = folder / "transcript.jsonl"
     started = time.monotonic()
-    result, auth = {}, None
+    result, auth, started_model = {}, None, None
     with open(log_path, "w") as log:
         process = subprocess.Popen(command, cwd=folder, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
                                    env=claude_env(HB_WORK=str(folder)))
@@ -206,7 +226,7 @@ def run_agent(folder, model=None, timeout=3600, claude="claude"):
                 except ValueError:
                     continue
                 if event.get("subtype") == "init":
-                    auth = event.get("apiKeySource")
+                    auth, started_model = event.get("apiKeySource"), event.get("model")
                 if event.get("type") == "result":
                     result = event
                 if time.monotonic() > deadline:
@@ -218,7 +238,7 @@ def run_agent(folder, model=None, timeout=3600, claude="claude"):
     return {"seconds": round(time.monotonic() - started, 1), "transcript": str(log_path),
             "is_error": result.get("is_error", True), "summary": result.get("result", "no result event"),
             "cost_usd": result.get("total_cost_usd"), "turns": result.get("num_turns"),
-            "usage": result.get("usage"), "model": model, "denials": result.get("permission_denials"),
+            "usage": result.get("usage"), "model": model_used(result, started_model or model), "denials": result.get("permission_denials"),
             # "none" means the claude.ai login; anything else is an API credential being billed.
             "auth": auth}
 
@@ -245,7 +265,8 @@ def screen_batch(papers, model=None, timeout=900, claude="claude"):
     decisions = (result.get("structured_output") or {}).get("decisions", [])
     jsonschema.validate({"decisions": decisions}, SCREENING)
     call = {"stage": "abstract", "batch": [paper.arxiv_id for paper in papers], "seconds": round(time.monotonic() - started, 1),
-            "cost_usd": result.get("total_cost_usd"), "usage": result.get("usage"), "session": result.get("session_id")}
+            "cost_usd": result.get("total_cost_usd"), "usage": result.get("usage"), "session": result.get("session_id"),
+            "model": model_used(result, model)}
     return {decision["arxiv_id"]: decision for decision in decisions}, call
 
 
@@ -262,13 +283,15 @@ def screen(papers, batch=20, model=None):
             decisions, call, error = {}, {"stage": "abstract", "error": str(exc)}, f"{type(exc).__name__}: {exc}"
         for paper in group:
             decision = decisions.get(paper.arxiv_id)
-            run = IngestionRun.objects.create(
-                paper=paper, provider="claude-code", model=model or "", prompt_version=prompts.VERSION,
+            run = IngestionRun(
+                paper=paper, provider="claude-code", model=call.get("model") or model or "", prompt_version=prompts.VERSION,
                 code_version=code_version(), calls=[{**call, "decision": decision}], finished_at=timezone.now(),
                 decision={**(decision or {}), "evidence": []},
                 status=(IngestionRun.Status.FAILED if decision is None else
                         IngestionRun.Status.SHORTLISTED if decision["qualifies"] else IngestionRun.Status.REJECTED),
                 error=error or ("" if decision else "No screening decision returned for this paper"))
+            add_usage(run, call, share=len(group))
+            run.save()
             runs.append(run)
     return runs
 
@@ -410,7 +433,8 @@ class AgentRunner:
             prepare(folder, run.paper.arxiv_id, feedback=feedback, previous=previous)
             agent = run_agent(folder, self.model, self.timeout)
             run.model = agent.get("model") or "claude-code"
-            run.save(update_fields=["model"])
+            add_usage(run, agent)
+            run.save(update_fields=["model", "input_tokens", "output_tokens", "estimated_cost"])
             return submit(folder, run=run, agent=agent, publish=self.publish)
         except Exception as exc:
             run.status, run.error = IngestionRun.Status.FAILED, f"{type(exc).__name__}: {exc}"

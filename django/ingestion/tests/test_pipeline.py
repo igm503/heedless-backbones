@@ -18,6 +18,8 @@ def decision(arxiv_id, qualifies):
 def claude_result(decisions, **extra):
     """What `claude -p --output-format json --json-schema ...` prints."""
     return Mock(stdout=json.dumps({"type": "result", "is_error": False, "total_cost_usd": 0.02, "session_id": "s",
+                                   "usage": {"input_tokens": 3000, "output_tokens": 300},
+                                   "modelUsage": {"claude-opus-5-5": {"outputTokens": 300}},
                                    "structured_output": {"decisions": decisions}, **extra}), stderr="")
 
 
@@ -38,7 +40,9 @@ class ScreeningTests(TestCase):
         self.assertIn("--json-schema", command)
         self.assertNotIn("ANTHROPIC_API_KEY", kwargs["env"])
         self.assertEqual([r.status for r in runs], ["shortlisted", "rejected", "failed"])
-        self.assertEqual(runs[0].provider, "claude-code")
+        self.assertEqual((runs[0].provider, runs[0].model), ("claude-code", "claude-opus-5-5"))
+        # The batch's usage is split across its three papers.
+        self.assertEqual((runs[0].input_tokens, runs[0].output_tokens), (1000, 100))
         self.assertEqual(runs[0].calls[0]["stage"], "abstract")
         self.assertEqual([r.pk for r in shortlist(5)], [runs[0].pk])
         # The paper without a decision can be retried; the screened ones are done.

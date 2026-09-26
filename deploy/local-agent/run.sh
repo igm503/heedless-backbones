@@ -21,13 +21,21 @@ TUNNEL=$!
 trap 'kill $TUNNEL 2>/dev/null || true' EXIT
 for _ in $(seq 20); do nc -z localhost "$DB_PORT" 2>/dev/null && break; sleep 0.5; done
 
+# The review page on the server needs the PDFs this run downloads; copy them as papers finish.
+sync_pdfs() {
+  [ -d "$INGESTION_STORAGE/papers" ] || return 0
+  rsync -a --rsync-path="sudo -u django rsync" "$INGESTION_STORAGE/papers/" "$SSH_HOST:$REMOTE_STORAGE/papers/" \
+    || echo "PDF copy to the server failed"
+}
+(while sleep 60; do sync_pdfs; done) &
+SYNC=$!
+trap 'kill $TUNNEL $SYNC 2>/dev/null || true' EXIT
+
 cd "$REPO/django"
 # caffeinate keeps the Mac from idle-sleeping until the run finishes (closing the lid still sleeps it).
 caffeinate -i "$PYTHON" manage.py ingest_papers --limit "${LIMIT:-5}" --screen-limit "${SCREEN_LIMIT:-25}"
-# The review page on the server needs the PDFs this run downloaded.
-if [ -d "$INGESTION_STORAGE/papers" ]; then
-  rsync -a --rsync-path="sudo -u django rsync" "$INGESTION_STORAGE/papers/" "$SSH_HOST:$REMOTE_STORAGE/papers/"
-fi
+kill $SYNC 2>/dev/null || true
+sync_pdfs
 # Publishing happens on the server, through the same function as approvals on the review page.
 if [ -n "${PUBLISH:-}" ]; then
   ssh "$SSH_HOST" "cd ${REMOTE_DJANGO:-/home/django/heedless-backbones/django} && sudo -u django ../venv/bin/python \

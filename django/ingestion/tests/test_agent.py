@@ -1,5 +1,6 @@
 import json
 import tempfile
+from decimal import Decimal
 from io import StringIO
 from pathlib import Path
 from unittest.mock import MagicMock, Mock, patch
@@ -114,7 +115,8 @@ class AgentTests(TestCase):
         self.assertTrue(report["publishable"], report)
 
     def test_orchestrator_confines_claude_code(self):
-        events = [json.dumps({"type": "assistant"}) + "\n",
+        events = [json.dumps({"type": "system", "subtype": "init", "model": "claude-opus-5-5", "apiKeySource": "none"}) + "\n",
+                  json.dumps({"type": "assistant"}) + "\n",
                   json.dumps({"type": "result", "is_error": False, "result": "Done", "total_cost_usd": 2.5,
                               "num_turns": 12, "usage": {"input_tokens": 10, "output_tokens": 20}}) + "\n"]
         process = MagicMock(stdout=iter(events))
@@ -122,9 +124,11 @@ class AgentTests(TestCase):
         (folder.path / "prompt.md").write_text("Extract.")
         with patch("ingestion.agent.subprocess.Popen", return_value=process) as popen, \
                 patch.dict("os.environ", {"ANTHROPIC_API_KEY": "sk-test", "ANTHROPIC_AUTH_TOKEN": "t"}):
-            result = agent.run_agent(folder.path, model="claude-opus-5-5")
+            result = agent.run_agent(folder.path)
         command, kwargs = popen.call_args.args[0], popen.call_args.kwargs
         self.assertEqual((result["cost_usd"], result["turns"], result["is_error"]), (2.5, 12, False))
+        self.assertEqual((result["model"], result["auth"]), ("claude-opus-5-5", "none"))  # the default model, as run
+        self.assertNotIn("--model", command)
         self.assertEqual(kwargs["cwd"], folder.path)
         # Sessions use the claude.ai login, never an API key.
         self.assertFalse({"ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN"} & set(kwargs["env"]))
@@ -140,11 +144,13 @@ class AgentTests(TestCase):
         run = IngestionRun.objects.create(paper=paper, status="shortlisted", provider="anthropic", decision=decision())
         folder = WorkFolder(extraction())
         with patch("ingestion.agent.prepare", return_value=folder.path), \
-                patch("ingestion.agent.run_agent", return_value={"model": "claude-opus-5-5", "cost_usd": 1.0}), \
+                patch("ingestion.agent.run_agent", return_value={"model": "claude-opus-5-5", "cost_usd": 1.0, "usage": {
+                    "input_tokens": 10, "cache_read_input_tokens": 1000, "output_tokens": 50}}), \
                 patch.object(agent.AgentRunner, "folder_for", return_value=folder.path):
             result = agent.AgentRunner(publish=True).read(run)
         self.assertEqual(result.status, "imported", result.error)
-        self.assertEqual(result.provider, "claude-code")
+        self.assertEqual((result.provider, result.model), ("claude-code", "claude-opus-5-5"))
+        self.assertEqual((result.input_tokens, result.output_tokens, result.estimated_cost), (1010, 50, Decimal("1")))
         self.assertTrue(BackboneFamily.objects.filter(name="FixtureNet").exists())
 
     def test_lookup_is_read_only_and_hides_eval_families(self):
