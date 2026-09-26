@@ -142,14 +142,28 @@ latest `main` with
 - the README's model table (a row with the date the family was first published) and an
   Updates entry,
 
-commits it ("Add <family>" or "Update <family>"), force-pushes, and opens or updates a pull
-request describing what was added. The run's review page links the pull request (or shows
+commits it, force-pushes, and opens or updates a pull request describing what was added.
+The commit and the pull request share a title such as "Adds LocalViT (Attn + Conv,
+isotropic), arXiv 2104.05707.", so a squash merge lands on `main` with it. The branch also
+adds the family to the README's model table and Updates list and to the about page's
+Latest Updates. The run's review page links the pull request (or shows
 why recording failed; the publish itself always stands).
 
 Merge the pull requests on GitHub in any order. Because the generated files are rebuilt
-rather than merged, the other open auto branches are rebuilt on the new `main` at the next
-publish or scheduled run, or at once with *Refresh auto PRs* on the review list
-(`manage.py refresh_auto_prs`).
+rather than merged, the other open auto branches are rebuilt on the new `main`: within 30
+seconds by the sync timer below, at the next publish, or at once with *Refresh auto PRs* on
+the review list (`manage.py refresh_auto_prs`).
+
+**Sync timer.** `deploy/server/sync-main.sh`, run every 30 seconds by
+`heedless-sync.timer`, checks GitHub's `main` (one `git ls-remote`). When it has moved, it
+deploys it to the site (fast-forward pull, `pip install` if requirements changed, `migrate`,
+`collectstatic`, graceful gunicorn reload) and then refreshes the auto pull requests. So
+**anything merged to `main` goes live within about 30 seconds.** It never runs
+`makemigrations` or loads `db.json` (that would overwrite rows published since the dump).
+Install: `sudo cp deploy/server/heedless-sync.{service,timer} /etc/systemd/system/ && sudo
+systemctl daemon-reload && sudo systemctl enable --now heedless-sync.timer`; logs with
+`journalctl -u heedless-sync`. If the site's checkout has local commits, the pull refuses and
+each tick logs the failure until that is resolved.
 
 Server setup: `RECORDS_REPO` points at a clone used only for this (never the site's
 checkout), with a git identity, and `gh` logged in as the `django` user with a token that

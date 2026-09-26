@@ -1,0 +1,9 @@
+[Unit]
+Description=Deploy main and refresh auto pull requests when GitHub's main moves
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=django
+Environment=XDG_RUNTIME_DIR=/run/user/999 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/999/bus
+ExecStart=/home/django/heedless-backbones/deploy/server/sync-main.sh
