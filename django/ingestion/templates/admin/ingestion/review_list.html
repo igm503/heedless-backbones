@@ -1,0 +1,28 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h2>Waiting for review</h2>
+{% if pending %}
+<table>
+  <tr><th>Run</th><th>Paper</th><th>Engine</th><th>Status</th><th>Why</th></tr>
+  {% for run in pending %}
+  <tr><td><a href="{% url 'admin:ingestion_review_run' run.pk %}">{{ run.pk }}</a></td><td>{{ run.paper }}</td>
+      <td>{{ run.provider }} {{ run.model }}</td><td>{{ run.get_status_display }}</td>
+      <td>{% if run.retry_of_id %}Retry of run {{ run.retry_of_id }}. {% endif %}{{ run.error|truncatechars:160 }}</td></tr>
+  {% endfor %}
+</table>
+{% else %}<p>Nothing is waiting for review.</p>{% endif %}
+{% if retries %}<h2>Retries waiting for the agent</h2>
+<table>
+  <tr><th>Run</th><th>Paper</th><th>Feedback</th></tr>
+  {% for run in retries %}<tr><td>{{ run.pk }}</td><td>{{ run.paper }}</td><td>{{ run.feedback|truncatechars:200 }}</td></tr>{% endfor %}
+</table>{% endif %}
+<h2>Audit imported runs</h2>
+<table>
+  <tr><th>Run</th><th>Paper</th><th>Engine</th><th>Finished</th></tr>
+  {% for run in imported %}
+  <tr><td><a href="{% url 'admin:ingestion_review_run' run.pk %}?show=all">{{ run.pk }}</a></td><td>{{ run.paper }}</td>
+      <td>{{ run.provider }} {{ run.model }}</td><td>{{ run.finished_at|date:"Y-m-d H:i" }}</td></tr>
+  {% empty %}<tr><td colspan="4">No imported runs yet.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

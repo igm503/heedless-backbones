@@ -3,6 +3,8 @@ from enum import Enum
 from django.db import models
 from django.core.exceptions import ValidationError
 
+from .categories import validate_category
+
 
 class PretrainMethod(Enum):
     SUPERVISED = "Supervised"
@@ -56,6 +58,39 @@ class Precision(Enum):
 INSTANCE_TASKS = [TaskType.DETECTION.value, TaskType.INSTANCE_SEG.value]
 
 
+class SourcedModel(models.Model):
+    source_record = models.ForeignKey(
+        "ingestion.ExtractedRecord", null=True, blank=True,
+        on_delete=models.PROTECT, related_name="+", editable=False,
+    )
+
+    class Meta:
+        abstract = True
+
+
+class Category(models.Model):
+    """A token mixer or pretraining method approved in addition to the built-in enums."""
+
+    class Scope(models.TextChoices):
+        MODEL_TYPE = "model_type"
+        PRETRAIN_METHOD = "pretrain_method"
+
+    objects = models.Manager()
+
+    scope = models.CharField(max_length=20, choices=Scope)
+    name = models.CharField(max_length=100)
+    approved_by = models.CharField(max_length=150)
+    approved_at = models.DateTimeField(auto_now_add=True)
+    note = models.TextField()
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=["scope", "name"], name="unique_category")]
+        verbose_name_plural = "categories"
+
+    def __str__(self):
+        return f"{self.scope}: {self.name}"
+
+
 class Task(models.Model):
     objects = models.Manager()
 
@@ -65,7 +100,7 @@ class Task(models.Model):
         return str(self.name)
 
 
-class Dataset(models.Model):
+class Dataset(SourcedModel):
     objects = models.Manager()
 
     name = models.CharField(max_length=100)
@@ -77,7 +112,7 @@ class Dataset(models.Model):
         return str(self.name)
 
 
-class DownstreamHead(models.Model):
+class DownstreamHead(SourcedModel):
     objects = models.Manager()
 
     name = models.CharField(max_length=100)
@@ -89,7 +124,7 @@ class DownstreamHead(models.Model):
         return str(self.name)
 
 
-class FPSMeasurement(models.Model):
+class FPSMeasurement(SourcedModel):
     objects = models.Manager()
 
     backbone_name = models.CharField(max_length=100)
@@ -119,22 +154,20 @@ class FPSMeasurement(models.Model):
         return string
 
 
-class BackboneFamily(models.Model):
+class BackboneFamily(SourcedModel):
     objects = models.Manager()
 
     name = models.CharField(max_length=100, unique=True)
-    model_type = models.CharField(
-        max_length=100, choices={name.value: name.value for name in TokenMixer}
-    )
+    model_type = models.CharField(max_length=100)
     hierarchical = models.BooleanField()
-    pretrain_method = models.CharField(
-        max_length=100, choices={name.value: name.value for name in PretrainMethod}
-    )
+    pretrain_method = models.CharField(max_length=100)
     pub_date = models.DateField()
     paper = models.URLField(blank=True)
     github = models.URLField(blank=True)
 
     def clean(self):
+        validate_category("model_type", self.model_type)
+        validate_category("pretrain_method", self.pretrain_method)
         if not (self.paper or self.github):
             raise ValidationError("Either paper or github must be provided")
 
@@ -146,7 +179,7 @@ class BackboneFamily(models.Model):
         return str(self.name)
 
 
-class Backbone(models.Model):
+class Backbone(SourcedModel):
     objects = models.Manager()
 
     name = models.CharField(max_length=100, unique=True)
@@ -160,7 +193,7 @@ class Backbone(models.Model):
         return str(self.name)
 
 
-class PretrainedBackbone(models.Model):
+class PretrainedBackbone(SourcedModel):
     objects = models.Manager()
 
     name = models.CharField(max_length=100, unique=True)
@@ -171,19 +204,20 @@ class PretrainedBackbone(models.Model):
         on_delete=models.RESTRICT,
         limit_choices_to={"tasks__name": TaskType.CLASSIFICATION.value},
     )
-    pretrain_method = models.CharField(
-        max_length=100, choices={name.value: name.value for name in PretrainMethod}
-    )
+    pretrain_method = models.CharField(max_length=100)
     pretrain_resolution = models.IntegerField()
-    pretrain_epochs = models.IntegerField()
+    pretrain_epochs = models.FloatField()
     paper = models.URLField(blank=True)
     github = models.URLField(blank=True)
 
     def __str__(self):
         return str(self.name)
 
+    def clean(self):
+        validate_category("pretrain_method", self.pretrain_method)
 
-class ClassificationResult(models.Model):
+
+class ClassificationResult(SourcedModel):
     objects = models.Manager()
 
     pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.CASCADE)
@@ -201,7 +235,7 @@ class ClassificationResult(models.Model):
         blank=True,
         null=True,
     )
-    fine_tune_epochs = models.IntegerField(blank=True, null=True)
+    fine_tune_epochs = models.FloatField(blank=True, null=True)
     fine_tune_resolution = models.IntegerField(blank=True, null=True)
     intermediate_fine_tune_dataset = models.ForeignKey(
         Dataset,
@@ -211,7 +245,7 @@ class ClassificationResult(models.Model):
         blank=True,
         null=True,
     )
-    intermediate_fine_tune_epochs = models.IntegerField(blank=True, null=True)
+    intermediate_fine_tune_epochs = models.FloatField(blank=True, null=True)
     intermediate_fine_tune_resolution = models.IntegerField(blank=True, null=True)
     # MCE for Imagenet-C, CE for Imagenet-C-bar
     top_1 = models.FloatField()
@@ -268,7 +302,7 @@ class ClassificationResult(models.Model):
         return string
 
 
-class InstanceResult(models.Model):
+class InstanceResult(SourcedModel):
     objects = models.Manager()
 
     pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.CASCADE)
@@ -285,7 +319,7 @@ class InstanceResult(models.Model):
         related_name="instance_train",
         limit_choices_to={"tasks__name__in": INSTANCE_TASKS},
     )
-    train_epochs = models.IntegerField()
+    train_epochs = models.FloatField()
     intermediate_train_dataset = models.ForeignKey(
         Dataset,
         on_delete=models.RESTRICT,
@@ -294,7 +328,7 @@ class InstanceResult(models.Model):
         blank=True,
         null=True,
     )
-    intermediate_train_epochs = models.IntegerField(blank=True, null=True)
+    intermediate_train_epochs = models.FloatField(blank=True, null=True)
     mAP = models.FloatField()
     AP50 = models.FloatField(null=True, blank=True)
     AP75 = models.FloatField(null=True, blank=True)
@@ -332,7 +366,7 @@ class InstanceResult(models.Model):
         return string
 
 
-class SemanticSegmentationResult(models.Model):
+class SemanticSegmentationResult(SourcedModel):
     objects = models.Manager()
     pretrained_backbone = models.ForeignKey(PretrainedBackbone, on_delete=models.CASCADE)
     head = models.ForeignKey(DownstreamHead, on_delete=models.RESTRICT)
@@ -347,7 +381,7 @@ class SemanticSegmentationResult(models.Model):
         related_name="semantic_seg_train",
         limit_choices_to={"tasks__name": TaskType.SEMANTIC_SEG.value},
     )
-    train_epochs = models.IntegerField()
+    train_epochs = models.FloatField()
     intermediate_train_dataset = models.ForeignKey(
         Dataset,
         on_delete=models.RESTRICT,
@@ -356,7 +390,7 @@ class SemanticSegmentationResult(models.Model):
         blank=True,
         null=True,
     )
-    intermediate_train_epochs = models.IntegerField(blank=True, null=True)
+    intermediate_train_epochs = models.FloatField(blank=True, null=True)
     crop_size = models.IntegerField()
 
     ms_m_iou = models.FloatField(blank=True, null=True)

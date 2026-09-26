@@ -46,18 +46,20 @@ def get_value(pb, result, attr):
 
 def get_nested_attr(obj, attr_path):
     for attr in attr_path:
+        if obj is None:
+            return "Unknown"
         obj = getattr(obj, attr)
-    return str(obj)
+    return format_number(obj) if attr_path[-1].endswith("epochs") else str(obj)
 
 
 def get_train_string(result):
     dataset = result.train_dataset.name if result.train_dataset else None
-    training = f"{dataset} : {result.train_epochs}"
+    training = f"{dataset} : {format_number(result.train_epochs)}"
     if hasattr(result, "crop_size"):
         training += f" : {result.crop_size}"
     if result.intermediate_train_dataset is not None:
         int_dataset = result.intermediate_train_dataset.name
-        intermediate = f"{int_dataset} : {result.intermediate_train_epochs}"
+        intermediate = f"{int_dataset} : {format_number(result.intermediate_train_epochs)}"
         training = intermediate + " &rarr; " + training
     training = training.replace("None", "&mdash;")
     return training
@@ -65,10 +67,10 @@ def get_train_string(result):
 
 def get_finetune_string(result):
     ft_dataset = result.fine_tune_dataset.name if result.fine_tune_dataset else None
-    finetune = f"{ft_dataset} : {result.fine_tune_epochs} : {result.fine_tune_resolution}"
+    finetune = f"{ft_dataset} : {format_number(result.fine_tune_epochs)} : {result.fine_tune_resolution}"
     if result.intermediate_fine_tune_dataset is not None:
         int_dataset = result.intermediate_fine_tune_dataset.name
-        intermediate = f"{int_dataset} : {result.intermediate_fine_tune_epochs} : {result.intermediate_fine_tune_resolution}"
+        intermediate = f"{int_dataset} : {format_number(result.intermediate_fine_tune_epochs)} : {result.intermediate_fine_tune_resolution}"
         finetune = intermediate + " &rarr; " + finetune
     finetune = finetune.replace("ImageNet", "IN")
     finetune = finetune.replace("None", "&mdash;")
@@ -76,10 +78,14 @@ def get_finetune_string(result):
 
 
 def get_pretrain_string(pb):
-    pt_dataset = pb.pretrain_dataset.name
+    pt_dataset = pb.pretrain_dataset.name if pb.pretrain_dataset else "&mdash;"
     if "ImageNet" in pt_dataset:
         pt_dataset = pt_dataset.replace("ImageNet", "IN")
     pretrain_method = pb.pretrain_method
     if pretrain_method == PretrainMethod.SUPERVISED.value:
         pretrain_method = "Sup."
-    return f"{pt_dataset} : {pretrain_method} : {pb.pretrain_epochs}"
+    return f"{pt_dataset} : {pretrain_method} : {format_number(pb.pretrain_epochs)}".replace("None", "&mdash;")
+
+
+def format_number(value):
+    return f"{value:g}" if isinstance(value, float) else str(value)

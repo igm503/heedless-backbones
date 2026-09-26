@@ -23,9 +23,6 @@ family_plot, family_table = None, None
 head_plot, head_table = None, None
 dataset_plot, dataset_table = None, None
 
-dataset_lists = None
-head_lists = None
-family_list = None
 
 
 def all(request):
@@ -166,23 +163,17 @@ def dataset(request, dataset_name):
 
 
 def datasets(request):
-    global dataset_lists
-    if dataset_lists is None:
-        dataset_lists = get_dataset_lists()
+    dataset_lists = get_dataset_lists()
     return render(request, "stats/datasets.html", {"datasets": dataset_lists})
 
 
 def families(request):
-    global family_list
-    if family_list is None:
-        family_list = get_family_list()
+    family_list = get_family_list()
     return render(request, "stats/families.html", {"families": family_list})
 
 
 def heads(request):
-    global head_lists
-    if head_lists is None:
-        head_lists = get_head_lists()
+    head_lists = get_head_lists()
     return render(request, "stats/heads.html", {"heads": head_lists})
 
 

@@ -2,6 +2,8 @@ from collections import Counter
 
 from django import forms
 
+from .categories import choices as category_choices
+
 from .models import (
     Task,
     InstanceResult,
@@ -12,7 +14,6 @@ from .models import (
     TaskType,
     GPU,
     Precision,
-    PretrainMethod,
 )
 from .constants import (
     AXIS_CHOICES,
@@ -127,8 +128,7 @@ class PlotForm(forms.Form):
             required=False,
         )
         pretrain_methods = {"": "----------"}
-        for name in PretrainMethod:
-            pretrain_methods[name.value] = name.value
+        pretrain_methods.update(category_choices("pretrain_method"))
         self.fields["_pretrain_method"] = forms.ChoiceField(
             choices=pretrain_methods, required=False
         )

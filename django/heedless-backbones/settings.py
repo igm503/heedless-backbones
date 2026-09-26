@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 INSTALLED_APPS = [
     "stats.apps.StatsConfig",
+    "ingestion.apps.IngestionConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -156,3 +157,12 @@ LOGGING = {
         },
     },
 }
+
+# Paper artifacts are private: serve evidence through the authenticated admin.
+MEDIA_ROOT = Path(os.getenv("INGESTION_STORAGE", BASE_DIR.parent / "ingestion_data"))
+
+# Reference YAML for each model family; review drafts go in its review/ subdirectory.
+FAMILY_DATA_DIR = Path(os.getenv("FAMILY_DATA_DIR", BASE_DIR.parent / "family_data"))
+
+# Eval mode results (evaluate_ingestion); never stored in the database.
+EVAL_DIR = Path(os.getenv("EVAL_DIR", BASE_DIR.parent / "evals"))

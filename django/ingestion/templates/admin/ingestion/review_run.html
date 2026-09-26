@@ -1,0 +1,55 @@
+{% extends "admin/base_site.html" %}
+{% block extrastyle %}{{ block.super }}
+<style>
+  .review-node { border-left: 3px solid var(--hairline-color); margin: 0.5em 0 0.5em 0.4em; padding: 0.2em 0 0.2em 0.9em; }
+  .review-node > summary { cursor: pointer; padding: 0.25em 0; }
+  .review-node .kind { color: var(--body-quiet-color); font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.03em; }
+  .review-node.removed { opacity: 0.55; }
+  .review-note { background: var(--darkened-bg); padding: 0.5em 0.7em; border-radius: 4px; margin: 0.4em 0; }
+  .review-table { width: 100%; margin: 0.3em 0; }
+  .review-table td { vertical-align: top; padding: 0.4em; }
+  .review-table img { max-width: 100%; border: 1px solid var(--hairline-color); }
+  .flag { display: inline-block; font-size: 0.8em; padding: 0 0.4em; border-radius: 3px; margin: 0.1em 0.2em; }
+  .flag-uncertain, .flag-issue { background: #fbd5d5; color: #7a1c1c; }
+  .flag-inferred, .flag-derived, .flag-web { background: #fdf0c2; color: #5b4300; }
+  .flag-override { background: #d6f0d8; color: #1d5a24; }
+  form.inline { display: inline; margin-left: 0.6em; }
+  mark { background: #ffe066; }
+  .review-actions textarea { width: 100%; max-width: 40em; }
+  .filters a.current { font-weight: bold; text-decoration: none; color: var(--body-fg); }
+  .section-title { margin-top: 1.4em; }
+</style>
+{% endblock %}
+{% block content %}
+<p>
+  <a href="{% url 'admin:ingestion_review' %}">All reviews</a> ·
+  Status: <strong>{{ run.get_status_display }}</strong>{% if run.error %} · {{ run.error }}{% endif %} ·
+  <a href="{% url 'admin:ingestion_paperversion_document' run.paper.pk %}">Source PDF</a>
+</p>
+<p class="filters">Show:
+  <a href="?show=uncertain" {% if show == "uncertain" %}class="current"{% endif %}>uncertain only ({{ uncertain }})</a> ·
+  <a href="?show=flagged" {% if show == "flagged" %}class="current"{% endif %}>flagged</a> ·
+  <a href="?show=all" {% if show == "all" %}class="current"{% endif %}>everything</a>
+  — {{ total }} records{% if removed %}, {{ removed }} removed{% endif %}
+</p>
+{% if run.retry_of %}<div class="review-note">Retry of <a href="{% url 'admin:ingestion_review_run' run.retry_of.pk %}">run {{ run.retry_of.pk }}</a>. Feedback: {{ run.feedback }}</div>{% endif %}
+{% for retry in run.retries.all %}<div class="review-note">Retried as <a href="{% url 'admin:ingestion_review_run' retry.pk %}">run {{ retry.pk }}</a> ({{ retry.get_status_display }}).</div>{% endfor %}
+{% if agent %}<details class="review-note"><summary><strong>Agent summary</strong> ({{ agent.turns }} turns, {{ agent.seconds }} s)</summary>{{ agent.summary|linebreaksbr }}</details>{% endif %}
+
+{% if editable %}
+<form method="post" class="review-actions">{% csrf_token %}
+  <p><textarea name="note" rows="2" placeholder="Review note (required to approve or reject)"></textarea></p>
+  <button name="action" value="approve">Approve and publish</button>
+  <button name="action" value="approve_updates">Approve, including corrections to stored data</button>
+  <button name="action" value="reject">Reject</button>
+  <button name="action" value="reject_retry" title="Reject, and have the agent read the paper again with this note as feedback">Reject and retry with this note</button>
+</form>
+{% endif %}
+
+{% if proposals %}<h2 class="section-title">Proposals needing approval</h2>
+  {% for node in proposals %}{% include "admin/ingestion/review_node.html" with child_prefix="proposal" %}{% endfor %}{% endif %}
+{% if families %}<h2 class="section-title">New families</h2>
+  {% for node in families %}{% include "admin/ingestion/review_node.html" %}{% endfor %}{% endif %}
+{% for group in additions %}<h2 class="section-title">{{ group.title }}</h2>
+  {% for node in group.nodes %}{% include "admin/ingestion/review_node.html" %}{% endfor %}{% endfor %}
+{% endblock %}

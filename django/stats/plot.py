@@ -282,7 +282,7 @@ def get_marker_configs(names):
     hue = random.randint(0, 360)
     marker_configs = {}
     for name in names:
-        color = f"hsla({hue},80%,40%,0.8)"
+        color = f"hsla({hue:.6f},80%,40%,0.8)"
         marker_configs[name] = dict(
             size=7, line=dict(width=0, color="black"), color=color
         )

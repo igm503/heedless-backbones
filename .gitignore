@@ -171,3 +171,9 @@ deployment/gunicorn.sh
 deployment/heedless-backbones.service
 deployment/heedless-backbones.nginxconf
 llm_output/
+
+# Downloaded ingestion artifacts and run locks
+ingestion_data/
+
+# Eval mode results
+evals/

@@ -1,0 +1,82 @@
+{% if node.visible %}
+<details class="review-node{% if node.removed %} removed{% endif %}" id="{{ prefix|default:'record' }}-{{ node.record.pk }}" {% if not node.removed %}open{% endif %}>
+  <summary>
+    <span class="kind">{{ node.kind }}</span> <strong>{{ node.label }}</strong>
+    {% if node.uncertain %}<span class="flag flag-uncertain">{{ node.uncertain }} uncertain</span>{% endif %}
+    {% for issue in node.record.issues %}<span class="flag flag-issue" title="{{ issue }}">problem</span>{% endfor %}
+    {% for change in node.changes %}<span class="flag flag-override">stored as {{ change.model }} #{{ change.object_id }}</span>{% endfor %}
+    {% if node.removed %}<span class="flag flag-issue">removed</span> <small>{{ node.record.review_note }}</small>{% endif %}
+    {% if editable %}
+      {% if node.removed and node.removal_root %}
+      <form method="post" class="inline" onclick="event.stopPropagation()">{% csrf_token %}
+        <input type="hidden" name="record" value="{{ node.record.pk }}"><button name="action" value="restore">Restore</button>
+      </form>
+      {% elif not node.removed %}
+      <form method="post" class="inline" onclick="event.stopPropagation()">{% csrf_token %}
+        <input type="hidden" name="record" value="{{ node.record.pk }}">
+        <input name="note" placeholder="why remove (optional)" size="18">
+        <button name="action" value="remove" title="Remove this and everything under it">Remove</button>
+      </form>
+      {% endif %}
+    {% endif %}
+  </summary>
+  {% if node.record.note and node.attention %}<div class="review-note"><strong>Agent note:</strong> {{ node.record.note }}</div>{% endif %}
+  {% for issue in node.record.issues %}<div class="review-note"><span class="flag flag-issue">problem</span> {{ issue }}</div>{% endfor %}
+  {% if node.rows %}
+  <table class="review-table">
+    {% for row in node.rows %}
+    <tr>
+      <td style="width: 24%">
+        <strong>{{ row.name }}</strong> <code>{{ row.display|default:row.value }}</code><br>
+        {% if row.uncertain %}<span class="flag flag-uncertain">uncertain</span> {{ row.uncertain }}<br>
+          {% if editable and not node.removed %}
+          <form method="post">{% csrf_token %}
+            <input type="hidden" name="action" value="accept"><input type="hidden" name="record" value="{{ node.record.pk }}">
+            <input type="hidden" name="field" value="{{ row.name }}">
+            <input name="note" placeholder="why it is right (optional)" size="20"> <button>Accept value</button>
+          </form>
+          {% endif %}
+        {% endif %}
+        {% if row.inferred %}<span class="flag flag-inferred">inferred</span> {{ row.inferred }}<br>{% endif %}
+        {% if row.override %}<span class="flag flag-override">corrected by {{ row.override.actor }}</span> was <code>{{ row.override.old }}</code>: {{ row.override.note }}<br>{% endif %}
+        {% if row.issue %}<span class="flag flag-issue">problem</span> {{ row.issue }}<br>{% endif %}
+        {% if row.derived %}<span class="flag flag-derived">derived</span>{% endif %}
+        {% if row.web %}<span class="flag flag-web">web source</span>{% endif %}
+        {% if editable and not node.removed and not row.display %}
+        <details><summary>Correct</summary>
+          <form method="post">{% csrf_token %}
+            <input type="hidden" name="action" value="correct"><input type="hidden" name="record" value="{{ node.record.pk }}">
+            <input type="hidden" name="field" value="{{ row.name }}">
+            <input name="value" value="{{ row.value|default_if_none:'' }}" size="14">
+            <input name="note" placeholder="why" size="18"> <button>Save</button>
+          </form>
+        </details>
+        {% endif %}
+      </td>
+      <td>
+        {% for ev in row.evidence %}
+          <div><small>{{ ev.location }}{% if ev.page %}, p. {{ ev.page }}{% endif %}</small></div>
+          {% if ev.url %}
+            <div><a href="{{ ev.url }}" rel="noopener" target="_blank">{{ ev.url }}</a></div>
+            <div class="review-note">…{{ ev.excerpt.0 }}<mark>{{ ev.excerpt.1 }}</mark>{{ ev.excerpt.2 }}…</div>
+          {% else %}
+            <img loading="lazy" alt="{{ ev.quote }}" src="{% url 'admin:ingestion_review_crop' run.pk node.record.pk ev.index %}">
+          {% endif %}
+          {% if ev.derivation %}<div><small>Derived ({{ ev.derivation.method }}):
+            {% for input in ev.derivation.inputs %}{{ input.name }} = {{ input.value }}{% if input.source %} ({{ input.source }}){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}</small></div>{% endif %}
+        {% empty %}<em>No quotation{% if row.inferred %} (inferred){% endif %}</em>
+        {% endfor %}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% elif node.all_rows and show != "all" %}<p class="quiet"><small>{{ node.all_rows }} fields, none flagged.</small></p>{% endif %}
+  {% if node.used_by %}
+  <div class="review-note"><strong>Used by {{ node.used_by|length }} result{{ node.used_by|length|pluralize }}</strong>
+    (shown below; removing this proposal removes them):
+    {% for use in node.used_by %}<a href="#record-{{ use.record.pk }}">{{ use.label }}</a>{% if not forloop.last %}; {% endif %}{% endfor %}
+  </div>
+  {% endif %}
+  {% for child in node.children %}{% include "admin/ingestion/review_node.html" with node=child prefix=child_prefix|default:"record" %}{% endfor %}
+</details>
+{% endif %}

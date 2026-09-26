@@ -3,7 +3,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from django.db import connection
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 from django.test.utils import CaptureQueriesContext
 
 from .form import PlotForm, get_default_request, get_most_common_dataset
@@ -196,7 +196,7 @@ class BenchmarkRenderingTests(TestCase):
 
     def test_page_query_budgets_and_real_plotly_output(self):
         for path, budget in [
-            ("/", 15),
+            ("/", 16),
             ("/families/Swin/", 35),
             ("/heads/Mask R-CNN/", 30),
             ("/datasets/ImageNet-1k/", 25),
@@ -225,3 +225,14 @@ class BenchmarkRenderingTests(TestCase):
             setattr(obj, field, "")
         self.assertEqual(get_paper(result, pb), "family-paper")
         self.assertEqual(get_github(pb), "family-code")
+
+
+class MarkerColorTests(SimpleTestCase):
+    def test_wrapped_hue_is_valid_css(self):
+        from unittest.mock import patch
+        import plotly.graph_objs as go
+        from stats.plot import get_marker_configs
+        with patch("stats.plot.random.randint", return_value=340):
+            markers = get_marker_configs(list(range(54)))
+        for marker in markers.values():
+            go.Scatter(marker=marker)
