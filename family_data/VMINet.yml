@@ -69,7 +69,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 95
+      train_epochs: 128
       crop_size: 512
       ms_m_iou: 42.7
       ms_pixel_accuracy: null
@@ -126,7 +126,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 95
+      train_epochs: 128
       crop_size: 512
       ms_m_iou: 44.8
       ms_pixel_accuracy: null
@@ -183,7 +183,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 95
+      train_epochs: 128
       crop_size: 512
       ms_m_iou: 47.2
       ms_pixel_accuracy: null

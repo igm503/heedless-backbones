@@ -95,7 +95,7 @@ backbones:
     - head: UPerNet
       dataset: Cityscapes (val)
       train_dataset: Cityscapes (train)
-      train_epochs: 128
+      train_epochs: 426.7
       crop_size: 512
       ms_m_iou: 83.5
       ms_pixel_accuracy: null

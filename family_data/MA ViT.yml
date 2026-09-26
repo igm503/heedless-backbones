@@ -65,7 +65,7 @@ backbones:
     - head: Panoptic FPN
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 80
+      train_epochs: 64
       crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -79,7 +79,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 160
+      train_epochs: 128
       crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -201,7 +201,7 @@ backbones:
     - head: Panoptic FPN
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 80
+      train_epochs: 64
       crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -215,7 +215,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 160
+      train_epochs: 128
       crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -337,7 +337,7 @@ backbones:
     - head: Panoptic FPN
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 80
+      train_epochs: 64
       crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -351,7 +351,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 160
+      train_epochs: 128
       crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -473,7 +473,7 @@ backbones:
     - head: Panoptic FPN
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 80
+      train_epochs: 64
       crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -487,7 +487,7 @@ backbones:
     - head: UPerNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 160
+      train_epochs: 128
       crop_size: 512
       ms_m_iou: null
       ms_pixel_accuracy: null

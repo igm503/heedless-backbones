@@ -162,7 +162,7 @@ backbones:
       ss_m_iou: 44.5
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
-      flip_test: false
+      flip_test: true
       gflops: 945
       paper: https://arxiv.org/pdf/2107.00652
       fps_measurements:
@@ -325,7 +325,7 @@ backbones:
       ss_m_iou: 47.6
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
-      flip_test: false
+      flip_test: true
       gflops: 1038
       paper: https://arxiv.org/pdf/2107.00652
       fps_measurements:
@@ -583,7 +583,7 @@ backbones:
       ss_m_iou: 48.1
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
-      flip_test: false
+      flip_test: true
       gflops: 1188
       paper: https://arxiv.org/pdf/2107.00652
       fps_measurements:
@@ -813,7 +813,7 @@ backbones:
       ss_m_iou: 50
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
-      flip_test: false
+      flip_test: true
       gflops: 1841
       paper: https://arxiv.org/pdf/2107.00652
       fps_measurements: []
@@ -1082,7 +1082,7 @@ backbones:
       ss_m_iou: 52.1
       ss_pixel_accuracy: null
       ss_mean_accuracy: null
-      flip_test: false
+      flip_test: true
       gflops: 3230
       paper: https://arxiv.org/pdf/2107.00652
       fps_measurements: []

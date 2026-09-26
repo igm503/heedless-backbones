@@ -101,7 +101,6 @@ backbones:
       top_1: 39.9
       top_5: null
       gflops: 5.7
-      paper: https://doi.org/10.48550/arXiv.2201.03545
       github: https://github.com/DaiShiResearch/TransNeXt
     - dataset: ImageNet-R
       resolution: 224
@@ -114,7 +113,6 @@ backbones:
       top_1: 37.6
       top_5: null
       gflops: 5.7
-      paper: https://doi.org/10.48550/arXiv.2201.03545
       github: https://github.com/DaiShiResearch/TransNeXt
     - dataset: ImageNet-V2
       resolution: 224
@@ -221,7 +219,6 @@ backbones:
       top_1: 43.9
       top_5: null
       gflops: 10.3
-      paper: https://doi.org/10.48550/arXiv.2201.03545
       github: https://github.com/DaiShiResearch/TransNeXt
     - dataset: ImageNet-A
       resolution: 224
@@ -234,7 +231,6 @@ backbones:
       top_1: 52.5
       top_5: null
       gflops: 10.3
-      paper: https://doi.org/10.48550/arXiv.2201.03545
       github: https://github.com/DaiShiResearch/TransNeXt
     - dataset: ImageNet-Sketch
       resolution: 224
@@ -247,7 +243,6 @@ backbones:
       top_1: 74.8
       top_5: null
       gflops: 10.3
-      paper: https://doi.org/10.48550/arXiv.2201.03545
       github: https://github.com/DaiShiResearch/TransNeXt
     - dataset: ImageNet-1k
       resolution: 384
@@ -266,7 +261,6 @@ backbones:
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 5
       fine_tune_resolution: 384
-      paper: https://doi.org/10.48550/arXiv.2201.03545
       github: https://github.com/DaiShiResearch/TransNeXt
     - dataset: ImageNet-R
       resolution: 384
@@ -285,7 +279,6 @@ backbones:
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 5
       fine_tune_resolution: 384
-      paper: https://doi.org/10.48550/arXiv.2201.03545
       github: https://github.com/DaiShiResearch/TransNeXt
     - dataset: ImageNet-V2
       resolution: 384
@@ -401,7 +394,6 @@ backbones:
       top_1: 50.6
       top_5: null
       gflops: 18.4
-      paper: https://doi.org/10.48550/arXiv.2201.03545
       github: https://github.com/DaiShiResearch/TransNeXt
     - dataset: ImageNet-R
       resolution: 224
@@ -414,7 +406,6 @@ backbones:
       top_1: 41.4
       top_5: null
       gflops: 18.4
-      paper: https://doi.org/10.48550/arXiv.2201.03545
       github: https://github.com/DaiShiResearch/TransNeXt
     - dataset: ImageNet-V2
       resolution: 224
@@ -430,7 +421,6 @@ backbones:
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 5
       fine_tune_resolution: 384
-      paper: https://doi.org/10.48550/arXiv.2201.03545
       github: https://github.com/DaiShiResearch/TransNeXt
     - dataset: ImageNet-A
       resolution: 384
@@ -449,7 +439,6 @@ backbones:
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 5
       fine_tune_resolution: 384
-      paper: https://doi.org/10.48550/arXiv.2201.03545
       github: https://github.com/DaiShiResearch/TransNeXt
     - dataset: ImageNet-Sketch
       resolution: 384
@@ -468,7 +457,6 @@ backbones:
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 5
       fine_tune_resolution: 384
-      paper: https://doi.org/10.48550/arXiv.2201.03545
       github: https://github.com/DaiShiResearch/TransNeXt
     instance_results:
     - head: Mask R-CNN
