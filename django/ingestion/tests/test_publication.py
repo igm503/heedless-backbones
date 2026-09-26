@@ -2,7 +2,7 @@ import json
 import subprocess
 import tempfile
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from django.test import TestCase, override_settings
 from django.utils import timezone
@@ -47,7 +47,7 @@ class FakeGitHub:
     """Stands in for the gh CLI: remembers pull requests by branch."""
 
     def __init__(self):
-        self.pulls, self.titles, self.edits = {}, {}, []
+        self.pulls, self.titles, self.bodies, self.edits, self.labels = {}, {}, {}, [], set()
 
     def __call__(self, repo, *args):
         if args[:2] == ("pr", "list"):
@@ -57,7 +57,12 @@ class FakeGitHub:
             branch = args[args.index("--head") + 1]
             self.pulls[branch] = len(self.pulls) + 1
             self.titles[branch] = args[args.index("--title") + 1]
+            self.bodies[branch] = args[args.index("--body") + 1]
+            assert args[args.index("--label") + 1] in self.labels
             return f"https://github.test/pull/{self.pulls[branch]}"
+        if args[:2] == ("label", "create"):
+            self.labels.add(args[2])
+            return ""
         if args[:2] == ("pr", "edit"):
             self.edits.append(args)
             return ""
@@ -134,6 +139,52 @@ class PublicationTests(TestCase):
         self.assertNotIn("unchanged", publication.record([self.run])[0])
         self.assertEqual(git(self.origin, "log", "-1", "--format=%s", "auto.fixturenet"), self.github.titles["auto.fixturenet"])
         self.assertIn("--title", self.github.edits[-1])
+
+    def test_records_are_pushed_and_proposed_as_the_github_app(self):
+        bot = ("heedless-backbones-agent[bot]", "42+heedless-backbones-agent[bot]@users.noreply.github.com")
+        app = Mock(token=Mock(return_value="installation-token"), identity=Mock(return_value=bot))
+        seen = []
+        real_run = subprocess.run
+        def run(command, *args, **kwargs):
+            seen.append((command, kwargs.get("env") or {}))
+            return real_run(command, *args, **kwargs)
+        with patch("ingestion.publication.github_app", return_value=app), \
+                patch("ingestion.publication.subprocess.run", side_effect=run):
+            publication.record([self.published_run()])
+        author = git(self.origin, "log", "-1", "--format=%an <%ae>", "auto.fixturenet")
+        self.assertEqual(author, f"{bot[0]} <{bot[1]}>")
+        self.assertTrue(all(env.get("GH_TOKEN") == "installation-token" for command, env in seen if command[0] == "git"))
+        body = self.github.bodies["auto.fixturenet"]
+        self.assertIn(publication.FOOTER, body)
+        self.assertEqual(self.github.labels, {publication.LABEL})
+
+    def test_app_token_is_signed_by_the_app_key(self):
+        import jwt
+        from cryptography.hazmat.primitives import serialization
+        from cryptography.hazmat.primitives.asymmetric import rsa
+        key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+        path = Path(tempfile.mkdtemp()) / "app.pem"
+        path.write_bytes(key.private_bytes(serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8,
+                                           serialization.NoEncryption()))
+        responses = {"/repos/igm503/heedless-backbones/installation": {"id": 7},
+                     "/app/installations/7/access_tokens": {"token": "ghs_x"},
+                     "/app": {"slug": "heedless-backbones-agent"},
+                     "/users/heedless-backbones-agent[bot]": {"id": 42}}
+        calls = []
+        def request(method, url, headers, timeout):
+            path_ = url.removeprefix(publication.GITHUB_API)
+            calls.append((method, path_, headers.get("Authorization")))
+            return Mock(json=Mock(return_value=responses[path_]), raise_for_status=Mock())
+        app = publication.GitHubApp(123, path, "igm503/heedless-backbones", session=Mock(request=request))
+        self.assertEqual(app.token(), "ghs_x")
+        self.assertEqual(app.token(), "ghs_x")  # cached for the hour
+        self.assertEqual(app.identity(), ("heedless-backbones-agent[bot]",
+                                          "42+heedless-backbones-agent[bot]@users.noreply.github.com"))
+        claims = jwt.decode(calls[0][2].removeprefix("Bearer "), key.public_key(), algorithms=["RS256"])
+        self.assertEqual(claims["iss"], "123")
+        self.assertEqual([c[:2] for c in calls][:2], [("GET", "/repos/igm503/heedless-backbones/installation"),
+                                                     ("POST", "/app/installations/7/access_tokens")])
+        self.assertIsNone(calls[-1][2])  # the bot's public user record needs no auth
 
     def test_open_branches_stay_mergeable_after_one_is_merged(self):
         publication.record([self.published_run()])

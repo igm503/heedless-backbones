@@ -12,12 +12,15 @@ Rebuilding (rather than merging) keeps every open auto branch mergeable: after o
 import fcntl
 import json
 import logging
+import os
 import re
 import subprocess
 import sys
+import time
 from contextlib import contextmanager
 from pathlib import Path
 
+import requests
 from django.apps import apps
 from django.conf import settings
 from django.core import serializers
@@ -36,6 +39,9 @@ from .sources import arxiv_id
 logger = logging.getLogger(__name__)
 MANAGE = Path(__file__).resolve().parents[1] / "manage.py"
 BRANCH_PREFIX = "auto."
+LABEL = "automated"
+FOOTER = "_Opened automatically by the Heedless Backbones ingestion pipeline._"
+GITHUB_API = "https://api.github.com"
 TABLE_HEADER = "| Model | Paper | Added |"
 
 
@@ -253,23 +259,90 @@ def records_lock():
             fcntl.flock(handle, fcntl.LOCK_UN)
 
 
+class GitHubApp:
+    """The GitHub App the records are pushed and proposed as (e.g. heedless-backbones-agent[bot]):
+    a one-hour installation token for git and gh, and the bot's commit identity."""
+
+    def __init__(self, app_id, key_path, repo_slug, session=requests):
+        self.app_id, self.key, self.repo, self.session = str(app_id), Path(key_path).read_text(), repo_slug, session
+        self._token, self._expires, self._identity = None, 0, None
+
+    def jwt(self):
+        import jwt
+        now = int(time.time())
+        return jwt.encode({"iat": now - 60, "exp": now + 540, "iss": self.app_id}, self.key, algorithm="RS256")
+
+    def call(self, method, path, auth=True):
+        headers = {"Accept": "application/vnd.github+json", **({"Authorization": f"Bearer {self.jwt()}"} if auth else {})}
+        response = self.session.request(method, GITHUB_API + path, headers=headers, timeout=30)
+        response.raise_for_status()
+        return response.json()
+
+    def token(self):
+        if self._token is None or time.time() > self._expires - 300:
+            installation = self.call("GET", f"/repos/{self.repo}/installation")
+            self._token = self.call("POST", f"/app/installations/{installation['id']}/access_tokens")["token"]
+            self._expires = time.time() + 3600
+        return self._token
+
+    def identity(self):
+        if self._identity is None:
+            login = self.call("GET", "/app")["slug"] + "[bot]"
+            user = self.call("GET", f"/users/{login}", auth=False)
+            self._identity = (login, f"{user['id']}+{login}@users.noreply.github.com")
+        return self._identity
+
+
+def github_app(path):
+    """The configured GitHub App for the records clone at path, or None (then git and gh use
+    whatever login the server has)."""
+    app_id, key = getattr(settings, "GITHUB_APP_ID", None), getattr(settings, "GITHUB_APP_KEY", None)
+    if not (app_id and key):
+        return None
+    remote = subprocess.run(["git", "-C", str(path), "remote", "get-url", "origin"],
+                            capture_output=True, text=True, check=True).stdout.strip()
+    slug = re.sub(r"\.git$", "", re.split(r"github\.com[:/]", remote)[-1])
+    return GitHubApp(app_id, key, slug)
+
+
 class RecordsRepo:
     """A clone of the repository used only for automatic records (never the site's checkout)."""
 
-    def __init__(self, path, base="main"):
-        self.path, self.base = Path(path), base
+    def __init__(self, path, base="main", app=None):
+        self.path, self.base, self.app = Path(path), base, app
+        self.labelled = False
+
+    def env(self):
+        env = dict(os.environ)
+        if self.app:
+            env["GH_TOKEN"] = self.app.token()
+        return env
 
     def git(self, *args, check=True):
-        result = subprocess.run(["git", "-C", str(self.path), *args], capture_output=True, text=True)
+        options = []
+        if self.app:
+            # Authenticate as the app (its token in GH_TOKEN) and commit as its bot user.
+            name, email = self.app.identity()
+            options = ["-c", "credential.helper=",
+                       "-c", "credential.helper=!f() { echo username=x-access-token; echo \"password=$GH_TOKEN\"; }; f",
+                       "-c", f"user.name={name}", "-c", f"user.email={email}"]
+        result = subprocess.run(["git", *options, "-C", str(self.path), *args], capture_output=True, text=True,
+                                env=self.env())
         if check and result.returncode:
             raise RuntimeError(f"git {' '.join(args[:2])}: {result.stderr.strip() or result.stdout.strip()}")
         return result.stdout.strip()
 
     def gh(self, *args):
-        result = subprocess.run(["gh", *args], capture_output=True, text=True, cwd=self.path)
+        result = subprocess.run(["gh", *args], capture_output=True, text=True, cwd=self.path, env=self.env())
         if result.returncode:
             raise RuntimeError(f"gh {' '.join(args[:2])}: {result.stderr.strip()}")
         return result.stdout.strip()
+
+    def ensure_label(self):
+        if not self.labelled:
+            self.gh("label", "create", LABEL, "--force", "--color", "BFD4F2",
+                    "--description", "Opened by the ingestion pipeline")
+            self.labelled = True
 
     def open_auto_branches(self):
         pulls = json.loads(self.gh("pr", "list", "--state", "open", "--base", self.base,
@@ -310,10 +383,13 @@ class RecordsRepo:
         body = pull_body(family, existed, actor_note)
         pull = open_pulls.get(branch)
         if pull:
-            self.gh("pr", "edit", str(pull["number"]), "--title", title, "--body", body)
+            self.ensure_label()
+            self.gh("pr", "edit", str(pull["number"]), "--title", title, "--body", body, "--add-label", LABEL)
             url = pull["url"]
         else:
-            url = self.gh("pr", "create", "--base", self.base, "--head", branch, "--title", title, "--body", body)
+            self.ensure_label()
+            url = self.gh("pr", "create", "--base", self.base, "--head", branch, "--title", title, "--body", body,
+                          "--label", LABEL)
         return {"family": name, "branch": branch, "url": url}
 
 
@@ -335,6 +411,7 @@ def pull_body(family, existed, actor_note):
     ]
     if actor_note:
         lines.append(f"- {actor_note}")
+    lines += ["", FOOTER]
     return "\n".join(lines)
 
 
@@ -346,7 +423,8 @@ def record(runs, refresh_others=False, families=()):
         note(runs, {"error": "Record keeping is not configured (RECORDS_REPO)"})
         return []
     with records_lock():
-        repo = RecordsRepo(settings.RECORDS_REPO, getattr(settings, "RECORDS_BASE", "main"))
+        repo = RecordsRepo(settings.RECORDS_REPO, getattr(settings, "RECORDS_BASE", "main"),
+                           app=github_app(settings.RECORDS_REPO))
         try:
             repo.git("fetch", "-q", "--prune", "origin")
             open_pulls = repo.open_auto_branches()

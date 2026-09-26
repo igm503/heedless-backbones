@@ -6,10 +6,12 @@ attrs==24.2.0
 blinker==1.8.2
 cachetools==5.5.0
 certifi==2024.7.4
+cffi==2.1.1
 charset-normalizer==3.3.2
 click==8.1.7
 colorama==0.4.6
 contourpy==1.2.1
+cryptography==44.0.2
 cssbeautifier==1.15.1
 cycler==0.12.1
 Django==5.1
@@ -49,10 +51,12 @@ plotly==5.23.0
 protobuf==5.27.3
 psycopg2-binary==2.9.9
 pyarrow==17.0.0
+pycparser==3.0
 pydantic==2.9.2
 pydantic_core==2.23.4
 pydeck==0.9.1
 Pygments==2.18.0
+PyJWT==2.10.1
 pyparsing==3.1.2
 pdfplumber==0.11.9
 python-dateutil==2.9.0.post0
