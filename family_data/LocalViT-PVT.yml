@@ -1,0 +1,26 @@
+name: LocalViT-PVT
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-02-12'
+paper: https://arxiv.org/abs/2104.05707v2
+github: https://github.com/ofsoundof/LocalViT
+backbones:
+- name: LocalViT-PVT
+  m_parameters: 13.5
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LocalViT-PVT-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    github: https://github.com/ofsoundof/LocalViT
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.2
+      top_5: 94.2
+      gflops: 4.8
+    instance_results: []
+    semantic_seg_results: []

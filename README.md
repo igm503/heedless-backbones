@@ -137,9 +137,11 @@ and database query budgets. They do not connect to the database configured in `.
 | VMINet | [arXiv 2501.02040](https://arxiv.org/abs/2501.02040) | 2025-11-08 |
 | GG | [arXiv 2106.02277](https://arxiv.org/abs/2106.02277) | 2026-09-26 |
 | LocalViT | [arXiv 2104.05707](https://arxiv.org/abs/2104.05707) | 2026-09-26 |
+| LocalViT-PVT | [arXiv 2104.05707](https://arxiv.org/abs/2104.05707) | 2026-09-26 |
 
 ## Updates
 
+- 9-26-2026: added LocalViT-PVT
 - 9-26-2026: added LocalViT
 - 9-26-2026: added GG
 - 11-8-2025: added CoCAViT, FractalMamba++, HybridNet, InceptionMamba, Iwin, MAViT, AnchorFormer, Mamba-Adaptor, RecNeXt, S2AFormer, SSViT, A2Mamba, SpaRTAN, UniConvNet, UniNeXt, VCMamba, VMINet
