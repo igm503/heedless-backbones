@@ -227,7 +227,10 @@ python manage.py ingest_papers --limit 5 --publish
 `ingest_papers`, and copies new PDFs to the server's storage for
 the review page. Configure `~/.config/heedless-agent/env` from `env.example`, then
 `deploy/local-agent/install.sh` installs a launchd job that runs every three hours
-while you are logged in (log: `~/Library/Logs/heedless-agent.log`). Uninstall with
+while you are logged in (log: `~/Library/Logs/heedless-agent.log`). A run missed while the
+Mac was asleep happens once on wake; during a run the Mac is kept from idle sleep. If a run
+is cut off anyway (lid closed, shutdown), nothing is half-imported: the paper's run is
+marked failed at the next start and retried, up to three times. Uninstall with
 `launchctl bootout gui/$(id -u)/com.heedlessbackbones.agent`.
 
 ## Review page

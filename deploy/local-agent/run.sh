@@ -21,7 +21,8 @@ trap 'kill $TUNNEL 2>/dev/null || true' EXIT
 for _ in $(seq 20); do nc -z localhost "$DB_PORT" 2>/dev/null && break; sleep 0.5; done
 
 cd "$REPO/django"
-"$PYTHON" manage.py ingest_papers --limit "${LIMIT:-5}" \
+# caffeinate keeps the Mac from idle-sleeping until the run finishes (closing the lid still sleeps it).
+caffeinate -i "$PYTHON" manage.py ingest_papers --limit "${LIMIT:-5}" \
   --screen-limit "${SCREEN_LIMIT:-25}" ${PUBLISH:+--publish}
 # The review page on the server needs the PDFs this run downloaded.
 if [ -d "$INGESTION_STORAGE/papers" ]; then
