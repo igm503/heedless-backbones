@@ -3,11 +3,12 @@ from io import StringIO
 from unittest.mock import MagicMock, Mock, patch
 
 from django.core.management import call_command
+from django.db import OperationalError
 from django.test import TestCase
 
 from ingestion import agent
 from ingestion.models import IngestionRun, PaperVersion
-from ingestion.pipeline import candidates, discover, shortlist
+from ingestion.pipeline import candidates, discover, reconnect, shortlist
 
 
 def decision(arxiv_id, qualifies):
@@ -53,6 +54,17 @@ class ScreeningTests(TestCase):
             runs = agent.screen(self.papers[:2])
         self.assertEqual({r.status for r in runs}, {"failed"})
         self.assertIn("no JSON", runs[0].error)
+
+    def test_a_connection_lost_during_a_session_is_replaced(self):
+        with patch("ingestion.pipeline.connection") as db, patch("ingestion.pipeline.time.sleep") as sleep:
+            db.connection, db.vendor = object(), "postgresql"
+            db.is_usable.return_value = False
+            db.ensure_connection.side_effect = [OperationalError("tunnel down"), None]
+            db.cursor.return_value.__enter__.return_value.fetchone.return_value = (True,)
+            reconnect()
+        self.assertEqual((db.ensure_connection.call_count, sleep.call_count), (2, 1))
+        lock = db.cursor.return_value.__enter__.return_value.execute.call_args.args[0]
+        self.assertIn("pg_try_advisory_lock", lock)  # the run lock is taken again
 
     def test_batch_size(self):
         with patch("ingestion.agent.screen_batch", return_value=({}, {"stage": "abstract"})) as batch:

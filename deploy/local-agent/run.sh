@@ -16,9 +16,14 @@ export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
 export DB_NAME DB_USER DB_PASS INGESTION_STORAGE DB_HOST=localhost DB_PORT="${TUNNEL_PORT:-55432}"
 
 echo "=== $(date -u +%FT%TZ) agent run"
-ssh -N -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -L "$DB_PORT:localhost:5432" "$SSH_HOST" &
+# The tunnel is restarted whenever it drops (a network change, say); the run reconnects to it.
+(while true; do
+  ssh -N -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=6 \
+    -L "$DB_PORT:localhost:5432" "$SSH_HOST" || echo "Database tunnel dropped; reopening"
+  sleep 5
+done) &
 TUNNEL=$!
-trap 'kill $TUNNEL 2>/dev/null || true' EXIT
+trap 'pkill -P $TUNNEL 2>/dev/null; kill $TUNNEL 2>/dev/null || true' EXIT
 for _ in $(seq 20); do nc -z localhost "$DB_PORT" 2>/dev/null && break; sleep 0.5; done
 
 # The review page on the server needs the PDFs this run downloads; copy them as papers finish.
@@ -29,7 +34,7 @@ sync_pdfs() {
 }
 (while sleep 60; do sync_pdfs; done) &
 SYNC=$!
-trap 'kill $TUNNEL $SYNC 2>/dev/null || true' EXIT
+trap 'pkill -P $TUNNEL 2>/dev/null; kill $TUNNEL $SYNC 2>/dev/null || true' EXIT
 
 cd "$REPO/django"
 # caffeinate keeps the Mac from idle-sleeping until the run finishes (closing the lid still sleeps it).

@@ -33,7 +33,7 @@ from .evidence import validate_evidence
 from .importer import REGISTRY, apply_run, check_category
 from .models import ExtractedRecord, IngestionRun, PaperVersion, WebSource
 from .pdf_text import pdf_links
-from .pipeline import code_version, parse_records
+from .pipeline import code_version, parse_records, reconnect
 from .schema import EXTRACTION, SCREENING
 from .sources import fetch_metadata, fetch_pdf
 
@@ -432,11 +432,13 @@ class AgentRunner:
                             for r in run.retry_of.records.order_by("pk")]
             prepare(folder, run.paper.arxiv_id, feedback=feedback, previous=previous)
             agent = run_agent(folder, self.model, self.timeout)
+            reconnect()  # the session can outlast the database connection
             run.model = agent.get("model") or "claude-code"
             add_usage(run, agent)
             run.save(update_fields=["model", "input_tokens", "output_tokens", "estimated_cost"])
             return submit(folder, run=run, agent=agent, publish=self.publish)
         except Exception as exc:
+            reconnect()
             run.status, run.error = IngestionRun.Status.FAILED, f"{type(exc).__name__}: {exc}"
             run.finished_at = timezone.now()
             run.save(update_fields=["status", "error", "finished_at"])

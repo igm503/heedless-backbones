@@ -2,9 +2,11 @@
 import hashlib
 import os
 import subprocess
+import time
 from datetime import timedelta
 from pathlib import Path
 
+from django.db import OperationalError, connection
 from django.db.models import Count, F, Q, Subquery, OuterRef
 from django.utils import timezone
 
@@ -48,6 +50,31 @@ def discover(client, source_tag, target_tag, lookback_days=14):
                 paper.existing_in_database = True
                 paper.save(update_fields=["existing_in_database"])
     return created, missing
+
+
+# pg advisory lock held by the ingest_papers process for its whole run.
+RUN_LOCK = 73410290
+
+
+def reconnect(attempts=10, wait=30):
+    """Replace a database connection that died during a long agent session (the SSH tunnel
+    dropped, say), retrying while the tunnel comes back, and take the run lock again."""
+    if connection.connection is None or connection.is_usable():
+        return
+    for attempt in range(attempts):
+        connection.close()
+        try:
+            connection.ensure_connection()
+            break
+        except OperationalError:
+            if attempt == attempts - 1:
+                raise
+            time.sleep(wait)
+    if connection.vendor == "postgresql":
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT pg_try_advisory_lock(%s)", [RUN_LOCK])
+            if not cursor.fetchone()[0]:
+                raise RuntimeError("Another ingestion job took the run lock while the connection was down")
 
 
 def shortlist(limit):
