@@ -144,6 +144,14 @@ def paper_cell(family):
     return f"[paper]({link})" if link else ""
 
 
+def pull_title(family, existed):
+    """e.g. "Adds LocalViT (Attn + Conv, isotropic), arXiv 2104.05707." """
+    identifier = arxiv_id(family.paper)
+    source = f"arXiv {identifier}" if identifier else family.paper or family.github or "no paper link"
+    return (f"{'Updates' if existed else 'Adds'} {family.name} ({family.model_type}, "
+            f"{'hierarchical' if family.hierarchical else 'isotropic'}), {source}.")
+
+
 def update_readme(text, names):
     """Add model-table rows (and an Updates entry) for families in names that are not listed yet."""
     lines = text.splitlines()
@@ -240,7 +248,7 @@ class RecordsRepo:
         self.git("add", f"family_data/{name}.yml", "db.json", "README.md")
         if not self.git("diff", "--cached", "--name-only"):
             return {"family": name, "skipped": f"{self.base} already has these records"}
-        title = f"{'Update' if existed else 'Add'} {name}"
+        title = pull_title(family, existed)  # also the commit message, so a squash merge lands with it
         self.git("commit", "-q", "-m", title)
         remote_exists = bool(self.git("ls-remote", "--heads", "origin", branch))
         if remote_exists:
@@ -252,7 +260,7 @@ class RecordsRepo:
         body = pull_body(family, existed, actor_note)
         pull = open_pulls.get(branch)
         if pull:
-            self.gh("pr", "edit", str(pull["number"]), "--body", body)
+            self.gh("pr", "edit", str(pull["number"]), "--title", title, "--body", body)
             url = pull["url"]
         else:
             url = self.gh("pr", "create", "--base", self.base, "--head", branch, "--title", title, "--body", body)
