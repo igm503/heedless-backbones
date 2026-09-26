@@ -29,9 +29,6 @@ backbones:
       top_1: 83.5
       top_5: null
       gflops: 5
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
     instance_results:
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -115,9 +112,6 @@ backbones:
       top_1: 84.2
       top_5: null
       gflops: 8
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
     instance_results:
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -201,9 +195,6 @@ backbones:
       top_1: 84.9
       top_5: null
       gflops: 16
-      fine_tune_dataset: ImageNet-1k
-      fine_tune_epochs: 300
-      fine_tune_resolution: 224
     instance_results:
     - head: Mask R-CNN
       dataset: COCO (val)

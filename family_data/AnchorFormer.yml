@@ -26,7 +26,7 @@ backbones:
     - head: Panoptic FPN
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
-      train_epochs: 128
+      train_epochs: 64
       crop_size: 512
       ms_m_iou: 43.81
       ms_pixel_accuracy: null

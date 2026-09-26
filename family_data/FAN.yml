@@ -69,7 +69,7 @@ backbones:
     - head: SETR
       dataset: Cityscapes (val)
       train_dataset: Cityscapes (train)
-      train_epochs: 128
+      train_epochs: 426.7
       crop_size: 1024
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -188,7 +188,7 @@ backbones:
     - head: SETR
       dataset: Cityscapes (val)
       train_dataset: Cityscapes (train)
-      train_epochs: 128
+      train_epochs: 426.7
       crop_size: 1024
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -309,7 +309,7 @@ backbones:
     - head: SETR
       dataset: Cityscapes (val)
       train_dataset: Cityscapes (train)
-      train_epochs: 128
+      train_epochs: 426.7
       crop_size: 1024
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -366,7 +366,7 @@ backbones:
     - head: SETR
       dataset: Cityscapes (val)
       train_dataset: Cityscapes (train)
-      train_epochs: 128
+      train_epochs: 426.7
       crop_size: 1024
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -473,7 +473,7 @@ backbones:
     - head: SETR
       dataset: Cityscapes (val)
       train_dataset: Cityscapes (train)
-      train_epochs: 128
+      train_epochs: 426.7
       crop_size: 1024
       ms_m_iou: null
       ms_pixel_accuracy: null
@@ -615,7 +615,7 @@ backbones:
     - head: SETR
       dataset: Cityscapes (val)
       train_dataset: Cityscapes (train)
-      train_epochs: 128
+      train_epochs: 426.7
       crop_size: 1024
       ms_m_iou: null
       ms_pixel_accuracy: null

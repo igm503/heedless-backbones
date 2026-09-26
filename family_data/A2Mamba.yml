@@ -1,5 +1,5 @@
 name: A2Mamba
-model_type: Attn + Conv
+model_type: Attn + SSM
 hierarchical: true
 pretrain_method: Supervised
 pub_date: '2025-07-22'

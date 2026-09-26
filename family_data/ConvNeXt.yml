@@ -390,6 +390,7 @@ backbones:
       top_1: 73.4
       top_5: null
       gflops: 15.4
+      paper: https://doi.org/10.48550/arXiv.2204.07118
     - dataset: ImageNet-V2
       resolution: 384
       top_1: 74.7
@@ -664,6 +665,7 @@ backbones:
       fine_tune_dataset: ImageNet-1k
       fine_tune_epochs: 30
       fine_tune_resolution: 384
+      paper: https://doi.org/10.48550/arXiv.2204.07118
     instance_results: []
     semantic_seg_results: []
   - name: ConvNeXt-L-IN22k

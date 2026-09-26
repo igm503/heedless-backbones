@@ -1,5 +1,5 @@
 name: FocalNet
-model_type: Attn + Conv
+model_type: Convolution
 hierarchical: true
 pretrain_method: Supervised
 pub_date: '2022-03-22'
