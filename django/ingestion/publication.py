@@ -152,9 +152,7 @@ def pull_title(family, existed):
             f"{'hierarchical' if family.hierarchical else 'isotropic'}), {source}.")
 
 
-def update_readme(text, names):
-    """Add model-table rows (and an Updates entry) for families in names that are not listed yet."""
-    lines = text.splitlines()
+def model_table(lines):
     try:
         header = lines.index(TABLE_HEADER)
     except ValueError:
@@ -162,13 +160,25 @@ def update_readme(text, names):
     end = header + 2
     while end < len(lines) and lines[end].startswith("|"):
         end += 1
+    return header, end
+
+
+def unlisted(readme, names):
+    """(day added, family) for families in names that the README's model table does not list yet."""
+    lines = readme.splitlines()
+    header, end = model_table(lines)
     listed = {line.split("|")[1].strip() for line in lines[header + 2:end]}
-    new = []
-    for family in BackboneFamily.objects.filter(name__in=set(names) - listed).order_by("pk"):
-        day = added_on(family) or timezone.now().date()
-        new.append((day, family))
+    return [(added_on(family) or timezone.now().date(), family)
+            for family in BackboneFamily.objects.filter(name__in=set(names) - listed).order_by("pk")]
+
+
+def update_readme(text, names):
+    """Add model-table rows (and an Updates entry) for families in names that are not listed yet."""
+    new = unlisted(text, names)
     if not new:
         return text
+    lines = text.splitlines()
+    header, end = model_table(lines)
     rows = [f"| {family.name} | {paper_cell(family)} | {day.isoformat()} |" for day, family in new]
     lines[end:end] = rows
     try:
@@ -181,6 +191,43 @@ def update_readme(text, names):
         lines[updates + 2:updates + 2] = entries
     except ValueError:
         pass
+    return "\n".join(lines) + "\n"
+
+
+ABOUT = Path("django/stats/templates/stats/about.html")
+UPDATES_START = '<div class="drawerContents show"'
+
+
+def update_about(text, new):
+    """Add "Added <family>" to the about page's Latest Updates, under each family's day."""
+    lines = text.splitlines()
+    try:
+        heading = next(i for i, line in enumerate(lines) if ">Latest Updates<" in line)
+        start = next(i for i in range(heading, len(lines)) if lines[i].lstrip().startswith(UPDATES_START))
+    except StopIteration:
+        raise ValueError("about.html has no Latest Updates section")
+    by_day = {}
+    for day, family in new:
+        if f'{{% url "family" "{family.name}" %}}' not in text:
+            by_day.setdefault(day, []).append(family.name)
+    for day, names in sorted(by_day.items()):  # oldest first, so the newest ends up on top
+        label = f"{day:%B} {day.day}, {day.year}"
+        items = [f'            <li style="margin-bottom: 0.3rem;">Added <a href="{{% url "family" "{name}" %}}">{name}</a></li>'
+                 for name in names]
+        heading = f'          <p style="margin-bottom: 0.3rem; font-weight: 600;">{label}</p>'
+        if heading in lines:
+            close = next(i for i in range(lines.index(heading), len(lines)) if lines[i].strip() == "</ul>")
+            lines[close:close] = items
+        else:
+            lines[start + 1:start + 1] = [
+                f"        <!-- {label} -->",
+                '        <div style="margin-bottom: 1rem;">',
+                heading,
+                '          <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0; margin-bottom: 0.5rem;">',
+                *items,
+                "          </ul>",
+                "        </div>",
+            ]
     return "\n".join(lines) + "\n"
 
 
@@ -243,9 +290,11 @@ class RecordsRepo:
         write_yaml(family_to_dict(family), data / f"{name}.yml")
         in_branch = {path.stem for path in data.glob("*.yml")}
         (self.path / "db.json").write_text(dump_database(in_branch))
-        readme = self.path / "README.md"
+        readme, about = self.path / "README.md", self.path / ABOUT
+        new = unlisted(readme.read_text(), in_branch)
+        about.write_text(update_about(about.read_text(), new))
         readme.write_text(update_readme(readme.read_text(), in_branch))
-        self.git("add", f"family_data/{name}.yml", "db.json", "README.md")
+        self.git("add", f"family_data/{name}.yml", "db.json", "README.md", str(ABOUT))
         if not self.git("diff", "--cached", "--name-only"):
             return {"family": name, "skipped": f"{self.base} already has these records"}
         title = pull_title(family, existed)  # also the commit message, so a squash merge lands with it
@@ -281,7 +330,8 @@ def pull_body(family, existed, actor_note):
         f"- {len(backbones)} backbones, {len(pretrained)} pretrained models",
         f"- {count('classification_results')} classification, {count('instance_results')} detection/instance "
         f"segmentation and {count('semantic_seg_results')} semantic segmentation results; {fps} throughput measurements",
-        f"- Files regenerated from the database: `family_data/{family.name}.yml`, `db.json`, `README.md`",
+        f"- Files regenerated from the database: `family_data/{family.name}.yml`, `db.json`, `README.md`, "
+        f"the about page's Latest Updates",
     ]
     if actor_note:
         lines.append(f"- {actor_note}")

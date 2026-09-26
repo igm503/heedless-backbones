@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from django.test import TestCase, override_settings
+from django.utils import timezone
 
 from ingestion import publication
 from ingestion.importer import apply_run
@@ -23,6 +24,18 @@ README = """# Heedless Backbones
 ## Updates
 
 - 11-8-2025: added CoCAViT
+"""
+
+ABOUT = """<div class="drawer">Latest Updates</div>
+      <div class="drawerContents show" style="background-color: #f8f9fa; margin-bottom: 2rem;">
+        <!-- November 8, 2025 -->
+        <div style="margin-bottom: 1rem;">
+          <p style="margin-bottom: 0.3rem; font-weight: 600;">November 8, 2025</p>
+          <ul class="list-disc" style="padding-left: 1.5rem; margin-top: 0; margin-bottom: 0.5rem;">
+            <li style="margin-bottom: 0.3rem;">Added <a href="{% url "family" "CoCAViT" %}">CoCAViT</a></li>
+          </ul>
+        </div>
+      </div>
 """
 
 
@@ -66,6 +79,8 @@ class PublicationTests(TestCase):
         (seed / "family_data").mkdir()
         (seed / "family_data" / "ConvNeXt.yml").write_text("name: ConvNeXt\n")
         (seed / "README.md").write_text(README)
+        (seed / publication.ABOUT).parent.mkdir(parents=True)
+        (seed / publication.ABOUT).write_text(ABOUT)
         (seed / "db.json").write_text("[]\n")
         git(seed, "add", ".")
         git(seed, "commit", "-q", "-m", "seed")
@@ -103,6 +118,10 @@ class PublicationTests(TestCase):
         readme = self.branch_file("auto.fixturenet", "README.md")
         self.assertIn("| FixtureNet | [arXiv 2609.12345](https://arxiv.org/abs/2609.12345) |", readme)
         self.assertIn(": added FixtureNet", readme)
+        about = self.branch_file("auto.fixturenet", str(publication.ABOUT))
+        today = timezone.now().date()
+        self.assertEqual(about.count('Added <a href="{% url "family" "FixtureNet" %}">FixtureNet</a>'), 1)
+        self.assertLess(about.index(f"{today:%B} {today.day}, {today.year}"), about.index("November 8, 2025"))
         self.run.refresh_from_db()
         self.assertEqual(self.run.calls[-1]["url"], "https://github.test/pull/1")
         # Recording again changes nothing and opens no second pull request.
@@ -139,6 +158,11 @@ class PublicationTests(TestCase):
         readme = self.branch_file("auto.othernet", "README.md")
         self.assertIn("| FixtureNet |", readme)
         self.assertIn("| OtherNet |", readme)
+        about = self.branch_file("auto.othernet", str(publication.ABOUT))
+        today = timezone.now().date()
+        self.assertEqual(about.count(f">{today:%B} {today.day}, {today.year}</p>"), 1)  # one group for the day
+        self.assertIn('"OtherNet" %}">OtherNet</a>', about)
+        self.assertIn('"FixtureNet" %}">FixtureNet</a>', about)
 
     def test_publish_imports_then_records_in_the_background(self):
         with patch("ingestion.publication.subprocess.Popen") as popen:
