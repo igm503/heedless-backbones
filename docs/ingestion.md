@@ -166,9 +166,15 @@ systemctl daemon-reload && sudo systemctl enable --now heedless-sync.timer`; log
 each tick logs the failure until that is resolved.
 
 Server setup: `RECORDS_REPO` points at a clone used only for this (never the site's
-checkout), with a git identity, and `gh` logged in as the `django` user with a token that
-can push and open pull requests (`gh auth setup-git` lets git use it). Without
-`RECORDS_REPO`, publishing works and the run notes that nothing was recorded.
+checkout). Pull requests are opened as a GitHub App, so they show as
+`heedless-backbones-agent[bot]`, carry the `automated` label and end with a line saying the
+pipeline opened them. Create the app (Settings → Developer settings → GitHub Apps) with no
+webhook, *Contents* and *Pull requests* read and write, installed only on this repository;
+put its private key on the server readable only by `django`, and set `GITHUB_APP_ID` and
+`GITHUB_APP_KEY` (the key's path) in the deploy settings. Each push or pull request action
+uses a one-hour installation token, and commits are authored by the bot. Without the app,
+git and `gh` use whatever login the `django` user has. Without `RECORDS_REPO`, publishing
+works and the run notes that nothing was recorded.
 
 ## Manual review
 
@@ -259,6 +265,13 @@ python manage.py ingest_papers --limit 5 --publish
 ```
 
 ### Scheduled runs on a Mac
+
+Scheduled runs use their own checkout: `install.sh` creates a git worktree of this repository
+at `origin/main` (`~/.local/share/heedless-agent/repo`, or `AGENT_REPO`), and each run first
+moves it to the latest `main` and re-runs the updated script, installing requirements when
+they change. So merged changes (the guide included) reach the agent at its next run, and
+your own checkout, its branch and uncommitted work are never touched. Running `run.sh` from
+your own checkout uses that checkout as it is.
 
 `deploy/local-agent/run.sh` opens an SSH tunnel to the server's PostgreSQL, runs
 `ingest_papers` (validation only), copies new PDFs to the server's storage for the review

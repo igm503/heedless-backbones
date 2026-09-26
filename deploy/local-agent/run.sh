@@ -3,6 +3,8 @@
 # papers, have Claude Code read up to $LIMIT shortlisted papers (validation only), copy the new
 # PDFs to the server for the review page, then have the server publish the clean runs and
 # record them in git (auto.<family> branches and pull requests). Config: ~/.config/heedless-agent/env
+# Scheduled runs use their own checkout of origin/main (AGENT_REPO, set up by install.sh), which
+# is updated at the start of each run; your own checkout is never touched.
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 CONFIG="${HEEDLESS_AGENT_ENV:-$HOME/.config/heedless-agent/env}"
@@ -13,9 +15,29 @@ source "$CONFIG"
 set +a
 : "${SSH_HOST:?}" "${PYTHON:?}" "${DB_NAME:?}" "${DB_USER:?}" "${DB_PASS:?}" "${INGESTION_STORAGE:?}" "${REMOTE_STORAGE:?}"
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+
+AGENT_REPO="${AGENT_REPO:-$HOME/.local/share/heedless-agent/repo}"
+if [ -z "${HB_UPDATED:-}" ] && [ "$(cd "$REPO" && pwd -P)" = "$(cd "$AGENT_REPO" 2>/dev/null && pwd -P)" ]; then
+  # Move the agent's checkout to the latest main, then run the updated copy of this script
+  # (git replaces files rather than rewriting them, so the running copy is unaffected).
+  if git -C "$AGENT_REPO" fetch -q origin main; then
+    git -C "$AGENT_REPO" checkout -q --detach -f FETCH_HEAD
+  else
+    echo "Could not fetch main; running $(git -C "$AGENT_REPO" rev-parse --short HEAD)"
+  fi
+  HB_UPDATED=1 exec /bin/bash "$AGENT_REPO/deploy/local-agent/run.sh" "$@"
+fi
+# Keep the Python environment in step with requirements.txt.
+REQS="$REPO/requirements.txt" STAMP="$INGESTION_STORAGE/requirements.sha"
+SUM=$(shasum "$REQS" | cut -d" " -f1)
+if [ "$SUM" != "$(cat "$STAMP" 2>/dev/null)" ]; then
+  if "$PYTHON" -m pip --version >/dev/null 2>&1; then "$PYTHON" -m pip install -q -r "$REQS"
+  else uv pip install -q --python "$PYTHON" -r "$REQS"; fi
+  mkdir -p "$INGESTION_STORAGE" && echo "$SUM" > "$STAMP"
+fi
 export DB_NAME DB_USER DB_PASS INGESTION_STORAGE DB_HOST=localhost DB_PORT="${TUNNEL_PORT:-55432}"
 
-echo "=== $(date -u +%FT%TZ) agent run"
+echo "=== $(date -u +%FT%TZ) agent run ($(git -C "$REPO" rev-parse --short HEAD))"
 # The tunnel is restarted whenever it drops (a network change, say); the run reconnects to it.
 (while true; do
   ssh -N -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=6 \
