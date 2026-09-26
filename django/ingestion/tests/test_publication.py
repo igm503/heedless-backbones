@@ -147,6 +147,15 @@ class PublicationTests(TestCase):
         self.assertEqual((published, blocked), ([self.run], []))
         record.assert_called_once_with([self.run], refresh_others=True)
 
+    def test_dump_keeps_unattached_measurements_of_the_families(self):
+        from stats.models import FPSMeasurement
+        FPSMeasurement.objects.create(backbone_name="Swin-T", resolution=224, fps=1.0, gpu="V100")
+        FPSMeasurement.objects.create(backbone_name="Unrelated-X", resolution=224, fps=2.0, gpu="V100")
+        dump = json.loads(publication.dump_database({"Swin"}))
+        names = {o["fields"]["backbone_name"] for o in dump if o["model"] == "stats.fpsmeasurement"}
+        self.assertIn("Swin-T", names)
+        self.assertNotIn("Unrelated-X", names)
+
     def test_readme_rows_are_added_once(self):
         self.published_run()
         once = publication.update_readme(README, {"ConvNeXt", "FixtureNet"})

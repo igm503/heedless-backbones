@@ -118,8 +118,13 @@ def dump_database(names):
     pretrained = PretrainedBackbone.objects.filter(family__in=families)
     results = {model: model.objects.filter(pretrained_backbone__in=pretrained)
                for model in (ClassificationResult, InstanceResult, SemanticSegmentationResult)}
-    fps = FPSMeasurement.objects.filter(Q(backbone__in=backbones) | Q(instanceresult__in=results[InstanceResult])
-                                        | Q(semanticsegmentationresult__in=results[SemanticSegmentationResult])).distinct()
+    # Measurements attached to the families' models, plus any left unattached that name one of
+    # their backbones (kept, so the dump does not silently drop stored data).
+    fps = FPSMeasurement.objects.filter(
+        Q(backbone__in=backbones) | Q(instanceresult__in=results[InstanceResult])
+        | Q(semanticsegmentationresult__in=results[SemanticSegmentationResult])
+        | Q(backbone__isnull=True, instanceresult__isnull=True, semanticsegmentationresult__isnull=True,
+            backbone_name__in=backbones.values("name"))).distinct()
     chosen = {BackboneFamily: families, Backbone: backbones, PretrainedBackbone: pretrained, FPSMeasurement: fps, **results}
     objects = []
     for model in apps.get_app_config("stats").get_models():

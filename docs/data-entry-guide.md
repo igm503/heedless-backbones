@@ -201,5 +201,7 @@ A convention never overrides what the paper states.
   - Panoptic FPN epochs of 1000 (S2AFormer), 640 (SSViT) and 61 (VCMamba).
   - InternImage-T/S/B: a 300-epoch same-resolution "fine-tune" duplicating their single
     300-epoch ImageNet-1k training (paper p. 6).
+  - 27 throughput measurements attached to no model (NAT-T/S/B/M, RepLKNet-31B/31L/XL,
+    SLaK-T): invisible on the site; they need re-attaching or removing.
   - Cityscapes epochs of 128 (FAN with SETR, RepLKNet with UPerNet), the ADE20K figure.
   - FocalNet (no attention) and A2Mamba (attention + SSM) labelled `Attn + Conv`.
