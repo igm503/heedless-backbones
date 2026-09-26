@@ -1,0 +1,292 @@
+name: HAT-Net
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2024-03-26'
+paper: https://arxiv.org/abs/2106.03180v5
+github: https://github.com/yun-liu/HAT-Net
+backbones:
+- name: HAT-Net-Tiny
+  m_parameters: 12.7
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HAT-Net-Tiny-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    github: https://github.com/yun-liu/HAT-Net/releases/download/v2.0/HAT-Net_Tiny.pth
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.8
+      top_5: null
+      gflops: 2
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.5
+      AP50: 63.3
+      AP75: 45.8
+      mAPs: 26.9
+      mAPm: 46.1
+      mAPl: 56.6
+      gflops: 212
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.1
+      AP50: 65.4
+      AP75: 47.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 231
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 39.7
+      AP50: 62.5
+      AP75: 42.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 231
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 43.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 33.2
+      fps_measurements: []
+- name: HAT-Net-Small
+  m_parameters: 25.7
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HAT-Net-Small-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    github: https://github.com/yun-liu/HAT-Net/releases/download/v2.0/HAT-Net_Small.pth
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.6
+      top_5: null
+      gflops: 4.3
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.8
+      AP50: 65.8
+      AP75: 48.1
+      mAPs: 28.8
+      mAPm: 48.6
+      mAPl: 59.5
+      gflops: 286
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 45.2
+      AP50: 67.6
+      AP75: 49.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 303
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 41.6
+      AP50: 64.6
+      AP75: 44.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 303
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 46.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 49.6
+      fps_measurements: []
+- name: HAT-Net-Medium
+  m_parameters: 42.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HAT-Net-Medium-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    github: https://github.com/yun-liu/HAT-Net/releases/download/v2.0/HAT-Net_Medium.pth
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84
+      top_5: null
+      gflops: 8.3
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 45.9
+      AP50: 66.9
+      AP75: 49.2
+      mAPs: 29.7
+      mAPm: 50
+      mAPl: 61.6
+      gflops: 405
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47
+      AP50: 69
+      AP75: 51.5
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 424
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.7
+      AP50: 66
+      AP75: 46
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 424
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.3
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 74.7
+      fps_measurements: []
+- name: HAT-Net-Large
+  m_parameters: 63.1
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HAT-Net-Large-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    github: https://github.com/yun-liu/HAT-Net/releases/download/v2.0/HAT-Net_Large.pth
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.2
+      top_5: null
+      gflops: 11.5
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 46.3
+      AP50: 67.2
+      AP75: 49.6
+      mAPs: 30
+      mAPm: 50.6
+      mAPl: 62.4
+      gflops: 519
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.4
+      AP50: 69.3
+      AP75: 52.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 537
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.1
+      AP50: 66.5
+      AP75: 46.6
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 537
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 96.4
+      fps_measurements: []
