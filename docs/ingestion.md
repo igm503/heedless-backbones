@@ -40,7 +40,9 @@ the original tag is not modified. It then queues papers from:
 Keyword search is not used: it returns many out-of-scope papers, and in-scope papers
 are expected to be similar to tagged ones.
 
-Missing Troller papers are reported with their arXiv IDs. Non-arXiv source links
+The joint tag search returns at most 400 papers; its cursor lists every paper returned so
+far, so the client stops just before the request would exceed the server's URL length
+limit (about 390 papers). Missing Troller papers are reported with their arXiv IDs. Non-arXiv source links
 cannot be represented in an arXiv tag.
 
 From `django/`:

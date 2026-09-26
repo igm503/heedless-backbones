@@ -5,8 +5,11 @@
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 CONFIG="${HEEDLESS_AGENT_ENV:-$HOME/.config/heedless-agent/env}"
+# Export everything in the config (e.g. ARXIV_TROLLER_ACCOUNT) to Django.
+set -a
 # shellcheck source=/dev/null
 source "$CONFIG"
+set +a
 : "${SSH_HOST:?}" "${PYTHON:?}" "${DB_NAME:?}" "${DB_USER:?}" "${DB_PASS:?}" "${INGESTION_STORAGE:?}" "${REMOTE_STORAGE:?}"
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
 export DB_NAME DB_USER DB_PASS INGESTION_STORAGE DB_HOST=localhost DB_PORT="${TUNNEL_PORT:-55432}"
