@@ -253,7 +253,8 @@ class RecordsRepo:
         remote_exists = bool(self.git("ls-remote", "--heads", "origin", branch))
         if remote_exists:
             self.git("fetch", "-q", "origin", branch)
-            if not self.git("diff", f"origin/{branch}", "HEAD", "--name-only", check=False):
+            same_files = not self.git("diff", f"origin/{branch}", "HEAD", "--name-only", check=False)
+            if same_files and self.git("log", "-1", "--format=%s", f"origin/{branch}") == title:
                 pull = open_pulls.get(branch)
                 return {"family": name, "branch": branch, "url": pull and pull["url"], "unchanged": True}
         self.git("push", "-q", "--force", "origin", f"{branch}:{branch}")
