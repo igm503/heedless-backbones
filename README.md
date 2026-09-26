@@ -139,9 +139,11 @@ and database query budgets. They do not connect to the database configured in `.
 | LocalViT | [arXiv 2104.05707](https://arxiv.org/abs/2104.05707) | 2026-09-26 |
 | LocalViT-PVT | [arXiv 2104.05707](https://arxiv.org/abs/2104.05707) | 2026-09-26 |
 | LocalViT-Swin | [arXiv 2104.05707](https://arxiv.org/abs/2104.05707) | 2026-09-26 |
+| LocalViT-T2T | [arXiv 2104.05707](https://arxiv.org/abs/2104.05707) | 2026-09-26 |
 
 ## Updates
 
+- 9-26-2026: added LocalViT-T2T
 - 9-26-2026: added LocalViT-Swin
 - 9-26-2026: added LocalViT-PVT
 - 9-26-2026: added LocalViT

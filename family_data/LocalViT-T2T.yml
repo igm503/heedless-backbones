@@ -1,0 +1,25 @@
+name: LocalViT-T2T
+model_type: Attn + Conv
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2025-02-12'
+paper: https://arxiv.org/abs/2104.05707v2
+github: https://github.com/ofsoundof/LocalViT
+backbones:
+- name: LocalViT-T2T
+  m_parameters: 4.3
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LocalViT-T2T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 72.5
+      top_5: null
+      gflops: 1.2
+    instance_results: []
+    semantic_seg_results: []
