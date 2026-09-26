@@ -34,7 +34,7 @@ class FakeGitHub:
     """Stands in for the gh CLI: remembers pull requests by branch."""
 
     def __init__(self):
-        self.pulls = {}
+        self.pulls, self.titles = {}, {}
 
     def __call__(self, repo, *args):
         if args[:2] == ("pr", "list"):
@@ -43,6 +43,7 @@ class FakeGitHub:
         if args[:2] == ("pr", "create"):
             branch = args[args.index("--head") + 1]
             self.pulls[branch] = len(self.pulls) + 1
+            self.titles[branch] = args[args.index("--title") + 1]
             return f"https://github.test/pull/{self.pulls[branch]}"
         if args[:2] == ("pr", "edit"):
             return ""
@@ -89,6 +90,10 @@ class PublicationTests(TestCase):
         outcomes = publication.record([self.published_run()])
         self.assertEqual(outcomes[0]["branch"], "auto.fixturenet")
         self.assertEqual(outcomes[0]["url"], "https://github.test/pull/1")
+        self.assertEqual(self.github.titles["auto.fixturenet"],
+                         "Adds FixtureNet (Convolution, hierarchical), arXiv 2609.12345.")
+        self.assertEqual(git(self.origin, "log", "-1", "--format=%s", "auto.fixturenet"),
+                         self.github.titles["auto.fixturenet"])
         self.assertIn("name: FixtureNet", self.branch_file("auto.fixturenet", "family_data/FixtureNet.yml"))
         dump = json.loads(self.branch_file("auto.fixturenet", "db.json"))
         names = {o["fields"]["name"] for o in dump if o["model"] == "stats.backbonefamily"}
