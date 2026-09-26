@@ -34,7 +34,7 @@ class FakeGitHub:
     """Stands in for the gh CLI: remembers pull requests by branch."""
 
     def __init__(self):
-        self.pulls, self.titles = {}, {}
+        self.pulls, self.titles, self.edits = {}, {}, []
 
     def __call__(self, repo, *args):
         if args[:2] == ("pr", "list"):
@@ -46,6 +46,7 @@ class FakeGitHub:
             self.titles[branch] = args[args.index("--title") + 1]
             return f"https://github.test/pull/{self.pulls[branch]}"
         if args[:2] == ("pr", "edit"):
+            self.edits.append(args)
             return ""
         raise AssertionError(args)
 
@@ -107,6 +108,13 @@ class PublicationTests(TestCase):
         # Recording again changes nothing and opens no second pull request.
         self.assertTrue(publication.record([self.run])[0]["unchanged"])
         self.assertEqual(len(self.github.pulls), 1)
+        # A branch with an older title is rewritten and its pull request retitled.
+        git(self.clone, "checkout", "-q", "auto.fixturenet")
+        git(self.clone, "commit", "-q", "--amend", "-m", "Add FixtureNet")
+        git(self.clone, "push", "-q", "--force", "origin", "auto.fixturenet")
+        self.assertNotIn("unchanged", publication.record([self.run])[0])
+        self.assertEqual(git(self.origin, "log", "-1", "--format=%s", "auto.fixturenet"), self.github.titles["auto.fixturenet"])
+        self.assertIn("--title", self.github.edits[-1])
 
     def test_open_branches_stay_mergeable_after_one_is_merged(self):
         publication.record([self.published_run()])
