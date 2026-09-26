@@ -11,7 +11,7 @@ from django.utils import timezone
 from ingestion.agent import AgentRunner, screen
 from ingestion.models import IngestionRun, PaperVersion
 from ingestion.publication import publish_ready
-from ingestion.pipeline import candidates, current_paper_ids, discover, shortlist
+from ingestion.pipeline import RUN_LOCK, candidates, current_paper_ids, discover, shortlist
 from ingestion.sources import Troller
 
 
@@ -27,7 +27,7 @@ def run_lock():
         try:
             if connection.vendor == "postgresql":
                 with connection.cursor() as cursor:
-                    cursor.execute("SELECT pg_try_advisory_lock(73410290)")
+                    cursor.execute("SELECT pg_try_advisory_lock(%s)", [RUN_LOCK])
                     acquired = cursor.fetchone()[0]
                 if not acquired:
                     raise CommandError("An ingestion job is already running on another host")
@@ -35,7 +35,7 @@ def run_lock():
         finally:
             if acquired:
                 with connection.cursor() as cursor:
-                    cursor.execute("SELECT pg_advisory_unlock(73410290)")
+                    cursor.execute("SELECT pg_advisory_unlock(%s)", [RUN_LOCK])
 
 
 class Command(BaseCommand):

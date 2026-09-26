@@ -3,11 +3,12 @@ from io import StringIO
 from unittest.mock import MagicMock, Mock, patch
 
 from django.core.management import call_command
+from django.db import OperationalError
 from django.test import TestCase
 
 from ingestion import agent
 from ingestion.models import IngestionRun, PaperVersion
-from ingestion.pipeline import candidates, discover, shortlist
+from ingestion.pipeline import candidates, discover, reconnect, shortlist
 
 
 def decision(arxiv_id, qualifies):
@@ -18,6 +19,8 @@ def decision(arxiv_id, qualifies):
 def claude_result(decisions, **extra):
     """What `claude -p --output-format json --json-schema ...` prints."""
     return Mock(stdout=json.dumps({"type": "result", "is_error": False, "total_cost_usd": 0.02, "session_id": "s",
+                                   "usage": {"input_tokens": 3000, "output_tokens": 300},
+                                   "modelUsage": {"claude-opus-5-5": {"outputTokens": 300}},
                                    "structured_output": {"decisions": decisions}, **extra}), stderr="")
 
 
@@ -38,7 +41,9 @@ class ScreeningTests(TestCase):
         self.assertIn("--json-schema", command)
         self.assertNotIn("ANTHROPIC_API_KEY", kwargs["env"])
         self.assertEqual([r.status for r in runs], ["shortlisted", "rejected", "failed"])
-        self.assertEqual(runs[0].provider, "claude-code")
+        self.assertEqual((runs[0].provider, runs[0].model), ("claude-code", "claude-opus-5-5"))
+        # The batch's usage is split across its three papers.
+        self.assertEqual((runs[0].input_tokens, runs[0].output_tokens), (1000, 100))
         self.assertEqual(runs[0].calls[0]["stage"], "abstract")
         self.assertEqual([r.pk for r in shortlist(5)], [runs[0].pk])
         # The paper without a decision can be retried; the screened ones are done.
@@ -49,6 +54,17 @@ class ScreeningTests(TestCase):
             runs = agent.screen(self.papers[:2])
         self.assertEqual({r.status for r in runs}, {"failed"})
         self.assertIn("no JSON", runs[0].error)
+
+    def test_a_connection_lost_during_a_session_is_replaced(self):
+        with patch("ingestion.pipeline.connection") as db, patch("ingestion.pipeline.time.sleep") as sleep:
+            db.connection, db.vendor = object(), "postgresql"
+            db.is_usable.return_value = False
+            db.ensure_connection.side_effect = [OperationalError("tunnel down"), None]
+            db.cursor.return_value.__enter__.return_value.fetchone.return_value = (True,)
+            reconnect()
+        self.assertEqual((db.ensure_connection.call_count, sleep.call_count), (2, 1))
+        lock = db.cursor.return_value.__enter__.return_value.execute.call_args.args[0]
+        self.assertIn("pg_try_advisory_lock", lock)  # the run lock is taken again
 
     def test_batch_size(self):
         with patch("ingestion.agent.screen_batch", return_value=({}, {"stage": "abstract"})) as batch:

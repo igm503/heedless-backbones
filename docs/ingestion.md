@@ -248,7 +248,7 @@ python manage.py ingest_papers --limit 5 --publish
 
 `deploy/local-agent/run.sh` opens an SSH tunnel to the server's PostgreSQL, runs
 `ingest_papers` (validation only), copies new PDFs to the server's storage for the review
-page, and then runs `publish_ready` on the server over SSH (with `PUBLISH=1`). Configure `~/.config/heedless-agent/env` from `env.example`, then
+page every minute during the run (the server needs `rsync`), and then runs `publish_ready` on the server over SSH (with `PUBLISH=1`). Configure `~/.config/heedless-agent/env` from `env.example`, then
 `deploy/local-agent/install.sh` installs a launchd job that runs every three hours
 while you are logged in (log: `~/Library/Logs/heedless-agent.log`). A run missed while the
 Mac was asleep happens once on wake; during a run the Mac is kept from idle sleep. If a run
