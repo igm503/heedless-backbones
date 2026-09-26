@@ -4366,6 +4366,20 @@
 },
 {
   "model": "stats.backbonefamily",
+  "pk": 136,
+  "fields": {
+    "source_record": null,
+    "name": "LocalViT-TNT",
+    "model_type": "Attn + Conv",
+    "hierarchical": false,
+    "pretrain_method": "Supervised",
+    "pub_date": "2025-02-12",
+    "paper": "https://arxiv.org/abs/2104.05707v2",
+    "github": "https://github.com/ofsoundof/LocalViT"
+  }
+},
+{
+  "model": "stats.backbonefamily",
   "pk": 137,
   "fields": {
     "source_record": null,
@@ -7857,6 +7871,19 @@
     "name": "LocalViT-T2T",
     "family": 135,
     "m_parameters": 4.3,
+    "paper": "https://arxiv.org/abs/2104.05707v2",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 508,
+  "fields": {
+    "source_record": null,
+    "name": "LocalViT-TNT",
+    "family": 136,
+    "m_parameters": 6.3,
     "paper": "https://arxiv.org/abs/2104.05707v2",
     "github": "",
     "fps_measurements": []
@@ -12667,6 +12694,22 @@
     "pretrain_epochs": 300.0,
     "paper": "https://arxiv.org/abs/2104.05707v2",
     "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 580,
+  "fields": {
+    "source_record": null,
+    "name": "LocalViT-TNT-IN1k",
+    "backbone": 508,
+    "family": 136,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2104.05707v2",
+    "github": "https://github.com/ofsoundof/LocalViT"
   }
 },
 {
@@ -28148,6 +28191,27 @@
     "top_1": 72.5,
     "top_5": null,
     "gflops": 1.2,
+    "paper": "https://arxiv.org/abs/2104.05707v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 1207,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 580,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 75.9,
+    "top_5": 93.0,
+    "gflops": 1.4,
     "paper": "https://arxiv.org/abs/2104.05707v2",
     "github": ""
   }
