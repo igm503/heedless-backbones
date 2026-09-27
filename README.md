@@ -143,9 +143,11 @@ and database query budgets. They do not connect to the database configured in `.
 | LocalViT-TNT | [arXiv 2104.05707](https://arxiv.org/abs/2104.05707) | 2026-09-26 |
 | Shuffle | [arXiv 2106.03650](https://arxiv.org/abs/2106.03650) | 2026-09-26 |
 | HAT-Net | [arXiv 2106.03180](https://arxiv.org/abs/2106.03180) | 2026-09-26 |
+| CMT | [arXiv 2107.06263](https://arxiv.org/abs/2107.06263) | 2026-09-26 |
 
 ## Updates
 
+- 9-26-2026: added CMT
 - 9-26-2026: added HAT-Net
 - 9-26-2026: added Shuffle
 - 9-26-2026: added LocalViT-TNT
