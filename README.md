@@ -145,9 +145,11 @@ and database query budgets. They do not connect to the database configured in `.
 | HAT-Net | [arXiv 2106.03180](https://arxiv.org/abs/2106.03180) | 2026-09-26 |
 | CMT | [arXiv 2107.06263](https://arxiv.org/abs/2107.06263) | 2026-09-26 |
 | P2T | [arXiv 2106.12011](https://arxiv.org/abs/2106.12011) | 2026-09-26 |
+| SepViT | [arXiv 2203.15380](https://arxiv.org/abs/2203.15380) | 2026-09-27 |
 
 ## Updates
 
+- 9-27-2026: added SepViT
 - 9-26-2026: added P2T
 - 9-26-2026: added CMT
 - 9-26-2026: added HAT-Net
