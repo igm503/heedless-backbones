@@ -1,0 +1,139 @@
+name: LaViT
+model_type: Attention
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2024-06-01'
+paper: https://arxiv.org/abs/2406.00427v1
+github: ''
+backbones:
+- name: LaViT-T
+  m_parameters: 10.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LaViT-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.2
+      top_5: null
+      gflops: 1.6
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 46.2
+      AP50: 67.2
+      AP75: 49.1
+      mAPs: 29.6
+      mAPm: 50.2
+      mAPl: 61.3
+      gflops: 202
+      fps_measurements: []
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 48.4
+      AP50: 69.9
+      AP75: 51.7
+      mAPs: 31.8
+      mAPm: 52.2
+      mAPl: 64.1
+      gflops: 202
+      fps_measurements: []
+    semantic_seg_results: []
+- name: LaViT-S
+  m_parameters: 22.4
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LaViT-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.6
+      top_5: null
+      gflops: 3.3
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 46.7
+      AP50: 68.3
+      AP75: 49.7
+      mAPs: 29.9
+      mAPm: 50.7
+      mAPl: 61.7
+      gflops: 290
+      fps_measurements: []
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 48.9
+      AP50: 70.3
+      AP75: 52.2
+      mAPs: 33.1
+      mAPm: 52.6
+      mAPl: 65.4
+      gflops: 290
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 44.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 122
+      fps_measurements: []
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 49.5
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 47.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 920
+      fps_measurements: []
+- name: LaViT-B
+  m_parameters: 39.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LaViT-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.1
+      top_5: null
+      gflops: 6.1
+    instance_results: []
+    semantic_seg_results: []
