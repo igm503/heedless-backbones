@@ -146,9 +146,11 @@ and database query budgets. They do not connect to the database configured in `.
 | CMT | [arXiv 2107.06263](https://arxiv.org/abs/2107.06263) | 2026-09-26 |
 | P2T | [arXiv 2106.12011](https://arxiv.org/abs/2106.12011) | 2026-09-26 |
 | SepViT | [arXiv 2203.15380](https://arxiv.org/abs/2203.15380) | 2026-09-27 |
+| LinGlo | [arXiv 2207.00188](https://arxiv.org/abs/2207.00188) | 2026-09-27 |
 
 ## Updates
 
+- 9-27-2026: added LinGlo
 - 9-27-2026: added SepViT
 - 9-26-2026: added P2T
 - 9-26-2026: added CMT
