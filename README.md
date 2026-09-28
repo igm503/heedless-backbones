@@ -148,9 +148,11 @@ and database query budgets. They do not connect to the database configured in `.
 | SepViT | [arXiv 2203.15380](https://arxiv.org/abs/2203.15380) | 2026-09-27 |
 | LinGlo | [arXiv 2207.00188](https://arxiv.org/abs/2207.00188) | 2026-09-27 |
 | WTConvNeXt | [arXiv 2407.05848](https://arxiv.org/abs/2407.05848) | 2026-09-28 |
+| RepNeXt | [arXiv 2406.16004](https://arxiv.org/abs/2406.16004) | 2026-09-28 |
 
 ## Updates
 
+- 9-28-2026: added RepNeXt
 - 9-28-2026: added WTConvNeXt
 - 9-27-2026: added LinGlo
 - 9-27-2026: added SepViT
