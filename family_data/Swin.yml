@@ -220,6 +220,20 @@ backbones:
       gflops: 248
       paper: https://arxiv.org/abs/2106.03180v5
       fps_measurements: []
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 43.9
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 245
+      paper: https://arxiv.org/abs/2203.15380v4
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -452,6 +466,20 @@ backbones:
       mAPl: 59.9
       gflops: 336
       paper: https://arxiv.org/abs/2106.03180v5
+      fps_measurements: []
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 46.3
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 335
+      paper: https://arxiv.org/abs/2203.15380v4
       fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
@@ -711,6 +739,62 @@ backbones:
         precision: FP32
         fps: 13.2
         source: https://doi.org/10.48550/arXiv.2203.16527
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 46.9
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 496
+      paper: https://arxiv.org/abs/2207.13317v2
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.3
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 496
+      paper: https://arxiv.org/abs/2207.13317v2
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 48.5
+      AP50: 69.8
+      AP75: 53.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 496
+      paper: https://arxiv.org/abs/2207.13317v2
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 43.4
+      AP50: 66.8
+      AP75: 46.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 496
+      paper: https://arxiv.org/abs/2207.13317v2
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
