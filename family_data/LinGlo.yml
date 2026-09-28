@@ -1,0 +1,140 @@
+name: LinGlo
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2022-07-04'
+paper: https://arxiv.org/abs/2207.00188v2
+github: ''
+backbones:
+- name: LinGlo-b0
+  m_parameters: 3.4
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LinGlo-b0-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 72.5
+      top_5: null
+      gflops: null
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 38
+      AP50: 58.3
+      AP75: 40.2
+      mAPs: 22.8
+      mAPm: 41.2
+      mAPl: 49.6
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 37.3
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: LinGlo-b1
+  m_parameters: 13.1
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LinGlo-b1-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.7
+      top_5: null
+      gflops: null
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 41.5
+      AP50: 62.4
+      AP75: 44.5
+      mAPs: 27.1
+      mAPm: 45.4
+      mAPl: 53.9
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 42.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: LinGlo-b2
+  m_parameters: 25.4
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LinGlo-b2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.7
+      top_5: null
+      gflops: null
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.7
+      AP50: 65.8
+      AP75: 47.9
+      mAPs: 28
+      mAPm: 48.9
+      mAPl: 57.8
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 45.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
