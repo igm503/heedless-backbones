@@ -795,6 +795,20 @@ backbones:
       gflops: 496
       paper: https://arxiv.org/abs/2207.13317v2
       fps_measurements: []
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.7
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 477
+      paper: https://arxiv.org/abs/2501.16182v1
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
