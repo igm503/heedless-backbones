@@ -1,0 +1,248 @@
+name: InceptionNeXt
+model_type: Convolution
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-04-05'
+paper: https://arxiv.org/abs/2303.16900v3
+github: https://github.com/sail-sg/inceptionnext
+backbones:
+- name: InceptionNeXt-A
+  m_parameters: 4.2
+  fps_measurements:
+  - resolution: 224
+    gpu: A100
+    precision: TF32
+    fps: 9876
+    source: https://arxiv.org/abs/2303.16900v3
+  - resolution: 224
+    gpu: 2080Ti
+    precision: FP32
+    fps: 3595
+    source: https://arxiv.org/abs/2303.16900v3
+  pretrained_backbones:
+  - name: InceptionNeXt-A-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 450
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 75.3
+      top_5: null
+      gflops: 0.51
+    instance_results: []
+    semantic_seg_results: []
+- name: InceptionNeXt-T
+  m_parameters: 28.1
+  fps_measurements:
+  - resolution: 224
+    gpu: A100
+    precision: TF32
+    fps: 2900
+    source: https://arxiv.org/abs/2303.16900v3
+  - resolution: 224
+    gpu: 2080Ti
+    precision: FP32
+    fps: 822
+    source: https://arxiv.org/abs/2303.16900v3
+  pretrained_backbones:
+  - name: InceptionNeXt-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.3
+      top_5: null
+      gflops: 4.2
+    instance_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 47.9
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 933
+      fps_measurements:
+      - resolution: 2048
+        gpu: 2080Ti
+        precision: null
+        fps: 22.7
+        source: https://arxiv.org/abs/2303.16900v3
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 43.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 44
+      fps_measurements:
+      - resolution: 512
+        gpu: 2080Ti
+        precision: null
+        fps: 31.4
+        source: https://arxiv.org/abs/2303.16900v3
+- name: InceptionNeXt-S
+  m_parameters: 49.4
+  fps_measurements:
+  - resolution: 224
+    gpu: A100
+    precision: TF32
+    fps: 1750
+    source: https://arxiv.org/abs/2303.16900v3
+  - resolution: 224
+    gpu: 2080Ti
+    precision: FP32
+    fps: 447
+    source: https://arxiv.org/abs/2303.16900v3
+  pretrained_backbones:
+  - name: InceptionNeXt-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.5
+      top_5: null
+      gflops: 8.4
+    instance_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 50
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1020
+      fps_measurements:
+      - resolution: 2048
+        gpu: 2080Ti
+        precision: null
+        fps: 17.6
+        source: https://arxiv.org/abs/2303.16900v3
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 45.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 65
+      fps_measurements:
+      - resolution: 512
+        gpu: 2080Ti
+        precision: null
+        fps: 20.7
+        source: https://arxiv.org/abs/2303.16900v3
+- name: InceptionNeXt-B
+  m_parameters: 86.7
+  fps_measurements:
+  - resolution: 224
+    gpu: A100
+    precision: TF32
+    fps: 1244
+    source: https://arxiv.org/abs/2303.16900v3
+  - resolution: 224
+    gpu: 2080Ti
+    precision: FP32
+    fps: 287
+    source: https://arxiv.org/abs/2303.16900v3
+  - resolution: 384
+    gpu: A100
+    precision: TF32
+    fps: 428
+    source: https://arxiv.org/abs/2303.16900v3
+  - resolution: 384
+    gpu: 2080Ti
+    precision: FP32
+    fps: 97
+    source: https://arxiv.org/abs/2303.16900v3
+  pretrained_backbones:
+  - name: InceptionNeXt-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84
+      top_5: null
+      gflops: 14.9
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 85.2
+      top_5: null
+      gflops: 43.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 50.6
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: null
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1159
+      fps_measurements:
+      - resolution: 2048
+        gpu: 2080Ti
+        precision: null
+        fps: 17.5
+        source: https://arxiv.org/abs/2303.16900v3
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 46.4
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 100
+      fps_measurements:
+      - resolution: 512
+        gpu: 2080Ti
+        precision: null
+        fps: 20.2
+        source: https://arxiv.org/abs/2303.16900v3

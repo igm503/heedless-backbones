@@ -1,0 +1,70 @@
+name: V2M + local window
+model_type: State Space Model
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2024-10-14'
+paper: https://arxiv.org/abs/2410.10382v1
+github: https://github.com/wangck20/V2M
+backbones:
+- name: V2M-T + local window
+  m_parameters: 8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: V2M-T + local window-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 76.4
+      top_5: null
+      gflops: 1.8
+    instance_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 44.6
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 43.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: V2M-S + local window
+  m_parameters: 28
+  fps_measurements: []
+  pretrained_backbones:
+  - name: V2M-S + local window-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.3
+      top_5: null
+      gflops: 5.4
+    instance_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 47.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 46.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []

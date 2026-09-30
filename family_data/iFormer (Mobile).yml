@@ -1,0 +1,259 @@
+name: iFormer (Mobile)
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-02-17'
+paper: https://arxiv.org/abs/2501.15369v2
+github: https://github.com/ChuanyangZheng/iFormer
+backbones:
+- name: iFormer-T (Mobile)
+  m_parameters: 2.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: iFormer-T (Mobile)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 74.1
+      top_5: null
+      gflops: 0.53
+    instance_results: []
+    semantic_seg_results: []
+- name: iFormer-S (Mobile)
+  m_parameters: 6.5
+  fps_measurements: []
+  pretrained_backbones:
+  - name: iFormer-S (Mobile)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.8
+      top_5: null
+      gflops: 1.09
+    instance_results: []
+    semantic_seg_results: []
+- name: iFormer-M (Mobile)
+  m_parameters: 8.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: iFormer-M (Mobile)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.4
+      top_5: 95.336
+      gflops: 1.64
+    instance_results: []
+    semantic_seg_results: []
+  - name: iFormer-M (Mobile)-IN1k-KD
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.1
+      top_5: 95.466
+      gflops: 1.64
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 40.8
+      AP50: 62.5
+      AP75: 44.8
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 37.9
+      AP50: 59.7
+      AP75: 40.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 42.4
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: iFormer-L (Mobile)
+  m_parameters: 14.7
+  fps_measurements: []
+  pretrained_backbones:
+  - name: iFormer-L (Mobile)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.9
+      top_5: null
+      gflops: 2.63
+    instance_results: []
+    semantic_seg_results: []
+  - name: iFormer-L (Mobile)-IN1k-KD
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.7
+      top_5: null
+      gflops: 2.63
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.2
+      AP50: 64.2
+      AP75: 46
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 39.1
+      AP50: 61.4
+      AP75: 41.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 44.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: iFormer-L2 (Mobile)
+  m_parameters: 24.5
+  fps_measurements: []
+  pretrained_backbones:
+  - name: iFormer-L2 (Mobile)-IN1k-KD
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 450
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.9
+      top_5: null
+      gflops: 4.5
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.6
+      AP50: 66.7
+      AP75: 49.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 41.1
+      AP50: 64
+      AP75: 44.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 46.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: iFormer-H (Mobile)
+  m_parameters: 99
+  paper: https://github.com/ChuanyangZheng/iFormer
+  fps_measurements: []
+  pretrained_backbones:
+  - name: iFormer-H (Mobile)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    paper: https://github.com/ChuanyangZheng/iFormer
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.8
+      top_5: 97.058
+      gflops: 15.5
+      paper: https://github.com/ChuanyangZheng/iFormer
+    instance_results: []
+    semantic_seg_results: []
