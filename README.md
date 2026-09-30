@@ -157,9 +157,11 @@ and database query budgets. They do not connect to the database configured in `.
 | CE-PVT | [arXiv 2207.13317](https://arxiv.org/abs/2207.13317) | 2026-09-27 |
 | CE-Swin | [arXiv 2207.13317](https://arxiv.org/abs/2207.13317) | 2026-09-27 |
 | CETNet | [arXiv 2207.13317](https://arxiv.org/abs/2207.13317) | 2026-09-27 |
+| FMViT | [arXiv 2311.05707](https://arxiv.org/abs/2311.05707) | 2026-09-28 |
 
 ## Updates
 
+- 9-28-2026: added FMViT
 - 9-27-2026: added CETNet
 - 9-27-2026: added CE-Swin
 - 9-27-2026: added CE-PVT
