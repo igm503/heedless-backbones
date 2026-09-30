@@ -12,6 +12,7 @@ import re
 import subprocess
 import sys
 import time
+from collections import Counter, defaultdict
 from contextlib import contextmanager
 from datetime import date, datetime
 from uuid import uuid4
@@ -40,7 +41,8 @@ BATCH_PREFIX = "auto.records-"
 LABEL = "automated"
 FOOTER = "_Opened automatically by the Heedless Backbones ingestion pipeline._"
 GITHUB_API = "https://api.github.com"
-TABLE_HEADER = "| Model | Paper | Added |"
+TABLE_HEADER = "| Model | Models | Paper | Added |"
+LEGACY_TABLE_HEADER = "| Model | Paper | Added |"
 
 
 # Publishing -----------------------------------------------------------------------------------
@@ -169,8 +171,8 @@ def batch_title(added, updated):
 
 def model_table(lines):
     try:
-        header = lines.index(TABLE_HEADER)
-    except ValueError:
+        header = next(i for i, line in enumerate(lines) if line in {TABLE_HEADER, LEGACY_TABLE_HEADER})
+    except StopIteration:
         raise ValueError(f"README has no model table ({TABLE_HEADER})")
     end = header + 2
     while end < len(lines) and lines[end].startswith("|"):
@@ -185,7 +187,7 @@ def sort_readme(text):
 
     def row_key(line):
         cells = [cell.strip() for cell in line.split("|")]
-        return (-date.fromisoformat(cells[3]).toordinal(), cells[1].casefold(), cells[1])
+        return (-date.fromisoformat(cells[-2]).toordinal(), cells[1].casefold(), cells[1])
 
     lines[header + 2:end] = sorted(lines[header + 2:end], key=row_key)
     if "## Updates" not in lines:
@@ -222,6 +224,40 @@ def sort_readme(text):
     return "\n".join(result) + "\n"
 
 
+def update_model_counts(text, records):
+    """Count distinct backbone variants from the exact fixture recorded alongside the README."""
+    families = {obj["pk"]: obj["fields"] for obj in records if obj["model"] == "stats.backbonefamily"}
+    backbones = {obj["pk"]: obj["fields"] for obj in records if obj["model"] == "stats.backbone"}
+    totals = Counter(backbone["family"] for backbone in backbones.values())
+    by_name = {family["name"]: totals[pk] for pk, family in families.items()}
+    by_paper = defaultdict(set)
+    for obj in records:
+        if obj["model"] != "stats.pretrainedbackbone":
+            continue
+        fields = obj["fields"]
+        paper = fields.get("paper") or families.get(fields["family"], {}).get("paper")
+        if paper and fields["backbone"] in backbones:
+            by_paper[arxiv_id(paper) or paper].add(fields["backbone"])
+
+    lines = text.splitlines()
+    header, end = model_table(lines)
+    columns = [cell.strip() for cell in lines[header].split("|")[1:-1]]
+    rows = []
+    for line in lines[header + 2:end]:
+        row = dict(zip(columns, (cell.strip() for cell in line.split("|")[1:-1])))
+        count = by_name.get(row["Model"])
+        if count is None:
+            # Historical paper-specific rows such as FAN STL belong to an existing family.
+            # Count the distinct underlying variants with checkpoints from that paper.
+            link = re.search(r"\]\(([^)]+)\)", row["Paper"])
+            paper = link[1] if link else ""
+            variants = by_paper.get(arxiv_id(paper) or paper)
+            count = len(variants) if variants else "—"
+        rows.append(f"| {row['Model']} | {count} | {row['Paper']} | {row['Added']} |")
+    lines[header:end] = [TABLE_HEADER, "|---|---:|---|---|", *rows]
+    return "\n".join(lines) + "\n"
+
+
 def listed_dates(readme):
     lines = readme.splitlines()
     header, end = model_table(lines)
@@ -229,7 +265,7 @@ def listed_dates(readme):
     for line in lines[header + 2:end]:
         cells = [cell.strip() for cell in line.split("|")]
         try:
-            dates[cells[1]] = date.fromisoformat(cells[3])
+            dates[cells[1]] = date.fromisoformat(cells[-2])
         except (IndexError, ValueError):
             continue
     return dates
@@ -244,12 +280,16 @@ def unlisted(readme, names, known_dates=None):
             for family in BackboneFamily.objects.filter(name__in=set(names) - listed).order_by("pk")]
 
 
-def update_readme(text, names, known_dates=None):
-    """Add model-table rows (and an Updates entry) for families in names that are not listed yet."""
+def update_readme(text, names, known_dates=None, records=None):
+    """Add new families, refresh all variant counts, and maintain chronological ordering."""
     new = unlisted(text, names, known_dates)
     lines = text.splitlines()
     header, end = model_table(lines)
-    rows = [f"| {family.name} | {paper_cell(family)} | {day.isoformat()} |" for day, family in new]
+    columns = [cell.strip() for cell in lines[header].split("|")[1:-1]]
+    rows = []
+    for day, family in new:
+        row = {"Model": family.name, "Models": "—", "Paper": paper_cell(family), "Added": day.isoformat()}
+        rows.append("| " + " | ".join(row[column] for column in columns) + " |")
     lines[end:end] = rows
     try:
         updates = lines.index("## Updates")
@@ -261,7 +301,9 @@ def update_readme(text, names, known_dates=None):
         lines[updates + 2:updates + 2] = entries
     except ValueError:
         pass
-    return sort_readme("\n".join(lines) + "\n")
+    if records is None:
+        records = json.loads(dump_database(names))
+    return sort_readme(update_model_counts("\n".join(lines) + "\n", records))
 
 
 ABOUT = Path("django/stats/templates/stats/about.html")
@@ -480,11 +522,12 @@ class RecordsRepo:
         for name, family in sorted(families.items()):
             write_yaml(family_to_dict(family), data / f"{name}.yml")
         in_branch = {path.stem for path in data.glob("*.yml")}
-        (self.path / "db.json").write_text(dump_database(in_branch))
+        snapshot = dump_database(in_branch)
+        (self.path / "db.json").write_text(snapshot)
         readme, about = self.path / "README.md", self.path / ABOUT
         new = unlisted(readme.read_text(), in_branch, known_dates)
         about.write_text(update_about(about.read_text(), new))
-        readme.write_text(update_readme(readme.read_text(), in_branch, known_dates))
+        readme.write_text(update_readme(readme.read_text(), in_branch, known_dates, records=json.loads(snapshot)))
         self.git("add", "--", *sorted(generated))
         base_names = self.family_names(base)
         pending = self.family_changes(base, "--cached")

@@ -133,7 +133,7 @@ class PublicationTests(TestCase):
         self.assertEqual(names, {"ConvNeXt", "FixtureNet"})  # the families in the branch
         self.assertTrue(all(o["fields"].get("source_record") is None for o in dump if "source_record" in o["fields"]))
         readme = self.branch_file(self.batch, "README.md")
-        self.assertIn("| FixtureNet | [arXiv 2609.12345](https://arxiv.org/abs/2609.12345) |", readme)
+        self.assertIn("| FixtureNet | 1 | [arXiv 2609.12345](https://arxiv.org/abs/2609.12345) |", readme)
         self.assertIn(": added FixtureNet", readme)
         about = self.branch_file(self.batch, str(publication.ABOUT))
         today = timezone.now().date()
@@ -407,6 +407,39 @@ class PublicationTests(TestCase):
             result = publication.update_readme(README, {"ConvNeXt", "FixtureNet"})
         self.assertLess(result.index("| FixtureNet |"), result.index("| ConvNeXt |"))
         self.assertLess(result.index("- 11-8-2025:"), result.index("- 1-1-2025:"))
+
+    def test_model_counts_use_backbone_variants_and_refresh_existing_rows(self):
+        self.published_run()
+        records = json.loads(publication.dump_database({"ConvNeXt", "FixtureNet"}))
+        family_id = next(obj["pk"] for obj in records if obj["model"] == "stats.backbonefamily"
+                         and obj["fields"]["name"] == "FixtureNet")
+        backbone = next(obj for obj in records if obj["model"] == "stats.backbone"
+                        and obj["fields"]["family"] == family_id)
+        checkpoint = next(obj for obj in records if obj["model"] == "stats.pretrainedbackbone"
+                          and obj["fields"]["family"] == family_id)
+        records.append({**checkpoint, "pk": 999999})  # another checkpoint of the same variant
+        once = publication.update_readme(README, {"ConvNeXt", "FixtureNet"}, records=records)
+        self.assertIn("| FixtureNet | 1 |", once)
+        self.assertIn(publication.TABLE_HEADER, once)
+        dates = publication.listed_dates(once)
+        records.append({**backbone, "pk": 999999, "fields": {**backbone["fields"], "name": "FixtureNet-L"}})
+        updated = publication.update_readme(once, {"ConvNeXt", "FixtureNet"}, records=records)
+        self.assertIn("| FixtureNet | 2 |", updated)
+        self.assertEqual(publication.listed_dates(updated), dates)
+        self.assertEqual(updated.count(": added FixtureNet"), 1)
+        self.assertEqual(publication.update_readme(updated, {"ConvNeXt", "FixtureNet"}, records=records), updated)
+
+    def test_historical_paper_row_counts_distinct_variants_for_that_paper(self):
+        records = json.loads(publication.dump_database({"FAN"}))
+        text = "\n".join([publication.LEGACY_TABLE_HEADER, "|---|---|---|",
+                           "| FAN | [paper](https://arxiv.org/abs/2204.12451) | 2025-04-14 |",
+                           "| FAN STL | [paper](https://arxiv.org/pdf/2401.03844) | 2025-04-22 |",
+                           "| Unknown | [paper](https://example.com/unknown) | 2025-04-23 |"])
+        result = publication.update_model_counts(text, records)
+        self.assertIn("| FAN | 8 |", result)
+        self.assertIn("| FAN STL | 4 |", result)
+        self.assertIn("| Unknown | — |", result)
+        self.assertEqual(publication.update_model_counts(result, records), result)
 
     def test_fallback_added_date_is_preserved_while_batch_stays_open(self):
         self.published_run()
