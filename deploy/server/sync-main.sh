@@ -1,7 +1,7 @@
 #!/bin/bash
 # Run every 30 s by heedless-sync.timer, as the site user. When GitHub's main has moved:
-# deploy it to the site (fast-forward, migrate, static files, graceful reload), then rebuild
-# the open auto.<family> pull requests on it so they stay mergeable. Otherwise do nothing.
+# deploy it to the site (fast-forward, migrate, static files, graceful reload), then update
+# the open aggregate PR using normal commits. Otherwise do nothing.
 set -euo pipefail
 SITE="${SITE:-/home/django/heedless-backbones}"
 SETTINGS="${SETTINGS:-heedless-backbones.settings_django_deploy}"

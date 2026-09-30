@@ -1,13 +1,8 @@
-"""Publishing, and the records kept for every publish.
+"""Publish extractions and accumulate their repository records in one automated PR.
 
-`publish()` is the one way extractions reach the database: the review page's approval, the
-agent's clean runs (through `publish_ready`, called on the server at the end of each
-scheduled run) and the admin actions all call it. After a successful import it records the
-change in git, in the background: for each family the run touched, a branch `auto.<family>`
-is rebuilt from the latest main with the family's YAML, a db.json regenerated from the
-database, and the README's model table, then force-pushed with an open pull request.
-Rebuilding (rather than merging) keeps every open auto branch mergeable: after one is merged,
-`refresh()` rebuilds the others on the new main.
+Each batch keeps its history: later publications append commits, and changes to main are
+merged with generated files refreshed from the database. A merged batch is followed by a
+fresh branch and PR on the next publication. Production publishing precedes Git recording.
 """
 import fcntl
 import json
@@ -18,6 +13,8 @@ import subprocess
 import sys
 import time
 from contextlib import contextmanager
+from datetime import date, datetime
+from uuid import uuid4
 from pathlib import Path
 
 import requests
@@ -38,7 +35,8 @@ from .sources import arxiv_id
 
 logger = logging.getLogger(__name__)
 MANAGE = Path(__file__).resolve().parents[1] / "manage.py"
-BRANCH_PREFIX = "auto."
+BRANCH_PREFIX = "auto."  # Legacy per-family PRs, used only for explicit consolidation.
+BATCH_PREFIX = "auto.records-"
 LABEL = "automated"
 FOOTER = "_Opened automatically by the Heedless Backbones ingestion pipeline._"
 GITHUB_API = "https://api.github.com"
@@ -57,13 +55,12 @@ def publish(run, actor, allow_updates=False, record=True):
 
 
 def publish_ready(actor="agent"):
-    """Publish every validated run waiting to be published, then record them and refresh the
-    open auto branches (run on the server after each scheduled agent run)."""
+    """Publish validated runs and append their records to the aggregate PR."""
     published, blocked = [], []
     for run in IngestionRun.objects.filter(status=IngestionRun.Status.READY).order_by("pk"):
         problems = publish(run, actor, record=False)
         (blocked if problems else published).append(run)
-    record(published, refresh_others=True)
+    record(published)
     return published, blocked
 
 
@@ -150,12 +147,24 @@ def paper_cell(family):
     return f"[paper]({link})" if link else ""
 
 
-def pull_title(family, existed):
-    """e.g. "Adds LocalViT (Attn + Conv, isotropic), arXiv 2104.05707." """
-    identifier = arxiv_id(family.paper)
-    source = f"arXiv {identifier}" if identifier else family.paper or family.github or "no paper link"
-    return (f"{'Updates' if existed else 'Adds'} {family.name} ({family.model_type}, "
-            f"{'hierarchical' if family.hierarchical else 'isotropic'}), {source}.")
+def batch_title(added, updated):
+    """Describe distinct family changes relative to main (or the preceding commit)."""
+    added, updated = sorted(set(added)), sorted(set(updated))
+    if added and updated:
+        noun = "family" if len(added) == 1 else "families"
+        return f"Add {len(added)} backbone {noun}; update {len(updated)}"
+    names, verb = (added, "Add") if added else (updated, "Update")
+    if not names:
+        return "Update backbone records"
+    if len(names) > 3:
+        return f"{verb} {len(names)} backbone families"
+    if len(names) == 1:
+        joined = names[0]
+    elif len(names) == 2:
+        joined = " and ".join(names)
+    else:
+        joined = ", ".join(names[:-1]) + ", and " + names[-1]
+    return f"{verb} {joined}"
 
 
 def model_table(lines):
@@ -169,20 +178,75 @@ def model_table(lines):
     return header, end
 
 
-def unlisted(readme, names):
+def sort_readme(text):
+    """Order the model table and dated updates newest first, preserving handwritten notes."""
+    lines = text.splitlines()
+    header, end = model_table(lines)
+
+    def row_key(line):
+        cells = [cell.strip() for cell in line.split("|")]
+        return (-date.fromisoformat(cells[3]).toordinal(), cells[1].casefold(), cells[1])
+
+    lines[header + 2:end] = sorted(lines[header + 2:end], key=row_key)
+    if "## Updates" not in lines:
+        return "\n".join(lines) + "\n"
+    start = lines.index("## Updates") + 1
+    end = next((i for i in range(start, len(lines)) if lines[i].startswith("## ")), len(lines))
+    dated, additions, positions = [], {}, set()
+    for i in range(start, end):
+        match = re.fullmatch(r"- (\d{1,2})-(\d{1,2})-(\d{4}): (.*)", lines[i])
+        if not match:
+            continue
+        month, day, year = map(int, match.group(1, 2, 3))
+        stamp = date(year, month, day)
+        positions.add(i)
+        # Only combine generated model-addition entries. Mixed handwritten announcements
+        # (e.g. "added semantic segmentation; fixed plots") keep their original wording.
+        added = re.fullmatch(r"added ([^;]+)", match[4])
+        if added:
+            additions.setdefault(stamp, set()).update(name.strip() for name in added[1].split(","))
+        else:
+            dated.append((stamp, lines[i]))
+    for stamp, names in additions.items():
+        names = ", ".join(sorted(names, key=lambda name: (name.casefold(), name)))
+        dated.append((stamp, f"- {stamp.month}-{stamp.day}-{stamp.year}: added {names}"))
+    ordered = iter(line for stamp, line in sorted(dated, key=lambda item: item[0], reverse=True))
+    result = []
+    for i, line in enumerate(lines):
+        if i in positions:
+            replacement = next(ordered, None)
+            if replacement is not None:
+                result.append(replacement)
+        else:
+            result.append(line)
+    return "\n".join(result) + "\n"
+
+
+def listed_dates(readme):
+    lines = readme.splitlines()
+    header, end = model_table(lines)
+    dates = {}
+    for line in lines[header + 2:end]:
+        cells = [cell.strip() for cell in line.split("|")]
+        try:
+            dates[cells[1]] = date.fromisoformat(cells[3])
+        except (IndexError, ValueError):
+            continue
+    return dates
+
+
+def unlisted(readme, names, known_dates=None):
     """(day added, family) for families in names that the README's model table does not list yet."""
     lines = readme.splitlines()
     header, end = model_table(lines)
     listed = {line.split("|")[1].strip() for line in lines[header + 2:end]}
-    return [(added_on(family) or timezone.now().date(), family)
+    return [(added_on(family) or (known_dates or {}).get(family.name) or timezone.now().date(), family)
             for family in BackboneFamily.objects.filter(name__in=set(names) - listed).order_by("pk")]
 
 
-def update_readme(text, names):
+def update_readme(text, names, known_dates=None):
     """Add model-table rows (and an Updates entry) for families in names that are not listed yet."""
-    new = unlisted(text, names)
-    if not new:
-        return text
+    new = unlisted(text, names, known_dates)
     lines = text.splitlines()
     header, end = model_table(lines)
     rows = [f"| {family.name} | {paper_cell(family)} | {day.isoformat()} |" for day, family in new]
@@ -197,7 +261,7 @@ def update_readme(text, names):
         lines[updates + 2:updates + 2] = entries
     except ValueError:
         pass
-    return "\n".join(lines) + "\n"
+    return sort_readme("\n".join(lines) + "\n")
 
 
 ABOUT = Path("django/stats/templates/stats/about.html")
@@ -234,7 +298,27 @@ def update_about(text, new):
                 "          </ul>",
                 "        </div>",
             ]
-    return "\n".join(lines) + "\n"
+    return sort_about_dates("\n".join(lines) + "\n")
+
+
+def sort_about_dates(text):
+    """Sort existing dated update blocks too, retaining their handwritten contents."""
+    heading = text.index(">Latest Updates<")
+    pattern = re.compile(
+        r"(?m)^        <!-- ([A-Za-z]+ \d{1,2}, \d{4}) -->\n"
+        r"        <div[^\n]*>\n.*?^        </div>(?:\n|$)", re.DOTALL)
+    # Scope the reorder to the Latest Updates drawer, not subsequent page sections.
+    start = text.index(UPDATES_START, heading)
+    end = re.search(r"(?m)^      </div>", text[start:])
+    if end is None:
+        raise ValueError("about.html has no closing Latest Updates drawer")
+    end = start + end.end()
+    section = text[start:end]
+    blocks = list(pattern.finditer(section))
+    ordered = iter(sorted(blocks, key=lambda m: datetime.strptime(m[1], "%B %d, %Y"), reverse=True))
+    section = pattern.sub(lambda _: next(ordered)[0], section)
+    return text[:start] + section + text[end:]
+
 
 
 # Git and pull requests ---------------------------------------------------------------------------
@@ -349,76 +433,104 @@ class RecordsRepo:
                                    "--json", "number,headRefName,url", "--limit", "200") or "[]")
         return {pull["headRefName"]: pull for pull in pulls if pull["headRefName"].startswith(BRANCH_PREFIX)}
 
-    def build(self, name, open_pulls, actor_note=""):
-        """Rebuild auto.<family> on the latest base; push and open or update its PR if it changed."""
-        branch = branch_for(name)
+    def family_changes(self, base, target):
+        paths = self.git("diff", "--name-only", "-z", base, target, "--", "family_data").split("\0")
+        return {Path(path).stem for path in paths if path.endswith(".yml")}
+
+    def family_names(self, ref):
+        paths = self.git("ls-tree", "-r", "--name-only", "-z", ref, "--", "family_data").split("\0")
+        return {Path(path).stem for path in paths if path.endswith(".yml")}
+
+    def build(self, names, open_pulls):
+        """Append to the open batch, resolving only machine-generated merge conflicts."""
+        batches = [pull for branch, pull in open_pulls.items() if branch.startswith(BATCH_PREFIX)]
+        if len(batches) > 1:
+            raise RuntimeError("More than one aggregate PR is open; resolve the duplicate batches first")
+        pull = batches[0] if batches else None
+        if not pull and not names:
+            return {"skipped": "No pending aggregate PR"}
+        branch = pull["headRefName"] if pull else BATCH_PREFIX + uuid4().hex[:12]
+        base = f"origin/{self.base}"
         self.git("reset", "--hard", "-q")
         self.git("clean", "-fdq")
-        self.git("checkout", "-q", "-B", branch, f"origin/{self.base}")
+        self.git("checkout", "-q", "-B", branch, f"origin/{branch}" if pull else base)
+        previous = self.git("rev-parse", "HEAD")
+        names = set(names)
+        if pull:
+            ancestor = self.git("merge-base", base, "HEAD")
+            names.update(self.family_changes(ancestor, "HEAD"))
+        families = {family.name: family for family in BackboneFamily.objects.filter(name__in=names)}
+        if names - families.keys():
+            raise RuntimeError("Pending families missing from the database: " + ", ".join(sorted(names - families.keys())))
+        generated = {"db.json", "README.md", str(ABOUT)}
+        generated.update(f"family_data/{name}.yml" for name in names)
+        try:
+            self.git("merge", "--no-commit", "--no-ff", base)
+        except RuntimeError:
+            conflicts = set(filter(None, self.git("diff", "--name-only", "-z", "--diff-filter=U").split("\0")))
+            if not conflicts or conflicts - generated:
+                self.git("merge", "--abort", check=False)
+                raise
+        known_dates = listed_dates(self.git("show", f"{previous}:README.md"))
+        # Rebuild shared output from main plus all pending families, so each batch has one
+        # complete snapshot. These paths are machine-managed; unrelated edits survive merges.
+        for path in ("README.md", str(ABOUT)):
+            (self.path / path).write_text(self.git("show", f"{base}:{path}") + "\n")
         data = self.path / "family_data"
-        existed = (data / f"{name}.yml").exists()
-        family = BackboneFamily.objects.filter(name=name).first()
-        if family is None:
-            return {"family": name, "skipped": "family no longer exists"}
-        write_yaml(family_to_dict(family), data / f"{name}.yml")
+        for name, family in sorted(families.items()):
+            write_yaml(family_to_dict(family), data / f"{name}.yml")
         in_branch = {path.stem for path in data.glob("*.yml")}
         (self.path / "db.json").write_text(dump_database(in_branch))
         readme, about = self.path / "README.md", self.path / ABOUT
-        new = unlisted(readme.read_text(), in_branch)
+        new = unlisted(readme.read_text(), in_branch, known_dates)
         about.write_text(update_about(about.read_text(), new))
-        readme.write_text(update_readme(readme.read_text(), in_branch))
-        self.git("add", f"family_data/{name}.yml", "db.json", "README.md", str(ABOUT))
-        if not self.git("diff", "--cached", "--name-only"):
-            return {"family": name, "skipped": f"{self.base} already has these records"}
-        title = pull_title(family, existed)  # also the commit message, so a squash merge lands with it
-        self.git("commit", "-q", "-m", title)
-        remote_exists = bool(self.git("ls-remote", "--heads", "origin", branch))
-        if remote_exists:
-            self.git("fetch", "-q", "origin", branch)
-            same_files = not self.git("diff", f"origin/{branch}", "HEAD", "--name-only", check=False)
-            if same_files and self.git("log", "-1", "--format=%s", f"origin/{branch}") == title:
-                pull = open_pulls.get(branch)
-                return {"family": name, "branch": branch, "url": pull and pull["url"], "unchanged": True}
-        self.git("push", "-q", "--force", "origin", f"{branch}:{branch}")
-        body = pull_body(family, existed, actor_note)
-        pull = open_pulls.get(branch)
+        readme.write_text(update_readme(readme.read_text(), in_branch, known_dates))
+        self.git("add", "--", *sorted(generated))
+        base_names = self.family_names(base)
+        pending = self.family_changes(base, "--cached")
+        title = batch_title(pending - base_names, pending & base_names)
+        merging = bool(self.git("rev-parse", "--verify", "-q", "MERGE_HEAD", check=False))
+        changed = bool(self.git("diff", "--cached", "--name-only"))
+        if changed or merging:
+            changed_families = self.family_changes("HEAD", "--cached")
+            previous_names = self.family_names("HEAD")
+            commit_title = batch_title(changed_families - previous_names, changed_families & previous_names)
+            if merging:
+                commit_title = f"Merge {self.base} into automated backbone records"
+            self.git("commit", "-q", "-m", commit_title)
+        # A repeat publication after a merge must not open an empty replacement PR.
+        if not pull and not self.git("diff", "--name-only", base, "HEAD"):
+            return {"skipped": f"{self.base} already has these records"}
+        self.git("push", "-q", "origin", f"{branch}:{branch}")
+        body = batch_body(pending - base_names, pending & base_names)
+        self.ensure_label()
         if pull:
-            self.ensure_label()
             self.gh("pr", "edit", str(pull["number"]), "--title", title, "--body", body, "--add-label", LABEL)
             url = pull["url"]
         else:
-            self.ensure_label()
             url = self.gh("pr", "create", "--base", self.base, "--head", branch, "--title", title, "--body", body,
                           "--label", LABEL)
-        return {"family": name, "branch": branch, "url": url}
+        outcome = {"families": sorted(pending), "branch": branch, "url": url}
+        if self.git("rev-parse", "HEAD") == previous:
+            outcome["unchanged"] = True
+        return outcome
 
 
-def pull_body(family, existed, actor_note):
-    data = family_to_dict(family)
-    backbones = data["backbones"]
-    pretrained = [item for backbone in backbones for item in backbone["pretrained_backbones"]]
-    count = lambda key: sum(len(item[key]) for item in pretrained)
-    fps = sum(len(backbone["fps_measurements"]) for backbone in backbones)
-    lines = [
-        f"{'Updates' if existed else 'Adds'} **{family.name}** ({family.model_type}, "
-        f"{'hierarchical' if family.hierarchical else 'isotropic'}), {paper_cell(family) or 'no paper link'}.",
-        "",
-        f"- {len(backbones)} backbones, {len(pretrained)} pretrained models",
-        f"- {count('classification_results')} classification, {count('instance_results')} detection/instance "
-        f"segmentation and {count('semantic_seg_results')} semantic segmentation results; {fps} throughput measurements",
-        f"- Files regenerated from the database: `family_data/{family.name}.yml`, `db.json`, `README.md`, "
-        f"the about page's Latest Updates",
-    ]
-    if actor_note:
-        lines.append(f"- {actor_note}")
-    lines += ["", FOOTER]
+def batch_body(added, updated):
+    lines = ["Records the following published backbone families in one batch.", "",
+             "| Change | Family | Paper |", "|---|---|---|"]
+    for label, names in (("Add", added), ("Update", updated)):
+        for family in BackboneFamily.objects.filter(name__in=names).order_by("name"):
+            lines.append(f"| {label} | {family.name} | {paper_cell(family)} |")
+    lines += ["", "Includes each family's YAML, one database snapshot, and the README/About updates.",
+              "Dates reflect first publication to the database. Later publications append commits to this PR.",
+              "", FOOTER]
     return "\n".join(lines)
 
 
-def record(runs, refresh_others=False, families=()):
-    """Rebuild the auto branch of every family the runs touched (plus any families named, e.g.
-    from add_yaml, and optionally every other open auto branch), noting the pull requests on
-    each run."""
+def record(runs, families=(), include_legacy=False):
+    """Append published families to one PR; optionally consolidate legacy per-family PRs."""
+    runs = list(runs)
     if not configured():
         note(runs, {"error": "Record keeping is not configured (RECORDS_REPO)"})
         return []
@@ -428,36 +540,27 @@ def record(runs, refresh_others=False, families=()):
         try:
             repo.git("fetch", "-q", "--prune", "origin")
             open_pulls = repo.open_auto_branches()
-        except RuntimeError as exc:
-            note(runs, {"error": str(exc)})
-            return []
-        touched = {name: [] for name in families}
-        for run in runs:
-            for name in run_families(run):
-                touched.setdefault(name, []).append(run)
-        outcomes = []
-        for name, family_runs in sorted(touched.items()):
-            summary = ("Published from run " + ", ".join(str(run.pk) for run in family_runs)) if family_runs \
-                else "Imported from a family YAML file (add_yaml)"
-            try:
-                outcome = repo.build(name, open_pulls, summary)
-            except RuntimeError as exc:
-                outcome = {"family": name, "error": str(exc)}
-            outcomes.append(outcome)
-            note(family_runs, outcome)
-        if refresh_others:
-            by_branch = {branch_for(family.name): family.name for family in BackboneFamily.objects.all()}
-            for branch in open_pulls:
-                name = by_branch.get(branch)
-                if name and name not in touched:
-                    try:
-                        outcomes.append(repo.build(name, open_pulls))
-                    except RuntimeError as exc:
-                        outcomes.append({"family": name, "error": str(exc)})
-        repo.git("checkout", "-q", "--detach", check=False)
-        return outcomes
+            names = set(families)
+            for run in runs:
+                names.update(run_families(run))
+            if include_legacy:
+                by_branch = {branch_for(family.name): family.name for family in BackboneFamily.objects.all()}
+                legacy = {branch for branch in open_pulls if not branch.startswith(BATCH_PREFIX)}
+                unknown = legacy - by_branch.keys()
+                if unknown:
+                    raise RuntimeError("Cannot consolidate unknown family branches: " + ", ".join(sorted(unknown)))
+                names.update(by_branch[branch] for branch in legacy)
+            outcome = repo.build(names, open_pulls)
+        except (RuntimeError, ValueError) as exc:
+            outcome = {"error": str(exc)}
+        finally:
+            if repo.git("rev-parse", "--verify", "-q", "MERGE_HEAD", check=False):
+                repo.git("merge", "--abort", check=False)
+            repo.git("checkout", "-q", "--detach", check=False)
+        note(runs, outcome)
+        return [outcome]
 
 
-def refresh():
-    """Rebuild every open auto branch on the latest main (after one of them is merged)."""
-    return record([], refresh_others=True)
+def refresh(include_legacy=False):
+    """Update the current aggregate PR; migration from family PRs is explicit."""
+    return record([], include_legacy=include_legacy)

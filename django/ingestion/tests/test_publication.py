@@ -2,6 +2,7 @@ import json
 import subprocess
 import tempfile
 from pathlib import Path
+from datetime import date
 from unittest.mock import Mock, patch
 
 from django.test import TestCase, override_settings
@@ -65,6 +66,9 @@ class FakeGitHub:
             return ""
         if args[:2] == ("pr", "edit"):
             self.edits.append(args)
+            branch = next(branch for branch, number in self.pulls.items() if str(number) == args[2])
+            self.titles[branch] = args[args.index("--title") + 1]
+            self.bodies[branch] = args[args.index("--body") + 1]
             return ""
         raise AssertionError(args)
 
@@ -79,8 +83,11 @@ class PublicationTests(TestCase):
         self.origin, seed, self.clone = root / "origin.git", root / "seed", root / "records"
         subprocess.run(["git", "init", "-q", "--bare", "-b", "main", str(self.origin)], check=True)
         subprocess.run(["git", "clone", "-q", str(self.origin), str(seed)], check=True, capture_output=True)
+        self.seed = seed
+        git(self.origin, "config", "receive.denyNonFastforwards", "true")
         git(seed, "config", "user.email", "test@example.com")
         git(seed, "config", "user.name", "Test")
+        git(seed, "config", "commit.gpgsign", "false")
         (seed / "family_data").mkdir()
         (seed / "family_data" / "ConvNeXt.yml").write_text("name: ConvNeXt\n")
         (seed / "README.md").write_text(README)
@@ -93,12 +100,17 @@ class PublicationTests(TestCase):
         subprocess.run(["git", "clone", "-q", str(self.origin), str(self.clone)], check=True, capture_output=True)
         git(self.clone, "config", "user.email", "agent@example.com")
         git(self.clone, "config", "user.name", "Agent")
+        git(self.clone, "config", "commit.gpgsign", "false")
         self.github = FakeGitHub()
         patches = [override_settings(RECORDS_REPO=str(self.clone), MEDIA_ROOT=tempfile.mkdtemp()),
                    patch.object(publication.RecordsRepo, "gh", lambda repo, *args: self.github(repo, *args))]
         for item in patches:
             item.enable() if hasattr(item, "enable") else item.start()
             self.addCleanup(item.disable if hasattr(item, "disable") else item.stop)
+
+    @property
+    def batch(self):
+        return next(branch for branch in self.github.pulls if branch.startswith(publication.BATCH_PREFIX))
 
     def published_run(self):
         self.assertEqual(apply_run(self.run, publish=True), [])
@@ -107,23 +119,23 @@ class PublicationTests(TestCase):
     def branch_file(self, branch, path):
         return git(self.origin, "show", f"{branch}:{path}")
 
-    def test_publish_records_the_family_on_its_own_branch_and_pull_request(self):
+    def test_publish_records_the_family_in_one_batch_and_repeat_is_idempotent(self):
         outcomes = publication.record([self.published_run()])
-        self.assertEqual(outcomes[0]["branch"], "auto.fixturenet")
+        self.assertEqual(outcomes[0]["branch"], self.batch)
         self.assertEqual(outcomes[0]["url"], "https://github.test/pull/1")
-        self.assertEqual(self.github.titles["auto.fixturenet"],
-                         "Adds FixtureNet (Convolution, hierarchical), arXiv 2609.12345.")
-        self.assertEqual(git(self.origin, "log", "-1", "--format=%s", "auto.fixturenet"),
-                         self.github.titles["auto.fixturenet"])
-        self.assertIn("name: FixtureNet", self.branch_file("auto.fixturenet", "family_data/FixtureNet.yml"))
-        dump = json.loads(self.branch_file("auto.fixturenet", "db.json"))
+        self.assertEqual(self.github.titles[self.batch],
+                         "Add FixtureNet")
+        self.assertEqual(git(self.origin, "log", "-1", "--format=%s", self.batch),
+                         self.github.titles[self.batch])
+        self.assertIn("name: FixtureNet", self.branch_file(self.batch, "family_data/FixtureNet.yml"))
+        dump = json.loads(self.branch_file(self.batch, "db.json"))
         names = {o["fields"]["name"] for o in dump if o["model"] == "stats.backbonefamily"}
         self.assertEqual(names, {"ConvNeXt", "FixtureNet"})  # the families in the branch
         self.assertTrue(all(o["fields"].get("source_record") is None for o in dump if "source_record" in o["fields"]))
-        readme = self.branch_file("auto.fixturenet", "README.md")
+        readme = self.branch_file(self.batch, "README.md")
         self.assertIn("| FixtureNet | [arXiv 2609.12345](https://arxiv.org/abs/2609.12345) |", readme)
         self.assertIn(": added FixtureNet", readme)
-        about = self.branch_file("auto.fixturenet", str(publication.ABOUT))
+        about = self.branch_file(self.batch, str(publication.ABOUT))
         today = timezone.now().date()
         self.assertEqual(about.count('Added <a href="{% url "family" "FixtureNet" %}">FixtureNet</a>'), 1)
         self.assertLess(about.index(f"{today:%B} {today.day}, {today.year}"), about.index("November 8, 2025"))
@@ -132,13 +144,11 @@ class PublicationTests(TestCase):
         # Recording again changes nothing and opens no second pull request.
         self.assertTrue(publication.record([self.run])[0]["unchanged"])
         self.assertEqual(len(self.github.pulls), 1)
-        # A branch with an older title is rewritten and its pull request retitled.
-        git(self.clone, "checkout", "-q", "auto.fixturenet")
-        git(self.clone, "commit", "-q", "--amend", "-m", "Add FixtureNet")
-        git(self.clone, "push", "-q", "--force", "origin", "auto.fixturenet")
-        self.assertNotIn("unchanged", publication.record([self.run])[0])
-        self.assertEqual(git(self.origin, "log", "-1", "--format=%s", "auto.fixturenet"), self.github.titles["auto.fixturenet"])
-        self.assertIn("--title", self.github.edits[-1])
+        previous = git(self.origin, "rev-parse", self.batch)
+        self.github.titles[self.batch] = "Old title"
+        self.assertTrue(publication.record([self.run])[0]["unchanged"])
+        self.assertEqual(git(self.origin, "rev-parse", self.batch), previous)
+        self.assertEqual(self.github.titles[self.batch], "Add FixtureNet")
 
     def test_records_are_pushed_and_proposed_as_the_github_app(self):
         bot = ("heedless-backbones-agent[bot]", "42+heedless-backbones-agent[bot]@users.noreply.github.com")
@@ -151,10 +161,10 @@ class PublicationTests(TestCase):
         with patch("ingestion.publication.github_app", return_value=app), \
                 patch("ingestion.publication.subprocess.run", side_effect=run):
             publication.record([self.published_run()])
-        author = git(self.origin, "log", "-1", "--format=%an <%ae>", "auto.fixturenet")
+        author = git(self.origin, "log", "-1", "--format=%an <%ae>", self.batch)
         self.assertEqual(author, f"{bot[0]} <{bot[1]}>")
         self.assertTrue(all(env.get("GH_TOKEN") == "installation-token" for command, env in seen if command[0] == "git"))
-        body = self.github.bodies["auto.fixturenet"]
+        body = self.github.bodies[self.batch]
         self.assertIn(publication.FOOTER, body)
         self.assertEqual(self.github.labels, {publication.LABEL})
 
@@ -186,8 +196,10 @@ class PublicationTests(TestCase):
                                                      ("POST", "/app/installations/7/access_tokens")])
         self.assertIsNone(calls[-1][2])  # the bot's public user record needs no auth
 
-    def test_open_branches_stay_mergeable_after_one_is_merged(self):
+    def test_second_family_appends_to_the_same_pr_without_rewriting_history(self):
         publication.record([self.published_run()])
+        branch = self.batch
+        first = git(self.origin, "rev-parse", branch)
         # A second family from a second run.
         second = test_importer.PaperVersion.objects.create(arxiv_id="2609.54321", revision="r", title="Other",
                                                            pages=[test_importer.TEXT], metadata={"created": "2026-09-02T00:00:00Z"})
@@ -198,22 +210,138 @@ class PublicationTests(TestCase):
                  pretrain_dataset="ImageNet-1k", pretrain_method="Supervised", pretrain_resolution=224, pretrain_epochs=300)
         self.add("classification", "classification", pretrained_backbone="$pretrain", dataset="ImageNet-1k",
                  resolution=224, top_1=83.1, gflops=4.5)
-        publication.record([self.published_run()])
-        # Merge the first pull request on "GitHub".
-        git(self.origin, "update-ref", "refs/heads/main", git(self.origin, "rev-parse", "auto.fixturenet"))
-        del self.github.pulls["auto.fixturenet"]
-        publication.refresh()
-        base = git(self.origin, "rev-parse", "main")
-        # The other branch now sits directly on the new main (a clean merge) and lists both families.
-        self.assertEqual(git(self.origin, "merge-base", "main", "auto.othernet"), base)
-        readme = self.branch_file("auto.othernet", "README.md")
-        self.assertIn("| FixtureNet |", readme)
-        self.assertIn("| OtherNet |", readme)
-        about = self.branch_file("auto.othernet", str(publication.ABOUT))
+        outcome = publication.record([self.published_run()])[0]
+        self.assertEqual(outcome["branch"], branch)
+        self.assertEqual(len(self.github.pulls), 1)
+        self.assertEqual(git(self.origin, "merge-base", first, branch), first)
+        self.assertEqual(self.github.titles[branch], "Add FixtureNet and OtherNet")
+        self.assertEqual(git(self.origin, "log", "-1", "--format=%s", branch), "Add OtherNet")
+        dump = json.loads(self.branch_file(branch, "db.json"))
+        self.assertEqual({o["fields"]["name"] for o in dump if o["model"] == "stats.backbonefamily"},
+                         {"ConvNeXt", "FixtureNet", "OtherNet"})
+        about = self.branch_file(branch, str(publication.ABOUT))
         today = timezone.now().date()
-        self.assertEqual(about.count(f">{today:%B} {today.day}, {today.year}</p>"), 1)  # one group for the day
+        self.assertEqual(about.count(f">{today:%B} {today.day}, {today.year}</p>"), 1)
         self.assertIn('"OtherNet" %}">OtherNet</a>', about)
         self.assertIn('"FixtureNet" %}">FixtureNet</a>', about)
+        self.assertIn("2609.54321", self.github.bodies[branch])
+        self.assertIn("2609.12345", self.github.bodies[branch])
+
+    def test_mixed_batch_counts_each_family_once_relative_to_main(self):
+        publication.record([self.published_run()])
+        branch = self.batch
+        family = BackboneFamily.objects.get(name="FixtureNet")
+        family.github = "https://github.com/example/fixture"
+        family.save()
+        outcome = publication.record([self.run], families=["ConvNeXt", "FixtureNet", "FixtureNet"])[0]
+        self.assertNotIn("error", outcome)
+        self.assertEqual(self.github.titles[branch], "Add 1 backbone family; update 1")
+        self.assertEqual(self.github.bodies[branch].count("| Add | FixtureNet |"), 1)
+        self.assertEqual(self.github.bodies[branch].count("| Update | ConvNeXt |"), 1)
+        self.assertEqual(outcome["families"], ["ConvNeXt", "FixtureNet"])
+        self.assertTrue(publication.refresh()[0]["unchanged"])
+
+    def test_main_advances_with_shared_file_conflicts_using_a_normal_merge(self):
+        publication.record([self.published_run()])
+        branch = self.batch
+        previous = git(self.origin, "rev-parse", branch)
+        (self.seed / "db.json").write_text('[{"changed": true}]\n')
+        (self.seed / "README.md").write_text(README + "\nAn unrelated documentation improvement.\n")
+        (self.seed / "unrelated.txt").write_text("keep me\n")
+        git(self.seed, "add", ".")
+        git(self.seed, "commit", "-qm", "Change main")
+        git(self.seed, "push", "-q", "origin", "main")
+        outcome = publication.refresh()[0]
+        self.assertNotIn("error", outcome)
+        self.assertEqual(git(self.origin, "merge-base", previous, branch), previous)
+        self.assertEqual(git(self.origin, "merge-base", "main", branch), git(self.origin, "rev-parse", "main"))
+        self.assertEqual(self.branch_file(branch, "unrelated.txt"), "keep me")
+        self.assertIn("An unrelated documentation improvement.", self.branch_file(branch, "README.md"))
+        self.assertIn("| FixtureNet |", self.branch_file(branch, "README.md"))
+        self.assertEqual(self.github.titles[branch], "Add FixtureNet")
+        self.assertTrue(publication.refresh()[0]["unchanged"])
+
+    def test_unmanaged_conflict_is_reported_and_merge_is_aborted(self):
+        publication.record([self.published_run()])
+        branch = self.batch
+        git(self.clone, "checkout", "-q", branch)
+        (self.clone / "custom.txt").write_text("PR edit\n")
+        git(self.clone, "add", "custom.txt")
+        git(self.clone, "commit", "-qm", "Custom edit")
+        git(self.clone, "push", "-q", "origin", branch)
+        previous = git(self.origin, "rev-parse", branch)
+        (self.seed / "custom.txt").write_text("main edit\n")
+        git(self.seed, "add", "custom.txt")
+        git(self.seed, "commit", "-qm", "Conflicting edit")
+        git(self.seed, "push", "-q", "origin", "main")
+        self.assertIn("error", publication.refresh()[0])
+        self.assertEqual(git(self.origin, "rev-parse", branch), previous)
+        self.assertEqual(git(self.clone, "status", "--porcelain"), "")
+
+    def test_squash_merge_finishes_batch_and_next_publication_gets_fresh_branch(self):
+        publication.record([self.published_run()])
+        old = self.batch
+        git(self.seed, "fetch", "-q", "origin")
+        git(self.seed, "merge", "--squash", f"origin/{old}")
+        git(self.seed, "commit", "-qm", "Squash batch")
+        git(self.seed, "push", "-q", "origin", "main")
+        del self.github.pulls[old]
+        self.assertIn("skipped", publication.refresh()[0])
+        self.assertIn("skipped", publication.record([self.run])[0])
+        self.assertEqual(self.github.pulls, {})
+        family = BackboneFamily.objects.get(name="FixtureNet")
+        family.github = "https://github.com/example/fixturenet"
+        family.save()
+        outcome = publication.record([self.run])[0]
+        self.assertNotIn("error", outcome)
+        self.assertNotEqual(self.batch, old)
+        self.assertEqual(self.github.titles[self.batch], "Update FixtureNet")
+        self.assertEqual(git(self.origin, "merge-base", "main", self.batch), git(self.origin, "rev-parse", "main"))
+
+    def test_legacy_consolidation_is_explicit_and_leaves_old_prs_for_review(self):
+        self.published_run()
+        self.github.pulls["auto.fixturenet"] = 17
+        self.assertIn("skipped", publication.refresh()[0])
+        outcome = publication.refresh(include_legacy=True)[0]
+        self.assertNotIn("error", outcome)
+        self.assertIn("auto.fixturenet", self.github.pulls)
+        self.assertIn("FixtureNet", outcome["families"])
+        self.assertEqual(self.github.titles[self.batch], "Add FixtureNet")
+
+    def test_missing_pending_family_does_not_disappear_silently(self):
+        publication.record([self.published_run()])
+        previous = git(self.origin, "rev-parse", self.batch)
+        BackboneFamily.objects.filter(name="FixtureNet").delete()
+        self.assertIn("missing from the database", publication.refresh()[0]["error"])
+        self.assertEqual(git(self.origin, "rev-parse", self.batch), previous)
+
+    def test_batch_titles(self):
+        for added, updated, expected in [
+            (["Swin"], [], "Add Swin"),
+            (["Swin", "ConvNeXt"], [], "Add ConvNeXt and Swin"),
+            (["Swin", "ConvNeXt", "LocalViT"], [], "Add ConvNeXt, LocalViT, and Swin"),
+            (["A", "B", "C", "D"], [], "Add 4 backbone families"),
+            (["Swin", "Swin"], ["ConvNeXt"], "Add 1 backbone family; update 1"),
+            ([], ["Swin"], "Update Swin"),
+            ([], ["A", "B", "C", "D"], "Update 4 backbone families"),
+        ]:
+            with self.subTest(expected=expected):
+                self.assertEqual(publication.batch_title(added, updated), expected)
+
+    def test_about_sorts_old_and_new_dates_and_preserves_handwritten_updates(self):
+        family = BackboneFamily.objects.get(name="Swin")
+        source = ABOUT.replace("          </ul>", "            <li>Improved search performance.</li>\n          </ul>")
+        text = publication.update_about(source, [(date(2025, 1, 1), family)])
+        self.assertLess(text.index("November 8, 2025"), text.index("January 1, 2025"))
+        self.assertEqual(publication.update_about(text, [(date(2025, 1, 1), family)]), text)
+        # Repair an already out-of-order section, including updates unrelated to families.
+        early = text.index("        <!-- November")
+        late = text.index("        <!-- January")
+        end = text.index("\n      </div>", late) + 1
+        shuffled = text[:early] + text[late:end] + text[early:late] + text[end:]
+        self.assertEqual(publication.update_about(shuffled, []), text)
+        self.assertIn('"CoCAViT" %}', text)
+        self.assertIn("<li>Improved search performance.</li>", text)
 
     def test_publish_imports_then_records_in_the_background(self):
         with patch("ingestion.publication.subprocess.Popen") as popen:
@@ -233,7 +361,7 @@ class PublicationTests(TestCase):
         with patch("ingestion.publication.record") as record:
             published, blocked = publication.publish_ready()
         self.assertEqual((published, blocked), ([self.run], []))
-        record.assert_called_once_with([self.run], refresh_others=True)
+        record.assert_called_once_with([self.run])
 
     def test_dump_keeps_unattached_measurements_of_the_families(self):
         from stats.models import FPSMeasurement
@@ -249,6 +377,51 @@ class PublicationTests(TestCase):
         once = publication.update_readme(README, {"ConvNeXt", "FixtureNet"})
         self.assertEqual(once.count("| FixtureNet |"), 1)
         self.assertEqual(publication.update_readme(once, {"ConvNeXt", "FixtureNet"}), once)
+
+    def test_readme_orders_existing_rows_and_combines_additions_by_date(self):
+        text = README.replace(
+            "## Updates",
+            "| Zebra | [paper](https://example.com/z) | 2026-09-29 |\n"
+            "| Alpha | [paper](https://example.com/a) | 2026-09-29 |\n\n## Updates",
+        ).replace("\n\n| Zebra", "\n| Zebra")
+        text += ("- 9-28-2026: added Middle\n"
+                 "- 9-29-2026: added Zebra\n"
+                 "- 9-28-2026: improved plot defaults; bug fixes\n"
+                 "- 9-29-2026: added Alpha, Zebra\n"
+                 "\n## Other notes\n\n- 1-1-2030: Leave this section alone\n")
+        # No new family is required to repair historical ordering.
+        result = publication.update_readme(text, {"ConvNeXt"})
+        self.assertLess(result.index("| Alpha |"), result.index("| Zebra |"))
+        self.assertLess(result.index("| Zebra |"), result.index("| ConvNeXt |"))
+        self.assertEqual(result.count("- 9-29-2026:"), 1)
+        self.assertIn("- 9-29-2026: added Alpha, Zebra", result)
+        self.assertLess(result.index("- 9-29-2026:"), result.index("- 9-28-2026:"))
+        self.assertLess(result.index("- 9-28-2026:"), result.index("- 11-8-2025:"))
+        self.assertIn("- 9-28-2026: improved plot defaults; bug fixes", result)
+        self.assertTrue(result.endswith("## Other notes\n\n- 1-1-2030: Leave this section alone\n"))
+        self.assertEqual(publication.update_readme(result, {"ConvNeXt"}), result)
+
+    def test_readme_places_late_arriving_older_additions_by_date(self):
+        self.published_run()
+        with patch.object(publication, "added_on", return_value=date(2025, 1, 1)):
+            result = publication.update_readme(README, {"ConvNeXt", "FixtureNet"})
+        self.assertLess(result.index("| FixtureNet |"), result.index("| ConvNeXt |"))
+        self.assertLess(result.index("- 11-8-2025:"), result.index("- 1-1-2025:"))
+
+    def test_fallback_added_date_is_preserved_while_batch_stays_open(self):
+        self.published_run()
+        with patch.object(publication, "added_on", return_value=None), \
+                patch.object(publication.timezone, "now", return_value=timezone.datetime(2026, 9, 25, tzinfo=timezone.get_current_timezone())):
+            publication.record([self.run])
+        branch = self.batch
+        previous = git(self.origin, "rev-parse", branch)
+        with patch.object(publication, "added_on", return_value=None), \
+                patch.object(publication.timezone, "now", return_value=timezone.datetime(2026, 9, 30, tzinfo=timezone.get_current_timezone())):
+            outcome = publication.refresh()[0]
+        self.assertTrue(outcome["unchanged"])
+        self.assertEqual(git(self.origin, "rev-parse", branch), previous)
+        self.assertIn("2026-09-25", self.branch_file(branch, "README.md"))
+        self.assertIn("September 25, 2026", self.branch_file(branch, str(publication.ABOUT)))
 
     def test_unconfigured_record_keeping_is_noted_on_the_run(self):
         with override_settings(RECORDS_REPO=None):

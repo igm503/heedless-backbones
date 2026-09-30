@@ -1,7 +1,7 @@
 {% extends "admin/base_site.html" %}
 {% block content %}
 <form method="post" action="{% url 'admin:ingestion_refresh_prs' %}" style="float: right">{% csrf_token %}
-  <button title="Rebuild every open auto.* branch on the latest main, e.g. after merging one">Refresh auto PRs</button>
+  <button title="Update the pending records batch and merge the latest main if needed">Refresh records PR</button>
 </form>
 <h2>Waiting for review</h2>
 {% if pending %}
