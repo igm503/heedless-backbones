@@ -157,6 +157,10 @@ through the importer rather than editing their generated branch copies.
 
 The README model table and dated Updates entries are sorted newest first, with family
 names alphabetized within each date and repeated model-addition entries combined.
+The README’s **Models** column counts distinct backbone variants in the batch’s `db.json`,
+not pretrained checkpoints. Counts are refreshed for existing rows as well as new ones.
+Historical paper-specific rows, such as FAN STL, count distinct variants with checkpoints
+from that paper; an unmatched row shows an em dash rather than an invented count.
 About date groups are also sorted newest first, including existing groups, while preserving
 handwritten entries. Dates reflect first publication to the database, not PR merge order.
 Families without an ingestion creation record retain the existing fallback to today's date
