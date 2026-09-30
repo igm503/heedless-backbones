@@ -3652,6 +3652,20 @@
 },
 {
   "model": "stats.fpsmeasurement",
+  "pk": 500,
+  "fields": {
+    "source_record": null,
+    "backbone_name": "InceptionNeXt-S (iso.)",
+    "resolution": 224,
+    "fps": 998.0,
+    "gpu": "2080Ti",
+    "precision": "FP32",
+    "batch_size": null,
+    "source": "https://arxiv.org/abs/2303.16900v3"
+  }
+},
+{
+  "model": "stats.fpsmeasurement",
   "pk": 661,
   "fields": {
     "source_record": null,
@@ -4852,6 +4866,20 @@
     "pub_date": "2022-08-01",
     "paper": "https://arxiv.org/abs/2207.13317v2",
     "github": ""
+  }
+},
+{
+  "model": "stats.backbonefamily",
+  "pk": 304,
+  "fields": {
+    "source_record": null,
+    "name": "InceptionNeXt (iso.)",
+    "model_type": "Convolution",
+    "hierarchical": false,
+    "pretrain_method": "Supervised",
+    "pub_date": "2025-04-05",
+    "paper": "https://arxiv.org/abs/2303.16900v3",
+    "github": "https://github.com/sail-sg/inceptionnext"
   }
 },
 {
@@ -8923,6 +8951,21 @@
     "paper": "https://arxiv.org/abs/2207.13317v2",
     "github": "",
     "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 942,
+  "fields": {
+    "source_record": null,
+    "name": "InceptionNeXt-S (iso.)",
+    "family": 304,
+    "m_parameters": 22.0,
+    "paper": "https://arxiv.org/abs/2303.16900v3",
+    "github": "",
+    "fps_measurements": [
+      500
+    ]
   }
 },
 {
@@ -14580,6 +14623,22 @@
     "pretrain_resolution": 224,
     "pretrain_epochs": 300.0,
     "paper": "https://arxiv.org/abs/2207.13317v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 957,
+  "fields": {
+    "source_record": null,
+    "name": "InceptionNeXt-S (iso.)-IN1k",
+    "backbone": 942,
+    "family": 304,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2303.16900v3",
     "github": ""
   }
 },
@@ -31354,6 +31413,27 @@
     "top_5": null,
     "gflops": 14.7,
     "paper": "https://arxiv.org/abs/2207.13317v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 1662,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 957,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 79.7,
+    "top_5": null,
+    "gflops": 4.2,
+    "paper": "https://arxiv.org/abs/2303.16900v3",
     "github": ""
   }
 },

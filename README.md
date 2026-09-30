@@ -157,9 +157,11 @@ and database query budgets. They do not connect to the database configured in `.
 | CE-PVT | [arXiv 2207.13317](https://arxiv.org/abs/2207.13317) | 2026-09-27 |
 | CE-Swin | [arXiv 2207.13317](https://arxiv.org/abs/2207.13317) | 2026-09-27 |
 | CETNet | [arXiv 2207.13317](https://arxiv.org/abs/2207.13317) | 2026-09-27 |
+| InceptionNeXt (iso.) | [arXiv 2303.16900](https://arxiv.org/abs/2303.16900) | 2026-09-27 |
 
 ## Updates
 
+- 9-27-2026: added InceptionNeXt (iso.)
 - 9-27-2026: added CETNet
 - 9-27-2026: added CE-Swin
 - 9-27-2026: added CE-PVT
