@@ -1,0 +1,30 @@
+name: InceptionNeXt (iso.)
+model_type: Convolution
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2025-04-05'
+paper: https://arxiv.org/abs/2303.16900v3
+github: https://github.com/sail-sg/inceptionnext
+backbones:
+- name: InceptionNeXt-S (iso.)
+  m_parameters: 22
+  fps_measurements:
+  - resolution: 224
+    gpu: 2080Ti
+    precision: FP32
+    fps: 998
+    source: https://arxiv.org/abs/2303.16900v3
+  pretrained_backbones:
+  - name: InceptionNeXt-S (iso.)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.7
+      top_5: null
+      gflops: 4.2
+    instance_results: []
+    semantic_seg_results: []

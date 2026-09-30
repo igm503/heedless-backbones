@@ -1,0 +1,242 @@
+name: L2ViT
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-01-27'
+paper: https://arxiv.org/abs/2501.16182v1
+github: https://github.com/ChuanyangZheng/L2ViT
+backbones:
+- name: L2ViT-T
+  m_parameters: 29
+  fps_measurements: []
+  pretrained_backbones:
+  - name: L2ViT-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.1
+      top_5: null
+      gflops: 4.7
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.1
+      AP50: 65.8
+      AP75: 47
+      mAPs: 30
+      mAPm: 47.9
+      mAPl: 57.9
+      gflops: 250
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 45.5
+      AP50: 68.6
+      AP75: 50.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 269
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 41.2
+      AP50: 65.1
+      AP75: 44
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 269
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 46.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 943
+      fps_measurements: []
+- name: L2ViT-S
+  m_parameters: 50
+  fps_measurements: []
+  pretrained_backbones:
+  - name: L2ViT-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.1
+      top_5: null
+      gflops: 9
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 46.2
+      AP50: 68
+      AP75: 49.6
+      mAPs: 31.7
+      mAPm: 50
+      mAPl: 61.1
+      gflops: 341
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.2
+      AP50: 70
+      AP75: 51.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 360
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.4
+      AP50: 66.4
+      AP75: 45.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 360
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 48.7
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1034
+      fps_measurements: []
+- name: L2ViT-B
+  m_parameters: 89
+  fps_measurements: []
+  pretrained_backbones:
+  - name: L2ViT-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.4
+      top_5: 96.902
+      gflops: 15.9
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 46.5
+      AP50: 68.7
+      AP75: 49.4
+      mAPs: 31.2
+      mAPm: 50.6
+      mAPl: 60.7
+      gflops: 484
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.5
+      AP50: 70.5
+      AP75: 51.8
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 504
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.9
+      AP50: 67.1
+      AP75: 45.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 504
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1182
+      fps_measurements: []
+  - name: L2ViT-B-IN22k
+    pretrain_dataset: ImageNet-22k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 90
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 86
+      top_5: null
+      gflops: 15.9
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 224
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 87
+      top_5: null
+      gflops: 47.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []

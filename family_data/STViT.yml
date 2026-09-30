@@ -1,0 +1,349 @@
+name: STViT
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2024-01-25'
+paper: https://arxiv.org/abs/2211.11167v2
+github: https://github.com/hhb072/STViT
+backbones:
+- name: STViT-S
+  m_parameters: 25.4
+  github: https://github.com/hhb072/STViT
+  fps_measurements:
+  - resolution: 224
+    gpu: V100
+    precision: null
+    fps: 564
+    batch_size: 16
+    source: https://arxiv.org/abs/2211.11167v2
+  - resolution: 384
+    gpu: V100
+    precision: null
+    fps: 188
+    batch_size: 16
+    source: https://arxiv.org/abs/2211.11167v2
+  pretrained_backbones:
+  - name: STViT-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    github: https://github.com/hhb072/STViT
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.6
+      top_5: null
+      gflops: 4.37
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 85
+      top_5: null
+      gflops: 14.1
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.6
+      AP50: 70
+      AP75: 52.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 252
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.1
+      AP50: 66.8
+      AP75: 46.5
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 252
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 49.2
+      AP50: 70.8
+      AP75: 54.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 252
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 44.2
+      AP50: 68
+      AP75: 47.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 252
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 49
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 48.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 926
+      fps_measurements: []
+- name: STViT-B
+  m_parameters: 52
+  github: https://github.com/hhb072/STViT
+  fps_measurements:
+  - resolution: 224
+    gpu: V100
+    precision: null
+    fps: 286
+    batch_size: 16
+    source: https://arxiv.org/abs/2211.11167v2
+  - resolution: 384
+    gpu: V100
+    precision: null
+    fps: 95
+    batch_size: 16
+    source: https://arxiv.org/abs/2211.11167v2
+  pretrained_backbones:
+  - name: STViT-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    github: https://github.com/hhb072/STViT
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.8
+      top_5: null
+      gflops: 9.9
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 86
+      top_5: null
+      gflops: 31.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 49.7
+      AP50: 71.7
+      AP75: 54.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 359
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.8
+      AP50: 68.9
+      AP75: 48.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 359
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 51
+      AP50: 72.3
+      AP75: 56
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 359
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.4
+      AP50: 69.5
+      AP75: 49.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 359
+      fps_measurements: []
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 53.9
+      AP50: 72.7
+      AP75: 58.5
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 837
+      fps_measurements: []
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 46.8
+      AP50: 70.4
+      AP75: 50.8
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 837
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 51.9
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.7
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1036
+      fps_measurements: []
+- name: STViT-L
+  m_parameters: 95
+  github: https://github.com/hhb072/STViT
+  fps_measurements:
+  - resolution: 224
+    gpu: V100
+    precision: null
+    fps: 192
+    batch_size: 16
+    source: https://arxiv.org/abs/2211.11167v2
+  - resolution: 384
+    gpu: V100
+    precision: null
+    fps: 65
+    batch_size: 16
+    source: https://arxiv.org/abs/2211.11167v2
+  pretrained_backbones:
+  - name: STViT-L-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    github: https://github.com/hhb072/STViT
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 85.3
+      top_5: null
+      gflops: 15.6
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 86.4
+      top_5: null
+      gflops: 49.7
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 50.8
+      AP50: 72.5
+      AP75: 56.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 470
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 45.5
+      AP50: 69.7
+      AP75: 49.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 470
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 51.7
+      AP50: 73
+      AP75: 56.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 470
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.9
+      AP50: 70.4
+      AP75: 49.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 470
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 53.2
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 52.4
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1151
+      fps_measurements: []

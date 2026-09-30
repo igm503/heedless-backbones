@@ -76,6 +76,21 @@ backbones:
       flip_test: false
       gflops: 33.7
       fps_measurements: []
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 48.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 48
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 977
+      paper: https://arxiv.org/abs/2506.15940v2
+      fps_measurements: []
 - name: RMT-S
   m_parameters: 27
   fps_measurements: []

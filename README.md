@@ -158,9 +158,32 @@ and database query budgets. They do not connect to the database configured in `.
 | CE-PVT | [arXiv 2207.13317](https://arxiv.org/abs/2207.13317) | 2026-09-27 |
 | CE-Swin | [arXiv 2207.13317](https://arxiv.org/abs/2207.13317) | 2026-09-27 |
 | CETNet | [arXiv 2207.13317](https://arxiv.org/abs/2207.13317) | 2026-09-27 |
+| LightViT | [arXiv 2207.05557](https://arxiv.org/abs/2207.05557) | 2026-09-27 |
+| STViT | [arXiv 2211.11167](https://arxiv.org/abs/2211.11167) | 2026-09-27 |
+| SwiftFormer | [arXiv 2303.15446](https://arxiv.org/abs/2303.15446) | 2026-09-27 |
+| InceptionNeXt | [arXiv 2303.16900](https://arxiv.org/abs/2303.16900) | 2026-09-27 |
+| InceptionNeXt (iso.) | [arXiv 2303.16900](https://arxiv.org/abs/2303.16900) | 2026-09-27 |
+| CloFormer | [arXiv 2303.17803](https://arxiv.org/abs/2303.17803) | 2026-09-27 |
+| FAT | [arXiv 2306.00396](https://arxiv.org/abs/2306.00396) | 2026-09-28 |
+| RepViT | [arXiv 2307.09283](https://arxiv.org/abs/2307.09283) | 2026-09-28 |
+| FMViT | [arXiv 2311.05707](https://arxiv.org/abs/2311.05707) | 2026-09-28 |
+| SW | [arXiv 2401.12736](https://arxiv.org/abs/2401.12736) | 2026-09-28 |
+| MSVMamba | [arXiv 2405.14174](https://arxiv.org/abs/2405.14174) | 2026-09-28 |
+| V2M + local window | [arXiv 2410.10382](https://arxiv.org/abs/2410.10382) | 2026-09-29 |
+| V2M* | [arXiv 2410.10382](https://arxiv.org/abs/2410.10382) | 2026-09-29 |
+| TinyViM | [arXiv 2411.17473](https://arxiv.org/abs/2411.17473) | 2026-09-29 |
+| MVFormer | [arXiv 2411.18995](https://arxiv.org/abs/2411.18995) | 2026-09-29 |
+| iFormer (Mobile) | [arXiv 2501.15369](https://arxiv.org/abs/2501.15369) | 2026-09-29 |
+| L2ViT | [arXiv 2501.16182](https://arxiv.org/abs/2501.16182) | 2026-09-29 |
+| LSNet | [arXiv 2503.23135](https://arxiv.org/abs/2503.23135) | 2026-09-29 |
+| GSAP | [arXiv 2609.26297](https://arxiv.org/abs/2609.26297) | 2026-09-29 |
+| PPMA | [arXiv 2506.15940](https://arxiv.org/abs/2506.15940) | 2026-09-29 |
 
 ## Updates
 
+- 9-29-2026: added V2M + local window, V2M*, TinyViM, MVFormer, iFormer (Mobile), L2ViT, LSNet, GSAP, PPMA
+- 9-28-2026: added FAT, RepViT, FMViT, SW, MSVMamba
+- 9-27-2026: added LightViT, STViT, SwiftFormer, InceptionNeXt, InceptionNeXt (iso.), CloFormer
 - 9-27-2026: added CETNet
 - 9-27-2026: added CE-Swin
 - 9-27-2026: added CE-PVT
