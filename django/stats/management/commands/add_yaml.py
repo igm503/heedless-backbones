@@ -38,7 +38,7 @@ class Command(BaseCommand):
             raise CommandError(f"Nothing was imported: {exc}") from exc
         from ingestion.publication import configured, record
         if configured():
-            # Recorded like every other publish: an auto.<family> branch and pull request each.
+            # Recorded like every other publish: append to the aggregate records pull request.
             for outcome in record([run] if run else [], families=families):
                 self.stdout.write(self.style.SUCCESS(f"Imported; recorded: {outcome}"))
             return

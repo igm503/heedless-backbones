@@ -2,7 +2,7 @@
 # One scheduled agent run on this Mac: tunnel to the server's database, discover and screen
 # papers, have Claude Code read up to $LIMIT shortlisted papers (validation only), copy the new
 # PDFs to the server for the review page, then have the server publish the clean runs and
-# record them in git (auto.<family> branches and pull requests). Config: ~/.config/heedless-agent/env
+# record them in git (one aggregate pull request). Config: ~/.config/heedless-agent/env
 # Scheduled runs use their own checkout of origin/main (AGENT_REPO, set up by install.sh), which
 # is updated at the start of each run; your own checkout is never touched.
 set -euo pipefail

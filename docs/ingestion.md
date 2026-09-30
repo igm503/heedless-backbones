@@ -13,7 +13,7 @@ until `ingest_papers` is run, by hand or by the optional launchd job on a Mac
    `deploy/local-agent/install.sh` (every three hours while logged in).
 3. Each run discovers papers, screens abstracts, and has Claude Code read up to five
    shortlisted papers (retries first); the server then publishes the clean extractions and
-   opens a pull request per family with its YAML, `db.json` and README row.
+   appends to one aggregate pull request with family YAML, `db.json` and README/About updates.
 4. Review everything else in the admin: *Ingestion runs → Review*
    (`/admin/ingestion/ingestionrun/review/`). See [Review page](#review-page).
 5. Change the rules by editing the [data entry guide](data-entry-guide.md).
@@ -133,31 +133,50 @@ Every publish goes through one function, `publication.publish()`, on the server:
 approval on the review page, `review_ingestion --publish`, the admin action, and the
 agent's clean runs (the scheduled job validates on your Mac, then runs `publish_ready` on
 the server over SSH). After a successful import it records the change in git, in the
-background: for each family the run touched it rebuilds a branch `auto.<family>` from the
-latest `main` with
+background: changes accumulate in one `auto.records-<batch>` branch and pull request with
 
-- `family_data/<family>.yml`, regenerated from the database;
-- `db.json`, regenerated from the database for the families in the branch (links to
-  extraction records are blanked, so the fixture loads without the ingestion tables);
-- the README's model table (a row with the date the family was first published) and an
-  Updates entry,
+- `family_data/<family>.yml` for every pending family, regenerated from the database;
+- one `db.json`, exported from the database for the families in the branch (links to
+  extraction records are blanked, so it loads without the ingestion tables);
+- the README's model table and Updates list, plus the About page's Latest Updates.
 
-commits it, force-pushes, and opens or updates a pull request describing what was added.
-The commit and the pull request share a title such as "Adds LocalViT (Attn + Conv,
-isotropic), arXiv 2104.05707.", so a squash merge lands on `main` with it. The branch also
-adds the family to the README's model table and Updates list and to the about page's
-Latest Updates. The run's review page links the pull request (or shows
-why recording failed; the publish itself always stands).
+Later publications append ordinary commits to the same branch. Titles describe the whole
+batch relative to `main`: `Add Swin`, `Add ConvNeXt and Swin`, `Add 8 backbone families`,
+`Add 5 backbone families; update 3`, or `Update 4 backbone families`. Up to three families
+are named in an additions-only or updates-only title. The description lists every family,
+its paper, and whether it is added or updated. A family is counted once. Commit titles
+identify the changes in that publication. The run's review page links the shared PR (or
+shows why recording failed; database publication still stands).
 
-Merge the pull requests on GitHub in any order. Because the generated files are rebuilt
-rather than merged, the other open auto branches are rebuilt on the new `main`: within 30
-seconds by the sync timer below, at the next publish, or at once with *Refresh auto PRs* on
-the review list (`manage.py refresh_auto_prs`).
+After the batch merges, the next publication starts a fresh branch from current `main`.
+A refresh with no pending batch does nothing. Main changes are merged into an open batch
+with a normal merge commit, and shared output is regenerated; there are no force-pushes.
+Conflicts outside the generated files are reported for manual resolution. The family YAML,
+`db.json`, README and About output in this branch are machine-managed; make data corrections
+through the importer rather than editing their generated branch copies.
+
+The README model table and dated Updates entries are sorted newest first, with family
+names alphabetized within each date and repeated model-addition entries combined.
+About date groups are also sorted newest first, including existing groups, while preserving
+handwritten entries. Dates reflect first publication to the database, not PR merge order.
+Families without an ingestion creation record retain the existing fallback to today's date
+when first listed; that date is retained while the batch remains open.
+
+Use *Refresh records PR* on the review list (`manage.py refresh_auto_prs`) to update the
+current batch from the database. The sync timer also refreshes it when `main` advances.
+
+**Transition from per-family PRs.** After deploying this version, run
+`manage.py refresh_auto_prs --include-legacy` with the server's deployment settings to
+include the database records for families represented by the old `auto.<family>` PRs.
+This opens or updates the aggregate PR and leaves the old PRs and branches intact.
+Review the replacement against the old PRs (including any hand edits), then close the
+superseded family PRs without merging them. Normal publication and refresh do not import
+legacy PRs automatically.
 
 **Sync timer.** `deploy/server/sync-main.sh`, run every 30 seconds by
 `heedless-sync.timer`, checks GitHub's `main` (one `git ls-remote`). When it has moved, it
 deploys it to the site (fast-forward pull, `pip install` if requirements changed, `migrate`,
-`collectstatic`, graceful gunicorn reload) and then refreshes the auto pull requests. So
+`collectstatic`, graceful gunicorn reload) and then refreshes the aggregate records PR. So
 **anything merged to `main` goes live within about 30 seconds.** It never runs
 `makemigrations` or loads `db.json` (that would overwrite rows published since the dump).
 Install: `sudo cp deploy/server/heedless-sync.{service,timer} /etc/systemd/system/ && sudo
@@ -195,7 +214,7 @@ python manage.py add_yaml family_data/review/FixtureNet-run42.yml --run 42 --act
 
 This validates the file with the same model checks, imports it atomically, marks run
 42 as imported, records every change with the file and run in `ImportChange`, and
-records the family like any other publish (an `auto.<family>` pull request; without
+records the family like any other publish (in the aggregate pull request; without
 `RECORDS_REPO` it writes `family_data/FixtureNet.yml` locally instead). New records without a paper link
 get the run's arXiv version. `add_yaml` without `--run` still imports a hand-written
 family file. Existing records are never changed without `--allow-updates`.

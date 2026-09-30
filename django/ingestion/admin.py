@@ -90,7 +90,7 @@ class RunAdmin(AuditAdmin):
             self.message_user(request, "Record keeping is not configured (RECORDS_REPO)", messages.ERROR)
         else:
             start_refresh()
-            self.message_user(request, "Refreshing the open auto PRs in the background", messages.SUCCESS)
+            self.message_user(request, "Refreshing the aggregate records PR in the background", messages.SUCCESS)
         return redirect("admin:ingestion_review")
 
     def review_run(self, request, pk):
