@@ -154,9 +154,11 @@ and database query budgets. They do not connect to the database configured in `.
 | iFormer | [arXiv 2205.12956](https://arxiv.org/abs/2205.12956) | 2026-09-27 |
 | CE-CSWin | [arXiv 2207.13317](https://arxiv.org/abs/2207.13317) | 2026-09-27 |
 | CE-CvT | [arXiv 2207.13317](https://arxiv.org/abs/2207.13317) | 2026-09-27 |
+| CE-PVT | [arXiv 2207.13317](https://arxiv.org/abs/2207.13317) | 2026-09-27 |
 
 ## Updates
 
+- 9-27-2026: added CE-PVT
 - 9-27-2026: added CE-CvT
 - 9-27-2026: added CE-CSWin
 - 9-27-2026: added iFormer
