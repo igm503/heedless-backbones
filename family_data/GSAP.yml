@@ -1,0 +1,59 @@
+name: GSAP
+model_type: Convolution
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-09-22'
+paper: https://arxiv.org/abs/2609.26297v1
+github: https://github.com/Fancyssc/GSAP
+backbones:
+- name: GSAP-8-384
+  m_parameters: 15.85
+  fps_measurements: []
+  pretrained_backbones:
+  - name: GSAP-8-384-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 73.29
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: GSAP-8-512
+  m_parameters: 27.87
+  fps_measurements: []
+  pretrained_backbones:
+  - name: GSAP-8-512-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 76.07
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: GSAP-8-768
+  m_parameters: 62.04
+  fps_measurements: []
+  pretrained_backbones:
+  - name: GSAP-8-768-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.19
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []

@@ -4911,6 +4911,20 @@
   }
 },
 {
+  "model": "stats.backbonefamily",
+  "pk": 571,
+  "fields": {
+    "source_record": null,
+    "name": "GSAP",
+    "model_type": "Convolution",
+    "hierarchical": false,
+    "pretrain_method": "Supervised",
+    "pub_date": "2026-09-22",
+    "paper": "https://arxiv.org/abs/2609.26297v1",
+    "github": "https://github.com/Fancyssc/GSAP"
+  }
+},
+{
   "model": "stats.backbone",
   "pk": 1,
   "fields": {
@@ -9157,6 +9171,45 @@
     "fps_measurements": [
       702
     ]
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 1783,
+  "fields": {
+    "source_record": null,
+    "name": "GSAP-8-384",
+    "family": 571,
+    "m_parameters": 15.85,
+    "paper": "https://arxiv.org/abs/2609.26297v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 1784,
+  "fields": {
+    "source_record": null,
+    "name": "GSAP-8-512",
+    "family": 571,
+    "m_parameters": 27.87,
+    "paper": "https://arxiv.org/abs/2609.26297v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 1785,
+  "fields": {
+    "source_record": null,
+    "name": "GSAP-8-768",
+    "family": 571,
+    "m_parameters": 62.04,
+    "paper": "https://arxiv.org/abs/2609.26297v1",
+    "github": "",
+    "fps_measurements": []
   }
 },
 {
@@ -14933,6 +14986,54 @@
     "pretrain_epochs": 300.0,
     "paper": "https://arxiv.org/abs/2407.05848v2",
     "github": "https://github.com/BGU-CS-VIL/WTConv"
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 1828,
+  "fields": {
+    "source_record": null,
+    "name": "GSAP-8-384-IN1k",
+    "backbone": 1783,
+    "family": 571,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2609.26297v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 1829,
+  "fields": {
+    "source_record": null,
+    "name": "GSAP-8-512-IN1k",
+    "backbone": 1784,
+    "family": 571,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2609.26297v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 1830,
+  "fields": {
+    "source_record": null,
+    "name": "GSAP-8-768-IN1k",
+    "backbone": 1785,
+    "family": 571,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2609.26297v1",
+    "github": ""
   }
 },
 {
@@ -32152,6 +32253,69 @@
     "top_5": null,
     "gflops": 0.6,
     "paper": "https://arxiv.org/abs/2503.23135v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 2591,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 1828,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 73.29,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2609.26297v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 2592,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 1829,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 76.07,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2609.26297v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 2593,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 1830,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 78.19,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2609.26297v1",
     "github": ""
   }
 },
