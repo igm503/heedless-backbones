@@ -4814,6 +4814,20 @@
 },
 {
   "model": "stats.backbonefamily",
+  "pk": 241,
+  "fields": {
+    "source_record": null,
+    "name": "CE-Swin",
+    "model_type": "Attn + Conv",
+    "hierarchical": true,
+    "pretrain_method": "Supervised",
+    "pub_date": "2022-08-01",
+    "paper": "https://arxiv.org/abs/2207.13317v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.backbonefamily",
   "pk": 242,
   "fields": {
     "source_record": null,
@@ -8775,6 +8789,45 @@
     "name": "CE-PVT-S",
     "family": 240,
     "m_parameters": 22.6,
+    "paper": "https://arxiv.org/abs/2207.13317v2",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 812,
+  "fields": {
+    "source_record": null,
+    "name": "CE-Swin-T",
+    "family": 241,
+    "m_parameters": 23.4,
+    "paper": "https://arxiv.org/abs/2207.13317v2",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 813,
+  "fields": {
+    "source_record": null,
+    "name": "CE-Swin-S",
+    "family": 241,
+    "m_parameters": 48.2,
+    "paper": "https://arxiv.org/abs/2207.13317v2",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 814,
+  "fields": {
+    "source_record": null,
+    "name": "CE-Swin-B",
+    "family": 241,
+    "m_parameters": 85.2,
     "paper": "https://arxiv.org/abs/2207.13317v2",
     "github": "",
     "fps_measurements": []
@@ -14325,6 +14378,54 @@
     "name": "CE-PVT-S-IN1k",
     "backbone": 811,
     "family": 240,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2207.13317v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 841,
+  "fields": {
+    "source_record": null,
+    "name": "CE-Swin-T-IN1k",
+    "backbone": 812,
+    "family": 241,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2207.13317v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 842,
+  "fields": {
+    "source_record": null,
+    "name": "CE-Swin-S-IN1k",
+    "backbone": 813,
+    "family": 241,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2207.13317v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 843,
+  "fields": {
+    "source_record": null,
+    "name": "CE-Swin-B-IN1k",
+    "backbone": 814,
+    "family": 241,
     "pretrain_dataset": 1,
     "pretrain_method": "Supervised",
     "pretrain_resolution": 224,
@@ -30899,6 +31000,69 @@
     "top_1": 81.1,
     "top_5": null,
     "gflops": 3.7,
+    "paper": "https://arxiv.org/abs/2207.13317v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 1499,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 841,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 82.5,
+    "top_5": null,
+    "gflops": 4.3,
+    "paper": "https://arxiv.org/abs/2207.13317v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 1500,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 842,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 83.6,
+    "top_5": null,
+    "gflops": 8.8,
+    "paper": "https://arxiv.org/abs/2207.13317v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 1501,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 843,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 84.0,
+    "top_5": null,
+    "gflops": 15.5,
     "paper": "https://arxiv.org/abs/2207.13317v2",
     "github": ""
   }
