@@ -1,0 +1,25 @@
+name: CE-PVT
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2022-08-01'
+paper: https://arxiv.org/abs/2207.13317v2
+github: ''
+backbones:
+- name: CE-PVT-S
+  m_parameters: 22.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CE-PVT-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.1
+      top_5: null
+      gflops: 3.7
+    instance_results: []
+    semantic_seg_results: []
