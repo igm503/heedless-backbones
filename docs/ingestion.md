@@ -168,14 +168,6 @@ when first listed; that date is retained while the batch remains open.
 Use *Refresh records PR* on the review list (`python manage.py refresh_auto_prs`) to update the
 current batch from the database. The sync timer also refreshes it when `main` advances.
 
-**Transition from per-family PRs.** After deploying this version, run
-`python manage.py refresh_auto_prs --include-legacy` with the server's deployment settings to
-include the database records for families represented by the old `auto.<family>` PRs.
-This opens or updates the aggregate PR and leaves the old PRs and branches intact.
-Review the replacement against the old PRs (including any hand edits), then close the
-superseded family PRs without merging them. Normal publication and refresh do not import
-legacy PRs automatically.
-
 **Sync timer.** `deploy/server/sync-main.sh`, run every 30 seconds by
 `heedless-sync.timer`, checks GitHub's `main` (one `git ls-remote`). When it has moved, it
 deploys it to the site (fast-forward pull, `pip install` if requirements changed, `migrate`,

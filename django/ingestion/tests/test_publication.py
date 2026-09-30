@@ -298,15 +298,18 @@ class PublicationTests(TestCase):
         self.assertEqual(self.github.titles[self.batch], "Update FixtureNet")
         self.assertEqual(git(self.origin, "merge-base", "main", self.batch), git(self.origin, "rev-parse", "main"))
 
-    def test_legacy_consolidation_is_explicit_and_leaves_old_prs_for_review(self):
+    def test_refresh_ignores_per_family_pull_requests(self):
         self.published_run()
         self.github.pulls["auto.fixturenet"] = 17
+        self.github.pulls["auto.unknown-family"] = 18
         self.assertIn("skipped", publication.refresh()[0])
-        outcome = publication.refresh(include_legacy=True)[0]
+        self.assertEqual(self.github.edits, [])
+        outcome = publication.record([self.run])[0]
         self.assertNotIn("error", outcome)
         self.assertIn("auto.fixturenet", self.github.pulls)
-        self.assertIn("FixtureNet", outcome["families"])
+        self.assertIn("auto.unknown-family", self.github.pulls)
         self.assertEqual(self.github.titles[self.batch], "Add FixtureNet")
+        self.assertEqual(len(self.github.pulls), 3)
 
     def test_missing_pending_family_does_not_disappear_silently(self):
         publication.record([self.published_run()])

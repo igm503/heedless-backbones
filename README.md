@@ -45,7 +45,7 @@ force-pushing it.
 Use **Refresh records PR** on the ingestion review page to refresh the pending batch.
 Model rows and dated updates stay newest-first, and families are alphabetized within
 each date in the README. See [Publishing and records](docs/ingestion.md#publishing-and-records)
-for the title rules, refresh command, and migration from the old per-family PRs.
+for the title rules and refresh command.
 
 Hand-written family files can still be imported with `python manage.py add_yaml <file>`.
 
