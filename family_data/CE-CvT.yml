@@ -1,0 +1,25 @@
+name: CE-CvT
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2022-08-01'
+paper: https://arxiv.org/abs/2207.13317v2
+github: ''
+backbones:
+- name: CE-CvT-13
+  m_parameters: 20
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CE-CvT-13-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.1
+      top_5: null
+      gflops: 4.4
+    instance_results: []
+    semantic_seg_results: []
