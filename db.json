@@ -4786,6 +4786,20 @@
 },
 {
   "model": "stats.backbonefamily",
+  "pk": 239,
+  "fields": {
+    "source_record": null,
+    "name": "CE-CvT",
+    "model_type": "Attn + Conv",
+    "hierarchical": true,
+    "pretrain_method": "Supervised",
+    "pub_date": "2022-08-01",
+    "paper": "https://arxiv.org/abs/2207.13317v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.backbonefamily",
   "pk": 242,
   "fields": {
     "source_record": null,
@@ -8722,6 +8736,19 @@
     "family": 199,
     "m_parameters": 25.4,
     "paper": "https://arxiv.org/abs/2207.00188v2",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 810,
+  "fields": {
+    "source_record": null,
+    "name": "CE-CvT-13",
+    "family": 239,
+    "m_parameters": 20.0,
+    "paper": "https://arxiv.org/abs/2207.13317v2",
     "github": "",
     "fps_measurements": []
   }
@@ -14244,6 +14271,22 @@
     "pretrain_resolution": 224,
     "pretrain_epochs": 300.0,
     "paper": "https://arxiv.org/abs/2207.00188v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 839,
+  "fields": {
+    "source_record": null,
+    "name": "CE-CvT-13-IN1k",
+    "backbone": 810,
+    "family": 239,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2207.13317v2",
     "github": ""
   }
 },
@@ -30772,6 +30815,27 @@
     "top_5": null,
     "gflops": null,
     "paper": "https://arxiv.org/abs/2207.00188v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 1497,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 839,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 82.1,
+    "top_5": null,
+    "gflops": 4.4,
+    "paper": "https://arxiv.org/abs/2207.13317v2",
     "github": ""
   }
 },
