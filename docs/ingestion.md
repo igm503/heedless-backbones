@@ -148,7 +148,10 @@ its paper, and whether it is added or updated. A family is counted once. Commit 
 identify the changes in that publication. The run's review page links the shared PR (or
 shows why recording failed; database publication still stands).
 
-After the batch merges, the next publication starts a fresh branch from current `main`.
+Review and merge the batch when ready; squash merges are supported. The PR records data
+that has already been published to the database, so merging it is not the publication
+approval step. After the batch merges, the next publication starts a fresh branch from
+current `main`.
 A refresh with no pending batch does nothing. Main changes are merged into an open batch
 with a normal merge commit, and shared output is regenerated; there are no force-pushes.
 Conflicts outside the generated files are reported for manual resolution. The family YAML,
@@ -166,11 +169,11 @@ handwritten entries. Dates reflect first publication to the database, not PR mer
 Families without an ingestion creation record retain the existing fallback to today's date
 when first listed; that date is retained while the batch remains open.
 
-Use *Refresh records PR* on the review list (`manage.py refresh_auto_prs`) to update the
+Use *Refresh records PR* on the review list (`python manage.py refresh_auto_prs`) to update the
 current batch from the database. The sync timer also refreshes it when `main` advances.
 
 **Transition from per-family PRs.** After deploying this version, run
-`manage.py refresh_auto_prs --include-legacy` with the server's deployment settings to
+`python manage.py refresh_auto_prs --include-legacy` with the server's deployment settings to
 include the database records for families represented by the old `auto.<family>` PRs.
 This opens or updates the aggregate PR and leaves the old PRs and branches intact.
 Review the replacement against the old PRs (including any hand edits), then close the
