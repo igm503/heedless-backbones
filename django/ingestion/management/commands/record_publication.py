@@ -5,7 +5,7 @@ from ingestion.publication import record
 
 
 class Command(BaseCommand):
-    help = "Record published runs in git: rebuild each touched family's auto branch and pull request."
+    help = "Append published runs to the aggregate records branch and pull request."
 
     def add_arguments(self, parser):
         parser.add_argument("run_ids", nargs="+", type=int)

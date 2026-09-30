@@ -5,7 +5,7 @@ from ingestion.publication import publish_ready
 
 class Command(BaseCommand):
     help = ("Publish every validated run waiting to be published (the agent's clean runs), record them "
-            "in git (one auto.<family> branch and PR each) and refresh the other open auto branches.")
+            "in git through the aggregate records pull request.")
 
     def add_arguments(self, parser):
         parser.add_argument("--actor", default="agent")

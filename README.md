@@ -30,9 +30,10 @@ papers in full, following the [data entry guide](docs/data-entry-guide.md). The 
 checks the paper's official repository, fills gaps in other models' results, validates
 its own output against the paper text, and submits evidence-backed records through an
 audited importer. Uncertain or conflicting data waits for review on a page in the admin
-that shows each value next to a crop of its source. Every publish opens a pull request for
-the family with its reference YAML in `family_data/`, a regenerated `db.json`, and a row in
-the [model table](#models). The job runs manually, or on a Mac with `deploy/local-agent`.
+that shows each value next to a crop of its source. Publications accumulate in one automated pull request with each family’s reference YAML
+in `family_data/`, one regenerated `db.json`, and updates to the [model table](#models)
+and About page. Later publications append commits; the next publication after a merge
+starts a fresh batch. The job runs manually, or on a Mac with `deploy/local-agent`.
 
 Hand-written family files can still be imported with `python manage.py add_yaml <file>`.
 
