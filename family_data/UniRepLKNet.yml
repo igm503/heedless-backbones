@@ -25,6 +25,30 @@ backbones:
       top_1: 77
       top_5: null
       gflops: 0.6
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 67
+      top_5: null
+      gflops: 0.6
+      paper: https://arxiv.org/abs/2503.23135v1
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 8.4
+      top_5: null
+      gflops: 0.6
+      paper: https://arxiv.org/abs/2503.23135v1
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 37.9
+      top_5: null
+      gflops: 0.6
+      paper: https://arxiv.org/abs/2503.23135v1
+    - dataset: ImageNet-Sketch
+      resolution: 224
+      top_1: 26
+      top_5: null
+      gflops: 0.6
+      paper: https://arxiv.org/abs/2503.23135v1
     instance_results: []
     semantic_seg_results: []
 - name: UniRepLKNet-F
