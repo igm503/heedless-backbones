@@ -36,7 +36,6 @@ from .sources import arxiv_id
 
 logger = logging.getLogger(__name__)
 MANAGE = Path(__file__).resolve().parents[1] / "manage.py"
-BRANCH_PREFIX = "auto."  # Legacy per-family PRs, used only for explicit consolidation.
 BATCH_PREFIX = "auto.records-"
 LABEL = "automated"
 FOOTER = "_Opened automatically by the Heedless Backbones ingestion pipeline._"
@@ -365,14 +364,6 @@ def sort_about_dates(text):
 
 # Git and pull requests ---------------------------------------------------------------------------
 
-def slug(name):
-    return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", name.lower().replace("+", "-plus"))).strip("-")
-
-
-def branch_for(name):
-    return BRANCH_PREFIX + slug(name)
-
-
 @contextmanager
 def records_lock():
     path = Path(settings.MEDIA_ROOT) / "records.lock"
@@ -470,10 +461,10 @@ class RecordsRepo:
                     "--description", "Opened by the ingestion pipeline")
             self.labelled = True
 
-    def open_auto_branches(self):
+    def open_batches(self):
         pulls = json.loads(self.gh("pr", "list", "--state", "open", "--base", self.base,
                                    "--json", "number,headRefName,url", "--limit", "200") or "[]")
-        return {pull["headRefName"]: pull for pull in pulls if pull["headRefName"].startswith(BRANCH_PREFIX)}
+        return {pull["headRefName"]: pull for pull in pulls if pull["headRefName"].startswith(BATCH_PREFIX)}
 
     def family_changes(self, base, target):
         paths = self.git("diff", "--name-only", "-z", base, target, "--", "family_data").split("\0")
@@ -571,8 +562,8 @@ def batch_body(added, updated):
     return "\n".join(lines)
 
 
-def record(runs, families=(), include_legacy=False):
-    """Append published families to one PR; optionally consolidate legacy per-family PRs."""
+def record(runs, families=()):
+    """Append published families to the aggregate records PR."""
     runs = list(runs)
     if not configured():
         note(runs, {"error": "Record keeping is not configured (RECORDS_REPO)"})
@@ -582,17 +573,10 @@ def record(runs, families=(), include_legacy=False):
                            app=github_app(settings.RECORDS_REPO))
         try:
             repo.git("fetch", "-q", "--prune", "origin")
-            open_pulls = repo.open_auto_branches()
+            open_pulls = repo.open_batches()
             names = set(families)
             for run in runs:
                 names.update(run_families(run))
-            if include_legacy:
-                by_branch = {branch_for(family.name): family.name for family in BackboneFamily.objects.all()}
-                legacy = {branch for branch in open_pulls if not branch.startswith(BATCH_PREFIX)}
-                unknown = legacy - by_branch.keys()
-                if unknown:
-                    raise RuntimeError("Cannot consolidate unknown family branches: " + ", ".join(sorted(unknown)))
-                names.update(by_branch[branch] for branch in legacy)
             outcome = repo.build(names, open_pulls)
         except (RuntimeError, ValueError) as exc:
             outcome = {"error": str(exc)}
@@ -604,6 +588,6 @@ def record(runs, families=(), include_legacy=False):
         return [outcome]
 
 
-def refresh(include_legacy=False):
-    """Update the current aggregate PR; migration from family PRs is explicit."""
-    return record([], include_legacy=include_legacy)
+def refresh():
+    """Update the current aggregate records PR."""
+    return record([])
