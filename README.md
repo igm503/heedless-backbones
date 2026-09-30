@@ -30,10 +30,22 @@ papers in full, following the [data entry guide](docs/data-entry-guide.md). The 
 checks the paper's official repository, fills gaps in other models' results, validates
 its own output against the paper text, and submits evidence-backed records through an
 audited importer. Uncertain or conflicting data waits for review on a page in the admin
-that shows each value next to a crop of its source. Publications accumulate in one automated pull request with each family’s reference YAML
+that shows each value next to a crop of its source. Publishing imports the approved data
+into the site's database; the pull request records that published data in the repository.
+The job runs manually, or on a Mac with `deploy/local-agent`.
+
+Publications accumulate in one automated pull request with each family's reference YAML
 in `family_data/`, one regenerated `db.json`, and updates to the [model table](#models)
-and About page. Later publications append commits; the next publication after a merge
-starts a fresh batch. The job runs manually, or on a Mac with `deploy/local-agent`.
+and About page. Later publications append ordinary commits to the same PR. Its title
+summarizes the batch (for example, “Add 5 backbone families; update 3”), and its description
+lists every family and paper. Merge the batch when ready; the next publication starts a
+fresh branch and PR. Changes to `main` are merged into the pending batch without
+force-pushing it.
+
+Use **Refresh records PR** on the ingestion review page to refresh the pending batch.
+Model rows and dated updates stay newest-first, and families are alphabetized within
+each date in the README. See [Publishing and records](docs/ingestion.md#publishing-and-records)
+for the title rules, refresh command, and migration from the old per-family PRs.
 
 Hand-written family files can still be imported with `python manage.py add_yaml <file>`.
 
