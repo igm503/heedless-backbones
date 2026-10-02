@@ -181,6 +181,25 @@ body {
   margin-bottom: 1rem;
 }
 
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.checkbox-option input {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  accent-color: #000000;
+  cursor: pointer;
+}
+
+.checkbox-option label {
+  cursor: pointer;
+}
+
 .custom-select-container {
   padding-top: 0.5rem;
   position: relative;

@@ -16,7 +16,7 @@ from .evidence import validate_evidence
 from .importer import run_sources
 from .models import ExtractedRecord
 
-FAMILY_FIELDS = ["name", "model_type", "hierarchical", "pretrain_method", "pub_date", "paper", "github"]
+FAMILY_FIELDS = ["name", "model_type", "hierarchical", "spiking", "pretrain_method", "pub_date", "paper", "github"]
 BACKBONE_FIELDS = ["name", "m_parameters", "paper", "github"]
 PRETRAINED_FIELDS = ["name", "pretrain_dataset", "pretrain_method", "pretrain_resolution", "pretrain_epochs", "paper", "github"]
 FPS_FIELDS = ["resolution", "gpu", "precision", "fps", "batch_size", "source"]
@@ -38,6 +38,8 @@ SEMANTIC_FIELDS = [
 OPTIONAL = {"paper", "github", "source", "batch_size", "fine_tune_dataset", "fine_tune_epochs",
             "fine_tune_resolution", "intermediate_fine_tune_dataset", "intermediate_fine_tune_epochs",
             "intermediate_fine_tune_resolution", "intermediate_train_dataset", "intermediate_train_epochs"}
+# Flags true of few families, written only when true.
+OMIT_FALSE = {"spiking"}
 RESULT_LISTS = {"classification_results": ("classification", CLASSIFICATION_FIELDS),
                 "instance_results": ("instance", INSTANCE_FIELDS),
                 "semantic_seg_results": ("semantic", SEMANTIC_FIELDS)}
@@ -55,11 +57,15 @@ def plain(value):
     return value if value is None or isinstance(value, (bool, int, float, str)) else str(value)
 
 
+def omitted(name, value):
+    return name in OPTIONAL and value in (None, "") or name in OMIT_FALSE and value in (None, False)
+
+
 def pick(obj, fields, family_paper=None):
     data = {}
     for name in fields:
         value = plain(getattr(obj, name))
-        if name in OPTIONAL and value in (None, "") or name == "paper" and value == family_paper:
+        if omitted(name, value) or name == "paper" and value == family_paper:
             continue
         data[name] = value
     return data
@@ -205,7 +211,7 @@ def run_to_drafts(run):
         data = {name: ref_name(value) for name, value in record.data.items() if name not in drop}
         ordered = {name: data.pop(name) for name in fields if name in data}
         ordered.update(data)  # Unknown fields stay visible; add_yaml will reject them.
-        return {name: value for name, value in ordered.items() if not (name in OPTIONAL and value in (None, ""))}
+        return {name: value for name, value in ordered.items() if not omitted(name, value)}
 
     def family_node(name):
         if name not in families:

@@ -56,6 +56,7 @@ def get_family_list():
             "model type": family.model_type,
             "pretraining method": family.pretrain_method,
             "hierarchical": family.hierarchical,
+            "spiking": family.spiking,
             "publication date": family.pub_date,
             "github": "link",
             "paper": "link",

@@ -24,6 +24,9 @@ from .models import (
 )
 
 
+SPIKING_SYMBOL = "diamond"
+
+
 def get_plot_and_table(plot_request, page="", family_name=None):
     queryset = get_plot_data(plot_request, family_name)
     plot = get_plot(queryset, plot_request)
@@ -43,6 +46,9 @@ def get_plot_data(request, family_name=None):
         queryset = queryset.filter(pretrain_dataset=request.pretrain_dataset)
     if request.pretrain_method:
         queryset = queryset.filter(pretrain_method=request.pretrain_method)
+    # Spiking networks are hidden unless requested, except on their own family's page.
+    if not request.show_spiking and not family_name:
+        queryset = queryset.filter(family__spiking=False)
 
     if request.query_type == PlotRequest.SINGLE:
         queryset = filter_and_add_results(
@@ -206,7 +212,7 @@ def get_plot(queryset, request):
             name=str(key),
             text=points["hovers"],
             hoverinfo="text",
-            marker=marker_configs[key],
+            marker=dict(marker_configs[key], symbol=points["symbols"]),
         )
         for key, points in data.items()
     ]
@@ -226,6 +232,7 @@ def add_point(pb, x_result, y_result, args, x_title, y_title, data, keys):
     data[key]["x"].append(x)
     data[key]["y"].append(y)
     data[key]["hovers"].append(hover)
+    data[key]["symbols"].append(SPIKING_SYMBOL if pb.family.spiking else "circle")
     keys.add(key)
 
 
@@ -248,6 +255,8 @@ def get_hover(pb, x, y, x_title, y_title, x_result, y_result):
         f"Model: {pb.backbone.name}",
         f"Pretrain: {get_pretrain_string(pb)}",
     ]
+    if pb.family.spiking:
+        hover_elements.append("Spiking neural network")
     if x_result == y_result:
         if isinstance(x_result, ClassificationResult):
             hover_elements.append(f"Finetune: {get_finetune_string(x_result)}")

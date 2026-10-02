@@ -47,6 +47,7 @@ class PlotRequest:
     def __init__(self, args):
         self.pretrain_dataset = args.get("_pretrain_dataset")
         self.pretrain_method = args.get("_pretrain_method")
+        self.show_spiking = bool(args.get("_show_spiking"))
 
         x_args = PlotRequest.DataArgs(
             dataset=args.get("x_dataset"),

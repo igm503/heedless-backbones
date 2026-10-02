@@ -129,7 +129,7 @@ METRICS = {"top_1", "top_5", "gflops", "mAP", "AP50", "AP75", "mAPs", "mAPm", "m
 CORE = {"classification": ["dataset", "resolution"], "instance": ["head", "dataset", "instance_type"],
         "semantic": ["head", "dataset"], "fps": ["gpu", "resolution"]}
 FIELDS = {
-    "family": ["model_type", "hierarchical", "pretrain_method"],
+    "family": ["model_type", "hierarchical", "spiking", "pretrain_method"],
     "backbone": ["m_parameters"],
     "pretrained_backbone": ["pretrain_dataset", "pretrain_method", "pretrain_resolution", "pretrain_epochs"],
     "classification": CLASSIFICATION_FIELDS, "instance": INSTANCE_FIELDS, "semantic": SEMANTIC_FIELDS,
@@ -138,6 +138,11 @@ FIELDS = {
 RESULT_KINDS = ["classification", "instance", "semantic"]
 # Left blank by the guide when the paper does not state them, even where stored data has a value.
 BLANK_ALLOWED = {("fps", "precision")}
+
+
+def family_values(data):
+    # spiking is written only when true; an omitted flag is false.
+    return {f: data.get(f) for f in FIELDS["family"]} | {"spiking": bool(data.get("spiking"))}
 
 
 def norm(value):
@@ -174,7 +179,7 @@ def truth_items(families, identifier=None):
     items = []
     for family in families:
         data = family_to_dict(family)
-        add({"kind": "family", "name": data["name"], **{f: data.get(f) for f in FIELDS["family"]}}, True)
+        add({"kind": "family", "name": data["name"], **family_values(data)}, True)
         for backbone in data["backbones"]:
             backbone_own = from_paper(backbone)
             add({"kind": "backbone", "name": backbone["name"], "m_parameters": backbone.get("m_parameters")}, backbone_own)
@@ -209,7 +214,9 @@ def extracted_items(records):
     items = []
     for record in records:
         data, kind = record["data"], record["kind"]
-        if kind in ("family", "backbone"):
+        if kind == "family":
+            items.append({"kind": kind, "name": data.get("name"), **family_values(data)})
+        elif kind == "backbone":
             items.append({"kind": kind, "name": data.get("name"), **{f: data.get(f) for f in FIELDS[kind]}})
         elif kind == "pretrained_backbone":
             items.append({"kind": kind, "pb": pb_of[record["key"]], "name": data.get("name"),

@@ -127,6 +127,7 @@ FIELDS = [
     "x_precision",
     "_pretrain_dataset",
     "_pretrain_method",
+    "_show_spiking",
     "legend_attribute",
     "legend_attribute_(second)",
 ]

@@ -426,6 +426,22 @@ class FamilyYamlTests(TestCase):
         apply_entries(yaml_to_entries(data), actor="test", origin="round trip")
         self.assertEqual(InstanceResult.objects.filter(pretrained_backbone__family__name="Swin").exclude(paper="").count(), linked)
 
+    def test_spiking_is_written_only_when_true(self):
+        swin = BackboneFamily.objects.get(name="Swin")
+        data = yaml.safe_load(yaml.dump(family_to_dict(swin), sort_keys=False))
+        self.assertNotIn("spiking", data)
+        swin.delete()
+        apply_entries(yaml_to_entries(data), actor="test", origin="round trip")
+        self.assertFalse(BackboneFamily.objects.get(name="Swin").spiking)
+
+        BackboneFamily.objects.filter(name="Swin").update(spiking=True)
+        data = yaml.safe_load(yaml.dump(family_to_dict(BackboneFamily.objects.get(name="Swin")), sort_keys=False))
+        self.assertEqual(list(data)[:4], ["name", "model_type", "hierarchical", "spiking"])
+        self.assertIs(data["spiking"], True)
+        BackboneFamily.objects.get(name="Swin").delete()
+        apply_entries(yaml_to_entries(data), actor="test", origin="round trip")
+        self.assertTrue(BackboneFamily.objects.get(name="Swin").spiking)
+
 
 # Families with results whose recorded settings coincide (e.g. two FocalNet-T-SRF Mask R-CNN
 # rows); re-importing them into an existing family cannot tell which row is which.
