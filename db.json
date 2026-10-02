@@ -5947,6 +5947,48 @@
   }
 },
 {
+  "model": "stats.backbonefamily",
+  "pk": 583,
+  "fields": {
+    "source_record": null,
+    "name": "Spikformer+k-WTA Router",
+    "model_type": "Attention",
+    "hierarchical": false,
+    "pretrain_method": "Supervised",
+    "pub_date": "2026-10-01",
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.backbonefamily",
+  "pk": 584,
+  "fields": {
+    "source_record": null,
+    "name": "SD-Transformer+k-WTA Router",
+    "model_type": "Attention",
+    "hierarchical": false,
+    "pretrain_method": "Supervised",
+    "pub_date": "2026-10-01",
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.backbonefamily",
+  "pk": 585,
+  "fields": {
+    "source_record": null,
+    "name": "Spikingformer+k-WTA Router",
+    "model_type": "Attention",
+    "hierarchical": false,
+    "pretrain_method": "Supervised",
+    "pub_date": "2026-10-01",
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": ""
+  }
+},
+{
   "model": "stats.backbone",
   "pk": 1,
   "fields": {
@@ -11137,6 +11179,84 @@
     "m_parameters": 54.0,
     "paper": "https://arxiv.org/abs/2506.15940v2",
     "github": "https://github.com/zhongchenzhao/PPMA",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 1807,
+  "fields": {
+    "source_record": null,
+    "name": "Spikformer+k-WTA Router-8-384",
+    "family": 583,
+    "m_parameters": 16.03,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 1808,
+  "fields": {
+    "source_record": null,
+    "name": "Spikformer+k-WTA Router-8-512",
+    "family": 583,
+    "m_parameters": 28.19,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 1809,
+  "fields": {
+    "source_record": null,
+    "name": "SD-Transformer+k-WTA Router-8-384",
+    "family": 584,
+    "m_parameters": 16.03,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 1810,
+  "fields": {
+    "source_record": null,
+    "name": "SD-Transformer+k-WTA Router-8-512",
+    "family": 584,
+    "m_parameters": 28.19,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 1811,
+  "fields": {
+    "source_record": null,
+    "name": "Spikingformer+k-WTA Router-8-384",
+    "family": 585,
+    "m_parameters": 16.03,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 1812,
+  "fields": {
+    "source_record": null,
+    "name": "Spikingformer+k-WTA Router-8-512",
+    "family": 585,
+    "m_parameters": 28.19,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": "",
     "fps_measurements": []
   }
 },
@@ -18273,6 +18393,102 @@
     "pretrain_resolution": 224,
     "pretrain_epochs": 300.0,
     "paper": "https://arxiv.org/abs/2506.15940v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 1846,
+  "fields": {
+    "source_record": null,
+    "name": "Spikformer+k-WTA Router-8-384-IN1k",
+    "backbone": 1807,
+    "family": 583,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 1847,
+  "fields": {
+    "source_record": null,
+    "name": "Spikformer+k-WTA Router-8-512-IN1k",
+    "backbone": 1808,
+    "family": 583,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 1848,
+  "fields": {
+    "source_record": null,
+    "name": "SD-Transformer+k-WTA Router-8-384-IN1k",
+    "backbone": 1809,
+    "family": 584,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 1849,
+  "fields": {
+    "source_record": null,
+    "name": "SD-Transformer+k-WTA Router-8-512-IN1k",
+    "backbone": 1810,
+    "family": 584,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 1850,
+  "fields": {
+    "source_record": null,
+    "name": "Spikingformer+k-WTA Router-8-384-IN1k",
+    "backbone": 1811,
+    "family": 585,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 1851,
+  "fields": {
+    "source_record": null,
+    "name": "Spikingformer+k-WTA Router-8-512-IN1k",
+    "backbone": 1812,
+    "family": 585,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
     "github": ""
   }
 },
@@ -37698,6 +37914,132 @@
     "top_5": null,
     "gflops": 10.6,
     "paper": "https://arxiv.org/abs/2506.15940v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 2609,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 1846,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 73.22,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 2610,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 1847,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 75.97,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 2611,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 1848,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 74.52,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 2612,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 1849,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 77.49,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 2613,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 1850,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 74.37,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 2614,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 1851,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 76.92,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2610.01418v1",
     "github": ""
   }
 },
