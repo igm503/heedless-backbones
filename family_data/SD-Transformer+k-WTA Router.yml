@@ -1,0 +1,42 @@
+name: SD-Transformer+k-WTA Router
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-10-01'
+paper: https://arxiv.org/abs/2610.01418v1
+github: ''
+backbones:
+- name: SD-Transformer+k-WTA Router-8-384
+  m_parameters: 16.03
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SD-Transformer+k-WTA Router-8-384-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 74.52
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: SD-Transformer+k-WTA Router-8-512
+  m_parameters: 28.19
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SD-Transformer+k-WTA Router-8-512-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 77.49
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []

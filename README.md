@@ -96,6 +96,9 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| SD-Transformer+k-WTA Router | 2 | [arXiv 2610.01418](https://arxiv.org/abs/2610.01418) | 2026-10-02 |
+| Spikformer+k-WTA Router | 2 | [arXiv 2610.01418](https://arxiv.org/abs/2610.01418) | 2026-10-02 |
+| Spikingformer+k-WTA Router | 2 | [arXiv 2610.01418](https://arxiv.org/abs/2610.01418) | 2026-10-02 |
 | GSAP | 3 | [arXiv 2609.26297](https://arxiv.org/abs/2609.26297) | 2026-09-29 |
 | iFormer (Mobile) | 6 | [arXiv 2501.15369](https://arxiv.org/abs/2501.15369) | 2026-09-29 |
 | L2ViT | 3 | [arXiv 2501.16182](https://arxiv.org/abs/2501.16182) | 2026-09-29 |
@@ -196,6 +199,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 10-2-2026: added SD-Transformer+k-WTA Router, Spikformer+k-WTA Router, Spikingformer+k-WTA Router
 - 9-29-2026: added GSAP, iFormer (Mobile), L2ViT, LSNet, MVFormer, PPMA, TinyViM, V2M + local window, V2M*
 - 9-28-2026: added FAT, FMViT, LaViT, Mamba-R, MSVMamba, RepNeXt, RepViT, SW, WTConvNeXt
 - 9-27-2026: added CE-CSWin, CE-CvT, CE-PVT, CE-Swin, CETNet, CloFormer, iFormer, InceptionNeXt, InceptionNeXt (iso.), LightViT, LinGlo, SepViT, STViT, SwiftFormer
