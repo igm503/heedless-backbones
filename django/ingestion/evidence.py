@@ -12,7 +12,7 @@ SCHEDULES = {"1": 12, "2": 24, "3": 36, "6": 72}
 # instance_type follows from the quoted metric (box or mask AP).
 UNCITED_FIELDS = {"name", "backbone_name", "tasks", "instance_type"}
 # Classifications applying the guide: a quotation or a note naming the field.
-JUDGMENT_FIELDS = {"model_type", "hierarchical", "pretrain_method"}
+JUDGMENT_FIELDS = {"model_type", "hierarchical", "spiking", "pretrain_method"}
 
 
 def normalized(text):

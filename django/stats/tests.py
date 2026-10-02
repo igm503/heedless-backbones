@@ -8,10 +8,12 @@ from django.test.utils import CaptureQueriesContext
 
 from .form import PlotForm, get_default_request, get_most_common_dataset
 from .models import (
+    BackboneFamily,
     ClassificationResult,
     Dataset,
     FPSMeasurement,
     InstanceResult,
+    PretrainedBackbone,
     SemanticSegmentationResult,
     Task,
     TaskType,
@@ -99,6 +101,25 @@ class BenchmarkRenderingTests(TestCase):
         expected = [81.3, 83.2, 83.5, 84.5, 85.2, 86.4, 87.3, 86.3, 80.9, 83.2]
         self.assertEqual(list(figure.data[0].y), expected)
         self.assertEqual([row["Top-1"] for row in table["rows"]], expected)
+
+    def test_spiking_families_hidden_unless_requested(self):
+        BackboneFamily.objects.filter(name="Swin").update(spiking=True)
+        hidden = list(get_plot_data(self.plot_request()))
+        self.assertTrue(hidden)
+        self.assertFalse(any(pb.family.name == "Swin" for pb in hidden))
+
+        request = self.plot_request(_show_spiking="on")
+        shown = list(get_plot_data(request))
+        self.assertEqual(len(shown), len(hidden) + PretrainedBackbone.objects.filter(
+            family__name="Swin", classificationresult__dataset=1).distinct().count())
+        with patch("stats.plot.plot", side_effect=lambda fig, **kw: fig):
+            figure = get_plot(shown, request)
+        symbols = {trace.name: set(trace.marker.symbol) for trace in figure.data}
+        self.assertEqual(symbols.pop(next(name for name in symbols if ">Swin<" in name)), {"diamond"})
+        self.assertTrue(all(symbol == {"circle"} for symbol in symbols.values()))
+
+        # A spiking family's own page always shows its models.
+        self.assertTrue(list(get_plot_data(self.plot_request(), family_name="Swin")))
 
     def test_metadata_axes_and_publication_dates(self):
         self.render_plot(self.plot_request(x_axis="pub_date"), 4)

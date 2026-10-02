@@ -167,6 +167,16 @@
 
       customSelects.forEach(initializeSelect);
 
+      document.querySelectorAll('.checkbox-option input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+          if (loadingOverlay) {
+            loadingOverlay.style.display = 'flex';
+          }
+          localStorage.setItem('optionsContainerOpen', 'true');
+          form.submit();
+        });
+      });
+
       document.addEventListener('click', (event) => {
         if (!event.target.closest('.custom-select-container')) {
           customSelects.forEach(select => {

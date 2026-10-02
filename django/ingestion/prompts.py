@@ -48,6 +48,7 @@ def field_spec(registry):
             )
             for field in model._meta.fields if not field.primary_key and field.name != "source_record"
         }
+    fields["family"]["spiking"] = "BooleanField; true only for spiking neural networks, otherwise omit"
     fields["category"] = {"scope": "model_type or pretrain_method", "value": "new category name"}
     fields["dataset"]["tasks"] = "array of exact task names"
     fields["head"]["tasks"] = "array of exact task names"
@@ -70,8 +71,8 @@ Output format:
   train_dataset, pretrain_dataset, fine_tune_dataset, instance_type, ...) must either be
   quoted where the paper states it or be listed in inferred with its source; the same
   applies to classifications you make by the guide (model_type, hierarchical,
-  pretrain_method). E.g. {"field": "head", "source": "follows the ConvNeXt UPerNet setup,
-  Sec. 4.2"}. Paper URLs and the family pub_date may be omitted: the importer attaches
+  spiking, pretrain_method). E.g. {"field": "head", "source": "follows the ConvNeXt
+  UPerNet setup, Sec. 4.2"}. Paper URLs and the family pub_date may be omitted: the importer attaches
   this exact arXiv version and its date.
 - Put each judgment call in the record's note: what you decided and why (e.g. "dense
   FLOPs used; paper headlines 5.0G sparsity-aware"). Leave note empty when nothing

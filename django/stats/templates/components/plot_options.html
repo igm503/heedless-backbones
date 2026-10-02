@@ -36,12 +36,21 @@
       <div id="filter-axis-container" class="form-grid">
         {% for field in form %}
         {% if field.name|slice:":1" == "_" %}
+        {% if field.widget_type == "checkbox" %}
+        <div class="checkbox-option">
+          {{ field }}
+          <label for="{{ field.id_for_label }}">
+            {{ field.label }}
+          </label>
+        </div>
+        {% else %}
         <div>
           <label for="{{ field.id_for_label }}">
             {{ field.label }}
           </label>
           {% include "components/custom_select.html" with field=field %}
         </div>
+        {% endif %}
         {% endif %}
         {% endfor %}
       </div>

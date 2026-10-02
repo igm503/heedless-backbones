@@ -108,8 +108,8 @@ A convention never overrides what the paper states.
   architectures, each base is its own family, named with the paper's labels. LocalViT
   adds its block to DeiT, T2T-ViT, TNT, PVT and Swin: `LocalViT` (the DeiT-based T and
   S), `LocalViT-T2T`, `LocalViT-TNT`, `LocalViT-PVT` and `LocalViT-Swin` (Swin-M and
-  Swin). `model_type`, `hierarchical` and `pretrain_method` must be true of every model
-  in the family; never choose the majority value for a mixed group.
+  Swin). `model_type`, `hierarchical`, `spiking` and `pretrain_method` must be true of
+  every model in the family; never choose the majority value for a mixed group.
 - **Backbone name**: `Family-Size` using the paper's size labels (`ConvNeXt V2-T`,
   `ResNet-50 (RSB)`, `CoAtNet-3`). Include every size in the main results.
 - **Parameters**: millions, backbone only (never the detector or segmenter).
@@ -124,6 +124,10 @@ A convention never overrides what the paper states.
   - A combination with no existing category is a new category proposal.
 - **hierarchical**: true for multi-stage models that reduce spatial resolution between
   stages; false for isotropic models (DeiT III, Vim, PlainMamba).
+- **spiking**: `true` for spiking neural networks, whose neurons (LIF, IF and similar)
+  pass binary or discrete spikes over timesteps (Spikformer, Spike-driven Transformer),
+  including ANN-to-SNN conversions reported as SNNs. Quantized or binarized ANNs are not
+  spiking. Include the field only when it is true; omit it otherwise.
 - **pretrain_method** (family): the method of the family's main models (`Supervised`
   for almost all).
 

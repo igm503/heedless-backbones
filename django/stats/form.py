@@ -132,6 +132,9 @@ class PlotForm(forms.Form):
         self.fields["_pretrain_method"] = forms.ChoiceField(
             choices=pretrain_methods, required=False
         )
+        self.fields["_show_spiking"] = forms.BooleanField(
+            label="Show spiking networks", required=False
+        )
 
     def init_legend(self, args):
         group_attrs = LIMITED_LEGEND_ATTRIBUTES.copy()
@@ -170,6 +173,7 @@ class PlotForm(forms.Form):
             not in [
                 "_pretrain_dataset",
                 "_pretrain_method",
+                "_show_spiking",
                 "x_resolution",
                 "y_resolution",
                 "x_head",

@@ -160,6 +160,7 @@ class BackboneFamily(SourcedModel):
     name = models.CharField(max_length=100, unique=True)
     model_type = models.CharField(max_length=100)
     hierarchical = models.BooleanField()
+    spiking = models.BooleanField(default=False)
     pretrain_method = models.CharField(max_length=100)
     pub_date = models.DateField()
     paper = models.URLField(blank=True)
