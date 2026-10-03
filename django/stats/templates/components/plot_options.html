@@ -37,11 +37,16 @@
         {% for field in form %}
         {% if field.name|slice:":1" == "_" %}
         {% if field.widget_type == "checkbox" %}
-        <div class="checkbox-option">
-          {{ field }}
+        <div>
           <label for="{{ field.id_for_label }}">
-            {{ field.label }}
+            spiking networks
           </label>
+          <div class="checkbox-option">
+            <label class="checkbox-box">
+              {{ field }}
+              <span>{{ field.label }}</span>
+            </label>
+          </div>
         </div>
         {% else %}
         <div>
