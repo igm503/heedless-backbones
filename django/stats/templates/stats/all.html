@@ -13,17 +13,7 @@
     <h1>All Backbones</h1>
   </header>
 
-  <div class="plot-container">
-    {{ plot|safe }}
-  </div>
-
-  {% include "components/plot_options.html" %}
-
-  {% if table %}
-  {% render_table "sortableTable" table %}
-  {% else %}
-  <h2>No Results</h2>
-  {% endif %}
+  {% include "components/plot_section.html" %}
 
 </main>
 </body>

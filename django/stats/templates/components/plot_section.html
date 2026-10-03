@@ -1,0 +1,14 @@
+{% load table_tag %}
+<div class="plot-container" id="plot-area">
+  {{ plot|safe }}
+</div>
+
+{% include "components/plot_options.html" %}
+
+<div id="plot-table">
+  {% if table %}
+  {% render_table "sortableTable" table %}
+  {% else %}
+  <h2>No Results</h2>
+  {% endif %}
+</div>

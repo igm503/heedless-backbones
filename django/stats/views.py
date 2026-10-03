@@ -24,10 +24,34 @@ head_plot, head_table = None, None
 dataset_plot, dataset_table = None, None
 
 
+def is_plot_update(request):
+    """A request from the page's own script, which replaces the plot section in place."""
+    return request.headers.get("X-Plot-Update") == "1"
+
+
+def plot_update(request, form, get_result):
+    """The plot section alone, or only the options while they are incomplete. The page has
+    already loaded plotly.js, so the plot leaves it out; it is never stored in the globals
+    that full page loads reuse."""
+    ready = form.is_valid() and form.is_ready()
+    plot, table = get_result(include_plotlyjs=False) if ready else (None, None)
+    response = render(
+        request,
+        "components/plot_update.html",
+        {"form": form, "plot": plot, "table": table, "ready": ready},
+    )
+    response["Cache-Control"] = "no-store"  # never shown in place of the full page
+    return response
+
+
 
 def all(request):
     global plot, table, headers
     form = PlotForm(request.GET or get_default_request())
+    if is_plot_update(request):
+        return plot_update(
+            request, form, lambda **kw: get_plot_and_table(PlotRequest(form.cleaned_data), **kw)
+        )
     if form.is_valid() and form.is_ready():
         plot_request = PlotRequest(form.cleaned_data)
         plot, table = get_plot_and_table(plot_request)
@@ -53,6 +77,14 @@ def family(request, family_name):
         form = PlotForm(request.GET)
     else:
         form = PlotForm(get_default_request(family=family, task_query=request.GET.get("task")))
+    if is_plot_update(request):
+        return plot_update(
+            request,
+            form,
+            lambda **kw: get_plot_and_table(
+                PlotRequest(form.cleaned_data), page="family", family_name=family_name, **kw
+            ),
+        )
     if form.is_valid() and form.is_ready():
         plot_request = PlotRequest(form.cleaned_data)
         family_plot, family_table = get_plot_and_table(
@@ -86,11 +118,16 @@ def head(request, head_name):
         form = PlotForm(request.GET, head=head)
     else:
         form = PlotForm(get_default_request(head=head, task_query=request.GET.get("task")), head=head)
-    if form.is_valid() and form.is_ready():
+
+    def head_result(**kwargs):
         form.cleaned_data["x_head"] = head
         form.cleaned_data["y_head"] = head
-        plot_request = PlotRequest(form.cleaned_data)
-        head_plot, head_table = get_plot_and_table(plot_request, page="head")
+        return get_plot_and_table(PlotRequest(form.cleaned_data), page="head", **kwargs)
+
+    if is_plot_update(request):
+        return plot_update(request, form, head_result)
+    if form.is_valid() and form.is_ready():
+        head_plot, head_table = head_result()
     head_tasks = [task.name for task in head.tasks.all()]
     det_tables = None
     instance_tables = None
@@ -127,11 +164,16 @@ def dataset(request, dataset_name):
             get_default_request(dataset=dataset, task_query=request.GET.get("task")),
             dataset=dataset,
         )
-    if form.is_valid() and form.is_ready():
+
+    def dataset_result(**kwargs):
         form.cleaned_data["x_dataset"] = dataset
         form.cleaned_data["y_dataset"] = dataset
-        plot_request = PlotRequest(form.cleaned_data)
-        dataset_plot, dataset_table = get_plot_and_table(plot_request, page="dataset")
+        return get_plot_and_table(PlotRequest(form.cleaned_data), page="dataset", **kwargs)
+
+    if is_plot_update(request):
+        return plot_update(request, form, dataset_result)
+    if form.is_valid() and form.is_ready():
+        dataset_plot, dataset_table = dataset_result()
     dataset_tasks = [task.name for task in dataset.tasks.all()]
     classification_table = None
     det_table = None

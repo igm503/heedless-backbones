@@ -52,7 +52,7 @@
   <script>
     let dataTable, classificationDataTable, detectionDataTable, instanceDataTable, datasetTable, headTable, familyTable;
 
-    function initializeDataTable() {
+    function initializeDataTable(only) {
       const tables = [
         {selector: '.sortableTable', variable: 'dataTable', searching: true},
         {selector: '.classificationFamilyTable', variable: 'classificationDataTable', searching: false, order: [[2, "asc"], [1, "asc"], [3, "asc"]]},
@@ -71,7 +71,7 @@
         {selector: '.FamilyTable', variable: 'familyTable', searching: false, order: [[4, "desc"]]},
       ];
 
-      tables.forEach(table => {
+      tables.filter(table => !only || table.selector === only).forEach(table => {
         const element = $(table.selector);
         if (element.length) {
           if (window[table.variable]) {
@@ -91,102 +91,72 @@
       });
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const customSelects = document.querySelectorAll('.custom-select-container');
-      const form = document.querySelector('form');
-      const loadingOverlay = document.getElementById('loading-overlay');
-      const yAxisContainer = document.getElementById('y-axis-container');
-      const xAxisContainer = document.getElementById('x-axis-container');
+    function initializeDrawer(button) {
+      const container = document.getElementById(button.dataset.container);
+      const text = button.dataset.text;
+      if (!container) {
+        console.warn(`Container ${button.dataset.container} not found for button ${button.id}`);
+        return;
+      }
+      const storageKey = button.dataset.container + 'Open';
 
-      const buttons = document.querySelectorAll('.drawer');
-
-      buttons.forEach(button => {
-        const containerId = button.dataset.container;
-        const container = document.getElementById(containerId);
-        const text = button.dataset.text;
-
-        if (!container) {
-          console.warn(`Container ${containerId} not found for button ${button.id}`);
-          return;
-        }
-
-        const storageKey = containerId + 'Open';
-
-        function toggleContainer(show) {
-          container.classList.toggle('show', show);
-          button.classList.toggle('active', show);
-          button.style.borderBottom = show ? 'none' : '1px solid #000000';
-          button.textContent = show ? 'Hide ' + text : text;
-          localStorage.setItem(storageKey, show.toString());
-        }
-
-        const storedState = localStorage.getItem(storageKey);
-        if (storedState !== null) {
-          toggleContainer(storedState === 'true');
-        }
-
-        button.addEventListener('click', () => {
-          toggleContainer(!container.classList.contains('show'));
-        });
-      });
-
-      function initializeSelect(select) {
-        const header = select.querySelector('.custom-select-header');
-        const options = select.querySelector('.custom-select-options');
-        const selectedSpan = select.querySelector('.custom-select-selected');
-        const hiddenInput = select.querySelector('input[type="hidden"]');
-        if (hiddenInput.value) {
-          const selectedOption = options.querySelector(`[data-value="${hiddenInput.value}"]`);
-          if (selectedOption) {
-            selectedSpan.innerHTML = selectedOption.innerHTML;
-            selectedOption.classList.add('selected');
-          }
-          else {
-            hiddenInput.value = '';
-          }
-        }
-        header.addEventListener('click', () => {
-          select.classList.toggle('open');
-          options.style.display = select.classList.contains('open') ? 'block' : 'none';
-        });
-        options.querySelectorAll('.custom-select-option').forEach(option => {
-          option.addEventListener('click', () => {
-            hiddenInput.value = option.dataset.value;
-            selectedSpan.innerHTML = option.innerHTML;
-            options.querySelectorAll('.custom-select-option').forEach(opt => opt.classList.toggle('selected', opt === option));
-            select.classList.remove('open');
-            options.style.display = 'none';
-            if (loadingOverlay) {
-              loadingOverlay.style.display = 'flex';
-            }
-            localStorage.setItem('optionsContainerOpen', 'true');
-            form.submit();
-          });
-        });
+      function toggleContainer(show) {
+        container.classList.toggle('show', show);
+        button.classList.toggle('active', show);
+        button.style.borderBottom = show ? 'none' : '1px solid #000000';
+        button.textContent = show ? 'Hide ' + text : text;
+        localStorage.setItem(storageKey, show.toString());
       }
 
-      customSelects.forEach(initializeSelect);
+      const storedState = localStorage.getItem(storageKey);
+      if (storedState !== null) {
+        toggleContainer(storedState === 'true');
+      }
+      button.addEventListener('click', () => {
+        toggleContainer(!container.classList.contains('show'));
+      });
+    }
 
-      document.querySelectorAll('.checkbox-option input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-          if (loadingOverlay) {
-            loadingOverlay.style.display = 'flex';
-          }
-          localStorage.setItem('optionsContainerOpen', 'true');
-          form.submit();
+    function initializeSelect(select) {
+      const header = select.querySelector('.custom-select-header');
+      const options = select.querySelector('.custom-select-options');
+      const selectedSpan = select.querySelector('.custom-select-selected');
+      const hiddenInput = select.querySelector('input[type="hidden"]');
+      if (hiddenInput.value) {
+        const selectedOption = options.querySelector(`[data-value="${hiddenInput.value}"]`);
+        if (selectedOption) {
+          selectedSpan.innerHTML = selectedOption.innerHTML;
+          selectedOption.classList.add('selected');
+        }
+        else {
+          hiddenInput.value = '';
+        }
+      }
+      header.addEventListener('click', () => {
+        select.classList.toggle('open');
+        options.style.display = select.classList.contains('open') ? 'block' : 'none';
+      });
+      options.querySelectorAll('.custom-select-option').forEach(option => {
+        option.addEventListener('click', () => {
+          hiddenInput.value = option.dataset.value;
+          selectedSpan.innerHTML = option.innerHTML;
+          options.querySelectorAll('.custom-select-option').forEach(opt => opt.classList.toggle('selected', opt === option));
+          select.classList.remove('open');
+          options.style.display = 'none';
+          updatePlot();
         });
       });
+    }
 
-      document.addEventListener('click', (event) => {
-        if (!event.target.closest('.custom-select-container')) {
-          customSelects.forEach(select => {
-            select.classList.remove('open');
-            const options = select.querySelector('.custom-select-options');
-            if (options) {
-              options.style.display = 'none';
-            }
-          });
-        }
+    function initializePlotOptions() {
+      const plotOptions = document.getElementById('plot-options');
+      if (!plotOptions) {
+        return;
+      }
+      plotOptions.querySelectorAll('.drawer').forEach(initializeDrawer);
+      plotOptions.querySelectorAll('.custom-select-container').forEach(initializeSelect);
+      plotOptions.querySelectorAll('.checkbox-option input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', () => updatePlot());
       });
 
       // Every option row shares one column count, so boxes line up and sit side by side.
@@ -199,6 +169,115 @@
           container.style.gridTemplateColumns = `repeat(${numOptions}, 1fr)`;
         });
       }
+    }
+
+    // Scripts inserted through innerHTML do not run; replace each with a live copy.
+    function runScripts(element) {
+      element.querySelectorAll('script').forEach(old => {
+        const script = document.createElement('script');
+        script.text = old.textContent;
+        old.replaceWith(script);
+      });
+    }
+
+    let plotUpdate = null;
+
+    // Apply the plot options in place: fetch the plot section for the new options and swap
+    // in the plot, options and table. A failed request falls back to loading the page.
+    async function updatePlot(url, push = true) {
+      const form = document.querySelector('#plot-options form');
+      if (!url) {
+        const params = new URLSearchParams(new FormData(form));
+        url = `${form.getAttribute('action') || location.pathname}?${params}`;
+      }
+      if (!window.Plotly) {
+        location.href = url;  // this page loaded without a plot, so it has no plotly.js
+        return;
+      }
+      if (plotUpdate) {
+        plotUpdate.abort();
+      }
+      const controller = new AbortController();
+      plotUpdate = controller;
+      const loadingOverlay = document.getElementById('loading-overlay');
+      const spinnerTimer = setTimeout(() => {
+        loadingOverlay.style.display = 'flex';
+      }, 150);
+      try {
+        const response = await fetch(url, {headers: {'X-Plot-Update': '1'}, signal: controller.signal});
+        if (!response.ok) {
+          throw new Error(`Plot update failed: ${response.status}`);
+        }
+        const fragment = new DOMParser().parseFromString(await response.text(), 'text/html');
+        if (push) {
+          history.pushState({plotUpdate: true}, '', url);
+        }
+        const plotArea = document.getElementById('plot-area');
+        const newPlotArea = fragment.getElementById('plot-area');
+        if (newPlotArea && plotArea) {
+          plotArea.style.minHeight = `${plotArea.offsetHeight}px`;  // no jump while the plot draws
+          plotArea.querySelectorAll('.plotly-graph-div').forEach(div => Plotly.purge(div));
+          plotArea.innerHTML = newPlotArea.innerHTML;
+          runScripts(plotArea);
+          requestAnimationFrame(() => {
+            plotArea.style.minHeight = '';
+          });
+        }
+        document.getElementById('plot-options').replaceWith(fragment.getElementById('plot-options'));
+        initializePlotOptions();
+        const newTable = fragment.getElementById('plot-table');
+        if (newTable) {
+          if (window.dataTable) {
+            window.dataTable.destroy();
+            window.dataTable = null;
+          }
+          document.getElementById('plot-table').replaceWith(newTable);
+          initializeDataTable('.sortableTable');
+        }
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          console.error(error);
+          location.href = url;
+        }
+      } finally {
+        if (plotUpdate === controller) {
+          plotUpdate = null;
+          clearTimeout(spinnerTimer);
+          loadingOverlay.style.display = 'none';
+        } else {
+          clearTimeout(spinnerTimer);
+        }
+      }
+    }
+
+    window.addEventListener('popstate', (event) => {
+      if (event.state && event.state.plotUpdate && document.getElementById('plot-options')) {
+        updatePlot(location.href, false);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Remember that the initial page came from a full load, so Back can return to it in place.
+      history.replaceState({plotUpdate: true}, '', location.href);
+
+      document.querySelectorAll('.drawer').forEach(button => {
+        if (!button.closest('#plot-options')) {
+          initializeDrawer(button);
+        }
+      });
+      initializePlotOptions();
+
+      document.addEventListener('click', (event) => {
+        if (!event.target.closest('.custom-select-container')) {
+          document.querySelectorAll('.custom-select-container').forEach(select => {
+            select.classList.remove('open');
+            const options = select.querySelector('.custom-select-options');
+            if (options) {
+              options.style.display = 'none';
+            }
+          });
+        }
+      });
 
       initializeDataTable();
     });
