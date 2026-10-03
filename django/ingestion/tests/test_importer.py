@@ -67,6 +67,14 @@ class ImportTests(TestCase):
         self.assertEqual(ImportChange.objects.count(), 5)
         self.assertEqual(ClassificationResult.objects.filter(pretrained_backbone__family=family).count(), 1)
 
+    def test_null_optional_links_are_stored_blank(self):
+        # A paper without a code link: the agent leaves github null.
+        family = self.run.records.get(key="family")
+        family.data["github"] = None
+        family.save(update_fields=["data"])
+        self.assertEqual(apply_run(self.run, publish=True), [])
+        self.assertEqual(BackboneFamily.objects.get(name="FixtureNet").github, "")
+
     def test_rerun_does_not_duplicate_benchmarks(self):
         self.assertEqual(apply_run(self.run, publish=True), [])
         old_records = list(self.run.records.all())
