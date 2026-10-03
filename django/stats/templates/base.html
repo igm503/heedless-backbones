@@ -189,12 +189,15 @@
         }
       });
 
-      if (yAxisContainer && xAxisContainer) {
-        const yOptions = yAxisContainer.children.length;
-        const xOptions = xAxisContainer.children.length;
-        const numOptions = Math.max(yOptions, xOptions);
-        yAxisContainer.style.gridTemplateColumns = `repeat(${numOptions}, 1fr)`;
-        xAxisContainer.style.gridTemplateColumns = `repeat(${numOptions}, 1fr)`;
+      // Every option row shares one column count, so boxes line up and sit side by side.
+      const optionContainers = ['y-axis-container', 'x-axis-container', 'filter-container', 'legend-container']
+        .map(id => document.getElementById(id))
+        .filter(Boolean);
+      if (optionContainers.length) {
+        const numOptions = Math.max(...optionContainers.map(container => container.children.length));
+        optionContainers.forEach(container => {
+          container.style.gridTemplateColumns = `repeat(${numOptions}, 1fr)`;
+        });
       }
 
       initializeDataTable();
