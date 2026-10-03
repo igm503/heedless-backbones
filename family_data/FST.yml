@@ -1,0 +1,25 @@
+name: FST
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-09-29'
+paper: https://arxiv.org/abs/2609.38348v1
+github: ''
+backbones:
+- name: FST
+  m_parameters: 2.959929
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FST-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 119.98181033385967
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 69.53
+      top_5: 89.042
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []

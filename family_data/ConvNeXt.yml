@@ -68,6 +68,12 @@ backbones:
       top_5: null
       gflops: 4.5
       github: https://github.com/facebookresearch/ConvNeXt
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 71
+      top_5: null
+      gflops: 4.5
+      paper: https://arxiv.org/abs/2310.19380v4
     instance_results:
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
@@ -262,6 +268,36 @@ backbones:
       top_5: null
       gflops: 8.7
       github: https://github.com/facebookresearch/ConvNeXt
+    - dataset: ImageNet-C-bar
+      resolution: 224
+      top_1: 37.8
+      top_5: null
+      gflops: 8.7
+      paper: https://arxiv.org/abs/2112.03740v4
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 30.1
+      top_5: null
+      gflops: 8.7
+      paper: https://arxiv.org/abs/2112.03740v4
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 50.1
+      top_5: null
+      gflops: 8.7
+      paper: https://arxiv.org/abs/2112.03740v4
+    - dataset: ImageNet-Sketch
+      resolution: 224
+      top_1: 37.1
+      top_5: null
+      gflops: 8.7
+      paper: https://arxiv.org/abs/2112.03740v4
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 72.4
+      top_5: null
+      gflops: 8.7
+      paper: https://arxiv.org/abs/2310.19380v4
     instance_results:
     - head: Cascade Mask R-CNN
       dataset: COCO (val)

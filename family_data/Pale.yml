@@ -1,0 +1,218 @@
+name: Pale
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2021-12-28'
+paper: https://arxiv.org/abs/2112.14000v1
+github: https://github.com/BR-IDL/PaddleViT
+backbones:
+- name: Pale-T
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Pale-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.4
+      top_5: null
+      gflops: 4.2
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.4
+      AP50: 69.2
+      AP75: 52.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 306
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.7
+      AP50: 66.3
+      AP75: 46.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 306
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 51.2
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.4
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 996
+      fps_measurements: []
+  - name: Pale-T-IN1k-TL
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Sup. + TL
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.2
+      top_5: null
+      gflops: 4.2
+    instance_results: []
+    semantic_seg_results: []
+- name: Pale-S
+  m_parameters: 48
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Pale-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.3
+      top_5: null
+      gflops: 9
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 48.4
+      AP50: 70.4
+      AP75: 53.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 432
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.7
+      AP50: 67.7
+      AP75: 47.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 432
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 52.2
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 51.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1135
+      fps_measurements: []
+  - name: Pale-S-IN1k-TL
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Sup. + TL
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 85
+      top_5: null
+      gflops: 9
+    instance_results: []
+    semantic_seg_results: []
+- name: Pale-B
+  m_parameters: 85
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Pale-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.9
+      top_5: null
+      gflops: 15.6
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 49.3
+      AP50: 71.2
+      AP75: 54.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 595
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.2
+      AP50: 68.1
+      AP75: 47.8
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 595
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 53
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 52.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1311
+      fps_measurements: []
+  - name: Pale-B-IN1k-TL
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Sup. + TL
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 85.8
+      top_5: null
+      gflops: 15.6
+    instance_results: []
+    semantic_seg_results: []
