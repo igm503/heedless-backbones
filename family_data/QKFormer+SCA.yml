@@ -1,0 +1,43 @@
+name: QKFormer+SCA
+model_type: Attention
+hierarchical: true
+spiking: true
+pretrain_method: Supervised
+pub_date: '2026-10-01'
+paper: https://arxiv.org/abs/2610.01403v1
+github: ''
+backbones:
+- name: QKFormer+SCA-10-384
+  m_parameters: 16.47
+  fps_measurements: []
+  pretrained_backbones:
+  - name: QKFormer+SCA-10-384-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 200
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.49
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: QKFormer+SCA-10-512
+  m_parameters: 29.08
+  fps_measurements: []
+  pretrained_backbones:
+  - name: QKFormer+SCA-10-512-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 200
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.77
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
