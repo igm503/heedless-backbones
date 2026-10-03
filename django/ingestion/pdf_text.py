@@ -7,6 +7,7 @@ and two-column pages are read column by column, with full-width lines (titles, w
 tables, captions) kept whole.
 """
 import io
+import re
 import statistics
 
 import pdfplumber
@@ -14,6 +15,9 @@ import pdfplumber
 SMALL = 0.85  # Text below this fraction of the body size is a superscript or subscript.
 LINE_TOLERANCE = 2.5  # Points between baselines of words on the same line.
 TOUCHING = 2  # Points between a word and the superscript attached to it.
+# Control characters other than tab and newline. A font without a Unicode mapping can yield
+# raw glyph codes, NULs among them, which Postgres cannot store in the pages JSON.
+CONTROL = re.compile(r"[\x00-\x08\x0b-\x1f\x7f]")
 
 
 def is_small(word, size):
@@ -120,4 +124,4 @@ def pdf_pages(data, max_pages=None):
     with pdfplumber.open(io.BytesIO(data)) as pdf:
         if max_pages is not None and len(pdf.pages) > max_pages:
             raise ValueError(f"Paper exceeds the {max_pages}-page extraction limit")
-        return [page_text(page) for page in pdf.pages]
+        return [CONTROL.sub("", page_text(page)) for page in pdf.pages]
