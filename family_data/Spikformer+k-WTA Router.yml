@@ -1,6 +1,7 @@
 name: Spikformer+k-WTA Router
 model_type: Attention
 hierarchical: false
+spiking: true
 pretrain_method: Supervised
 pub_date: '2026-10-01'
 paper: https://arxiv.org/abs/2610.01418v1
