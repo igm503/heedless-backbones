@@ -96,6 +96,9 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| QKFormer+SCA | 2 | [arXiv 2610.01403](https://arxiv.org/abs/2610.01403) | 2026-10-03 |
+| SDT-V1+SCA | 2 | [arXiv 2610.01403](https://arxiv.org/abs/2610.01403) | 2026-10-03 |
+| SDT-V3+SCA | 3 | [arXiv 2610.01403](https://arxiv.org/abs/2610.01403) | 2026-10-03 |
 | SD-Transformer+k-WTA Router | 2 | [arXiv 2610.01418](https://arxiv.org/abs/2610.01418) | 2026-10-02 |
 | Spikformer+k-WTA Router | 2 | [arXiv 2610.01418](https://arxiv.org/abs/2610.01418) | 2026-10-02 |
 | Spikingformer+k-WTA Router | 2 | [arXiv 2610.01418](https://arxiv.org/abs/2610.01418) | 2026-10-02 |
@@ -199,6 +202,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 10-3-2026: added QKFormer+SCA, SDT-V1+SCA, SDT-V3+SCA
 - 10-2-2026: added SD-Transformer+k-WTA Router, Spikformer+k-WTA Router, Spikingformer+k-WTA Router
 - 9-29-2026: added GSAP, iFormer (Mobile), L2ViT, LSNet, MVFormer, PPMA, TinyViM, V2M + local window, V2M*
 - 9-28-2026: added FAT, FMViT, LaViT, Mamba-R, MSVMamba, RepNeXt, RepViT, SW, WTConvNeXt
