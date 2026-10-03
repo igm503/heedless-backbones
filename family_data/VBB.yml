@@ -1,0 +1,122 @@
+name: VBB
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2023-11-10'
+paper: https://arxiv.org/abs/2311.05988v1
+github: ''
+backbones:
+- name: VBB-T
+  m_parameters: 29
+  fps_measurements: []
+  pretrained_backbones:
+  - name: VBB-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.8
+      top_5: null
+      gflops: 5.1
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.7
+      AP50: 69.3
+      AP75: 52.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 286
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.6
+      AP50: 66.3
+      AP75: 46.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 286
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 51.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.3
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 996
+      fps_measurements: []
+- name: VBB-B
+  m_parameters: 85
+  fps_measurements: []
+  pretrained_backbones:
+  - name: VBB-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.9
+      top_5: null
+      gflops: 15.8
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 49.3
+      AP50: 70.9
+      AP75: 54.5
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 530
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.2
+      AP50: 68.4
+      AP75: 47.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 530
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 52.9
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 52.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1328
+      fps_measurements: []

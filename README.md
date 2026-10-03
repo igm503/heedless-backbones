@@ -96,9 +96,22 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| ConvNeXt-dcls | 3 | [arXiv 2112.03740](https://arxiv.org/abs/2112.03740) | 2026-10-03 |
+| CSKAFormer | 2 | [arXiv 2412.07049](https://arxiv.org/abs/2412.07049) | 2026-10-03 |
+| DeBiFormer | 3 | [arXiv 2410.08582](https://arxiv.org/abs/2410.08582) | 2026-10-03 |
+| EViT | 4 | [arXiv 2310.06629](https://arxiv.org/abs/2310.06629) | 2026-10-03 |
+| FaViT | 4 | [arXiv 2312.08614](https://arxiv.org/abs/2312.08614) | 2026-10-03 |
+| FST | 1 | [arXiv 2609.38348](https://arxiv.org/abs/2609.38348) | 2026-10-03 |
+| FViT | 4 | [arXiv 2402.11303](https://arxiv.org/abs/2402.11303) | 2026-10-03 |
+| Pale | 3 | [arXiv 2112.14000](https://arxiv.org/abs/2112.14000) | 2026-10-03 |
 | QKFormer+SCA | 2 | [arXiv 2610.01403](https://arxiv.org/abs/2610.01403) | 2026-10-03 |
+| ResT | 4 | [arXiv 2105.13677](https://arxiv.org/abs/2105.13677) | 2026-10-03 |
 | SDT-V1+SCA | 2 | [arXiv 2610.01403](https://arxiv.org/abs/2610.01403) | 2026-10-03 |
 | SDT-V3+SCA | 3 | [arXiv 2610.01403](https://arxiv.org/abs/2610.01403) | 2026-10-03 |
+| SKAFormer | 2 | [arXiv 2412.07049](https://arxiv.org/abs/2412.07049) | 2026-10-03 |
+| TransXNet | 3 | [arXiv 2310.19380](https://arxiv.org/abs/2310.19380) | 2026-10-03 |
+| VBB | 2 | [arXiv 2311.05988](https://arxiv.org/abs/2311.05988) | 2026-10-03 |
+| Win | 3 | [arXiv 2211.14255](https://arxiv.org/abs/2211.14255) | 2026-10-03 |
 | SD-Transformer+k-WTA Router | 2 | [arXiv 2610.01418](https://arxiv.org/abs/2610.01418) | 2026-10-02 |
 | Spikformer+k-WTA Router | 2 | [arXiv 2610.01418](https://arxiv.org/abs/2610.01418) | 2026-10-02 |
 | Spikingformer+k-WTA Router | 2 | [arXiv 2610.01418](https://arxiv.org/abs/2610.01418) | 2026-10-02 |
@@ -202,7 +215,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
-- 10-3-2026: added QKFormer+SCA, SDT-V1+SCA, SDT-V3+SCA
+- 10-3-2026: added ConvNeXt-dcls, CSKAFormer, DeBiFormer, EViT, FaViT, FST, FViT, Pale, QKFormer+SCA, ResT, SDT-V1+SCA, SDT-V3+SCA, SKAFormer, TransXNet, VBB, Win
 - 10-2-2026: added SD-Transformer+k-WTA Router, Spikformer+k-WTA Router, Spikingformer+k-WTA Router
 - 9-29-2026: added GSAP, iFormer (Mobile), L2ViT, LSNet, MVFormer, PPMA, TinyViM, V2M + local window, V2M*
 - 9-28-2026: added FAT, FMViT, LaViT, Mamba-R, MSVMamba, RepNeXt, RepViT, SW, WTConvNeXt

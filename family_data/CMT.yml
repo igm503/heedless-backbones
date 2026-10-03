@@ -55,6 +55,12 @@ backbones:
       top_1: 83.5
       top_5: 96.6
       gflops: 4.04
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 73.4
+      top_5: null
+      gflops: 4
+      paper: https://arxiv.org/abs/2310.19380v4
     instance_results:
     - head: RetinaNet
       dataset: COCO (val)

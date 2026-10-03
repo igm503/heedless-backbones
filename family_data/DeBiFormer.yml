@@ -1,0 +1,193 @@
+name: DeBiFormer
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2024-10-11'
+paper: https://arxiv.org/abs/2410.08582v1
+github: https://github.com/maclong01/DeBiFormer
+backbones:
+- name: DeBiFormer-T
+  m_parameters: 21.4
+  fps_measurements: []
+  pretrained_backbones:
+  - name: DeBiFormer-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.9
+      top_5: null
+      gflops: 2.6
+    instance_results: []
+    semantic_seg_results: []
+- name: DeBiFormer-S
+  m_parameters: 44
+  fps_measurements: []
+  pretrained_backbones:
+  - name: DeBiFormer-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.9
+      top_5: null
+      gflops: 5.4
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 45.6
+      AP50: 66.6
+      AP75: 48.9
+      mAPs: 28.7
+      mAPm: 49.3
+      mAPl: 61.6
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.5
+      AP50: 69.7
+      AP75: 52.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.5
+      AP50: 66.2
+      AP75: 45.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: DeBiFormer-B
+  m_parameters: 77
+  fps_measurements: []
+  pretrained_backbones:
+  - name: DeBiFormer-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.4
+      top_5: null
+      gflops: 11.8
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.1
+      AP50: 68.2
+      AP75: 50.2
+      mAPs: 30.3
+      mAPm: 51.1
+      mAPl: 63
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 48.5
+      AP50: 70.2
+      AP75: 53.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.2
+      AP50: 67.2
+      AP75: 46.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 52
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 51.4
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
