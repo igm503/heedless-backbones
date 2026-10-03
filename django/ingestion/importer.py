@@ -213,6 +213,11 @@ def write_object(kind, data, resolved, *, allow_updates, ledger, source=None, pa
                          "apply with review_ingestion --approve --allow-updates")
     if hasattr(obj, "source_record_id") and (not before or differences):
         obj.source_record = source
+    # An unknown optional link or text is null in an extraction (the field spec calls blank
+    # fields nullable) but stored as "" in columns that do not allow null.
+    for field in model._meta.fields:
+        if isinstance(field, (models.CharField, models.TextField)) and not field.null and getattr(obj, field.attname) is None:
+            setattr(obj, field.attname, "")
     obj.full_clean()
     if isinstance(obj, PretrainedBackbone) and obj.backbone.family_id != obj.family_id:
         raise ValueError("Pretrained backbone and architecture families disagree")
