@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -104,19 +105,21 @@ class BenchmarkRenderingTests(TestCase):
 
     def test_spiking_families_hidden_unless_requested(self):
         BackboneFamily.objects.filter(name="Swin").update(spiking=True)
+        spiking = set(BackboneFamily.objects.filter(spiking=True).values_list("name", flat=True))
         hidden = list(get_plot_data(self.plot_request()))
         self.assertTrue(hidden)
-        self.assertFalse(any(pb.family.name == "Swin" for pb in hidden))
+        self.assertFalse(any(pb.family.spiking for pb in hidden))
 
         request = self.plot_request(_show_spiking="on")
         shown = list(get_plot_data(request))
         self.assertEqual(len(shown), len(hidden) + PretrainedBackbone.objects.filter(
-            family__name="Swin", classificationresult__dataset=1).distinct().count())
+            family__spiking=True, classificationresult__dataset=1).distinct().count())
         with patch("stats.plot.plot", side_effect=lambda fig, **kw: fig):
             figure = get_plot(shown, request)
-        symbols = {trace.name: set(trace.marker.symbol) for trace in figure.data}
-        self.assertEqual(symbols.pop(next(name for name in symbols if ">Swin<" in name)), {"diamond"})
-        self.assertTrue(all(symbol == {"circle"} for symbol in symbols.values()))
+        for trace in figure.data:
+            family = re.sub(r"<[^>]+>", "", trace.name)
+            expected = "diamond" if family in spiking else "circle"
+            self.assertEqual(set(trace.marker.symbol), {expected}, family)
 
         # A spiking family's own page always shows its models.
         self.assertTrue(list(get_plot_data(self.plot_request(), family_name="Swin")))
