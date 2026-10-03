@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, render
 
-from .form import PlotForm, get_default_request
+from urllib.parse import quote, urlencode
+
+from .form import PlotForm, complete_plot_form, get_default_request
 from .lists import get_family_list, get_head_lists, get_dataset_lists
 from .models import (
     BackboneFamily,
@@ -41,13 +43,15 @@ def plot_update(request, form, get_result):
         {"form": form, "plot": plot, "table": table, "ready": ready},
     )
     response["Cache-Control"] = "no-store"  # never shown in place of the full page
+    # The options as completed by the server, for the address bar.
+    response["X-Plot-URL"] = f"{quote(request.path)}?{urlencode(form.data)}"
     return response
 
 
 
 def all(request):
     global plot, table, headers
-    form = PlotForm(request.GET or get_default_request())
+    form = complete_plot_form(request.GET or get_default_request())
     if is_plot_update(request):
         return plot_update(
             request, form, lambda **kw: get_plot_and_table(PlotRequest(form.cleaned_data), **kw)
@@ -74,7 +78,7 @@ def family(request, family_name):
         backbone = get_object_or_404(Backbone, name=family_name)
         family = backbone.family
     if any(field in request.GET for field in PlotForm.base_fields):
-        form = PlotForm(request.GET)
+        form = complete_plot_form(request.GET)
     else:
         form = PlotForm(get_default_request(family=family, task_query=request.GET.get("task")))
     if is_plot_update(request):
@@ -115,7 +119,7 @@ def head(request, head_name):
     global head_plot, head_table
     head = get_object_or_404(DownstreamHead, name=head_name)
     if any(field in request.GET for field in PlotForm.base_fields):
-        form = PlotForm(request.GET, head=head)
+        form = complete_plot_form(request.GET, head=head)
     else:
         form = PlotForm(get_default_request(head=head, task_query=request.GET.get("task")), head=head)
 
@@ -158,7 +162,7 @@ def dataset(request, dataset_name):
     global dataset_plot, dataset_table
     dataset = get_object_or_404(Dataset, name=dataset_name)
     if any(field in request.GET for field in PlotForm.base_fields):
-        form = PlotForm(request.GET, dataset=dataset)
+        form = complete_plot_form(request.GET, dataset=dataset)
     else:
         form = PlotForm(
             get_default_request(dataset=dataset, task_query=request.GET.get("task")),
