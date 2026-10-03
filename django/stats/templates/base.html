@@ -209,8 +209,12 @@
           throw new Error(`Plot update failed: ${response.status}`);
         }
         const fragment = new DOMParser().parseFromString(await response.text(), 'text/html');
+        // The server fills in options that became blank or invalid; show the completed URL.
+        const completedUrl = response.headers.get('X-Plot-URL') || url;
         if (push) {
-          history.pushState({plotUpdate: true}, '', url);
+          history.pushState({plotUpdate: true}, '', completedUrl);
+        } else {
+          history.replaceState({plotUpdate: true}, '', completedUrl);
         }
         const plotArea = document.getElementById('plot-area');
         const newPlotArea = fragment.getElementById('plot-area');

@@ -1,5 +1,7 @@
 import re
+from collections import Counter
 from pathlib import Path
+from urllib.parse import parse_qs, urlsplit
 from types import SimpleNamespace
 from unittest.mock import patch
 
@@ -250,17 +252,35 @@ class BenchmarkRenderingTests(TestCase):
                 self.assertNotContains(update, "<html")
                 self.assertLessEqual(len(update_queries), len(page_queries))
 
-    def test_incomplete_plot_update_returns_only_the_options(self):
-        # A task chosen without its dataset: the page keeps its current plot.
-        update = self.client.get(
-            "/",
-            {"y_axis": "results", "y_task": 4, "x_axis": "gflops", "legend_attribute": "family.name"},
-            headers={"X-Plot-Update": "1"},
-        )
-        self.assertContains(update, 'id="plot-options"')
-        self.assertContains(update, 'name="y_dataset"')
-        self.assertNotContains(update, 'id="plot-area"')
-        self.assertNotContains(update, 'id="plot-table"')
+    def plot_update(self, path, **params):
+        response = self.client.get(path, params, headers={"X-Plot-Update": "1"})
+        self.assertContains(response, 'id="plot-area"')
+        self.assertContains(response, "Plotly.newPlot")
+        return parse_qs(urlsplit(response["X-Plot-URL"]).query, keep_blank_values=True)
+
+    def test_blank_and_invalid_options_are_filled_with_defaults(self):
+        base = {"legend_attribute": "family.name"}
+        # A task chosen without its dataset and metric: ImageNet-1k Top-1.
+        url = self.plot_update("/", y_axis="results", y_task=4, x_axis="gflops", **base)
+        self.assertEqual((url["y_dataset"], url["y_metric"]), (["1"], ["top_1"]))
+        # Parameters on y leaves x=GFLOPs invalid: x becomes classification results.
+        url = self.plot_update("/", y_axis="m_parameters", x_axis="gflops", **base)
+        self.assertEqual((url["x_axis"], url["x_task"], url["x_metric"]), (["results"], ["4"], ["top_1"]))
+        # Throughput with no x axis or GPU: the most common GPU and precision.
+        url = self.plot_update("/", y_axis="fps", x_axis="", **base)
+        gpu = Counter(FPSMeasurement.objects.values_list("gpu", flat=True)).most_common(1)[0][0]
+        self.assertEqual((url["x_axis"], url["y_gpu"]), (["results"], [gpu]))
+        # Switching to detection replaces the classification dataset and metric.
+        url = self.plot_update("/", y_axis="results", y_task=2, y_dataset=1, y_metric="top_1", x_axis="", **base)
+        self.assertEqual(Dataset.objects.get(pk=url["y_dataset"][0]).tasks.filter(pk=2).count(), 1)
+        self.assertEqual((url["y_metric"], url["x_axis"]), (["mAP"], ["gflops"]))
+        # A stale optional value is cleared instead of blocking the plot.
+        url = self.plot_update("/", y_axis="results", y_task=4, y_dataset=1, y_metric="top_1", y_resolution="999",
+                               x_axis="gflops", **base)
+        self.assertEqual(url["y_resolution"], [""])
+        # Pages with a fixed head or dataset.
+        self.plot_update("/heads/Mask R-CNN/", y_axis="results", x_axis="", **base)
+        self.plot_update("/datasets/COCO (val)/", y_axis="results", y_task=2, x_axis="", **base)
 
     def test_paper_and_github_fallback_precedence(self):
         family = SimpleNamespace(paper="family-paper", github="family-code")

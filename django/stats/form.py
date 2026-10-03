@@ -11,6 +11,7 @@ from .models import (
     TASK_TO_FIRST_METRIC,
     Dataset,
     DownstreamHead,
+    FPSMeasurement,
     TaskType,
     GPU,
     Precision,
@@ -166,23 +167,85 @@ class PlotForm(forms.Form):
         self.order_fields(field_order=sorted(field_names, key=lambda x: FIELDS.index(x)))
 
     def is_ready(self):
-        values = [
-            v
-            for k, v in self.cleaned_data.items()
-            if k
-            not in [
-                "_pretrain_dataset",
-                "_pretrain_method",
-                "_show_spiking",
-                "x_resolution",
-                "y_resolution",
-                "x_head",
-                "y_head",
-                "legend_attribute",
-                "legend_attribute_(second)",
-            ]
-        ]
+        values = [v for k, v in self.cleaned_data.items() if k not in OPTIONAL_FIELDS]
         return self.init_graph or (None not in values and "" not in values)
+
+
+# Fields a plot does not need; every other field must have a value.
+OPTIONAL_FIELDS = {
+    "_pretrain_dataset",
+    "_pretrain_method",
+    "_show_spiking",
+    "x_resolution",
+    "y_resolution",
+    "x_head",
+    "y_head",
+    "legend_attribute",
+    "legend_attribute_(second)",
+}
+
+
+def complete_plot_form(args, **form_kwargs):
+    """A PlotForm for args, with required options that are blank or no longer valid with defaults, and clear
+    invalid optional ones, so every combination of options draws a plot. Changing one option
+    can invalidate another (GFLOPs is only an x axis against results; a new task has
+    different datasets and metrics), and the plot would otherwise wait for it silently."""
+    data = {key: value for key, value in args.items()}
+    for _ in range(len(FIELDS)):
+        form = PlotForm(data, **form_kwargs)
+        if form.is_valid() and form.is_ready():
+            return form
+        changed = False
+        for name, field in form.fields.items():
+            if isinstance(field, forms.BooleanField):
+                continue
+            valid = field_values(field)
+            value = str(data.get(name) or "")
+            if value in valid:
+                continue
+            if name in OPTIONAL_FIELDS and name != "legend_attribute":
+                if value:
+                    data[name] = ""
+                    changed = True
+                continue
+            default = default_value(name, valid, data)
+            if default is not None and default != value:
+                data[name] = default
+                changed = True
+        if not changed:
+            break
+    return PlotForm(data, **form_kwargs)
+
+
+def field_values(field):
+    if isinstance(field, forms.ModelChoiceField):
+        return [str(pk) for pk in field.queryset.values_list("pk", flat=True)]
+    return [str(value) for value, _ in field.choices if value != ""]
+
+
+def default_value(name, valid, data):
+    if not valid:
+        return None
+    axis, _, kind = name.partition("_")
+    if axis not in ("x", "y"):
+        kind = name
+    other = "y" if axis == "x" else "x"
+    if kind == "axis":
+        preferred = ["gflops"] if data.get(f"{other}_axis") == "results" else ["results"]
+    elif kind == "task":
+        preferred = [str(pk) for pk in Task.objects.filter(name=TaskType.CLASSIFICATION.value).values_list("pk", flat=True)]
+    elif kind == "dataset":
+        preferred = [str(pk) for pk in Dataset.objects.filter(name="ImageNet-1k").values_list("pk", flat=True)]
+    elif kind == "gpu":
+        preferred = [gpu for gpu, _ in Counter(FPSMeasurement.objects.values_list("gpu", flat=True)).most_common()]
+    elif kind == "precision":
+        measurements = FPSMeasurement.objects.filter(gpu=data.get(f"{axis}_gpu"))
+        preferred = [precision for precision, _ in Counter(measurements.values_list("precision", flat=True)).most_common()]
+    elif kind == "legend_attribute":
+        preferred = ["family.name"]
+    else:
+        preferred = []
+    return next((value for value in preferred if value in valid), valid[0])
 
 
 def get_default_request(family=None, head=None, dataset=None, task_query=None, dataset_query=None):
