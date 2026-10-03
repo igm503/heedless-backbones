@@ -233,6 +233,35 @@ class BenchmarkRenderingTests(TestCase):
                 self.assertContains(response, "Plotly.newPlot")
                 self.assertLessEqual(len(queries), budget)
 
+    def test_plot_updates_return_only_the_plot_section(self):
+        bundle = "plotly.js v"  # the banner of the inlined plotly.js library
+        for path in ["/", "/families/Swin/", "/heads/Mask R-CNN/", "/datasets/COCO (val)/"]:
+            with self.subTest(path=path):
+                page = self.client.get(path)
+                self.assertContains(page, bundle)
+                with CaptureQueriesContext(connection) as page_queries:
+                    self.client.get(path)
+                with CaptureQueriesContext(connection) as update_queries:
+                    update = self.client.get(path, headers={"X-Plot-Update": "1"})
+                self.assertEqual(update["Cache-Control"], "no-store")
+                for part in ['id="plot-area"', 'id="plot-options"', 'id="plot-table"', "Plotly.newPlot"]:
+                    self.assertContains(update, part)
+                self.assertNotContains(update, bundle)
+                self.assertNotContains(update, "<html")
+                self.assertLessEqual(len(update_queries), len(page_queries))
+
+    def test_incomplete_plot_update_returns_only_the_options(self):
+        # A task chosen without its dataset: the page keeps its current plot.
+        update = self.client.get(
+            "/",
+            {"y_axis": "results", "y_task": 4, "x_axis": "gflops", "legend_attribute": "family.name"},
+            headers={"X-Plot-Update": "1"},
+        )
+        self.assertContains(update, 'id="plot-options"')
+        self.assertContains(update, 'name="y_dataset"')
+        self.assertNotContains(update, 'id="plot-area"')
+        self.assertNotContains(update, 'id="plot-table"')
+
     def test_paper_and_github_fallback_precedence(self):
         family = SimpleNamespace(paper="family-paper", github="family-code")
         backbone = SimpleNamespace(paper="backbone-paper", github="backbone-code", family=family)

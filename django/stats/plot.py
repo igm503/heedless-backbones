@@ -27,9 +27,9 @@ from .models import (
 SPIKING_SYMBOL = "diamond"
 
 
-def get_plot_and_table(plot_request, page="", family_name=None):
+def get_plot_and_table(plot_request, page="", family_name=None, include_plotlyjs=True):
     queryset = get_plot_data(plot_request, family_name)
-    plot = get_plot(queryset, plot_request)
+    plot = get_plot(queryset, plot_request, include_plotlyjs)
     if queryset:
         table = get_plot_table(queryset, plot_request, page=page)
     else:
@@ -170,7 +170,7 @@ def get_downstream_prefetch(model, name, args, **filters):
     return Prefetch(related_name + "_set", queryset, name)
 
 
-def get_plot(queryset, request):
+def get_plot(queryset, request, include_plotlyjs=True):
     args = request.plot_args
     x_title = args.x_title.split("&")[0]
     y_title = args.y_title.split("&")[0]
@@ -217,7 +217,7 @@ def get_plot(queryset, request):
         for key, points in data.items()
     ]
 
-    return get_plot_div(title, x_title, y_title, scatters)
+    return get_plot_div(title, x_title, y_title, scatters, include_plotlyjs)
 
 
 def add_point(pb, x_result, y_result, args, x_title, y_title, data, keys):
@@ -300,7 +300,7 @@ def get_marker_configs(names):
     return marker_configs
 
 
-def get_plot_div(title, x_title, y_title, data):
+def get_plot_div(title, x_title, y_title, data, include_plotlyjs=True):
     font_settings = dict(
         family="Inter, sans-serif",
         color="black",
@@ -359,5 +359,5 @@ def get_plot_div(title, x_title, y_title, data):
     )
 
     return plot(
-        fig, output_type="div", include_plotlyjs=True, config={"responsive": True}
+        fig, output_type="div", include_plotlyjs=include_plotlyjs, config={"responsive": True}
     )
