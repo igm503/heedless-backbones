@@ -33,7 +33,7 @@
           Filters
         </label>
       </div>
-      <div id="filter-axis-container" class="form-grid">
+      <div id="filter-container" class="form-grid">
         {% for field in form %}
         {% if field.name|slice:":1" == "_" %}
         {% if field.widget_type == "checkbox" %}
@@ -64,7 +64,7 @@
           Legend
         </label>
       </div>
-      <div id="filter-axis-container" class="form-grid">
+      <div id="legend-container" class="form-grid">
         {% for field in form %}
         {% if field.name|slice:":6" == "legend" %}
         <div>
