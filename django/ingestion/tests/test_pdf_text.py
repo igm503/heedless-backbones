@@ -50,3 +50,14 @@ class PdfTextTests(SimpleTestCase):
             self.assertEqual(pdf_pages(b"%PDF", max_pages=5), ["", "", ""])
             with self.assertRaisesRegex(ValueError, "2-page"):
                 pdf_pages(b"%PDF", max_pages=2)
+
+    def test_control_characters_are_removed(self):
+        # A figure font without a Unicode mapping (arXiv 2610.01403, p. 16) yields glyph codes
+        # as UTF-16 bytes, NULs included, which Postgres cannot store.
+        glyphs = "\x006\x00R\x00I\x00W\x00P\x00D\x00[\x00\x10\x00I\x00U\x00H\x00H"
+        pdf = MagicMock()
+        pdf.__enter__.return_value.pages = [page([word("Figure", 50, 90, 40, 49), word(glyphs, 100, 300, 40, 49),
+                                                  word("caption", 50, 90, 60, 69)])]
+        with patch("ingestion.pdf_text.pdfplumber.open", return_value=pdf):
+            [text] = pdf_pages(b"%PDF")
+        self.assertEqual(text, "Figure 6RIWPD[IUHH\ncaption")
