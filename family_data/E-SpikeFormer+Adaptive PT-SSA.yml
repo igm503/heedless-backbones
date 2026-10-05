@@ -1,0 +1,26 @@
+name: E-SpikeFormer+Adaptive PT-SSA
+model_type: Attn + Conv
+hierarchical: true
+spiking: true
+pretrain_method: Supervised
+pub_date: '2026-10-02'
+paper: https://arxiv.org/abs/2610.03291v1
+github: ''
+backbones:
+- name: E-SpikeFormer+Adaptive PT-SSA-8-192
+  m_parameters: 5.11
+  fps_measurements: []
+  pretrained_backbones:
+  - name: E-SpikeFormer+Adaptive PT-SSA-8-192-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 200
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 74.53
+      top_5: 92.01
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
