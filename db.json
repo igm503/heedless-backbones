@@ -6580,6 +6580,21 @@
   }
 },
 {
+  "model": "stats.backbonefamily",
+  "pk": 834,
+  "fields": {
+    "source_record": null,
+    "name": "E-SpikeFormer+Adaptive PT-SSA",
+    "model_type": "Attn + Conv",
+    "hierarchical": true,
+    "spiking": true,
+    "pretrain_method": "Supervised",
+    "pub_date": "2026-10-02",
+    "paper": "https://arxiv.org/abs/2610.03291v1",
+    "github": ""
+  }
+},
+{
   "model": "stats.backbone",
   "pk": 1,
   "fields": {
@@ -12452,6 +12467,19 @@
     "family": 652,
     "m_parameters": 2.959929,
     "paper": "https://arxiv.org/abs/2609.38348v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 2698,
+  "fields": {
+    "source_record": null,
+    "name": "E-SpikeFormer+Adaptive PT-SSA-8-192",
+    "family": 834,
+    "m_parameters": 5.11,
+    "paper": "https://arxiv.org/abs/2610.03291v1",
     "github": "",
     "fps_measurements": []
   }
@@ -20469,6 +20497,22 @@
     "pretrain_resolution": 224,
     "pretrain_epochs": 119.98181033385967,
     "paper": "https://arxiv.org/abs/2609.38348v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 2752,
+  "fields": {
+    "source_record": null,
+    "name": "E-SpikeFormer+Adaptive PT-SSA-8-192-IN1k",
+    "backbone": 2698,
+    "family": 834,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 200.0,
+    "paper": "https://arxiv.org/abs/2610.03291v1",
     "github": ""
   }
 },
@@ -41784,6 +41828,27 @@
     "top_5": 89.042,
     "gflops": null,
     "paper": "https://arxiv.org/abs/2609.38348v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 3656,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 2752,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 74.53,
+    "top_5": 92.01,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2610.03291v1",
     "github": ""
   }
 },
