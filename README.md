@@ -96,6 +96,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| FlashSwin | 5 | [arXiv 2610.04664](https://arxiv.org/abs/2610.04664) | 2026-10-06 |
 | E-SpikeFormer+Adaptive PT-SSA | 1 | [arXiv 2610.03291](https://arxiv.org/abs/2610.03291) | 2026-10-05 |
 | ConvNeXt-dcls | 3 | [arXiv 2112.03740](https://arxiv.org/abs/2112.03740) | 2026-10-03 |
 | CSKAFormer | 2 | [arXiv 2412.07049](https://arxiv.org/abs/2412.07049) | 2026-10-03 |
@@ -216,6 +217,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 10-6-2026: added FlashSwin
 - 10-5-2026: added E-SpikeFormer+Adaptive PT-SSA
 - 10-3-2026: added ConvNeXt-dcls, CSKAFormer, DeBiFormer, EViT, FaViT, FST, FViT, Pale, QKFormer+SCA, ResT, SDT-V1+SCA, SDT-V3+SCA, SKAFormer, TransXNet, VBB, Win
 - 10-2-2026: added SD-Transformer+k-WTA Router, Spikformer+k-WTA Router, Spikingformer+k-WTA Router

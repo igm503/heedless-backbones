@@ -1145,6 +1145,54 @@ backbones:
       fine_tune_epochs: 30
       fine_tune_resolution: 384
       paper: https://doi.org/10.48550/arXiv.2204.07118
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 86.51
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_resolution: 256
+      paper: https://arxiv.org/abs/2610.04664v1
+    - dataset: ImageNet-V2
+      resolution: 256
+      top_1: 76.81
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_resolution: 256
+      paper: https://arxiv.org/abs/2610.04664v1
+    - dataset: ImageNet-A
+      resolution: 256
+      top_1: 62.79
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_resolution: 256
+      paper: https://arxiv.org/abs/2610.04664v1
+    - dataset: ImageNet-R
+      resolution: 256
+      top_1: 65.02
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_resolution: 256
+      paper: https://arxiv.org/abs/2610.04664v1
+    - dataset: ImageNet-Sketch
+      resolution: 256
+      top_1: 49.24
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_resolution: 256
+      paper: https://arxiv.org/abs/2610.04664v1
+    - dataset: ImageNet-C
+      resolution: 256
+      top_1: 39.74
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_resolution: 256
+      paper: https://arxiv.org/abs/2610.04664v1
     instance_results:
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
@@ -1351,4 +1399,19 @@ backbones:
       ss_mean_accuracy: null
       flip_test: false
       gflops: 3230
+      fps_measurements: []
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 256
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.13
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      paper: https://arxiv.org/abs/2610.04664v1
       fps_measurements: []
