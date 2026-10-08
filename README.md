@@ -96,6 +96,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| uViT | 3 | [arXiv 2610.10303](https://arxiv.org/abs/2610.10303) | 2026-10-08 |
 | FlyVision | 4 | [arXiv 2610.08418](https://arxiv.org/abs/2610.08418) | 2026-10-07 |
 | FlashSwin | 5 | [arXiv 2610.04664](https://arxiv.org/abs/2610.04664) | 2026-10-06 |
 | E-SpikeFormer+Adaptive PT-SSA | 1 | [arXiv 2610.03291](https://arxiv.org/abs/2610.03291) | 2026-10-05 |
@@ -218,6 +219,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 10-8-2026: added uViT
 - 10-7-2026: added FlyVision
 - 10-6-2026: added FlashSwin
 - 10-5-2026: added E-SpikeFormer+Adaptive PT-SSA
