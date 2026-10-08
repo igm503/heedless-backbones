@@ -1,0 +1,76 @@
+name: FlyVision
+model_type: Convolution
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2026-10-06'
+paper: https://arxiv.org/abs/2610.08418v1
+github: ''
+backbones:
+- name: FlyVision-Base-global
+  m_parameters: 1.836
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FlyVision-Base-global-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 90
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 60.79
+      top_5: 82.33
+      gflops: 6.632
+    instance_results: []
+    semantic_seg_results: []
+- name: FlyVision-Base-local-k7
+  m_parameters: 1.836
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FlyVision-Base-local-k7-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 90
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 60.25
+      top_5: 81.93
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: FlyVision-Large-global
+  m_parameters: 3.737
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FlyVision-Large-global-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 90
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 66.25
+      top_5: 86.07
+      gflops: 14.803
+    instance_results: []
+    semantic_seg_results: []
+- name: FlyVision-Large-local-k7-LF
+  m_parameters: 3.744
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FlyVision-Large-local-k7-LF-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 90
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 66.53
+      top_5: 86.31
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []

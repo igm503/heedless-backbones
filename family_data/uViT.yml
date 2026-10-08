@@ -1,0 +1,59 @@
+name: uViT
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-10-07'
+paper: https://arxiv.org/abs/2610.10303v1
+github: ''
+backbones:
+- name: uViT-S
+  m_parameters: 20
+  fps_measurements: []
+  pretrained_backbones:
+  - name: uViT-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 67.11
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: uViT-B
+  m_parameters: 80
+  fps_measurements: []
+  pretrained_backbones:
+  - name: uViT-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 74.9
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: uViT-L
+  m_parameters: 289
+  fps_measurements: []
+  pretrained_backbones:
+  - name: uViT-L-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 77.18
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
