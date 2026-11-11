@@ -1,0 +1,252 @@
+name: U-HaloNet
+model_type: Attention
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-06-19'
+paper: https://arxiv.org/abs/2211.05781v4
+github: https://github.com/OpenGVLab/STM-Evaluation
+backbones:
+- name: U-HaloNet-Micro
+  m_parameters: 4.4
+  fps_measurements:
+  - resolution: 256
+    gpu: '3090'
+    precision: null
+    fps: 3627
+    batch_size: 128
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 512
+    gpu: '3090'
+    precision: null
+    fps: 979
+    batch_size: 32
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 1024
+    gpu: '3090'
+    precision: null
+    fps: 254
+    batch_size: 12
+    source: https://arxiv.org/abs/2211.05781v4
+  pretrained_backbones:
+  - name: U-HaloNet-Micro-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 75.8
+      top_5: null
+      gflops: 0.65
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 40.3
+      AP50: null
+      AP75: null
+      mAPs: 24.5
+      mAPm: 43
+      mAPl: 53.7
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 37.3
+      AP50: null
+      AP75: null
+      mAPs: 18.7
+      mAPm: 39.7
+      mAPl: 55.2
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results: []
+- name: U-HaloNet-Tiny
+  m_parameters: 31.5
+  fps_measurements:
+  - resolution: 256
+    gpu: '3090'
+    precision: null
+    fps: 1133
+    batch_size: 128
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 512
+    gpu: '3090'
+    precision: null
+    fps: 330
+    batch_size: 32
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 1024
+    gpu: '3090'
+    precision: null
+    fps: 86
+    batch_size: 12
+    source: https://arxiv.org/abs/2211.05781v4
+  pretrained_backbones:
+  - name: U-HaloNet-Tiny-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83
+      top_5: null
+      gflops: 4.75
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 46.9
+      AP50: null
+      AP75: null
+      mAPs: 30
+      mAPm: 50.2
+      mAPl: 61.4
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.4
+      AP50: null
+      AP75: null
+      mAPs: 22.6
+      mAPm: 45.3
+      mAPl: 60.9
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results: []
+- name: U-HaloNet-Small
+  m_parameters: 52.8
+  fps_measurements:
+  - resolution: 256
+    gpu: '3090'
+    precision: null
+    fps: 663
+    batch_size: 128
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 512
+    gpu: '3090'
+    precision: null
+    fps: 200
+    batch_size: 32
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 1024
+    gpu: '3090'
+    precision: null
+    fps: 54
+    batch_size: 12
+    source: https://arxiv.org/abs/2211.05781v4
+  pretrained_backbones:
+  - name: U-HaloNet-Small-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84
+      top_5: null
+      gflops: 8.92
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 48.2
+      AP50: null
+      AP75: null
+      mAPs: 31.2
+      mAPm: 52.5
+      mAPl: 63.2
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.3
+      AP50: null
+      AP75: null
+      mAPs: 23.4
+      mAPm: 47
+      mAPl: 62.3
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results: []
+- name: U-HaloNet-Base
+  m_parameters: 93.3
+  fps_measurements:
+  - resolution: 256
+    gpu: '3090'
+    precision: null
+    fps: 448
+    batch_size: 128
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 512
+    gpu: '3090'
+    precision: null
+    fps: 140
+    batch_size: 32
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 1024
+    gpu: '3090'
+    precision: null
+    fps: 38
+    batch_size: 12
+    source: https://arxiv.org/abs/2211.05781v4
+  pretrained_backbones:
+  - name: U-HaloNet-Base-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.6
+      top_5: null
+      gflops: 15.84
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 49
+      AP50: null
+      AP75: null
+      mAPs: 31.8
+      mAPm: 53
+      mAPl: 63.7
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.8
+      AP50: null
+      AP75: null
+      mAPs: 24.4
+      mAPm: 47
+      mAPl: 62.8
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results: []

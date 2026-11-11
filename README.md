@@ -96,6 +96,26 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| AEWin | 2 | [arXiv 2209.08726](https://arxiv.org/abs/2209.08726) | 2026-11-11 |
+| FFNet | 4 | [arXiv 2406.02021](https://arxiv.org/abs/2406.02021) | 2026-11-11 |
+| GlobalMamba | 3 | [arXiv 2410.10316](https://arxiv.org/abs/2410.10316) | 2026-11-11 |
+| GlobalMamba-Vim | 2 | [arXiv 2410.10316](https://arxiv.org/abs/2410.10316) | 2026-11-11 |
+| MS-ResNet+DSN | 2 | [arXiv 2610.21748](https://arxiv.org/abs/2610.21748) | 2026-11-11 |
+| Polar-ViT | 2 | [arXiv 2609.32899](https://arxiv.org/abs/2609.32899) | 2026-11-11 |
+| PoolFormer | 5 | [arXiv 2111.11418](https://arxiv.org/abs/2111.11418) | 2026-11-11 |
+| RegionViT | 10 | [arXiv 2106.02689](https://arxiv.org/abs/2106.02689) | 2026-11-11 |
+| RSIR | 2 | [arXiv 2304.06250](https://arxiv.org/abs/2304.06250) | 2026-11-11 |
+| SD-Transformer+DSN | 1 | [arXiv 2610.21748](https://arxiv.org/abs/2610.21748) | 2026-11-11 |
+| SDT-H | 3 | [arXiv 2508.09525](https://arxiv.org/abs/2508.09525) | 2026-11-11 |
+| SP-ViT | 3 | [arXiv 2206.07662](https://arxiv.org/abs/2206.07662) | 2026-11-11 |
+| U-DWConv | 4 | [arXiv 2211.05781](https://arxiv.org/abs/2211.05781) | 2026-11-11 |
+| U-HaloNet | 4 | [arXiv 2211.05781](https://arxiv.org/abs/2211.05781) | 2026-11-11 |
+| U-InternImage | 4 | [arXiv 2211.05781](https://arxiv.org/abs/2211.05781) | 2026-11-11 |
+| U-PVT | 4 | [arXiv 2211.05781](https://arxiv.org/abs/2211.05781) | 2026-11-11 |
+| U-Swin | 4 | [arXiv 2211.05781](https://arxiv.org/abs/2211.05781) | 2026-11-11 |
+| Vim-F | 2 | [arXiv 2405.18679](https://arxiv.org/abs/2405.18679) | 2026-11-11 |
+| Vim-F(CF) | 1 | [arXiv 2405.18679](https://arxiv.org/abs/2405.18679) | 2026-11-11 |
+| Vim-F(H) | 2 | [arXiv 2405.18679](https://arxiv.org/abs/2405.18679) | 2026-11-11 |
 | uViT | 3 | [arXiv 2610.10303](https://arxiv.org/abs/2610.10303) | 2026-10-08 |
 | FlyVision | 4 | [arXiv 2610.08418](https://arxiv.org/abs/2610.08418) | 2026-10-07 |
 | FlashSwin | 5 | [arXiv 2610.04664](https://arxiv.org/abs/2610.04664) | 2026-10-06 |
@@ -219,6 +239,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 11-11-2026: added AEWin, FFNet, GlobalMamba, GlobalMamba-Vim, MS-ResNet+DSN, Polar-ViT, PoolFormer, RegionViT, RSIR, SD-Transformer+DSN, SDT-H, SP-ViT, U-DWConv, U-HaloNet, U-InternImage, U-PVT, U-Swin, Vim-F, Vim-F(CF), Vim-F(H)
 - 10-8-2026: added uViT
 - 10-7-2026: added FlyVision
 - 10-6-2026: added FlashSwin

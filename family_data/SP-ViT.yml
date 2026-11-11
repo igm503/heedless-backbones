@@ -1,0 +1,83 @@
+name: SP-ViT
+model_type: Attention
+hierarchical: false
+pretrain_method: Sup. + TL
+pub_date: '2022-06-15'
+paper: https://arxiv.org/abs/2206.07662v1
+github: ''
+backbones:
+- name: SP-ViT-S
+  m_parameters: 26
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SP-ViT-S-IN1k-TL
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Sup. + TL
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.9
+      top_5: null
+      gflops: 6.6
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 85.1
+      top_5: null
+      gflops: 22.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []
+- name: SP-ViT-M
+  m_parameters: 56
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SP-ViT-M-IN1k-TL
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Sup. + TL
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.9
+      top_5: null
+      gflops: 12.7
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 86
+      top_5: null
+      gflops: 42.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []
+- name: SP-ViT-L
+  m_parameters: 150
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SP-ViT-L-IN1k-TL
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Sup. + TL
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 85.5
+      top_5: null
+      gflops: 34.7
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 86.3
+      top_5: null
+      gflops: 110.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []

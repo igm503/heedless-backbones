@@ -1,0 +1,65 @@
+name: Vim-F(CF)
+model_type: State Space Model
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-01-07'
+paper: https://arxiv.org/abs/2405.18679v3
+github: https://github.com/yws-wxs/Vim-F
+backbones:
+- name: Vim-F(CF)
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Vim-F(CF)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.7
+      top_5: null
+      gflops: 5.2
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42
+      AP50: 62.5
+      AP75: 45.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 272
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 38.4
+      AP50: 60.9
+      AP75: 41.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 272
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 44.4
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []

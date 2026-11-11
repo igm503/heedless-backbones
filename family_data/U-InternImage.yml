@@ -1,0 +1,252 @@
+name: U-InternImage
+model_type: Convolution
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-06-19'
+paper: https://arxiv.org/abs/2211.05781v4
+github: https://github.com/OpenGVLab/STM-Evaluation
+backbones:
+- name: U-InternImage-Micro
+  m_parameters: 4.3
+  fps_measurements:
+  - resolution: 256
+    gpu: '3090'
+    precision: null
+    fps: 3018
+    batch_size: 128
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 512
+    gpu: '3090'
+    precision: null
+    fps: 765
+    batch_size: 32
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 1024
+    gpu: '3090'
+    precision: null
+    fps: 197
+    batch_size: 12
+    source: https://arxiv.org/abs/2211.05781v4
+  pretrained_backbones:
+  - name: U-InternImage-Micro-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 75.3
+      top_5: null
+      gflops: 0.65
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 39.5
+      AP50: null
+      AP75: null
+      mAPs: 22.8
+      mAPm: 42.9
+      mAPl: 52.7
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 36.6
+      AP50: null
+      AP75: null
+      mAPs: 17.4
+      mAPm: 39.4
+      mAPl: 53.6
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results: []
+- name: U-InternImage-Tiny
+  m_parameters: 29.9
+  fps_measurements:
+  - resolution: 256
+    gpu: '3090'
+    precision: null
+    fps: 818
+    batch_size: 128
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 512
+    gpu: '3090'
+    precision: null
+    fps: 208
+    batch_size: 32
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 1024
+    gpu: '3090'
+    precision: null
+    fps: 53
+    batch_size: 12
+    source: https://arxiv.org/abs/2211.05781v4
+  pretrained_backbones:
+  - name: U-InternImage-Tiny-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.3
+      top_5: null
+      gflops: 4.83
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.2
+      AP50: null
+      AP75: null
+      mAPs: 30.4
+      mAPm: 51.3
+      mAPl: 61.3
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.5
+      AP50: null
+      AP75: null
+      mAPs: 23.3
+      mAPm: 45.9
+      mAPl: 60.9
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results: []
+- name: U-InternImage-Small
+  m_parameters: 50.1
+  fps_measurements:
+  - resolution: 256
+    gpu: '3090'
+    precision: null
+    fps: 588
+    batch_size: 128
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 512
+    gpu: '3090'
+    precision: null
+    fps: 148
+    batch_size: 32
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 1024
+    gpu: '3090'
+    precision: null
+    fps: 38
+    batch_size: 12
+    source: https://arxiv.org/abs/2211.05781v4
+  pretrained_backbones:
+  - name: U-InternImage-Small-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.1
+      top_5: null
+      gflops: 8.24
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.8
+      AP50: null
+      AP75: null
+      mAPs: 30.3
+      mAPm: 51.8
+      mAPl: 62.4
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43
+      AP50: null
+      AP75: null
+      mAPs: 23.1
+      mAPm: 46.3
+      mAPl: 61.7
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results: []
+- name: U-InternImage-Base
+  m_parameters: 97.5
+  fps_measurements:
+  - resolution: 256
+    gpu: '3090'
+    precision: null
+    fps: 419
+    batch_size: 128
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 512
+    gpu: '3090'
+    precision: null
+    fps: 106
+    batch_size: 32
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 1024
+    gpu: '3090'
+    precision: null
+    fps: 27
+    batch_size: 12
+    source: https://arxiv.org/abs/2211.05781v4
+  pretrained_backbones:
+  - name: U-InternImage-Base-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.5
+      top_5: null
+      gflops: 16.08
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 48.7
+      AP50: null
+      AP75: null
+      mAPs: 33.1
+      mAPm: 52.5
+      mAPl: 63.4
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.8
+      AP50: null
+      AP75: null
+      mAPs: 25
+      mAPm: 46.9
+      mAPl: 62.3
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results: []
