@@ -1,0 +1,252 @@
+name: U-DWConv
+model_type: Convolution
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-06-19'
+paper: https://arxiv.org/abs/2211.05781v4
+github: https://github.com/OpenGVLab/STM-Evaluation
+backbones:
+- name: U-DWConv-Micro
+  m_parameters: 4.4
+  fps_measurements:
+  - resolution: 256
+    gpu: '3090'
+    precision: null
+    fps: 4299
+    batch_size: 128
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 512
+    gpu: '3090'
+    precision: null
+    fps: 1103
+    batch_size: 32
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 1024
+    gpu: '3090'
+    precision: null
+    fps: 287
+    batch_size: 12
+    source: https://arxiv.org/abs/2211.05781v4
+  pretrained_backbones:
+  - name: U-DWConv-Micro-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 75.1
+      top_5: null
+      gflops: 0.65
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 39.2
+      AP50: null
+      AP75: null
+      mAPs: 23
+      mAPm: 42.6
+      mAPl: 51
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 36.4
+      AP50: null
+      AP75: null
+      mAPs: 17.8
+      mAPm: 39.2
+      mAPl: 52.7
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results: []
+- name: U-DWConv-Tiny
+  m_parameters: 31.9
+  fps_measurements:
+  - resolution: 256
+    gpu: '3090'
+    precision: null
+    fps: 1582
+    batch_size: 128
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 512
+    gpu: '3090'
+    precision: null
+    fps: 397
+    batch_size: 32
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 1024
+    gpu: '3090'
+    precision: null
+    fps: 102
+    batch_size: 12
+    source: https://arxiv.org/abs/2211.05781v4
+  pretrained_backbones:
+  - name: U-DWConv-Tiny-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.2
+      top_5: null
+      gflops: 5.01
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.3
+      AP50: null
+      AP75: null
+      mAPs: 27.8
+      mAPm: 48
+      mAPl: 57.5
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 40.5
+      AP50: null
+      AP75: null
+      mAPs: 20.7
+      mAPm: 43.9
+      mAPl: 58.6
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results: []
+- name: U-DWConv-Small
+  m_parameters: 54.4
+  fps_measurements:
+  - resolution: 256
+    gpu: '3090'
+    precision: null
+    fps: 995
+    batch_size: 128
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 512
+    gpu: '3090'
+    precision: null
+    fps: 249
+    batch_size: 32
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 1024
+    gpu: '3090'
+    precision: null
+    fps: 65
+    batch_size: 12
+    source: https://arxiv.org/abs/2211.05781v4
+  pretrained_backbones:
+  - name: U-DWConv-Small-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.1
+      top_5: null
+      gflops: 9.4
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 45.6
+      AP50: null
+      AP75: null
+      mAPs: 28.5
+      mAPm: 49.8
+      mAPl: 59.8
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 41.2
+      AP50: null
+      AP75: null
+      mAPs: 21.9
+      mAPm: 44.7
+      mAPl: 59.4
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results: []
+- name: U-DWConv-Base
+  m_parameters: 95.8
+  fps_measurements:
+  - resolution: 256
+    gpu: '3090'
+    precision: null
+    fps: 740
+    batch_size: 128
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 512
+    gpu: '3090'
+    precision: null
+    fps: 185
+    batch_size: 32
+    source: https://arxiv.org/abs/2211.05781v4
+  - resolution: 1024
+    gpu: '3090'
+    precision: null
+    fps: 47
+    batch_size: 12
+    source: https://arxiv.org/abs/2211.05781v4
+  pretrained_backbones:
+  - name: U-DWConv-Base-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.7
+      top_5: null
+      gflops: 16.64
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 46.7
+      AP50: null
+      AP75: null
+      mAPs: 30.2
+      mAPm: 50.3
+      mAPl: 61.4
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.2
+      AP50: null
+      AP75: null
+      mAPs: 22.8
+      mAPm: 45.1
+      mAPl: 60.7
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results: []

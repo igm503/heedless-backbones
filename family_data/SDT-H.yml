@@ -1,0 +1,59 @@
+name: SDT-H
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-08-13'
+paper: https://arxiv.org/abs/2508.09525v2
+github: ''
+backbones:
+- name: SDT-H-T
+  m_parameters: 14
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SDT-H-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.7
+      top_5: null
+      gflops: 2.7
+    instance_results: []
+    semantic_seg_results: []
+- name: SDT-H-S
+  m_parameters: 27
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SDT-H-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.2
+      top_5: null
+      gflops: 4.8
+    instance_results: []
+    semantic_seg_results: []
+- name: SDT-H-B
+  m_parameters: 54
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SDT-H-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 85.1
+      top_5: null
+      gflops: 10.8
+    instance_results: []
+    semantic_seg_results: []

@@ -1,0 +1,324 @@
+name: FFNet
+model_type: Convolution
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-03-10'
+paper: https://arxiv.org/abs/2406.02021v3
+github: https://github.com/ysj9909/FFNet
+backbones:
+- name: FFNet-1
+  m_parameters: 13.7
+  fps_measurements:
+  - resolution: 256
+    gpu: '4090'
+    precision: null
+    fps: 1430
+    batch_size: 1
+    source: https://arxiv.org/abs/2406.02021v3
+  - resolution: 256
+    gpu: '4090'
+    precision: null
+    fps: 3965
+    batch_size: 64
+    source: https://arxiv.org/abs/2406.02021v3
+  pretrained_backbones:
+  - name: FFNet-1-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 256
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 81.3
+      top_5: null
+      gflops: 2.9
+    instance_results: []
+    semantic_seg_results: []
+  - name: FFNet-1-IN1k-KD
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 256
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 82.1
+      top_5: null
+      gflops: 2.9
+    instance_results: []
+    semantic_seg_results: []
+- name: FFNet-2
+  m_parameters: 26.9
+  fps_measurements:
+  - resolution: 256
+    gpu: '4090'
+    precision: null
+    fps: 776
+    batch_size: 1
+    source: https://arxiv.org/abs/2406.02021v3
+  - resolution: 256
+    gpu: '4090'
+    precision: null
+    fps: 2163
+    batch_size: 64
+    source: https://arxiv.org/abs/2406.02021v3
+  pretrained_backbones:
+  - name: FFNet-2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 256
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 82.9
+      top_5: null
+      gflops: 6
+    instance_results: []
+    semantic_seg_results: []
+  - name: FFNet-2-IN1k-KD
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 256
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 83.7
+      top_5: null
+      gflops: 6
+    instance_results:
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 51.8
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements:
+      - resolution: 800
+        gpu: '4090'
+        precision: null
+        fps: 141
+        batch_size: 1
+        source: https://arxiv.org/abs/2406.02021v3
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 44.9
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 47.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 47.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: true
+      gflops: 942
+      fps_measurements: []
+- name: FFNet-3
+  m_parameters: 48.3
+  fps_measurements:
+  - resolution: 256
+    gpu: '4090'
+    precision: null
+    fps: 540
+    batch_size: 1
+    source: https://arxiv.org/abs/2406.02021v3
+  - resolution: 256
+    gpu: '4090'
+    precision: null
+    fps: 1431
+    batch_size: 64
+    source: https://arxiv.org/abs/2406.02021v3
+  - resolution: 384
+    gpu: '4090'
+    precision: null
+    fps: 387
+    batch_size: 1
+    source: https://arxiv.org/abs/2406.02021v3
+  - resolution: 384
+    gpu: '4090'
+    precision: null
+    fps: 595
+    batch_size: 64
+    source: https://arxiv.org/abs/2406.02021v3
+  pretrained_backbones:
+  - name: FFNet-3-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 256
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 83.9
+      top_5: null
+      gflops: 10.1
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 84.5
+      top_5: null
+      gflops: 22.8
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []
+  - name: FFNet-3-IN1k-KD
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 256
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 84.5
+      top_5: null
+      gflops: 10.1
+    instance_results:
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 52.8
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements:
+      - resolution: 800
+        gpu: '4090'
+        precision: null
+        fps: 92
+        batch_size: 1
+        source: https://arxiv.org/abs/2406.02021v3
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.6
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 50.2
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: true
+      gflops: 1010
+      fps_measurements: []
+- name: FFNet-4
+  m_parameters: 79.2
+  fps_measurements:
+  - resolution: 384
+    gpu: '4090'
+    precision: null
+    fps: 282
+    batch_size: 1
+    source: https://arxiv.org/abs/2406.02021v3
+  - resolution: 384
+    gpu: '4090'
+    precision: null
+    fps: 394
+    batch_size: 64
+    source: https://arxiv.org/abs/2406.02021v3
+  pretrained_backbones:
+  - name: FFNet-4-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 256
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 85.3
+      top_5: null
+      gflops: 43.1
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results:
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 53.4
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements:
+      - resolution: 800
+        gpu: '4090'
+        precision: null
+        fps: 62
+        batch_size: 1
+        source: https://arxiv.org/abs/2406.02021v3
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.9
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 51.7
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.7
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: true
+      gflops: 1158
+      fps_measurements: []
