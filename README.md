@@ -98,6 +98,8 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 |---|---:|---|---|
 | ACSAN | 2 | [arXiv 2610.35375](https://arxiv.org/abs/2610.35375) | 2026-11-12 |
 | CODI | 2 | [arXiv 2610.30639](https://arxiv.org/abs/2610.30639) | 2026-11-12 |
+| EVT | 5 | [arXiv 2604.18549](https://arxiv.org/abs/2604.18549) | 2026-11-12 |
+| EVT-Swin | 3 | [arXiv 2604.18549](https://arxiv.org/abs/2604.18549) | 2026-11-12 |
 | FasterViT | 7 | [arXiv 2306.06189](https://arxiv.org/abs/2306.06189) | 2026-11-12 |
 | FLatten-CSwin | 3 | [arXiv 2308.00442](https://arxiv.org/abs/2308.00442) | 2026-11-12 |
 | FLatten-DeiT | 1 | [arXiv 2308.00442](https://arxiv.org/abs/2308.00442) | 2026-11-12 |
@@ -276,7 +278,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
-- 11-12-2026: added ACSAN, CODI, FasterViT, FLatten-CSwin, FLatten-DeiT, FLatten-PVT, FLatten-PVTv2, FLatten-Swin, FractalMamba, HorNet, LBLocalVim, LBPlainMamba, LBVim, LBVMamba, LiSA-BiFormer, LiSA-DeiT, LiSA-PVT, LiSA-Swin, Masked Swingers, MFil-Mamba, MobileMamba, MobileViT, NAT (SPM), PVT, PVT (SPM), QuadMamba, reViT, REViT-v2, SG-Former, Shunted (SPM), SMT, SoLA, StreamMAE, Swin (SPM), vGamba, ViT-5, X-ViT
+- 11-12-2026: added ACSAN, CODI, EVT, EVT-Swin, FasterViT, FLatten-CSwin, FLatten-DeiT, FLatten-PVT, FLatten-PVTv2, FLatten-Swin, FractalMamba, HorNet, LBLocalVim, LBPlainMamba, LBVim, LBVMamba, LiSA-BiFormer, LiSA-DeiT, LiSA-PVT, LiSA-Swin, Masked Swingers, MFil-Mamba, MobileMamba, MobileViT, NAT (SPM), PVT, PVT (SPM), QuadMamba, reViT, REViT-v2, SG-Former, Shunted (SPM), SMT, SoLA, StreamMAE, Swin (SPM), vGamba, ViT-5, X-ViT
 - 11-11-2026: added AEWin, FFNet, GlobalMamba, GlobalMamba-Vim, MS-ResNet+DSN, Polar-ViT, PoolFormer, RegionViT, RSIR, SD-Transformer+DSN, SDT-H, SP-ViT, U-DWConv, U-HaloNet, U-InternImage, U-PVT, U-Swin, Vim-F, Vim-F(CF), Vim-F(H)
 - 10-8-2026: added uViT
 - 10-7-2026: added FlyVision
