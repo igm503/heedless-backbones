@@ -1,0 +1,28 @@
+name: Masked Swingers
+model_type: Attention
+hierarchical: false
+pretrain_method: MAE
+pub_date: '2026-09-29'
+paper: https://arxiv.org/abs/2609.38278v1
+github: ''
+backbones:
+- name: Masked Swingers-B
+  m_parameters: 86.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Masked Swingers-B-IN1k-Half-E800
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: MAE
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.1
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 100
+      fine_tune_resolution: 224
+    instance_results: []
+    semantic_seg_results: []

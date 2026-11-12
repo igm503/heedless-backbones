@@ -1,0 +1,44 @@
+name: LiSA-DeiT
+model_type: Attn + Conv
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-11-03'
+paper: https://arxiv.org/abs/2611.04216v1
+github: https://github.com/Sahardastani/lisa
+backbones:
+- name: LiSA-DeiT-T
+  m_parameters: 6.3
+  github: https://github.com/Sahardastani/lisa
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LiSA-DeiT-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 74.54
+      top_5: null
+      gflops: 1.29
+    instance_results: []
+    semantic_seg_results: []
+- name: LiSA-DeiT-S
+  m_parameters: 23.08
+  github: https://github.com/Sahardastani/lisa
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LiSA-DeiT-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.78
+      top_5: null
+      gflops: 4.66
+    instance_results: []
+    semantic_seg_results: []

@@ -96,6 +96,40 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| ACSAN | 2 | [arXiv 2610.35375](https://arxiv.org/abs/2610.35375) | 2026-11-12 |
+| CODI | 2 | [arXiv 2610.30639](https://arxiv.org/abs/2610.30639) | 2026-11-12 |
+| FasterViT | 7 | [arXiv 2306.06189](https://arxiv.org/abs/2306.06189) | 2026-11-12 |
+| FLatten-CSwin | 3 | [arXiv 2308.00442](https://arxiv.org/abs/2308.00442) | 2026-11-12 |
+| FLatten-DeiT | 1 | [arXiv 2308.00442](https://arxiv.org/abs/2308.00442) | 2026-11-12 |
+| FLatten-PVT | 4 | [arXiv 2308.00442](https://arxiv.org/abs/2308.00442) | 2026-11-12 |
+| FLatten-PVTv2 | 5 | [arXiv 2308.00442](https://arxiv.org/abs/2308.00442) | 2026-11-12 |
+| FLatten-Swin | 3 | [arXiv 2308.00442](https://arxiv.org/abs/2308.00442) | 2026-11-12 |
+| FractalMamba | 1 | [arXiv 2405.14480](https://arxiv.org/abs/2405.14480) | 2026-11-12 |
+| HorNet | 8 | [arXiv 2207.14284](https://arxiv.org/abs/2207.14284) | 2026-11-12 |
+| LBLocalVim | 1 | [arXiv 2506.15976](https://arxiv.org/abs/2506.15976) | 2026-11-12 |
+| LBPlainMamba | 1 | [arXiv 2506.15976](https://arxiv.org/abs/2506.15976) | 2026-11-12 |
+| LBVim | 4 | [arXiv 2506.15976](https://arxiv.org/abs/2506.15976) | 2026-11-12 |
+| LBVMamba | 1 | [arXiv 2506.15976](https://arxiv.org/abs/2506.15976) | 2026-11-12 |
+| LiSA-BiFormer | 3 | [arXiv 2611.04216](https://arxiv.org/abs/2611.04216) | 2026-11-12 |
+| LiSA-DeiT | 2 | [arXiv 2611.04216](https://arxiv.org/abs/2611.04216) | 2026-11-12 |
+| LiSA-PVT | 2 | [arXiv 2611.04216](https://arxiv.org/abs/2611.04216) | 2026-11-12 |
+| LiSA-Swin | 1 | [arXiv 2611.04216](https://arxiv.org/abs/2611.04216) | 2026-11-12 |
+| Masked Swingers | 1 | [arXiv 2609.38278](https://arxiv.org/abs/2609.38278) | 2026-11-12 |
+| MobileMamba | 6 | [arXiv 2411.15941](https://arxiv.org/abs/2411.15941) | 2026-11-12 |
+| MobileViT | 3 | [arXiv 2110.02178](https://arxiv.org/abs/2110.02178) | 2026-11-12 |
+| NAT (SPM) | 1 | [arXiv 2409.06963](https://arxiv.org/abs/2409.06963) | 2026-11-12 |
+| PVT | 4 | [arXiv 2102.12122](https://arxiv.org/abs/2102.12122) | 2026-11-12 |
+| PVT (SPM) | 3 | [arXiv 2409.06963](https://arxiv.org/abs/2409.06963) | 2026-11-12 |
+| QuadMamba | 4 | [arXiv 2410.06806](https://arxiv.org/abs/2410.06806) | 2026-11-12 |
+| reViT | 3 | [arXiv 2610.12448](https://arxiv.org/abs/2610.12448) | 2026-11-12 |
+| REViT-v2 | 3 | [arXiv 2610.07585](https://arxiv.org/abs/2610.07585) | 2026-11-12 |
+| SG-Former | 3 | [arXiv 2308.12216](https://arxiv.org/abs/2308.12216) | 2026-11-12 |
+| Shunted (SPM) | 1 | [arXiv 2409.06963](https://arxiv.org/abs/2409.06963) | 2026-11-12 |
+| SMT | 5 | [arXiv 2307.08579](https://arxiv.org/abs/2307.08579) | 2026-11-12 |
+| StreamMAE | 2 | [arXiv 2609.40333](https://arxiv.org/abs/2609.40333) | 2026-11-12 |
+| Swin (SPM) | 1 | [arXiv 2409.06963](https://arxiv.org/abs/2409.06963) | 2026-11-12 |
+| vGamba | 3 | [arXiv 2503.21262](https://arxiv.org/abs/2503.21262) | 2026-11-12 |
+| X-ViT | 4 | [arXiv 2205.13805](https://arxiv.org/abs/2205.13805) | 2026-11-12 |
 | AEWin | 2 | [arXiv 2209.08726](https://arxiv.org/abs/2209.08726) | 2026-11-11 |
 | FFNet | 4 | [arXiv 2406.02021](https://arxiv.org/abs/2406.02021) | 2026-11-11 |
 | GlobalMamba | 3 | [arXiv 2410.10316](https://arxiv.org/abs/2410.10316) | 2026-11-11 |
@@ -239,6 +273,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 11-12-2026: added ACSAN, CODI, FasterViT, FLatten-CSwin, FLatten-DeiT, FLatten-PVT, FLatten-PVTv2, FLatten-Swin, FractalMamba, HorNet, LBLocalVim, LBPlainMamba, LBVim, LBVMamba, LiSA-BiFormer, LiSA-DeiT, LiSA-PVT, LiSA-Swin, Masked Swingers, MobileMamba, MobileViT, NAT (SPM), PVT, PVT (SPM), QuadMamba, reViT, REViT-v2, SG-Former, Shunted (SPM), SMT, StreamMAE, Swin (SPM), vGamba, X-ViT
 - 11-11-2026: added AEWin, FFNet, GlobalMamba, GlobalMamba-Vim, MS-ResNet+DSN, Polar-ViT, PoolFormer, RegionViT, RSIR, SD-Transformer+DSN, SDT-H, SP-ViT, U-DWConv, U-HaloNet, U-InternImage, U-PVT, U-Swin, Vim-F, Vim-F(CF), Vim-F(H)
 - 10-8-2026: added uViT
 - 10-7-2026: added FlyVision

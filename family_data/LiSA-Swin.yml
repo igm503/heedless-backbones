@@ -1,0 +1,66 @@
+name: LiSA-Swin
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2026-11-03'
+paper: https://arxiv.org/abs/2611.04216v1
+github: https://github.com/Sahardastani/lisa
+backbones:
+- name: LiSA-Swin-T
+  m_parameters: 29.74
+  github: https://github.com/Sahardastani/lisa
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LiSA-Swin-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.25
+      top_5: null
+      gflops: 4.72
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.5
+      AP50: 67.4
+      AP75: 48.7
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 269
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 40.3
+      AP50: 63.9
+      AP75: 43.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 269
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 45.03
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: 56.4
+      flip_test: false
+      gflops: 947
+      fps_measurements: []

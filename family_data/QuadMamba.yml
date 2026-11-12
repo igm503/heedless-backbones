@@ -1,0 +1,196 @@
+name: QuadMamba
+model_type: State Space Model
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2024-10-10'
+paper: https://arxiv.org/abs/2410.06806v2
+github: https://github.com/VISION-SJTU/QuadMamba
+backbones:
+- name: QuadMamba-Li
+  m_parameters: 5.47
+  fps_measurements: []
+  pretrained_backbones:
+  - name: QuadMamba-Li-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 74.2
+      top_5: 92.1
+      gflops: 0.82
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 39.3
+      AP50: 61.7
+      AP75: 42.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 186
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 36.9
+      AP50: 58.8
+      AP75: 39.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 186
+      fps_measurements: []
+    semantic_seg_results: []
+- name: QuadMamba-T
+  m_parameters: 10.32
+  fps_measurements: []
+  pretrained_backbones:
+  - name: QuadMamba-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.2
+      top_5: 94.3
+      gflops: 2.07
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.3
+      AP50: 64.6
+      AP75: 46.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 213
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 38.8
+      AP50: 61.6
+      AP75: 41.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 213
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 45.1
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 44.3
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 886
+      fps_measurements: []
+- name: QuadMamba-S
+  m_parameters: 31.25
+  fps_measurements: []
+  pretrained_backbones:
+  - name: QuadMamba-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.4
+      top_5: 95.6
+      gflops: 5.51
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 46.7
+      AP50: 69
+      AP75: 51.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 301
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.4
+      AP50: 65.9
+      AP75: 45.6
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 301
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 48.1
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 47.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 961
+      fps_measurements: []
+- name: QuadMamba-B
+  m_parameters: 50.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: QuadMamba-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.8
+      top_5: 96.7
+      gflops: 9.3
+    instance_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 50.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.7
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 1042
+      fps_measurements: []

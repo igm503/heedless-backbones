@@ -1,0 +1,199 @@
+name: FLatten-Swin
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2023-09-01'
+paper: https://arxiv.org/abs/2308.00442v2
+github: https://github.com/LeapLabTHU/FLatten-Transformer
+backbones:
+- name: FLatten-Swin-T
+  m_parameters: 29
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FLatten-Swin-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.1
+      top_5: 95.9
+      gflops: 4.5
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 44.2
+      AP50: 67.3
+      AP75: 48.5
+      mAPs: 29.4
+      mAPm: 47.5
+      mAPl: 57
+      gflops: 268
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 40.2
+      AP50: 63.8
+      AP75: 43
+      mAPs: 24.5
+      mAPm: 43.8
+      mAPl: 54.7
+      gflops: 268
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 46.5
+      AP50: 68.5
+      AP75: 50.8
+      mAPs: 31.2
+      mAPm: 49.6
+      mAPl: 60.4
+      gflops: 268
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 42.1
+      AP50: 65.4
+      AP75: 45.1
+      mAPs: 25.4
+      mAPm: 45.4
+      mAPl: 56.8
+      gflops: 268
+      fps_measurements: []
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 50.8
+      AP50: 69.6
+      AP75: 55.1
+      mAPs: 34.2
+      mAPm: 54.6
+      mAPl: 65.5
+      gflops: 747
+      fps_measurements: []
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 44.1
+      AP50: 67
+      AP75: 48.1
+      mAPs: 27.6
+      mAPm: 48.1
+      mAPl: 59
+      gflops: 747
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 44.82
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: 57.01
+      flip_test: false
+      gflops: 946
+      fps_measurements: []
+- name: FLatten-Swin-S
+  m_parameters: 51
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FLatten-Swin-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.5
+      top_5: null
+      gflops: 8.7
+    instance_results:
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 52.2
+      AP50: 71.2
+      AP75: 56.8
+      mAPs: 35.6
+      mAPm: 56.4
+      mAPl: 67.6
+      gflops: 841
+      fps_measurements: []
+    - head: Cascade Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.4
+      AP50: 68.3
+      AP75: 49.4
+      mAPs: 29.3
+      mAPm: 49
+      mAPl: 60.8
+      gflops: 841
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 48.14
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: 59.31
+      flip_test: false
+      gflops: 1038
+      fps_measurements: []
+- name: FLatten-Swin-B
+  m_parameters: 89
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FLatten-Swin-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.8
+      top_5: null
+      gflops: 15.4
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 85
+      top_5: null
+      gflops: 46.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []

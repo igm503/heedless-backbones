@@ -1,0 +1,133 @@
+name: MobileViT
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2022-03-04'
+paper: https://arxiv.org/abs/2110.02178v2
+github: https://github.com/apple/ml-cvnets
+backbones:
+- name: MobileViT-XXS
+  m_parameters: 1.3
+  github: https://github.com/apple/ml-cvnets
+  fps_measurements: []
+  pretrained_backbones:
+  - name: MobileViT-XXS-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 256
+    pretrain_epochs: 300
+    github: https://github.com/apple/ml-cvnets
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 69
+      top_5: 88.9
+      gflops: null
+    instance_results: []
+    semantic_seg_results:
+    - head: DeepLabv3
+      dataset: PASCAL VOC 2012 (val)
+      train_dataset: PASCAL VOC 2012 (train + SBD + COCO)
+      train_epochs: 50
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 73.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: MobileViT-XS
+  m_parameters: 2.3
+  github: https://github.com/apple/ml-cvnets
+  fps_measurements: []
+  pretrained_backbones:
+  - name: MobileViT-XS-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 256
+    pretrain_epochs: 300
+    github: https://github.com/apple/ml-cvnets
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 74.8
+      top_5: 92.3
+      gflops: null
+    instance_results:
+    - head: SSDLite
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 200
+      mAP: 24.8
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 1.6
+      fps_measurements: []
+    semantic_seg_results:
+    - head: DeepLabv3
+      dataset: PASCAL VOC 2012 (val)
+      train_dataset: PASCAL VOC 2012 (train + SBD + COCO)
+      train_epochs: 50
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 77.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 5.7
+      fps_measurements: []
+- name: MobileViT-S
+  m_parameters: 5.6
+  github: https://github.com/apple/ml-cvnets
+  fps_measurements: []
+  pretrained_backbones:
+  - name: MobileViT-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 256
+    pretrain_epochs: 300
+    github: https://github.com/apple/ml-cvnets
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 78.4
+      top_5: 94.1
+      gflops: null
+    instance_results:
+    - head: SSDLite
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 200
+      mAP: 27.7
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: DeepLabv3
+      dataset: PASCAL VOC 2012 (val)
+      train_dataset: PASCAL VOC 2012 (train + SBD + COCO)
+      train_epochs: 50
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 79.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []

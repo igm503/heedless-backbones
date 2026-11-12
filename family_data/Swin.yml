@@ -234,6 +234,48 @@ backbones:
       gflops: 245
       paper: https://arxiv.org/abs/2203.15380v4
       fps_measurements: []
+    - head: Sparse R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 47.9
+      AP50: 67.3
+      AP75: 52.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 172
+      paper: https://arxiv.org/abs/2307.08579v2
+      fps_measurements: []
+    - head: ATSS
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 47.2
+      AP50: 66.5
+      AP75: 51.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 212
+      paper: https://arxiv.org/abs/2307.08579v2
+      fps_measurements: []
+    - head: DINO
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 51.3
+      AP50: 69
+      AP75: 55.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 252
+      paper: https://arxiv.org/abs/2307.08579v2
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -330,6 +372,18 @@ backbones:
       top_5: null
       gflops: 8.7
       paper: https://doi.org/10.48550/arXiv.2204.07118
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 32.5
+      top_5: null
+      gflops: 8.5
+      paper: https://arxiv.org/abs/2306.06189v2
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 44.7
+      top_5: null
+      gflops: 8.5
+      paper: https://arxiv.org/abs/2306.06189v2
     instance_results:
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -480,6 +534,20 @@ backbones:
       mAPl: null
       gflops: 335
       paper: https://arxiv.org/abs/2203.15380v4
+      fps_measurements: []
+    - head: DINO
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 53
+      AP50: 71.2
+      AP75: 57.6
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 332
+      paper: https://arxiv.org/abs/2307.08579v2
       fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
@@ -1369,6 +1437,20 @@ backbones:
       mAPm: null
       mAPl: null
       gflops: 1470
+      fps_measurements: []
+    - head: DINO
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 58.5
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 1285
+      paper: https://arxiv.org/abs/2306.06189v2
       fps_measurements: []
     semantic_seg_results:
     - head: UPerNet

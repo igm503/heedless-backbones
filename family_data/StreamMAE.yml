@@ -1,0 +1,192 @@
+name: StreamMAE
+model_type: Attention
+hierarchical: false
+pretrain_method: MAE
+pub_date: '2026-09-30'
+paper: https://arxiv.org/abs/2609.40333v1
+github: ''
+backbones:
+- name: ViT-S (StreamMAE)
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: ViT-S (StreamMAE)-WT++12h
+    pretrain_dataset: WT++London
+    pretrain_method: MAE
+    pretrain_resolution: 224
+    pretrain_epochs: 1
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 77.5
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 100
+      fine_tune_resolution: 224
+    instance_results: []
+    semantic_seg_results:
+    - head: Linear
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 32
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 26.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+    - head: Linear
+      dataset: Cityscapes (val)
+      train_dataset: Cityscapes (train)
+      train_epochs: 106.66666666666667
+      crop_size: 1024
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 63.8
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+  - name: ViT-S (StreamMAE)-WT++95h
+    pretrain_dataset: WT++
+    pretrain_method: MAE
+    pretrain_resolution: 224
+    pretrain_epochs: 1
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.4
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 100
+      fine_tune_resolution: 224
+    instance_results: []
+    semantic_seg_results:
+    - head: Linear
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 32
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 29.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+    - head: Linear
+      dataset: Cityscapes (val)
+      train_dataset: Cityscapes (train)
+      train_epochs: 106.66666666666667
+      crop_size: 1024
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 68
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: ViT-B (StreamMAE)
+  m_parameters: 86.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: ViT-B (StreamMAE)-WT++12h
+    pretrain_dataset: WT++London
+    pretrain_method: MAE
+    pretrain_resolution: 224
+    pretrain_epochs: 1
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.1
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 100
+      fine_tune_resolution: 224
+    instance_results: []
+    semantic_seg_results:
+    - head: Linear
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 32
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 32.7
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+    - head: Linear
+      dataset: Cityscapes (val)
+      train_dataset: Cityscapes (train)
+      train_epochs: 106.66666666666667
+      crop_size: 1024
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 69
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+  - name: ViT-B (StreamMAE)-WT++95h
+    pretrain_dataset: WT++
+    pretrain_method: MAE
+    pretrain_resolution: 224
+    pretrain_epochs: 1
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82
+      top_5: null
+      gflops: null
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 100
+      fine_tune_resolution: 224
+    instance_results: []
+    semantic_seg_results:
+    - head: Linear
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 32
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 36.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+    - head: Linear
+      dataset: Cityscapes (val)
+      train_dataset: Cityscapes (train)
+      train_epochs: 106.66666666666667
+      crop_size: 1024
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 74
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []

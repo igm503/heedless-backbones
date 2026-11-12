@@ -1,0 +1,84 @@
+name: LiSA-PVT
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2026-11-03'
+paper: https://arxiv.org/abs/2611.04216v1
+github: https://github.com/Sahardastani/lisa
+backbones:
+- name: LiSA-PVT-T
+  m_parameters: 12.16
+  github: https://github.com/Sahardastani/lisa
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LiSA-PVT-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.53
+      top_5: null
+      gflops: 2.12
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 40.5
+      AP50: 62.9
+      AP75: 44.1
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 245
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 37.6
+      AP50: 59.7
+      AP75: 40.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 245
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 40.85
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: 51.75
+      flip_test: false
+      gflops: 170
+      fps_measurements: []
+- name: LiSA-PVT-S
+  m_parameters: 21.69
+  github: https://github.com/Sahardastani/lisa
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LiSA-PVT-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.96
+      top_5: null
+      gflops: 4.18
+    instance_results: []
+    semantic_seg_results: []

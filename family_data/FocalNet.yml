@@ -91,6 +91,34 @@ backbones:
       mAPl: null
       gflops: 751
       fps_measurements: []
+    - head: Sparse R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 49.9
+      AP50: 69.6
+      AP75: 54.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 178
+      paper: https://arxiv.org/abs/2307.08579v2
+      fps_measurements: []
+    - head: ATSS
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 49.6
+      AP50: 68.7
+      AP75: 54.5
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 220
+      paper: https://arxiv.org/abs/2307.08579v2
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)

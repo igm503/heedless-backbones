@@ -1,0 +1,93 @@
+name: FLatten-PVTv2
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2023-09-01'
+paper: https://arxiv.org/abs/2308.00442v2
+github: https://github.com/LeapLabTHU/FLatten-Transformer
+backbones:
+- name: FLatten-PVTv2-B0
+  m_parameters: 3.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FLatten-PVTv2-B0-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 71.1
+      top_5: 90.596
+      gflops: 0.6
+    instance_results: []
+    semantic_seg_results: []
+- name: FLatten-PVTv2-B1
+  m_parameters: 12.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FLatten-PVTv2-B1-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.5
+      top_5: null
+      gflops: 2.2
+    instance_results: []
+    semantic_seg_results: []
+- name: FLatten-PVTv2-B2
+  m_parameters: 22.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FLatten-PVTv2-B2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.5
+      top_5: null
+      gflops: 4.3
+    instance_results: []
+    semantic_seg_results: []
+- name: FLatten-PVTv2-B3
+  m_parameters: 38.3
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FLatten-PVTv2-B3-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.7
+      top_5: null
+      gflops: 7.3
+    instance_results: []
+    semantic_seg_results: []
+- name: FLatten-PVTv2-B4
+  m_parameters: 51.8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: FLatten-PVTv2-B4-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84
+      top_5: null
+      gflops: 10.7
+    instance_results: []
+    semantic_seg_results: []
