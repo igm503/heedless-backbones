@@ -1,0 +1,179 @@
+name: SoLA
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2026-01-16'
+paper: https://arxiv.org/abs/2601.11164v1
+github: ''
+backbones:
+- name: SoLA-T
+  m_parameters: 6.59
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SoLA-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.83
+      top_5: null
+      gflops: 1.89
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.8
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 40
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 44.7
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: SoLA-S
+  m_parameters: 30.69
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SoLA-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.9
+      top_5: null
+      gflops: 5.43
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 46.6
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 48.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: SoLA-B
+  m_parameters: 88.26
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SoLA-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.1
+      top_5: null
+      gflops: 14.96
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47.5
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.3
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
