@@ -21,6 +21,36 @@ backbones:
       top_1: 81.4
       top_5: null
       gflops: 2.2
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 55.7
+      top_5: null
+      gflops: 2.2
+      paper: https://arxiv.org/abs/2604.18549v1
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 25.7
+      top_5: null
+      gflops: 2.2
+      paper: https://arxiv.org/abs/2604.18549v1
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 45.4
+      top_5: null
+      gflops: 2.2
+      paper: https://arxiv.org/abs/2604.18549v1
+    - dataset: ImageNet-Sketch
+      resolution: 224
+      top_1: 31.5
+      top_5: null
+      gflops: 2.2
+      paper: https://arxiv.org/abs/2604.18549v1
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 70.6
+      top_5: null
+      gflops: 2.2
+      paper: https://arxiv.org/abs/2604.18549v1
     instance_results: []
     semantic_seg_results: []
 - name: BiFormer-S
@@ -38,6 +68,36 @@ backbones:
       top_1: 83.8
       top_5: null
       gflops: 4.5
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 48.5
+      top_5: null
+      gflops: 4.5
+      paper: https://arxiv.org/abs/2604.18549v1
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 39.5
+      top_5: null
+      gflops: 4.5
+      paper: https://arxiv.org/abs/2604.18549v1
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 49.6
+      top_5: null
+      gflops: 4.5
+      paper: https://arxiv.org/abs/2604.18549v1
+    - dataset: ImageNet-Sketch
+      resolution: 224
+      top_1: 36.4
+      top_5: null
+      gflops: 4.5
+      paper: https://arxiv.org/abs/2604.18549v1
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 73.7
+      top_5: null
+      gflops: 4.5
+      paper: https://arxiv.org/abs/2604.18549v1
     instance_results:
     - head: RetinaNet
       dataset: COCO (val)
@@ -135,6 +195,36 @@ backbones:
       top_1: 84.3
       top_5: null
       gflops: 9.8
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 47.2
+      top_5: null
+      gflops: 9.8
+      paper: https://arxiv.org/abs/2604.18549v1
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 44.3
+      top_5: null
+      gflops: 9.8
+      paper: https://arxiv.org/abs/2604.18549v1
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 49.7
+      top_5: null
+      gflops: 9.8
+      paper: https://arxiv.org/abs/2604.18549v1
+    - dataset: ImageNet-Sketch
+      resolution: 224
+      top_1: 35.3
+      top_5: null
+      gflops: 9.8
+      paper: https://arxiv.org/abs/2604.18549v1
+    - dataset: ImageNet-V2
+      resolution: 224
+      top_1: 74
+      top_5: null
+      gflops: 9.8
+      paper: https://arxiv.org/abs/2604.18549v1
     instance_results:
     - head: RetinaNet
       dataset: COCO (val)
