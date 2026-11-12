@@ -26,6 +26,18 @@ between the markers below; update it here.
 - The paper is the primary source. The official repository (README, model zoo tables,
   release notes) and project page linked from the paper may supply values for the
   paper's own models that the paper does not give (e.g. throughput), cited by URL.
+  The repository includes its configs, training scripts and released training logs,
+  not only the README: check them before calling a schedule, resolution or crop
+  unstated.
+- **Named recipes.** A paper that names the recipe it follows ("we follow Swin's
+  settings", "trained with the recipe of Beyer et al.") states that recipe's values:
+  take them from the named paper or its official repository and say so in the note. A
+  hedged reference ("mostly", "almost the same as", "similar to") does not settle a
+  value on its own; such a field is uncertain unless another source confirms it.
+- **Unmodified standard architectures.** When the model is a standard architecture used
+  unchanged (a pretraining method on plain ViT-B/16, say) and no source prints its
+  parameter count, use the count stored for that architecture, or the one in the
+  architecture's official repository, and say so in the note.
 - Also include models of the family that only the repository reports, such as
   checkpoints released after the paper (e.g. Swin-T and Swin-S pretrained on
   ImageNet-22k), when the repository gives the same kind of results as for the paper's
@@ -51,6 +63,11 @@ say in the note that the convention was applied.
   unstated (640 only when the paper says so).
 - **FLOPs input sizes** when a paper states only "standard": 1280×800 for COCO detection,
   512×2048 for ADE20K segmentation.
+- **Unstated downstream schedule.** When the paper and its repository give no schedule
+  but every baseline row beside the results is that model's published number for one
+  standard schedule (Mask R-CNN or RetinaNet 1x; ADE20K UPerNet 160k; Semantic FPN
+  80k), use that schedule and say in the note which baselines show it. Without such
+  baselines the schedule is a missing value.
 - **COCO** without a split named is val2017 for evaluation and train2017 for training.
 - **PASCAL VOC 2007** without splits named is trained on VOC 2007 trainval
   (`PASCAL VOC 2007 (train + val)`) and evaluated on VOC 2007 test.
@@ -63,6 +80,17 @@ A convention never overrides what the paper states.
   pretraining method and report ImageNet-1k classification results for their own
   models. Detection and segmentation results are extracted when present but are not
   required (ResNet (RSB) and CoAtNet report classification only).
+- **Fine-tuned results only.** An ImageNet-1k result is the whole model trained or
+  fine-tuned end to end on the full training set. Frozen-backbone evaluations (linear
+  probe, attentive probe, k-NN, zero-shot) and low-shot fine-tuning are never
+  recorded, for classification or for segmentation, and a paper whose own models have
+  only such ImageNet-1k results does not qualify.
+- **Not a backbone or pretraining method.** A paper does not qualify when its
+  contribution is a component applied to stock models (a data augmentation, activation
+  function, normalisation, optimizer or regulariser), when it only fine-tunes or
+  compresses checkpoints released by others, or when ImageNet-1k is a side experiment
+  of a paper about something else. A module that replaces the token mixer of existing
+  backbones and is trained from scratch does qualify (LocalViT, FLatten Transformer).
 - **The paper's own models.** Results the paper reports for other models (baselines)
   are extracted only with database access, and only to fill gaps: the model must
   already be in the database and have no stored result with the same settings. Record
@@ -78,6 +106,9 @@ A convention never overrides what the paper states.
   trained models.
 - **Best recipe only.** When the contribution is a training procedure reported at
   several budgets (ResNet strikes back's A1/A2/A3), keep only the headline recipe (A1).
+  The same holds for a pretraining method reported in several variants or lengths
+  (Masked Swingers' two variants at 100, 200 and 800 epochs): keep the variant the
+  paper features, at its longest schedule.
 - **Main results only.** Include the configurations in the headline comparison tables
   for classification, detection/instance segmentation and semantic segmentation, and
   the paper's own robustness evaluations. Skip ablation-study variants (e.g. SLaK-T
@@ -144,7 +175,10 @@ A convention never overrides what the paper states.
   separate pretrained backbone with a suffix, and its results also record the extra
   stage in their fine-tune fields.
 - **pretrain_method**: `Supervised`, `Sup. + TL` (token labelling), `FCMAE`, `MAE`, `CL`,
-  `MAP`. Anything else is a new category proposal.
+  `MAP`, `Self-Distillation` (DINO, iBOT and DINOv2-style teacher-student training).
+  Use the category that describes the objective, not the paper's name for its method:
+  an MAE variant is `MAE`. Propose a new category only for an objective that none
+  describes, and give it a generic name.
 - **pretrain_epochs / resolution**: of the pretraining stage (300 epochs at 224 for most
   ImageNet-1k models, 90 for ImageNet-22k).
 
@@ -196,6 +230,13 @@ A convention never overrides what the paper states.
 
 - When the paper gives two versions of a number, use the one comparable with other
   models, and note the other.
+- When the paper contradicts itself (a table against the text, or one table against
+  another) and no other source settles it, record the less flattering value (the lower
+  accuracy, the longer schedule) unless that value is plainly a misprint, give both in
+  the note, and list the field as uncertain so the maintainer sees the choice.
+- A figure measured in a way that is not comparable with other models (e.g. FLOPs
+  counted at about twice the usual convention, shown by the paper's own baseline rows)
+  is left empty, with the paper's figure in the note.
 - When the paper gives the same number at different precisions (e.g. 29M in the main
   table, 28.6M in an appendix), use the more precise one.
 - Sparse weights (e.g. SLaK's dynamically sparse kernels): store the dense parameters
@@ -213,3 +254,5 @@ A convention never overrides what the paper states.
 
 - When a paper disagrees with a stored value, propose a correction (before, after,
   citation) for approval; never change stored data automatically.
+- A baseline row that differs from a stored result is not a reason to overwrite it:
+  in review such rows are dropped unless the stored value is shown to be wrong.

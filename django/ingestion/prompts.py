@@ -95,7 +95,11 @@ Derived values:
 
 New entities:
 - A new model_type or pretrain_method needs a category record with scope and value.
-- A new dataset or head needs its own record and tasks. New categories, datasets and
+  In the family's and pretrained backbones' own fields write the category's name
+  itself, not a $key reference to that record.
+- A new dataset or head needs its own record and tasks (a pretraining-only dataset
+  takes Classification). Leave its paper link empty: the head's or dataset's own paper
+  is not a source of this run. New categories, datasets and
   heads are proposals the maintainer must approve; propose one only when nothing in
   the vocabulary describes the same entity.
 
