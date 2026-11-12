@@ -1,0 +1,59 @@
+name: REViT-v2
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2026-10-06'
+paper: https://arxiv.org/abs/2610.07585v1
+github: https://github.com/kc-ml2/revit
+backbones:
+- name: REViT-v2-T
+  m_parameters: 5
+  fps_measurements: []
+  pretrained_backbones:
+  - name: REViT-v2-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 72.58
+      top_5: 90.88
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: REViT-v2-S
+  m_parameters: 18
+  fps_measurements: []
+  pretrained_backbones:
+  - name: REViT-v2-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.27
+      top_5: 94.45
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: REViT-v2-B
+  m_parameters: 47
+  fps_measurements: []
+  pretrained_backbones:
+  - name: REViT-v2-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.9
+      top_5: 95.1
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []

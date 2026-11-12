@@ -1,0 +1,76 @@
+name: LiSA-BiFormer
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2026-11-03'
+paper: https://arxiv.org/abs/2611.04216v1
+github: https://github.com/Sahardastani/lisa
+backbones:
+- name: LiSA-BiFormer-T
+  m_parameters: 13.2
+  github: https://github.com/Sahardastani/lisa
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LiSA-BiFormer-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.4
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: LiSA-BiFormer-S
+  m_parameters: 25.6
+  github: https://github.com/Sahardastani/lisa
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LiSA-BiFormer-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.1
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: 61.5
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: LiSA-BiFormer-B
+  m_parameters: 56.8
+  github: https://github.com/Sahardastani/lisa
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LiSA-BiFormer-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 85
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []

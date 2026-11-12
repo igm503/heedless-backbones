@@ -1,0 +1,25 @@
+name: NAT (SPM)
+model_type: Attention
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-06-14'
+paper: https://arxiv.org/abs/2409.06963v2
+github: https://github.com/Yonghao-Yu/StepwisePatchMerging
+backbones:
+- name: NAT-Mini (SPM)
+  m_parameters: 19.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: NAT-Mini (SPM)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.2
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []

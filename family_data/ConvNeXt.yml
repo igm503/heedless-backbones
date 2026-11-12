@@ -574,6 +574,34 @@ backbones:
         precision: TF32
         fps: 11.4
         source: https://doi.org/10.48550/arXiv.2201.03545
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 47
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 486
+      paper: https://arxiv.org/abs/2503.21262v3
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.7
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 486
+      paper: https://arxiv.org/abs/2503.21262v3
+      fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
       dataset: ADE20K (val)
@@ -801,6 +829,18 @@ backbones:
       fine_tune_epochs: 30
       fine_tune_resolution: 384
       paper: https://doi.org/10.48550/arXiv.2204.07118
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 41.1
+      top_5: null
+      gflops: 34.4
+      paper: https://arxiv.org/abs/2306.06189v2
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 53.4
+      top_5: null
+      gflops: 34.4
+      paper: https://arxiv.org/abs/2306.06189v2
     instance_results: []
     semantic_seg_results: []
   - name: ConvNeXt-L-IN22k

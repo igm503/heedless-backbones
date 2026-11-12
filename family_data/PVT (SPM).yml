@@ -1,0 +1,179 @@
+name: PVT (SPM)
+model_type: Attention
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-06-14'
+paper: https://arxiv.org/abs/2409.06963v2
+github: https://github.com/Yonghao-Yu/StepwisePatchMerging
+backbones:
+- name: PVT-Tiny (SPM)
+  m_parameters: 14
+  fps_measurements: []
+  pretrained_backbones:
+  - name: PVT-Tiny (SPM)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.5
+      top_5: null
+      gflops: 2.7
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 40.8
+      AP50: 63.4
+      AP75: 44.3
+      mAPs: 24.9
+      mAPm: 44
+      mAPl: 54
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 38
+      AP50: 60.4
+      AP75: 40.6
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 32
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 41.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: PVT-Small (SPM)
+  m_parameters: 25.3
+  fps_measurements: []
+  pretrained_backbones:
+  - name: PVT-Small (SPM)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.7
+      top_5: null
+      gflops: null
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43
+      AP50: 65.4
+      AP75: 46.7
+      mAPs: 25.5
+      mAPm: 46.2
+      mAPl: 57.6
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 39.6
+      AP50: 62.3
+      AP75: 42.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 32
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 45.9
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: PVT-Medium (SPM)
+  m_parameters: 45
+  fps_measurements: []
+  pretrained_backbones:
+  - name: PVT-Medium (SPM)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.9
+      top_5: null
+      gflops: null
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 43.3
+      AP50: 64.9
+      AP75: 47.6
+      mAPs: 25.8
+      mAPm: 46.4
+      mAPl: 58.3
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 39.4
+      AP50: 61.7
+      AP75: 42.2
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 32
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 45.3
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []

@@ -1,0 +1,71 @@
+name: reViT
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-10-08'
+paper: https://arxiv.org/abs/2610.12448v1
+github: ''
+backbones:
+- name: reViT-S/16
+  m_parameters: 6.1
+  fps_measurements:
+  - resolution: 224
+    gpu: H100
+    precision: BF16
+    fps: 1282
+    batch_size: 1
+    source: https://arxiv.org/abs/2610.12448v1
+  - resolution: 224
+    gpu: H100
+    precision: BF16
+    fps: 8814
+    batch_size: 64
+    source: https://arxiv.org/abs/2610.12448v1
+  pretrained_backbones:
+  - name: reViT-S/16-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.2
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: reViT-B/16
+  m_parameters: 23.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: reViT-B/16-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: reViT-L/16
+  m_parameters: 40.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: reViT-L/16-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.8
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []

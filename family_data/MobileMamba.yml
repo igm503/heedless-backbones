@@ -1,0 +1,318 @@
+name: MobileMamba
+model_type: Conv + SSM
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2024-11-24'
+paper: https://arxiv.org/abs/2411.15941v1
+github: https://github.com/lewandofskee/MobileMamba
+backbones:
+- name: MobileMamba-T2
+  m_parameters: 8.8
+  fps_measurements:
+  - resolution: 192
+    gpu: L40S
+    precision: null
+    fps: 21071
+    batch_size: 256
+    source: https://arxiv.org/abs/2411.15941v1
+  pretrained_backbones:
+  - name: MobileMamba-T2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 192
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 192
+      top_1: 73.6
+      top_5: 91.422
+      gflops: 0.255
+    instance_results: []
+    semantic_seg_results: []
+  - name: MobileMamba-T2-IN1k-KD-E1000
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 192
+    pretrain_epochs: 1000
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 192
+      top_1: 76.9
+      top_5: 93.1
+      gflops: 0.255
+    instance_results: []
+    semantic_seg_results: []
+- name: MobileMamba-T4
+  m_parameters: 14.2
+  fps_measurements:
+  - resolution: 192
+    gpu: L40S
+    precision: null
+    fps: 16571
+    batch_size: 256
+    source: https://arxiv.org/abs/2411.15941v1
+  pretrained_backbones:
+  - name: MobileMamba-T4-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 192
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 192
+      top_1: 76.1
+      top_5: 92.772
+      gflops: 0.413
+    instance_results: []
+    semantic_seg_results: []
+  - name: MobileMamba-T4-IN1k-KD-E1000
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 192
+    pretrain_epochs: 1000
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 192
+      top_1: 78.9
+      top_5: 94.16
+      gflops: 0.413
+    instance_results: []
+    semantic_seg_results: []
+- name: MobileMamba-S6
+  m_parameters: 15
+  fps_measurements:
+  - resolution: 224
+    gpu: L40S
+    precision: null
+    fps: 11000
+    batch_size: 256
+    source: https://arxiv.org/abs/2411.15941v1
+  pretrained_backbones:
+  - name: MobileMamba-S6-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78
+      top_5: 93.992
+      gflops: 0.652
+    instance_results: []
+    semantic_seg_results: []
+  - name: MobileMamba-S6-IN1k-KD-E1000
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 1000
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.7
+      top_5: 95.182
+      gflops: 0.652
+    instance_results: []
+    semantic_seg_results: []
+- name: MobileMamba-B1
+  m_parameters: 17.1
+  fps_measurements:
+  - resolution: 256
+    gpu: L40S
+    precision: null
+    fps: 6986
+    batch_size: 256
+    source: https://arxiv.org/abs/2411.15941v1
+  pretrained_backbones:
+  - name: MobileMamba-B1-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 256
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 79.9
+      top_5: 94.924
+      gflops: 1.08
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 40.6
+      AP50: 61.8
+      AP75: 43.8
+      mAPs: 22.4
+      mAPm: 43.5
+      mAPl: 55.9
+      gflops: 178
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 37.4
+      AP50: 58.9
+      AP75: 39.9
+      mAPs: 17.1
+      mAPm: 39.9
+      mAPl: 56.4
+      gflops: 178
+      fps_measurements: []
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 39.6
+      AP50: 59.8
+      AP75: 42.4
+      mAPs: 21.5
+      mAPm: 43.1
+      mAPl: 53.9
+      gflops: 151
+      fps_measurements: []
+    - head: SSDLite
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 600
+      mAP: 24
+      AP50: 39.5
+      AP75: 24
+      mAPs: 3.1
+      mAPm: 23.4
+      mAPl: 46.9
+      gflops: 1.7
+      fps_measurements: []
+    semantic_seg_results: []
+  - name: MobileMamba-B1-IN1k-KD-E1000
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 256
+    pretrain_epochs: 1000
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 256
+      top_1: 82.2
+      top_5: 95.872
+      gflops: 1.08
+    instance_results: []
+    semantic_seg_results: []
+- name: MobileMamba-B2
+  m_parameters: 17.1
+  fps_measurements:
+  - resolution: 384
+    gpu: L40S
+    precision: null
+    fps: 3175
+    batch_size: 256
+    source: https://arxiv.org/abs/2411.15941v1
+  pretrained_backbones:
+  - name: MobileMamba-B2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 384
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 81.6
+      top_5: 95.89
+      gflops: 2.427
+    instance_results: []
+    semantic_seg_results: []
+  - name: MobileMamba-B2-IN1k-KD-E1000
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 384
+    pretrain_epochs: 1000
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 83.3
+      top_5: 96.438
+      gflops: 2.427
+    instance_results: []
+    semantic_seg_results: []
+- name: MobileMamba-B4
+  m_parameters: 17.1
+  fps_measurements:
+  - resolution: 512
+    gpu: L40S
+    precision: null
+    fps: 1862
+    batch_size: 256
+    source: https://arxiv.org/abs/2411.15941v1
+  pretrained_backbones:
+  - name: MobileMamba-B4-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 512
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 512
+      top_1: 82.5
+      top_5: 96.252
+      gflops: 4.313
+    instance_results: []
+    semantic_seg_results:
+    - head: DeepLabv3
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 36.6
+      ss_pixel_accuracy: 76.3
+      ss_mean_accuracy: 47.1
+      flip_test: false
+      gflops: 4.7
+      fps_measurements: []
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 256
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 42.5
+      ss_pixel_accuracy: 79.9
+      ss_mean_accuracy: 53.7
+      flip_test: false
+      gflops: 5.6
+      fps_measurements: []
+    - head: PSPNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 36.9
+      ss_pixel_accuracy: 76.2
+      ss_mean_accuracy: 47.9
+      flip_test: false
+      gflops: 4.5
+      fps_measurements: []
+  - name: MobileMamba-B4-IN1k-KD-E1000
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 512
+    pretrain_epochs: 1000
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 512
+      top_1: 83.6
+      top_5: 96.606
+      gflops: 4.313
+    instance_results: []
+    semantic_seg_results: []
