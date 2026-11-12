@@ -1,0 +1,129 @@
+name: ViT-5
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-02-08'
+paper: https://arxiv.org/abs/2602.08071v1
+github: https://github.com/wangf3014/ViT-5
+backbones:
+- name: ViT-5-S
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: ViT-5-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    github: https://github.com/wangf3014/ViT-5
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.16
+      top_5: null
+      gflops: 4.7
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
+    instance_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 47.5
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: ViT-5-B
+  m_parameters: 87
+  fps_measurements: []
+  pretrained_backbones:
+  - name: ViT-5-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 192
+    pretrain_epochs: 800
+    github: https://github.com/wangf3014/ViT-5
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.16
+      top_5: null
+      gflops: 17.9
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 85.4
+      top_5: null
+      gflops: 55.9
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 49.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: ViT-5-L
+  m_parameters: 304
+  fps_measurements: []
+  pretrained_backbones:
+  - name: ViT-5-L-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 192
+    pretrain_epochs: 400
+    github: https://github.com/wangf3014/ViT-5
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.86
+      top_5: null
+      gflops: 62.8
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 224
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 86
+      top_5: null
+      gflops: 192.5
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 20
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 52
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []

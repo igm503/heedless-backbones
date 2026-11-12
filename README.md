@@ -127,9 +127,11 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 | SG-Former | 3 | [arXiv 2308.12216](https://arxiv.org/abs/2308.12216) | 2026-11-12 |
 | Shunted (SPM) | 1 | [arXiv 2409.06963](https://arxiv.org/abs/2409.06963) | 2026-11-12 |
 | SMT | 5 | [arXiv 2307.08579](https://arxiv.org/abs/2307.08579) | 2026-11-12 |
+| SoLA | 3 | [arXiv 2601.11164](https://arxiv.org/abs/2601.11164) | 2026-11-12 |
 | StreamMAE | 2 | [arXiv 2609.40333](https://arxiv.org/abs/2609.40333) | 2026-11-12 |
 | Swin (SPM) | 1 | [arXiv 2409.06963](https://arxiv.org/abs/2409.06963) | 2026-11-12 |
 | vGamba | 3 | [arXiv 2503.21262](https://arxiv.org/abs/2503.21262) | 2026-11-12 |
+| ViT-5 | 3 | [arXiv 2602.08071](https://arxiv.org/abs/2602.08071) | 2026-11-12 |
 | X-ViT | 4 | [arXiv 2205.13805](https://arxiv.org/abs/2205.13805) | 2026-11-12 |
 | AEWin | 2 | [arXiv 2209.08726](https://arxiv.org/abs/2209.08726) | 2026-11-11 |
 | FFNet | 4 | [arXiv 2406.02021](https://arxiv.org/abs/2406.02021) | 2026-11-11 |
@@ -274,7 +276,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
-- 11-12-2026: added ACSAN, CODI, FasterViT, FLatten-CSwin, FLatten-DeiT, FLatten-PVT, FLatten-PVTv2, FLatten-Swin, FractalMamba, HorNet, LBLocalVim, LBPlainMamba, LBVim, LBVMamba, LiSA-BiFormer, LiSA-DeiT, LiSA-PVT, LiSA-Swin, Masked Swingers, MFil-Mamba, MobileMamba, MobileViT, NAT (SPM), PVT, PVT (SPM), QuadMamba, reViT, REViT-v2, SG-Former, Shunted (SPM), SMT, StreamMAE, Swin (SPM), vGamba, X-ViT
+- 11-12-2026: added ACSAN, CODI, FasterViT, FLatten-CSwin, FLatten-DeiT, FLatten-PVT, FLatten-PVTv2, FLatten-Swin, FractalMamba, HorNet, LBLocalVim, LBPlainMamba, LBVim, LBVMamba, LiSA-BiFormer, LiSA-DeiT, LiSA-PVT, LiSA-Swin, Masked Swingers, MFil-Mamba, MobileMamba, MobileViT, NAT (SPM), PVT, PVT (SPM), QuadMamba, reViT, REViT-v2, SG-Former, Shunted (SPM), SMT, SoLA, StreamMAE, Swin (SPM), vGamba, ViT-5, X-ViT
 - 11-11-2026: added AEWin, FFNet, GlobalMamba, GlobalMamba-Vim, MS-ResNet+DSN, Polar-ViT, PoolFormer, RegionViT, RSIR, SD-Transformer+DSN, SDT-H, SP-ViT, U-DWConv, U-HaloNet, U-InternImage, U-PVT, U-Swin, Vim-F, Vim-F(CF), Vim-F(H)
 - 10-8-2026: added uViT
 - 10-7-2026: added FlyVision
