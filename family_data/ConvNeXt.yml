@@ -298,6 +298,12 @@ backbones:
       top_5: null
       gflops: 8.7
       paper: https://arxiv.org/abs/2310.19380v4
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 51.2
+      top_5: null
+      gflops: 8.7
+      paper: https://arxiv.org/abs/2605.20839v1
     instance_results:
     - head: Cascade Mask R-CNN
       dataset: COCO (val)
