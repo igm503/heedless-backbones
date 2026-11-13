@@ -1,0 +1,42 @@
+name: LocAt-Jumbo
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-03-05'
+paper: https://arxiv.org/abs/2603.04892v1
+github: https://github.com/sinahmr/LocAtViT/
+backbones:
+- name: LocAt-Jumbo-T
+  m_parameters: 17
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LocAt-Jumbo-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.78
+      top_5: null
+      gflops: 1.42
+    instance_results: []
+    semantic_seg_results: []
+- name: LocAt-Jumbo-B
+  m_parameters: 260
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LocAt-Jumbo-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.43
+      top_5: null
+      gflops: 19.81
+    instance_results: []
+    semantic_seg_results: []
