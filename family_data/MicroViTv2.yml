@@ -1,0 +1,77 @@
+name: MicroViTv2
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2026-05-11'
+paper: https://arxiv.org/abs/2605.10148v1
+github: https://github.com/novendrastywn/MicroViT
+backbones:
+- name: MicroViTv2-S1
+  m_parameters: 6.7
+  fps_measurements: []
+  pretrained_backbones:
+  - name: MicroViTv2-S1-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 72.7
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: MicroViTv2-S2
+  m_parameters: 12.7
+  fps_measurements: []
+  pretrained_backbones:
+  - name: MicroViTv2-S2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 75.1
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: MicroViTv2-S3
+  m_parameters: 17
+  fps_measurements: []
+  pretrained_backbones:
+  - name: MicroViTv2-S3-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 77.4
+      top_5: null
+      gflops: null
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 36
+      AP50: 56.8
+      AP75: 37.5
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 165
+      fps_measurements:
+      - resolution: 800
+        gpu: '4090'
+        precision: null
+        fps: 214.9
+        source: https://arxiv.org/abs/2605.10148v1
+    semantic_seg_results: []

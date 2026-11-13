@@ -6458,6 +6458,20 @@
   }
 },
 {
+  "model": "stats.fpsmeasurement",
+  "pk": 1527,
+  "fields": {
+    "source_record": null,
+    "backbone_name": "MicroViTv2-S3",
+    "resolution": 800,
+    "fps": 214.9,
+    "gpu": "4090",
+    "precision": null,
+    "batch_size": null,
+    "source": "https://arxiv.org/abs/2605.10148v1"
+  }
+},
+{
   "model": "stats.backbonefamily",
   "pk": 1,
   "fields": {
@@ -9125,6 +9139,21 @@
     "pub_date": "2026-04-20",
     "paper": "https://arxiv.org/abs/2604.18549v1",
     "github": ""
+  }
+},
+{
+  "model": "stats.backbonefamily",
+  "pk": 1353,
+  "fields": {
+    "source_record": null,
+    "name": "MicroViTv2",
+    "model_type": "Attn + Conv",
+    "hierarchical": true,
+    "spiking": false,
+    "pretrain_method": "Supervised",
+    "pub_date": "2026-05-11",
+    "paper": "https://arxiv.org/abs/2605.10148v1",
+    "github": "https://github.com/novendrastywn/MicroViT"
   }
 },
 {
@@ -17646,6 +17675,45 @@
     "fps_measurements": [
       1524
     ]
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 3982,
+  "fields": {
+    "source_record": null,
+    "name": "MicroViTv2-S1",
+    "family": 1353,
+    "m_parameters": 6.7,
+    "paper": "https://arxiv.org/abs/2605.10148v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 3983,
+  "fields": {
+    "source_record": null,
+    "name": "MicroViTv2-S2",
+    "family": 1353,
+    "m_parameters": 12.7,
+    "paper": "https://arxiv.org/abs/2605.10148v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 3984,
+  "fields": {
+    "source_record": null,
+    "name": "MicroViTv2-S3",
+    "family": 1353,
+    "m_parameters": 17.0,
+    "paper": "https://arxiv.org/abs/2605.10148v1",
+    "github": "",
+    "fps_measurements": []
   }
 },
 {
@@ -28973,6 +29041,54 @@
     "pretrain_resolution": 224,
     "pretrain_epochs": 300.0,
     "paper": "https://arxiv.org/abs/2604.18549v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 3903,
+  "fields": {
+    "source_record": null,
+    "name": "MicroViTv2-S1-IN1k",
+    "backbone": 3982,
+    "family": 1353,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2605.10148v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 3904,
+  "fields": {
+    "source_record": null,
+    "name": "MicroViTv2-S2-IN1k",
+    "backbone": 3983,
+    "family": 1353,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2605.10148v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 3905,
+  "fields": {
+    "source_record": null,
+    "name": "MicroViTv2-S3-IN1k",
+    "backbone": 3984,
+    "family": 1353,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2605.10148v1",
     "github": ""
   }
 },
@@ -57302,6 +57418,69 @@
     "top_5": null,
     "gflops": 11.7,
     "paper": "https://arxiv.org/abs/2604.18549v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 5281,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 3903,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 72.7,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2605.10148v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 5282,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 3904,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 75.1,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2605.10148v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 5283,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 3905,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 77.4,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2605.10148v1",
     "github": ""
   }
 },
@@ -86010,6 +86189,33 @@
     "paper": "https://arxiv.org/abs/2604.18549v1",
     "github": "",
     "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 5504,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 3905,
+    "head": 3,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 12.0,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 36.0,
+    "AP50": 56.8,
+    "AP75": 37.5,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": 165.0,
+    "paper": "https://arxiv.org/abs/2605.10148v1",
+    "github": "",
+    "fps_measurements": [
+      1527
+    ]
   }
 },
 {
