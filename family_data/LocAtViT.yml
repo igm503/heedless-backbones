@@ -1,0 +1,42 @@
+name: LocAtViT
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-03-05'
+paper: https://arxiv.org/abs/2603.04892v1
+github: https://github.com/sinahmr/LocAtViT/
+backbones:
+- name: LocAtViT-T
+  m_parameters: 6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LocAtViT-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 73.94
+      top_5: null
+      gflops: 1.27
+    instance_results: []
+    semantic_seg_results: []
+- name: LocAtViT-B
+  m_parameters: 86
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LocAtViT-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.31
+      top_5: null
+      gflops: 17.64
+    instance_results: []
+    semantic_seg_results: []
