@@ -1,0 +1,59 @@
+name: Slimmable ConvNeXt
+model_type: Convolution
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2026-05-21'
+paper: https://arxiv.org/abs/2605.22677v1
+github: ''
+backbones:
+- name: Slimmable ConvNeXt-T
+  m_parameters: 28.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Slimmable ConvNeXt-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 600
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.8
+      top_5: null
+      gflops: 4.5
+    instance_results: []
+    semantic_seg_results: []
+- name: Slimmable ConvNeXt-S
+  m_parameters: 50.2
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Slimmable ConvNeXt-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 600
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.2
+      top_5: null
+      gflops: 8.7
+    instance_results: []
+    semantic_seg_results: []
+- name: Slimmable ConvNeXt-B
+  m_parameters: 88.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Slimmable ConvNeXt-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 600
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.8
+      top_5: null
+      gflops: 15.35
+    instance_results: []
+    semantic_seg_results: []

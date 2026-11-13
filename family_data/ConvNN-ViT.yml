@@ -1,0 +1,42 @@
+name: ConvNN-ViT
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-05-31'
+paper: https://arxiv.org/abs/2606.14725v1
+github: https://github.com/mingikang31/Convolutional-Nearest-Neighbor-Attention
+backbones:
+- name: ConvNN-ViT-B-k9
+  m_parameters: 86.386
+  fps_measurements: []
+  pretrained_backbones:
+  - name: ConvNN-ViT-B-k9-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.19
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: ConvNN-ViT-B-Fast-k25
+  m_parameters: 86.398
+  fps_measurements: []
+  pretrained_backbones:
+  - name: ConvNN-ViT-B-Fast-k25-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.64
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []

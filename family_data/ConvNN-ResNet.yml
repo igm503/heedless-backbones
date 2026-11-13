@@ -1,0 +1,42 @@
+name: ConvNN-ResNet
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2026-05-31'
+paper: https://arxiv.org/abs/2606.14725v1
+github: https://github.com/mingikang31/Convolutional-Nearest-Neighbor
+backbones:
+- name: ConvNN-ResNet-50-Branch-k16
+  m_parameters: 29.671
+  fps_measurements: []
+  pretrained_backbones:
+  - name: ConvNN-ResNet-50-Branch-k16-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.76
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: ConvNN-ResNet-50-Branch-k4-r48
+  m_parameters: 24.191
+  fps_measurements: []
+  pretrained_backbones:
+  - name: ConvNN-ResNet-50-Branch-k4-r48-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.03
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
