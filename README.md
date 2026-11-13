@@ -96,6 +96,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| MicroViTv2 | 3 | [arXiv 2605.10148](https://arxiv.org/abs/2605.10148) | 2026-11-13 |
 | ACSAN | 2 | [arXiv 2610.35375](https://arxiv.org/abs/2610.35375) | 2026-11-12 |
 | CODI | 2 | [arXiv 2610.30639](https://arxiv.org/abs/2610.30639) | 2026-11-12 |
 | EVT | 5 | [arXiv 2604.18549](https://arxiv.org/abs/2604.18549) | 2026-11-12 |
@@ -278,6 +279,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 11-13-2026: added MicroViTv2
 - 11-12-2026: added ACSAN, CODI, EVT, EVT-Swin, FasterViT, FLatten-CSwin, FLatten-DeiT, FLatten-PVT, FLatten-PVTv2, FLatten-Swin, FractalMamba, HorNet, LBLocalVim, LBPlainMamba, LBVim, LBVMamba, LiSA-BiFormer, LiSA-DeiT, LiSA-PVT, LiSA-Swin, Masked Swingers, MFil-Mamba, MobileMamba, MobileViT, NAT (SPM), PVT, PVT (SPM), QuadMamba, reViT, REViT-v2, SG-Former, Shunted (SPM), SMT, SoLA, StreamMAE, Swin (SPM), vGamba, ViT-5, X-ViT
 - 11-11-2026: added AEWin, FFNet, GlobalMamba, GlobalMamba-Vim, MS-ResNet+DSN, Polar-ViT, PoolFormer, RegionViT, RSIR, SD-Transformer+DSN, SDT-H, SP-ViT, U-DWConv, U-HaloNet, U-InternImage, U-PVT, U-Swin, Vim-F, Vim-F(CF), Vim-F(H)
 - 10-8-2026: added uViT
