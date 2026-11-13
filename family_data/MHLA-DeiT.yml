@@ -1,0 +1,42 @@
+name: MHLA-DeiT
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-01-12'
+paper: https://arxiv.org/abs/2601.07832v2
+github: https://github.com/DAGroup-PKU/MHLA
+backbones:
+- name: MHLA-DeiT-T
+  m_parameters: 5.7
+  fps_measurements: []
+  pretrained_backbones:
+  - name: MHLA-DeiT-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 75.8
+      top_5: null
+      gflops: 1.1
+    instance_results: []
+    semantic_seg_results: []
+- name: MHLA-DeiT-S
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: MHLA-DeiT-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81
+      top_5: null
+      gflops: 4.2
+    instance_results: []
+    semantic_seg_results: []
