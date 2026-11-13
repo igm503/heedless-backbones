@@ -1,0 +1,208 @@
+name: CPolyNeXt
+model_type: Convolution
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2026-05-20'
+paper: https://arxiv.org/abs/2605.20839v1
+github: https://github.com/jjwang8/PolyNeXt
+backbones:
+- name: CPolyNeXt-T
+  m_parameters: 6.4
+  fps_measurements:
+  - resolution: 224
+    gpu: '4090'
+    precision: null
+    fps: 2358
+    batch_size: 128
+    source: https://arxiv.org/abs/2605.20839v1
+  pretrained_backbones:
+  - name: CPolyNeXt-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.2
+      top_5: null
+      gflops: 1.2
+    instance_results: []
+    semantic_seg_results: []
+- name: CPolyNeXt-S
+  m_parameters: 26
+  fps_measurements:
+  - resolution: 224
+    gpu: '4090'
+    precision: null
+    fps: 1032
+    batch_size: 128
+    source: https://arxiv.org/abs/2605.20839v1
+  pretrained_backbones:
+  - name: CPolyNeXt-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.9
+      top_5: null
+      gflops: 4.8
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 47.9
+      top_5: null
+      gflops: 4.8
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 35.1
+      top_5: null
+      gflops: 4.8
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 49.4
+      top_5: null
+      gflops: 4.8
+    - dataset: ImageNet-Sketch
+      resolution: 224
+      top_1: 37.8
+      top_5: null
+      gflops: 4.8
+    instance_results: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 50.6
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: 941
+      fps_measurements: []
+- name: CPolyNeXt-B
+  m_parameters: 40
+  fps_measurements:
+  - resolution: 224
+    gpu: '4090'
+    precision: null
+    fps: 657
+    batch_size: 128
+    source: https://arxiv.org/abs/2605.20839v1
+  pretrained_backbones:
+  - name: CPolyNeXt-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.7
+      top_5: null
+      gflops: 8.5
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 44.5
+      top_5: null
+      gflops: 8.5
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 42.8
+      top_5: null
+      gflops: 8.5
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 52
+      top_5: null
+      gflops: 8.5
+    - dataset: ImageNet-Sketch
+      resolution: 224
+      top_1: 40
+      top_5: null
+      gflops: 8.5
+    instance_results: []
+    semantic_seg_results: []
+- name: CPolyNeXt-L
+  m_parameters: 57
+  fps_measurements:
+  - resolution: 224
+    gpu: '4090'
+    precision: null
+    fps: 474
+    batch_size: 128
+    source: https://arxiv.org/abs/2605.20839v1
+  pretrained_backbones:
+  - name: CPolyNeXt-L-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.9
+      top_5: null
+      gflops: 12.6
+    - dataset: ImageNet-C
+      resolution: 224
+      top_1: 42.5
+      top_5: null
+      gflops: 12.6
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 48.3
+      top_5: null
+      gflops: 12.6
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 54.5
+      top_5: null
+      gflops: 12.6
+    - dataset: ImageNet-Sketch
+      resolution: 224
+      top_1: 41.8
+      top_5: null
+      gflops: 12.6
+    instance_results: []
+    semantic_seg_results: []
+- name: CPolyNeXt-T BN
+  m_parameters: 6.4
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CPolyNeXt-T BN-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.3
+      top_5: null
+      gflops: 1.2
+    instance_results: []
+    semantic_seg_results: []
+- name: CPolyNeXt-S BN
+  m_parameters: 26
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CPolyNeXt-S BN-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.7
+      top_5: null
+      gflops: 4.8
+    instance_results: []
+    semantic_seg_results: []
