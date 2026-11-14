@@ -1,0 +1,43 @@
+name: Spikingformer+SLI+ACF
+model_type: Attn + Conv
+hierarchical: false
+spiking: true
+pretrain_method: Supervised
+pub_date: '2026-08-11'
+paper: https://arxiv.org/abs/2608.19238v1
+github: ''
+backbones:
+- name: Spikingformer+SLI+ACF-8-512
+  m_parameters: 31.84
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Spikingformer+SLI+ACF-8-512-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 75.96
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: Spikingformer+SLI+ACF-8-768
+  m_parameters: 71.14
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Spikingformer+SLI+ACF-8-768-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 76.95
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
