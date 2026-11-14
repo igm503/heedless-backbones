@@ -1,0 +1,60 @@
+name: QKFormer+SLI+ACF
+model_type: Attn + Conv
+hierarchical: true
+spiking: true
+pretrain_method: Supervised
+pub_date: '2026-08-11'
+paper: https://arxiv.org/abs/2608.19238v1
+github: ''
+backbones:
+- name: QKFormer+SLI+ACF-8-512
+  m_parameters: 24.26
+  fps_measurements: []
+  pretrained_backbones:
+  - name: QKFormer+SLI+ACF-8-512-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 200
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.61
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: QKFormer+SLI+ACF-10-512
+  m_parameters: 31.12
+  fps_measurements: []
+  pretrained_backbones:
+  - name: QKFormer+SLI+ACF-10-512-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 200
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.33
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: QKFormer+SLI+ACF-8-768
+  m_parameters: 54.11
+  fps_measurements: []
+  pretrained_backbones:
+  - name: QKFormer+SLI+ACF-8-768-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 200
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.37
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
