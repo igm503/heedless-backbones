@@ -96,6 +96,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| VisionScreen | 1 | [arXiv 2607.13983](https://arxiv.org/abs/2607.13983) | 2026-11-15 |
 | GraphScan-Mamba | 3 | [arXiv 2605.11300](https://arxiv.org/abs/2605.11300) | 2026-11-14 |
 | InfViT | 4 | [arXiv 2603.00175](https://arxiv.org/abs/2603.00175) | 2026-11-14 |
 | QKFormer+SLI+ACF | 3 | [arXiv 2608.19238](https://arxiv.org/abs/2608.19238) | 2026-11-14 |
@@ -296,6 +297,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 11-15-2026: added VisionScreen
 - 11-14-2026: added GraphScan-Mamba, InfViT, QKFormer+SLI+ACF, Spikingformer+SLI+ACF
 - 11-13-2026: added APolyNeXt, ConvNN-ResNet, ConvNN-ViT, CPolyNeXt, LocAt-Jumbo, LocAt-RegViT, LocAt-RoPEViT, LocAt-Swin, LocAtViT, MHLA-DeiT, MHLA-VLT, MicroViTv2, Slimmable ConvNeXt, TailProp
 - 11-12-2026: added ACSAN, CODI, EVT, EVT-Swin, FasterViT, FLatten-CSwin, FLatten-DeiT, FLatten-PVT, FLatten-PVTv2, FLatten-Swin, FractalMamba, HorNet, LBLocalVim, LBPlainMamba, LBVim, LBVMamba, LiSA-BiFormer, LiSA-DeiT, LiSA-PVT, LiSA-Swin, Masked Swingers, MFil-Mamba, MobileMamba, MobileViT, NAT (SPM), PVT, PVT (SPM), QuadMamba, reViT, REViT-v2, SG-Former, Shunted (SPM), SMT, SoLA, StreamMAE, Swin (SPM), vGamba, ViT-5, X-ViT
