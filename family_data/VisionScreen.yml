@@ -1,0 +1,25 @@
+name: VisionScreen
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-07-15'
+paper: https://arxiv.org/abs/2607.13983v1
+github: ''
+backbones:
+- name: VisionScreen-T
+  m_parameters: 5.4
+  fps_measurements: []
+  pretrained_backbones:
+  - name: VisionScreen-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 72.5
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []

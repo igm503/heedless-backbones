@@ -9832,6 +9832,21 @@
   }
 },
 {
+  "model": "stats.backbonefamily",
+  "pk": 1546,
+  "fields": {
+    "source_record": null,
+    "name": "VisionScreen",
+    "model_type": "Attention",
+    "hierarchical": false,
+    "spiking": false,
+    "pretrain_method": "Supervised",
+    "pub_date": "2026-07-15",
+    "paper": "https://arxiv.org/abs/2607.13983v1",
+    "github": ""
+  }
+},
+{
   "model": "stats.backbone",
   "pk": 1,
   "fields": {
@@ -19030,6 +19045,19 @@
     "fps_measurements": [
       1661
     ]
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4445,
+  "fields": {
+    "source_record": null,
+    "name": "VisionScreen-T",
+    "family": 1546,
+    "m_parameters": 5.4,
+    "paper": "https://arxiv.org/abs/2607.13983v1",
+    "github": "",
+    "fps_measurements": []
   }
 },
 {
@@ -31157,6 +31185,22 @@
     "pretrain_resolution": 224,
     "pretrain_epochs": 300.0,
     "paper": "https://arxiv.org/abs/2603.00175v5",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4249,
+  "fields": {
+    "source_record": null,
+    "name": "VisionScreen-T-IN1k",
+    "backbone": 4445,
+    "family": 1546,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2607.13983v1",
     "github": ""
   }
 },
@@ -61250,6 +61294,27 @@
     "top_5": null,
     "gflops": 18.2,
     "paper": "https://arxiv.org/abs/2603.00175v5",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 5822,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4249,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 72.5,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2607.13983v1",
     "github": ""
   }
 },
