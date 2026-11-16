@@ -96,6 +96,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| Deformba | 3 | [arXiv 2605.21308](https://arxiv.org/abs/2605.21308) | 2026-11-16 |
 | VisionScreen | 1 | [arXiv 2607.13983](https://arxiv.org/abs/2607.13983) | 2026-11-15 |
 | GraphScan-Mamba | 3 | [arXiv 2605.11300](https://arxiv.org/abs/2605.11300) | 2026-11-14 |
 | InfViT | 4 | [arXiv 2603.00175](https://arxiv.org/abs/2603.00175) | 2026-11-14 |
@@ -297,6 +298,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 11-16-2026: added Deformba
 - 11-15-2026: added VisionScreen
 - 11-14-2026: added GraphScan-Mamba, InfViT, QKFormer+SLI+ACF, Spikingformer+SLI+ACF
 - 11-13-2026: added APolyNeXt, ConvNN-ResNet, ConvNN-ViT, CPolyNeXt, LocAt-Jumbo, LocAt-RegViT, LocAt-RoPEViT, LocAt-Swin, LocAtViT, MHLA-DeiT, MHLA-VLT, MicroViTv2, Slimmable ConvNeXt, TailProp
