@@ -1,0 +1,43 @@
+name: SAFformer
+model_type: Attn + Conv
+hierarchical: true
+spiking: true
+pretrain_method: Supervised
+pub_date: '2026-05-08'
+paper: https://arxiv.org/abs/2605.08270v2
+github: ''
+backbones:
+- name: SAFformer-10-384
+  m_parameters: 15.12
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SAFformer-10-384-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 200
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.19
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: SAFformer-10-512
+  m_parameters: 26.58
+  fps_measurements: []
+  pretrained_backbones:
+  - name: SAFformer-10-512-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 200
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.44
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
