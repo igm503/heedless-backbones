@@ -1,0 +1,76 @@
+name: CBT
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2025-09-23'
+paper: https://arxiv.org/abs/2509.16875v3
+github: https://github.com/QishuaiWen/CBSA
+backbones:
+- name: CBT-T
+  m_parameters: 1.8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CBT-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 150
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 63.2
+      top_5: null
+      gflops: 1.1
+    instance_results: []
+    semantic_seg_results: []
+- name: CBT-S
+  m_parameters: 6.7
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CBT-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 150
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 71.4
+      top_5: null
+      gflops: 4
+    instance_results: []
+    semantic_seg_results: []
+- name: CBT-B
+  m_parameters: 25.7
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CBT-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 150
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 73.4
+      top_5: null
+      gflops: 15.1
+    instance_results: []
+    semantic_seg_results: []
+- name: CBT-L
+  m_parameters: 83.1
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CBT-L-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 150
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 74.4
+      top_5: null
+      gflops: 47.3
+    instance_results: []
+    semantic_seg_results: []

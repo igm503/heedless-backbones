@@ -1,0 +1,93 @@
+name: Translution
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2025-10-11'
+paper: https://arxiv.org/abs/2510.10060v1
+github: https://github.com/hehefan/Translution
+backbones:
+- name: Translution-A/56
+  m_parameters: 38.53
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Translution-A/56-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 52.41
+      top_5: 76.5
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: Translution-B/56
+  m_parameters: 75
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Translution-B/56-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 59.51
+      top_5: 81.97
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: Translution-C/56
+  m_parameters: 296
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Translution-C/56-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 68.05
+      top_5: 88.62
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: Translution-A/32
+  m_parameters: 116.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Translution-A/32-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 66.03
+      top_5: 86.01
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: Translution-B/32
+  m_parameters: 223.1
+  fps_measurements: []
+  pretrained_backbones:
+  - name: Translution-B/32-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 70.63
+      top_5: 90.1
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
