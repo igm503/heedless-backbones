@@ -96,6 +96,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| Vision SmolMamba | 4 | [arXiv 2604.25570](https://arxiv.org/abs/2604.25570) | 2026-11-18 |
 | CPUBone | 7 | [arXiv 2603.26425](https://arxiv.org/abs/2603.26425) | 2026-11-17 |
 | SAFformer | 2 | [arXiv 2605.08270](https://arxiv.org/abs/2605.08270) | 2026-11-17 |
 | Deformba | 3 | [arXiv 2605.21308](https://arxiv.org/abs/2605.21308) | 2026-11-16 |
@@ -300,6 +301,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 11-18-2026: added Vision SmolMamba
 - 11-17-2026: added CPUBone, SAFformer
 - 11-16-2026: added Deformba
 - 11-15-2026: added VisionScreen
