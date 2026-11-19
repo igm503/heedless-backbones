@@ -10057,6 +10057,21 @@
   }
 },
 {
+  "model": "stats.backbonefamily",
+  "pk": 1696,
+  "fields": {
+    "source_record": null,
+    "name": "DnA-ViT",
+    "model_type": "Attention",
+    "hierarchical": false,
+    "spiking": false,
+    "pretrain_method": "Supervised",
+    "pub_date": "2026-06-25",
+    "paper": "https://arxiv.org/abs/2606.27372v2",
+    "github": "https://github.com/rjccv/DnA"
+  }
+},
+{
   "model": "stats.backbone",
   "pk": 1,
   "fields": {
@@ -20034,6 +20049,19 @@
     "m_parameters": 14.48,
     "paper": "https://arxiv.org/abs/2604.08894v2",
     "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4824,
+  "fields": {
+    "source_record": null,
+    "name": "DnA-ViT-B",
+    "family": 1696,
+    "m_parameters": 100.7,
+    "paper": "https://arxiv.org/abs/2606.27372v2",
+    "github": "https://github.com/rjccv/DnA",
     "fps_measurements": []
   }
 },
@@ -33123,6 +33151,22 @@
     "pretrain_epochs": 300.0,
     "paper": "https://arxiv.org/abs/2604.08894v2",
     "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4528,
+  "fields": {
+    "source_record": null,
+    "name": "DnA-ViT-B-IN1k",
+    "backbone": 4824,
+    "family": 1696,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2606.27372v2",
+    "github": "https://github.com/rjccv/DnA"
   }
 },
 {
@@ -64479,6 +64523,69 @@
   }
 },
 {
+  "model": "stats.classificationresult",
+  "pk": 6059,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4528,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 81.9,
+    "top_5": 95.9,
+    "gflops": 21.1,
+    "paper": "https://arxiv.org/abs/2606.27372v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6060,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4528,
+    "dataset": 7,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 27.7,
+    "top_5": null,
+    "gflops": 21.1,
+    "paper": "https://arxiv.org/abs/2606.27372v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6061,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4528,
+    "dataset": 8,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 46.5,
+    "top_5": null,
+    "gflops": 21.1,
+    "paper": "https://arxiv.org/abs/2606.27372v2",
+    "github": ""
+  }
+},
+{
   "model": "stats.instanceresult",
   "pk": 3,
   "fields": {
@@ -94382,6 +94489,56 @@
     "mAPl": null,
     "gflops": null,
     "paper": "https://arxiv.org/abs/2603.26425v2",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 5865,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4528,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 2,
+    "train_dataset": 3,
+    "train_epochs": 50.0,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 26.5,
+    "AP50": 43.0,
+    "AP75": 27.4,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2606.27372v2",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.instanceresult",
+  "pk": 5866,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4528,
+    "head": 1,
+    "dataset": 4,
+    "instance_type": 3,
+    "train_dataset": 3,
+    "train_epochs": 50.0,
+    "intermediate_train_dataset": null,
+    "intermediate_train_epochs": null,
+    "mAP": 22.8,
+    "AP50": 39.4,
+    "AP75": 22.9,
+    "mAPs": null,
+    "mAPm": null,
+    "mAPl": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2606.27372v2",
     "github": "",
     "fps_measurements": []
   }

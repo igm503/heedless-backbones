@@ -1,0 +1,63 @@
+name: DnA-ViT
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-06-25'
+paper: https://arxiv.org/abs/2606.27372v2
+github: https://github.com/rjccv/DnA
+backbones:
+- name: DnA-ViT-B
+  m_parameters: 100.7
+  github: https://github.com/rjccv/DnA
+  fps_measurements: []
+  pretrained_backbones:
+  - name: DnA-ViT-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    github: https://github.com/rjccv/DnA
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.9
+      top_5: 95.9
+      gflops: 21.1
+    - dataset: ImageNet-A
+      resolution: 224
+      top_1: 27.7
+      top_5: null
+      gflops: 21.1
+    - dataset: ImageNet-R
+      resolution: 224
+      top_1: 46.5
+      top_5: null
+      gflops: 21.1
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 50
+      mAP: 26.5
+      AP50: 43
+      AP75: 27.4
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 50
+      mAP: 22.8
+      AP50: 39.4
+      AP75: 22.9
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results: []
