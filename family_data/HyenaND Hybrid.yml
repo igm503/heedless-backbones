@@ -1,0 +1,144 @@
+name: HyenaND Hybrid
+model_type: Attn + Conv
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-07-01'
+paper: https://arxiv.org/abs/2607.19378v3
+github: ''
+backbones:
+- name: HyenaND-S(HA)/16
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HyenaND-S(HA)/16-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.1
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: HyenaND-S(HA)/8
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HyenaND-S(HA)/8-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.2
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: HyenaND-S(HA)/4
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HyenaND-S(HA)/4-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 85
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: HyenaND-S(HA)/2
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HyenaND-S(HA)/2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 85.2
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: HyenaND-S(HHHA)/16
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HyenaND-S(HHHA)/16-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: HyenaND-S(HHHA)/8
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HyenaND-S(HHHA)/8-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: HyenaND-S(HHHA)/4
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HyenaND-S(HHHA)/4-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.4
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: HyenaND-S(HHHA)/2
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HyenaND-S(HHHA)/2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.6
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
