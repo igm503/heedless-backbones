@@ -1,0 +1,59 @@
+name: VCA-PVT
+model_type: Attention
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-11-02'
+paper: https://arxiv.org/abs/2511.00833v1
+github: https://github.com/LeapLabTHU/LinearDiff
+backbones:
+- name: VCA-PVT-T
+  m_parameters: 11.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: VCA-PVT-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.2
+      top_5: null
+      gflops: 2
+    instance_results: []
+    semantic_seg_results: []
+- name: VCA-PVT-S
+  m_parameters: 20.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: VCA-PVT-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.3
+      top_5: null
+      gflops: 4.1
+    instance_results: []
+    semantic_seg_results: []
+- name: VCA-PVT-M
+  m_parameters: 35.8
+  fps_measurements: []
+  pretrained_backbones:
+  - name: VCA-PVT-M-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.2
+      top_5: null
+      gflops: 7.2
+    instance_results: []
+    semantic_seg_results: []

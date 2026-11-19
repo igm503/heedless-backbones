@@ -1,0 +1,42 @@
+name: VCA-DeiT
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2025-11-02'
+paper: https://arxiv.org/abs/2511.00833v1
+github: https://github.com/LeapLabTHU/LinearDiff
+backbones:
+- name: VCA-DeiT-T
+  m_parameters: 6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: VCA-DeiT-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 75.6
+      top_5: null
+      gflops: 1.2
+    instance_results: []
+    semantic_seg_results: []
+- name: VCA-DeiT-S
+  m_parameters: 22.6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: VCA-DeiT-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.7
+      top_5: null
+      gflops: 4.6
+    instance_results: []
+    semantic_seg_results: []

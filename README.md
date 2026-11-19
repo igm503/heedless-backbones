@@ -96,6 +96,10 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| VCA-CSwin | 2 | [arXiv 2511.00833](https://arxiv.org/abs/2511.00833) | 2026-11-19 |
+| VCA-DeiT | 2 | [arXiv 2511.00833](https://arxiv.org/abs/2511.00833) | 2026-11-19 |
+| VCA-PVT | 3 | [arXiv 2511.00833](https://arxiv.org/abs/2511.00833) | 2026-11-19 |
+| VCA-Swin | 3 | [arXiv 2511.00833](https://arxiv.org/abs/2511.00833) | 2026-11-19 |
 | CBT | 4 | [arXiv 2509.16875](https://arxiv.org/abs/2509.16875) | 2026-11-18 |
 | Translution | 5 | [arXiv 2510.10060](https://arxiv.org/abs/2510.10060) | 2026-11-18 |
 | Vision SmolMamba | 4 | [arXiv 2604.25570](https://arxiv.org/abs/2604.25570) | 2026-11-18 |
@@ -304,6 +308,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 11-19-2026: added VCA-CSwin, VCA-DeiT, VCA-PVT, VCA-Swin
 - 11-18-2026: added CBT, Translution, Vision SmolMamba, α-Translution
 - 11-17-2026: added CPUBone, SAFformer
 - 11-16-2026: added Deformba
