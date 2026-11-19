@@ -10042,6 +10042,21 @@
   }
 },
 {
+  "model": "stats.backbonefamily",
+  "pk": 1693,
+  "fields": {
+    "source_record": null,
+    "name": "Ge2mS-T",
+    "model_type": "Attn + Conv",
+    "hierarchical": true,
+    "spiking": true,
+    "pretrain_method": "Supervised",
+    "pub_date": "2026-04-10",
+    "paper": "https://arxiv.org/abs/2604.08894v2",
+    "github": "https://github.com/hzc1208/Ge2mST"
+  }
+},
+{
   "model": "stats.backbone",
   "pk": 1,
   "fields": {
@@ -19979,6 +19994,45 @@
     "family": 1680,
     "m_parameters": 22.0,
     "paper": "https://arxiv.org/abs/2607.19378v3",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4819,
+  "fields": {
+    "source_record": null,
+    "name": "Ge2mS-T-Small",
+    "family": 1693,
+    "m_parameters": 5.35,
+    "paper": "https://arxiv.org/abs/2604.08894v2",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4820,
+  "fields": {
+    "source_record": null,
+    "name": "Ge2mS-T-Base",
+    "family": 1693,
+    "m_parameters": 9.36,
+    "paper": "https://arxiv.org/abs/2604.08894v2",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4821,
+  "fields": {
+    "source_record": null,
+    "name": "Ge2mS-T-Large",
+    "family": 1693,
+    "m_parameters": 14.48,
+    "paper": "https://arxiv.org/abs/2604.08894v2",
     "github": "",
     "fps_measurements": []
   }
@@ -33020,6 +33074,54 @@
     "pretrain_resolution": 224,
     "pretrain_epochs": 800.0,
     "paper": "https://arxiv.org/abs/2607.19378v3",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4523,
+  "fields": {
+    "source_record": null,
+    "name": "Ge2mS-T-Small-IN1k",
+    "backbone": 4819,
+    "family": 1693,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2604.08894v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4524,
+  "fields": {
+    "source_record": null,
+    "name": "Ge2mS-T-Base-IN1k",
+    "backbone": 4820,
+    "family": 1693,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2604.08894v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4525,
+  "fields": {
+    "source_record": null,
+    "name": "Ge2mS-T-Large-IN1k",
+    "backbone": 4821,
+    "family": 1693,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2604.08894v2",
     "github": ""
   }
 },
@@ -64310,6 +64412,69 @@
     "top_5": null,
     "gflops": null,
     "paper": "https://arxiv.org/abs/2607.19378v3",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6050,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4523,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 75.12,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2604.08894v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6051,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4524,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 78.19,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2604.08894v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6052,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4525,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 79.82,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2604.08894v2",
     "github": ""
   }
 },
