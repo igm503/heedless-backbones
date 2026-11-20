@@ -96,6 +96,10 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| MiTA-DeiT | 2 | [arXiv 2602.01219](https://arxiv.org/abs/2602.01219) | 2026-11-20 |
+| MiTA-DeiT (DWC) | 3 | [arXiv 2602.01219](https://arxiv.org/abs/2602.01219) | 2026-11-20 |
+| MiTA-ViT-5 | 1 | [arXiv 2602.01219](https://arxiv.org/abs/2602.01219) | 2026-11-20 |
+| MiTA-ViT-5 (DWC) | 1 | [arXiv 2602.01219](https://arxiv.org/abs/2602.01219) | 2026-11-20 |
 | DnA-ViT | 1 | [arXiv 2606.27372](https://arxiv.org/abs/2606.27372) | 2026-11-19 |
 | Ge2mS-T | 3 | [arXiv 2604.08894](https://arxiv.org/abs/2604.08894) | 2026-11-19 |
 | HyenaND | 4 | [arXiv 2607.19378](https://arxiv.org/abs/2607.19378) | 2026-11-19 |
@@ -312,6 +316,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 11-20-2026: added MiTA-DeiT, MiTA-DeiT (DWC), MiTA-ViT-5, MiTA-ViT-5 (DWC)
 - 11-19-2026: added DnA-ViT, Ge2mS-T, HyenaND, HyenaND Hybrid, VCA-CSwin, VCA-DeiT, VCA-PVT, VCA-Swin
 - 11-18-2026: added CBT, Translution, Vision SmolMamba, α-Translution
 - 11-17-2026: added CPUBone, SAFformer
