@@ -1,0 +1,565 @@
+name: SR-ViT
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-07-01'
+paper: https://arxiv.org/abs/2607.00774v2
+github: https://github.com/sangin-lee/sr-vit
+backbones:
+- name: SR-ViT-T (T=2)
+  m_parameters: 15.4
+  fps_measurements:
+  - resolution: 224
+    gpu: '4090'
+    precision: null
+    fps: 2121
+    source: https://arxiv.org/abs/2607.00774v2
+  pretrained_backbones:
+  - name: SR-ViT-T (T=2)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.89
+      top_5: null
+      gflops: 5.4
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 82.21
+      top_5: null
+      gflops: 18.3
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []
+  - name: SR-ViT-T (T=2)-IN1k-KD
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.03
+      top_5: null
+      gflops: 5.4
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 83.12
+      top_5: null
+      gflops: 18.3
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []
+- name: SR-ViT-T (T=3)
+  m_parameters: 15.8
+  fps_measurements:
+  - resolution: 224
+    gpu: '4090'
+    precision: null
+    fps: 1477
+    source: https://arxiv.org/abs/2607.00774v2
+  pretrained_backbones:
+  - name: SR-ViT-T (T=3)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.93
+      top_5: null
+      gflops: 7.8
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 83.22
+      top_5: null
+      gflops: 26.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []
+  - name: SR-ViT-T (T=3)-IN1k-KD
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.89
+      top_5: null
+      gflops: 7.8
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 83.73
+      top_5: null
+      gflops: 26.2
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []
+- name: SR-ViT-S (T=2)
+  m_parameters: 22.7
+  fps_measurements:
+  - resolution: 224
+    gpu: '4090'
+    precision: null
+    fps: 1370
+    source: https://arxiv.org/abs/2607.00774v2
+  pretrained_backbones:
+  - name: SR-ViT-S (T=2)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.02
+      top_5: null
+      gflops: 8.5
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 84.07
+      top_5: null
+      gflops: 28.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 44.63
+      AP50: 66.75
+      AP75: 48.04
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 453.6
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 40.05
+      AP50: 63.21
+      AP75: 42.63
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 453.6
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 46.95
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 45.81
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: true
+      gflops: 285.9
+      fps_measurements: []
+  - name: SR-ViT-S (T=2)-IN1k-KD
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.67
+      top_5: null
+      gflops: 8.5
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 84.27
+      top_5: null
+      gflops: 28.6
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []
+- name: SR-ViT-S (T=3)
+  m_parameters: 23.2
+  fps_measurements:
+  - resolution: 224
+    gpu: '4090'
+    precision: null
+    fps: 943
+    source: https://arxiv.org/abs/2607.00774v2
+  pretrained_backbones:
+  - name: SR-ViT-S (T=3)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.45
+      top_5: null
+      gflops: 12.4
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 84.19
+      top_5: null
+      gflops: 41.7
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.54
+      AP50: 67.68
+      AP75: 49.45
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 528.8
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 40.78
+      AP50: 64.29
+      AP75: 43.72
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 528.8
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 48.79
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 47.44
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: true
+      gflops: 339.6
+      fps_measurements: []
+  - name: SR-ViT-S (T=3)-IN1k-KD
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.36
+      top_5: null
+      gflops: 12.4
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 84.87
+      top_5: null
+      gflops: 41.7
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []
+- name: SR-ViT-S (T=4)
+  m_parameters: 23.8
+  fps_measurements:
+  - resolution: 224
+    gpu: '4090'
+    precision: null
+    fps: 718
+    source: https://arxiv.org/abs/2607.00774v2
+  pretrained_backbones:
+  - name: SR-ViT-S (T=4)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.48
+      top_5: null
+      gflops: 16.3
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 84.24
+      top_5: null
+      gflops: 54.8
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 46.25
+      AP50: 68.29
+      AP75: 50.68
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 603.9
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 41.32
+      AP50: 64.94
+      AP75: 44.3
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 603.9
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 49.05
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 47.96
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: true
+      gflops: 393.2
+      fps_measurements: []
+  - name: SR-ViT-S (T=4)-IN1k-KD
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.57
+      top_5: null
+      gflops: 16.3
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 85.08
+      top_5: null
+      gflops: 54.8
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []
+- name: SR-ViT-B (T=2)
+  m_parameters: 39.9
+  fps_measurements:
+  - resolution: 224
+    gpu: '4090'
+    precision: null
+    fps: 898
+    source: https://arxiv.org/abs/2607.00774v2
+  pretrained_backbones:
+  - name: SR-ViT-B (T=2)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.76
+      top_5: null
+      gflops: 14.8
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 84.39
+      top_5: null
+      gflops: 48.3
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 45.87
+      AP50: 67.94
+      AP75: 49.77
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 583.9
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 41.12
+      AP50: 64.55
+      AP75: 43.92
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 583.9
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 48.8
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 47.31
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: true
+      gflops: 408.4
+      fps_measurements: []
+  - name: SR-ViT-B (T=2)-IN1k-KD
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.75
+      top_5: null
+      gflops: 14.8
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 85.07
+      top_5: null
+      gflops: 48.3
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []
+- name: SR-ViT-B (T=3)
+  m_parameters: 41
+  fps_measurements:
+  - resolution: 224
+    gpu: '4090'
+    precision: null
+    fps: 620
+    source: https://arxiv.org/abs/2607.00774v2
+  pretrained_backbones:
+  - name: SR-ViT-B (T=3)-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.19
+      top_5: null
+      gflops: 21.6
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 83.53
+      top_5: null
+      gflops: 70.4
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results:
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 47.15
+      AP50: 69.38
+      AP75: 51.65
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 717.4
+      fps_measurements: []
+    - head: Mask R-CNN
+      dataset: COCO (val)
+      instance_type: Instance Segmentation
+      train_dataset: COCO (train)
+      train_epochs: 36
+      mAP: 42.17
+      AP50: 65.98
+      AP75: 45.36
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: 717.4
+      fps_measurements: []
+    semantic_seg_results:
+    - head: UPerNet
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 128
+      crop_size: 512
+      ms_m_iou: 48.35
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 47.16
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: true
+      gflops: 496.6
+      fps_measurements: []
+  - name: SR-ViT-B (T=3)-IN1k-KD
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84.02
+      top_5: null
+      gflops: 21.6
+    - dataset: ImageNet-1k
+      resolution: 384
+      top_1: 85.25
+      top_5: null
+      gflops: 70.4
+      fine_tune_dataset: ImageNet-1k
+      fine_tune_epochs: 30
+      fine_tune_resolution: 384
+    instance_results: []
+    semantic_seg_results: []
