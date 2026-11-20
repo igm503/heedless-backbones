@@ -96,6 +96,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| AdaS-ViT | 3 | [arXiv 2611.23728](https://arxiv.org/abs/2611.23728) | 2026-11-20 |
 | MiTA-DeiT | 2 | [arXiv 2602.01219](https://arxiv.org/abs/2602.01219) | 2026-11-20 |
 | MiTA-DeiT (DWC) | 3 | [arXiv 2602.01219](https://arxiv.org/abs/2602.01219) | 2026-11-20 |
 | MiTA-ViT-5 | 1 | [arXiv 2602.01219](https://arxiv.org/abs/2602.01219) | 2026-11-20 |
@@ -318,7 +319,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
-- 11-20-2026: added MiTA-DeiT, MiTA-DeiT (DWC), MiTA-ViT-5, MiTA-ViT-5 (DWC), SR-ViT, UniNAS
+- 11-20-2026: added AdaS-ViT, MiTA-DeiT, MiTA-DeiT (DWC), MiTA-ViT-5, MiTA-ViT-5 (DWC), SR-ViT, UniNAS
 - 11-19-2026: added DnA-ViT, Ge2mS-T, HyenaND, HyenaND Hybrid, VCA-CSwin, VCA-DeiT, VCA-PVT, VCA-Swin
 - 11-18-2026: added CBT, Translution, Vision SmolMamba, α-Translution
 - 11-17-2026: added CPUBone, SAFformer

@@ -10260,6 +10260,21 @@
   }
 },
 {
+  "model": "stats.backbonefamily",
+  "pk": 1748,
+  "fields": {
+    "source_record": null,
+    "name": "AdaS-ViT",
+    "model_type": "Attn + Conv",
+    "hierarchical": true,
+    "spiking": true,
+    "pretrain_method": "Supervised",
+    "pub_date": "2026-11-18",
+    "paper": "https://arxiv.org/abs/2611.23728v1",
+    "github": ""
+  }
+},
+{
   "model": "stats.backbone",
   "pk": 1,
   "fields": {
@@ -20458,6 +20473,45 @@
     "family": 1745,
     "m_parameters": 26.8,
     "paper": "https://arxiv.org/abs/2510.06035v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4893,
+  "fields": {
+    "source_record": null,
+    "name": "AdaS-ViT-Small",
+    "family": 1748,
+    "m_parameters": 5.36,
+    "paper": "https://arxiv.org/abs/2611.23728v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4894,
+  "fields": {
+    "source_record": null,
+    "name": "AdaS-ViT-Base",
+    "family": 1748,
+    "m_parameters": 9.4,
+    "paper": "https://arxiv.org/abs/2611.23728v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4895,
+  "fields": {
+    "source_record": null,
+    "name": "AdaS-ViT-Large",
+    "family": 1748,
+    "m_parameters": 14.56,
+    "paper": "https://arxiv.org/abs/2611.23728v1",
     "github": "",
     "fps_measurements": []
   }
@@ -33915,6 +33969,54 @@
     "pretrain_resolution": 224,
     "pretrain_epochs": 150.0,
     "paper": "https://arxiv.org/abs/2510.06035v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4606,
+  "fields": {
+    "source_record": null,
+    "name": "AdaS-ViT-Small-IN1k",
+    "backbone": 4893,
+    "family": 1748,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2611.23728v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4607,
+  "fields": {
+    "source_record": null,
+    "name": "AdaS-ViT-Base-IN1k",
+    "backbone": 4894,
+    "family": 1748,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2611.23728v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4608,
+  "fields": {
+    "source_record": null,
+    "name": "AdaS-ViT-Large-IN1k",
+    "backbone": 4895,
+    "family": 1748,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2611.23728v1",
     "github": ""
   }
 },
@@ -66087,6 +66189,69 @@
     "top_5": null,
     "gflops": null,
     "paper": "https://arxiv.org/abs/2510.06035v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6178,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4606,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 74.03,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2611.23728v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6179,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4607,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 77.25,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2611.23728v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6180,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4608,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 78.94,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2611.23728v1",
     "github": ""
   }
 },
