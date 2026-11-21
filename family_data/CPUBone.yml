@@ -1,0 +1,244 @@
+name: CPUBone
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2026-03-27'
+paper: https://arxiv.org/abs/2603.26425v2
+github: https://github.com/altair199797/CPUBone
+backbones:
+- name: CPUBone-B0
+  m_parameters: 10.4
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CPUBone-B0-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 320
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 77.6
+      top_5: null
+      gflops: null
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 37.5
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 37.9
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: CPUBone-B1
+  m_parameters: 12.4
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CPUBone-B1-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 320
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 78.7
+      top_5: null
+      gflops: null
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 39
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 39.2
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: CPUBone-B2
+  m_parameters: 23.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CPUBone-B2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 320
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 80.3
+      top_5: null
+      gflops: null
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 40.4
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 42.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: CPUBone-B3
+  m_parameters: 40.7
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CPUBone-B3-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 320
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.1
+      top_5: null
+      gflops: null
+    instance_results:
+    - head: RetinaNet
+      dataset: COCO (val)
+      instance_type: Object Detection
+      train_dataset: COCO (train)
+      train_epochs: 12
+      mAP: 42.9
+      AP50: null
+      AP75: null
+      mAPs: null
+      mAPm: null
+      mAPl: null
+      gflops: null
+      fps_measurements: []
+    semantic_seg_results:
+    - head: Panoptic FPN
+      dataset: ADE20K (val)
+      train_dataset: ADE20K (train)
+      train_epochs: 64
+      crop_size: 512
+      ms_m_iou: null
+      ms_pixel_accuracy: null
+      ms_mean_accuracy: null
+      ss_m_iou: 44.1
+      ss_pixel_accuracy: null
+      ss_mean_accuracy: null
+      flip_test: false
+      gflops: null
+      fps_measurements: []
+- name: CPUBone-Nano
+  m_parameters: 6.52
+  paper: https://github.com/altair199797/CPUBone
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CPUBone-Nano-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 320
+    paper: https://github.com/altair199797/CPUBone
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 72.67
+      top_5: null
+      gflops: null
+      paper: https://github.com/altair199797/CPUBone
+    instance_results: []
+    semantic_seg_results: []
+- name: CPUBone-T0
+  m_parameters: 7.54
+  paper: https://github.com/altair199797/CPUBone
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CPUBone-T0-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 320
+    paper: https://github.com/altair199797/CPUBone
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 74.85
+      top_5: null
+      gflops: null
+      paper: https://github.com/altair199797/CPUBone
+    instance_results: []
+    semantic_seg_results: []
+- name: CPUBone-S0
+  m_parameters: 8.73
+  paper: https://github.com/altair199797/CPUBone
+  fps_measurements: []
+  pretrained_backbones:
+  - name: CPUBone-S0-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 320
+    paper: https://github.com/altair199797/CPUBone
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 75.89
+      top_5: null
+      gflops: null
+      paper: https://github.com/altair199797/CPUBone
+    instance_results: []
+    semantic_seg_results: []

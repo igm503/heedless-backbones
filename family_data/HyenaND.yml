@@ -1,0 +1,76 @@
+name: HyenaND
+model_type: Convolution
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2026-07-01'
+paper: https://arxiv.org/abs/2607.19378v3
+github: ''
+backbones:
+- name: HyenaND-S/16
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HyenaND-S/16-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.5
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: HyenaND-S/8
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HyenaND-S/8-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 83.7
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: HyenaND-S/4
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HyenaND-S/4-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: HyenaND-S/2
+  m_parameters: 22
+  fps_measurements: []
+  pretrained_backbones:
+  - name: HyenaND-S/2-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 800
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 84
+      top_5: null
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []

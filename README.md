@@ -96,6 +96,32 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| CSDformer | 3 | [arXiv 2509.17461](https://arxiv.org/abs/2509.17461) | 2026-11-21 |
+| AdaS-ViT | 3 | [arXiv 2611.23728](https://arxiv.org/abs/2611.23728) | 2026-11-20 |
+| LOTFormer-DeiT | 2 | [arXiv 2509.23436](https://arxiv.org/abs/2509.23436) | 2026-11-20 |
+| LOTFormer-PVT | 1 | [arXiv 2509.23436](https://arxiv.org/abs/2509.23436) | 2026-11-20 |
+| LOTFormer-Swin | 1 | [arXiv 2509.23436](https://arxiv.org/abs/2509.23436) | 2026-11-20 |
+| MiTA-DeiT | 2 | [arXiv 2602.01219](https://arxiv.org/abs/2602.01219) | 2026-11-20 |
+| MiTA-DeiT (DWC) | 3 | [arXiv 2602.01219](https://arxiv.org/abs/2602.01219) | 2026-11-20 |
+| MiTA-ViT-5 | 1 | [arXiv 2602.01219](https://arxiv.org/abs/2602.01219) | 2026-11-20 |
+| MiTA-ViT-5 (DWC) | 1 | [arXiv 2602.01219](https://arxiv.org/abs/2602.01219) | 2026-11-20 |
+| SR-ViT | 7 | [arXiv 2607.00774](https://arxiv.org/abs/2607.00774) | 2026-11-20 |
+| UniNAS | 1 | [arXiv 2510.06035](https://arxiv.org/abs/2510.06035) | 2026-11-20 |
+| DnA-ViT | 1 | [arXiv 2606.27372](https://arxiv.org/abs/2606.27372) | 2026-11-19 |
+| Ge2mS-T | 3 | [arXiv 2604.08894](https://arxiv.org/abs/2604.08894) | 2026-11-19 |
+| HyenaND | 4 | [arXiv 2607.19378](https://arxiv.org/abs/2607.19378) | 2026-11-19 |
+| HyenaND Hybrid | 8 | [arXiv 2607.19378](https://arxiv.org/abs/2607.19378) | 2026-11-19 |
+| VCA-CSwin | 2 | [arXiv 2511.00833](https://arxiv.org/abs/2511.00833) | 2026-11-19 |
+| VCA-DeiT | 2 | [arXiv 2511.00833](https://arxiv.org/abs/2511.00833) | 2026-11-19 |
+| VCA-PVT | 3 | [arXiv 2511.00833](https://arxiv.org/abs/2511.00833) | 2026-11-19 |
+| VCA-Swin | 3 | [arXiv 2511.00833](https://arxiv.org/abs/2511.00833) | 2026-11-19 |
+| CBT | 4 | [arXiv 2509.16875](https://arxiv.org/abs/2509.16875) | 2026-11-18 |
+| Translution | 5 | [arXiv 2510.10060](https://arxiv.org/abs/2510.10060) | 2026-11-18 |
+| Vision SmolMamba | 4 | [arXiv 2604.25570](https://arxiv.org/abs/2604.25570) | 2026-11-18 |
+| α-Translution | 9 | [arXiv 2510.10060](https://arxiv.org/abs/2510.10060) | 2026-11-18 |
+| CPUBone | 7 | [arXiv 2603.26425](https://arxiv.org/abs/2603.26425) | 2026-11-17 |
+| SAFformer | 2 | [arXiv 2605.08270](https://arxiv.org/abs/2605.08270) | 2026-11-17 |
+| Deformba | 3 | [arXiv 2605.21308](https://arxiv.org/abs/2605.21308) | 2026-11-16 |
 | VisionScreen | 1 | [arXiv 2607.13983](https://arxiv.org/abs/2607.13983) | 2026-11-15 |
 | GraphScan-Mamba | 3 | [arXiv 2605.11300](https://arxiv.org/abs/2605.11300) | 2026-11-14 |
 | InfViT | 4 | [arXiv 2603.00175](https://arxiv.org/abs/2603.00175) | 2026-11-14 |
@@ -297,6 +323,12 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 11-21-2026: added CSDformer
+- 11-20-2026: added AdaS-ViT, LOTFormer-DeiT, LOTFormer-PVT, LOTFormer-Swin, MiTA-DeiT, MiTA-DeiT (DWC), MiTA-ViT-5, MiTA-ViT-5 (DWC), SR-ViT, UniNAS
+- 11-19-2026: added DnA-ViT, Ge2mS-T, HyenaND, HyenaND Hybrid, VCA-CSwin, VCA-DeiT, VCA-PVT, VCA-Swin
+- 11-18-2026: added CBT, Translution, Vision SmolMamba, α-Translution
+- 11-17-2026: added CPUBone, SAFformer
+- 11-16-2026: added Deformba
 - 11-15-2026: added VisionScreen
 - 11-14-2026: added GraphScan-Mamba, InfViT, QKFormer+SLI+ACF, Spikingformer+SLI+ACF
 - 11-13-2026: added APolyNeXt, ConvNN-ResNet, ConvNN-ViT, CPolyNeXt, LocAt-Jumbo, LocAt-RegViT, LocAt-RoPEViT, LocAt-Swin, LocAtViT, MHLA-DeiT, MHLA-VLT, MicroViTv2, Slimmable ConvNeXt, TailProp

@@ -1,0 +1,161 @@
+name: α-Translution
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2025-10-11'
+paper: https://arxiv.org/abs/2510.10060v1
+github: https://github.com/hehefan/Translution
+backbones:
+- name: α-Translution-A/56
+  m_parameters: 5.33
+  fps_measurements: []
+  pretrained_backbones:
+  - name: α-Translution-A/56-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 48.36
+      top_5: 73.31
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: α-Translution-B/56
+  m_parameters: 8.7
+  fps_measurements: []
+  pretrained_backbones:
+  - name: α-Translution-B/56-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 55.87
+      top_5: 79.16
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: α-Translution-C/56
+  m_parameters: 30.5
+  fps_measurements: []
+  pretrained_backbones:
+  - name: α-Translution-C/56-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 66.54
+      top_5: 86.49
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: α-Translution-A/32
+  m_parameters: 5.3
+  fps_measurements: []
+  pretrained_backbones:
+  - name: α-Translution-A/32-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 60.26
+      top_5: 83.07
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: α-Translution-B/32
+  m_parameters: 9.9
+  fps_measurements: []
+  pretrained_backbones:
+  - name: α-Translution-B/32-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 67.63
+      top_5: 87.96
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: α-Translution-C/32
+  m_parameters: 38
+  fps_measurements: []
+  pretrained_backbones:
+  - name: α-Translution-C/32-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 74.19
+      top_5: 91.52
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: α-Translution-A/16
+  m_parameters: 10.7
+  fps_measurements: []
+  pretrained_backbones:
+  - name: α-Translution-A/16-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 69.28
+      top_5: 89.24
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: α-Translution-B/16
+  m_parameters: 21.1
+  fps_measurements: []
+  pretrained_backbones:
+  - name: α-Translution-B/16-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 76.2
+      top_5: 93.04
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []
+- name: α-Translution-C/16
+  m_parameters: 85.4
+  fps_measurements: []
+  pretrained_backbones:
+  - name: α-Translution-C/16-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 79.7
+      top_5: 94.52
+      gflops: null
+    instance_results: []
+    semantic_seg_results: []

@@ -1,0 +1,25 @@
+name: LOTFormer-Swin
+model_type: Attn + Conv
+hierarchical: true
+pretrain_method: Supervised
+pub_date: '2025-09-27'
+paper: https://arxiv.org/abs/2509.23436v2
+github: ''
+backbones:
+- name: LOTFormer-Swin-T
+  m_parameters: 28
+  fps_measurements: []
+  pretrained_backbones:
+  - name: LOTFormer-Swin-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 400
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.8
+      top_5: null
+      gflops: 4.5
+    instance_results: []
+    semantic_seg_results: []
