@@ -10320,6 +10320,21 @@
   }
 },
 {
+  "model": "stats.backbonefamily",
+  "pk": 1766,
+  "fields": {
+    "source_record": null,
+    "name": "CSDformer",
+    "model_type": "Attention",
+    "hierarchical": false,
+    "spiking": true,
+    "pretrain_method": "Supervised",
+    "pub_date": "2025-09-22",
+    "paper": "https://arxiv.org/abs/2509.17461v1",
+    "github": ""
+  }
+},
+{
   "model": "stats.backbone",
   "pk": 1,
   "fields": {
@@ -20609,6 +20624,45 @@
     "family": 1761,
     "m_parameters": 28.0,
     "paper": "https://arxiv.org/abs/2509.23436v2",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4914,
+  "fields": {
+    "source_record": null,
+    "name": "CSDformer-8-384",
+    "family": 1766,
+    "m_parameters": 16.81,
+    "paper": "https://arxiv.org/abs/2509.17461v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4915,
+  "fields": {
+    "source_record": null,
+    "name": "CSDformer-8-512",
+    "family": 1766,
+    "m_parameters": 29.68,
+    "paper": "https://arxiv.org/abs/2509.17461v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4916,
+  "fields": {
+    "source_record": null,
+    "name": "CSDformer-8-768",
+    "family": 1766,
+    "m_parameters": 66.34,
+    "paper": "https://arxiv.org/abs/2509.17461v1",
     "github": "",
     "fps_measurements": []
   }
@@ -34178,6 +34232,54 @@
     "pretrain_resolution": 224,
     "pretrain_epochs": 400.0,
     "paper": "https://arxiv.org/abs/2509.23436v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4627,
+  "fields": {
+    "source_record": null,
+    "name": "CSDformer-8-384-IN1k",
+    "backbone": 4914,
+    "family": 1766,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 310.0,
+    "paper": "https://arxiv.org/abs/2509.17461v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4628,
+  "fields": {
+    "source_record": null,
+    "name": "CSDformer-8-512-IN1k",
+    "backbone": 4915,
+    "family": 1766,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 310.0,
+    "paper": "https://arxiv.org/abs/2509.17461v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4629,
+  "fields": {
+    "source_record": null,
+    "name": "CSDformer-8-768-IN1k",
+    "backbone": 4916,
+    "family": 1766,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 310.0,
+    "paper": "https://arxiv.org/abs/2509.17461v1",
     "github": ""
   }
 },
@@ -66497,6 +66599,69 @@
     "top_5": null,
     "gflops": 4.5,
     "paper": "https://arxiv.org/abs/2509.23436v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6199,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4627,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 75.55,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2509.17461v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6200,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4628,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 76.18,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2509.17461v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6201,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4629,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 76.36,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2509.17461v1",
     "github": ""
   }
 },
