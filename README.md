@@ -96,6 +96,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| CSDformer | 3 | [arXiv 2509.17461](https://arxiv.org/abs/2509.17461) | 2026-11-21 |
 | AdaS-ViT | 3 | [arXiv 2611.23728](https://arxiv.org/abs/2611.23728) | 2026-11-20 |
 | LOTFormer-DeiT | 2 | [arXiv 2509.23436](https://arxiv.org/abs/2509.23436) | 2026-11-20 |
 | LOTFormer-PVT | 1 | [arXiv 2509.23436](https://arxiv.org/abs/2509.23436) | 2026-11-20 |
@@ -322,6 +323,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 11-21-2026: added CSDformer
 - 11-20-2026: added AdaS-ViT, LOTFormer-DeiT, LOTFormer-PVT, LOTFormer-Swin, MiTA-DeiT, MiTA-DeiT (DWC), MiTA-ViT-5, MiTA-ViT-5 (DWC), SR-ViT, UniNAS
 - 11-19-2026: added DnA-ViT, Ge2mS-T, HyenaND, HyenaND Hybrid, VCA-CSwin, VCA-DeiT, VCA-PVT, VCA-Swin
 - 11-18-2026: added CBT, Translution, Vision SmolMamba, α-Translution
