@@ -1,0 +1,59 @@
+name: ViT³
+model_type: Attn + Conv
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2025-12-01'
+paper: https://arxiv.org/abs/2512.01643v2
+github: https://github.com/LeapLabTHU/ViTTT
+backbones:
+- name: ViT³-T
+  m_parameters: 6
+  fps_measurements: []
+  pretrained_backbones:
+  - name: ViT³-T-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 76.5
+      top_5: null
+      gflops: 1.2
+    instance_results: []
+    semantic_seg_results: []
+- name: ViT³-S
+  m_parameters: 24
+  fps_measurements: []
+  pretrained_backbones:
+  - name: ViT³-S-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.6
+      top_5: null
+      gflops: 4.8
+    instance_results: []
+    semantic_seg_results: []
+- name: ViT³-B
+  m_parameters: 90
+  fps_measurements: []
+  pretrained_backbones:
+  - name: ViT³-B-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 82.6
+      top_5: null
+      gflops: 18
+    instance_results: []
+    semantic_seg_results: []
