@@ -1,0 +1,26 @@
+name: ShallowMLP
+model_type: Attention
+hierarchical: false
+pretrain_method: Supervised
+pub_date: '2025-11-30'
+paper: https://arxiv.org/abs/2512.01059v1
+github: https://github.com/AnanthaPadmanaban-KrishnaKumar/parameter-efficient-vit-mlps
+backbones:
+- name: ShallowMLP-B/16
+  m_parameters: 58.2
+  github: https://github.com/AnanthaPadmanaban-KrishnaKumar/parameter-efficient-vit-mlps
+  fps_measurements: []
+  pretrained_backbones:
+  - name: ShallowMLP-B/16-IN1k
+    pretrain_dataset: ImageNet-1k
+    pretrain_method: Supervised
+    pretrain_resolution: 224
+    pretrain_epochs: 300
+    classification_results:
+    - dataset: ImageNet-1k
+      resolution: 224
+      top_1: 81.25
+      top_5: 95.52
+      gflops: 11.3
+    instance_results: []
+    semantic_seg_results: []

@@ -96,6 +96,8 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 | Model | Models | Paper | Added |
 |---|---:|---|---|
+| GroupedMLP | 1 | [arXiv 2512.01059](https://arxiv.org/abs/2512.01059) | 2026-11-25 |
+| ShallowMLP | 1 | [arXiv 2512.01059](https://arxiv.org/abs/2512.01059) | 2026-11-25 |
 | H-ViT³ | 3 | [arXiv 2512.01643](https://arxiv.org/abs/2512.01643) | 2026-11-22 |
 | ViT³ | 3 | [arXiv 2512.01643](https://arxiv.org/abs/2512.01643) | 2026-11-22 |
 | CSDformer | 3 | [arXiv 2509.17461](https://arxiv.org/abs/2509.17461) | 2026-11-21 |
@@ -325,6 +327,7 @@ pretrained checkpoints. Paper-specific entries count variants with checkpoints f
 
 ## Updates
 
+- 11-25-2026: added GroupedMLP, ShallowMLP
 - 11-22-2026: added H-ViT³, ViT³
 - 11-21-2026: added CSDformer
 - 11-20-2026: added AdaS-ViT, LOTFormer-DeiT, LOTFormer-PVT, LOTFormer-Swin, MiTA-DeiT, MiTA-DeiT (DWC), MiTA-ViT-5, MiTA-ViT-5 (DWC), SR-ViT, UniNAS

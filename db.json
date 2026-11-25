@@ -10365,6 +10365,36 @@
   }
 },
 {
+  "model": "stats.backbonefamily",
+  "pk": 1804,
+  "fields": {
+    "source_record": null,
+    "name": "GroupedMLP",
+    "model_type": "Attention",
+    "hierarchical": false,
+    "spiking": false,
+    "pretrain_method": "Supervised",
+    "pub_date": "2025-11-30",
+    "paper": "https://arxiv.org/abs/2512.01059v1",
+    "github": "https://github.com/AnanthaPadmanaban-KrishnaKumar/parameter-efficient-vit-mlps"
+  }
+},
+{
+  "model": "stats.backbonefamily",
+  "pk": 1805,
+  "fields": {
+    "source_record": null,
+    "name": "ShallowMLP",
+    "model_type": "Attention",
+    "hierarchical": false,
+    "spiking": false,
+    "pretrain_method": "Supervised",
+    "pub_date": "2025-11-30",
+    "paper": "https://arxiv.org/abs/2512.01059v1",
+    "github": "https://github.com/AnanthaPadmanaban-KrishnaKumar/parameter-efficient-vit-mlps"
+  }
+},
+{
   "model": "stats.backbone",
   "pk": 1,
   "fields": {
@@ -20772,6 +20802,32 @@
     "m_parameters": 94.0,
     "paper": "https://arxiv.org/abs/2512.01643v2",
     "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4958,
+  "fields": {
+    "source_record": null,
+    "name": "GroupedMLP-B/16",
+    "family": 1804,
+    "m_parameters": 58.2,
+    "paper": "https://arxiv.org/abs/2512.01059v1",
+    "github": "https://github.com/AnanthaPadmanaban-KrishnaKumar/parameter-efficient-vit-mlps",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4959,
+  "fields": {
+    "source_record": null,
+    "name": "ShallowMLP-B/16",
+    "family": 1805,
+    "m_parameters": 58.2,
+    "paper": "https://arxiv.org/abs/2512.01059v1",
+    "github": "https://github.com/AnanthaPadmanaban-KrishnaKumar/parameter-efficient-vit-mlps",
     "fps_measurements": []
   }
 },
@@ -34532,6 +34588,38 @@
     "pretrain_resolution": 224,
     "pretrain_epochs": 300.0,
     "paper": "https://arxiv.org/abs/2512.01643v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4679,
+  "fields": {
+    "source_record": null,
+    "name": "GroupedMLP-B/16-IN1k",
+    "backbone": 4958,
+    "family": 1804,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2512.01059v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4680,
+  "fields": {
+    "source_record": null,
+    "name": "ShallowMLP-B/16-IN1k",
+    "backbone": 4959,
+    "family": 1805,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 300.0,
+    "paper": "https://arxiv.org/abs/2512.01059v1",
     "github": ""
   }
 },
@@ -67103,6 +67191,48 @@
     "top_5": null,
     "gflops": 16.7,
     "paper": "https://arxiv.org/abs/2512.01643v2",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6245,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4679,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 81.47,
+    "top_5": 95.66,
+    "gflops": 16.9,
+    "paper": "https://arxiv.org/abs/2512.01059v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6246,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4680,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 81.25,
+    "top_5": 95.52,
+    "gflops": 11.3,
+    "paper": "https://arxiv.org/abs/2512.01059v1",
     "github": ""
   }
 },
