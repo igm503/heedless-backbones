@@ -46,7 +46,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 60
+      gflops: null
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -59,7 +59,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 60
+      gflops: null
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -72,7 +72,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 60
+      gflops: null
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -85,7 +85,7 @@ backbones:
       mAPs: null
       mAPm: null
       mAPl: null
-      gflops: 60
+      gflops: null
       fps_measurements: []
     semantic_seg_results:
     - head: UPerNet
