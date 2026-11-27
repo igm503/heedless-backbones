@@ -33,10 +33,10 @@ backbones:
       mAPs: 23.3
       mAPm: 44.2
       mAPl: 53.2
-      gflops: 16.3
+      gflops: null
       fps_measurements: []
     semantic_seg_results:
-    - head: UPerNet
+    - head: DeepLabv3
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
@@ -50,7 +50,7 @@ backbones:
       flip_test: false
       gflops: 4.2
       fps_measurements: []
-    - head: UPerNet
+    - head: PSPNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
@@ -91,10 +91,10 @@ backbones:
       mAPs: 24.2
       mAPm: 45.2
       mAPl: 55.2
-      gflops: 16.8
+      gflops: null
       fps_measurements: []
     semantic_seg_results:
-    - head: UPerNet
+    - head: DeepLabv3
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
@@ -108,7 +108,7 @@ backbones:
       flip_test: false
       gflops: 5.3
       fps_measurements: []
-    - head: UPerNet
+    - head: PSPNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
@@ -166,10 +166,10 @@ backbones:
       mAPs: 25.1
       mAPm: 45.9
       mAPl: 56.2
-      gflops: 16.8
+      gflops: null
       fps_measurements: []
     semantic_seg_results:
-    - head: UPerNet
+    - head: DeepLabv3
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
@@ -183,7 +183,7 @@ backbones:
       flip_test: false
       gflops: 7.8
       fps_measurements: []
-    - head: UPerNet
+    - head: PSPNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
@@ -224,10 +224,10 @@ backbones:
       mAPs: 25.2
       mAPm: 47
       mAPl: 56.8
-      gflops: 18.8
+      gflops: null
       fps_measurements: []
     semantic_seg_results:
-    - head: UPerNet
+    - head: DeepLabv3
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
@@ -241,7 +241,7 @@ backbones:
       flip_test: false
       gflops: 11
       fps_measurements: []
-    - head: UPerNet
+    - head: PSPNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
@@ -282,10 +282,10 @@ backbones:
       mAPs: 27.9
       mAPm: 49
       mAPl: 59.2
-      gflops: 19.4
+      gflops: null
       fps_measurements: []
     semantic_seg_results:
-    - head: UPerNet
+    - head: DeepLabv3
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
@@ -299,7 +299,7 @@ backbones:
       flip_test: false
       gflops: 12.3
       fps_measurements: []
-    - head: UPerNet
+    - head: PSPNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
@@ -340,7 +340,7 @@ backbones:
       mAPs: 28.4
       mAPm: 50.2
       mAPl: 60.4
-      gflops: 20.7
+      gflops: null
       fps_measurements: []
     - head: Mask R-CNN
       dataset: COCO (val)
@@ -409,7 +409,7 @@ backbones:
       flip_test: false
       gflops: 893
       fps_measurements: []
-    - head: UPerNet
+    - head: DeepLabv3
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128
@@ -423,7 +423,7 @@ backbones:
       flip_test: false
       gflops: 15.7
       fps_measurements: []
-    - head: UPerNet
+    - head: PSPNet
       dataset: ADE20K (val)
       train_dataset: ADE20K (train)
       train_epochs: 128

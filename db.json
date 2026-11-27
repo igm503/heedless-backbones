@@ -73558,7 +73558,7 @@
     "mAPs": null,
     "mAPm": null,
     "mAPl": null,
-    "gflops": 60.0,
+    "gflops": null,
     "paper": "",
     "github": "",
     "fps_measurements": []
@@ -73583,7 +73583,7 @@
     "mAPs": null,
     "mAPm": null,
     "mAPl": null,
-    "gflops": 60.0,
+    "gflops": null,
     "paper": "",
     "github": "",
     "fps_measurements": []
@@ -73608,7 +73608,7 @@
     "mAPs": null,
     "mAPm": null,
     "mAPl": null,
-    "gflops": 60.0,
+    "gflops": null,
     "paper": "",
     "github": "",
     "fps_measurements": []
@@ -73633,7 +73633,7 @@
     "mAPs": null,
     "mAPm": null,
     "mAPl": null,
-    "gflops": 60.0,
+    "gflops": null,
     "paper": "",
     "github": "",
     "fps_measurements": []
@@ -78011,7 +78011,7 @@
     "mAPs": 23.3,
     "mAPm": 44.2,
     "mAPl": 53.2,
-    "gflops": 16.3,
+    "gflops": null,
     "paper": "",
     "github": "",
     "fps_measurements": []
@@ -78036,7 +78036,7 @@
     "mAPs": 24.2,
     "mAPm": 45.2,
     "mAPl": 55.2,
-    "gflops": 16.8,
+    "gflops": null,
     "paper": "",
     "github": "",
     "fps_measurements": []
@@ -78061,7 +78061,7 @@
     "mAPs": 25.1,
     "mAPm": 45.9,
     "mAPl": 56.2,
-    "gflops": 16.8,
+    "gflops": null,
     "paper": "",
     "github": "",
     "fps_measurements": []
@@ -78086,7 +78086,7 @@
     "mAPs": 25.2,
     "mAPm": 47.0,
     "mAPl": 56.8,
-    "gflops": 18.8,
+    "gflops": null,
     "paper": "",
     "github": "",
     "fps_measurements": []
@@ -78111,7 +78111,7 @@
     "mAPs": 27.9,
     "mAPm": 49.0,
     "mAPl": 59.2,
-    "gflops": 19.4,
+    "gflops": null,
     "paper": "",
     "github": "",
     "fps_measurements": []
@@ -78136,7 +78136,7 @@
     "mAPs": 28.4,
     "mAPm": 50.2,
     "mAPl": 60.4,
-    "gflops": 20.7,
+    "gflops": null,
     "paper": "",
     "github": "",
     "fps_measurements": []
@@ -101861,7 +101861,7 @@
   "fields": {
     "source_record": null,
     "pretrained_backbone": 366,
-    "head": 4,
+    "head": 58,
     "dataset": 20,
     "train_dataset": 19,
     "train_epochs": 128.0,
@@ -101887,7 +101887,7 @@
   "fields": {
     "source_record": null,
     "pretrained_backbone": 366,
-    "head": 4,
+    "head": 61,
     "dataset": 20,
     "train_dataset": 19,
     "train_epochs": 128.0,
@@ -101913,7 +101913,7 @@
   "fields": {
     "source_record": null,
     "pretrained_backbone": 367,
-    "head": 4,
+    "head": 58,
     "dataset": 20,
     "train_dataset": 19,
     "train_epochs": 128.0,
@@ -101939,7 +101939,7 @@
   "fields": {
     "source_record": null,
     "pretrained_backbone": 367,
-    "head": 4,
+    "head": 61,
     "dataset": 20,
     "train_dataset": 19,
     "train_epochs": 128.0,
@@ -101965,7 +101965,7 @@
   "fields": {
     "source_record": null,
     "pretrained_backbone": 369,
-    "head": 4,
+    "head": 58,
     "dataset": 20,
     "train_dataset": 19,
     "train_epochs": 128.0,
@@ -101991,7 +101991,7 @@
   "fields": {
     "source_record": null,
     "pretrained_backbone": 369,
-    "head": 4,
+    "head": 61,
     "dataset": 20,
     "train_dataset": 19,
     "train_epochs": 128.0,
@@ -102017,7 +102017,7 @@
   "fields": {
     "source_record": null,
     "pretrained_backbone": 370,
-    "head": 4,
+    "head": 58,
     "dataset": 20,
     "train_dataset": 19,
     "train_epochs": 128.0,
@@ -102043,7 +102043,7 @@
   "fields": {
     "source_record": null,
     "pretrained_backbone": 370,
-    "head": 4,
+    "head": 61,
     "dataset": 20,
     "train_dataset": 19,
     "train_epochs": 128.0,
@@ -102069,7 +102069,7 @@
   "fields": {
     "source_record": null,
     "pretrained_backbone": 371,
-    "head": 4,
+    "head": 58,
     "dataset": 20,
     "train_dataset": 19,
     "train_epochs": 128.0,
@@ -102095,7 +102095,7 @@
   "fields": {
     "source_record": null,
     "pretrained_backbone": 371,
-    "head": 4,
+    "head": 61,
     "dataset": 20,
     "train_dataset": 19,
     "train_epochs": 128.0,
@@ -102147,7 +102147,7 @@
   "fields": {
     "source_record": null,
     "pretrained_backbone": 372,
-    "head": 4,
+    "head": 58,
     "dataset": 20,
     "train_dataset": 19,
     "train_epochs": 128.0,
@@ -102173,7 +102173,7 @@
   "fields": {
     "source_record": null,
     "pretrained_backbone": 372,
-    "head": 4,
+    "head": 61,
     "dataset": 20,
     "train_dataset": 19,
     "train_epochs": 128.0,
