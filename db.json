@@ -10395,6 +10395,21 @@
   }
 },
 {
+  "model": "stats.backbonefamily",
+  "pk": 1823,
+  "fields": {
+    "source_record": null,
+    "name": "STEAL",
+    "model_type": "Convolution",
+    "hierarchical": true,
+    "spiking": false,
+    "pretrain_method": "Supervised",
+    "pub_date": "2026-11-20",
+    "paper": "https://arxiv.org/abs/2611.27811v1",
+    "github": "https://codeberg.org/mwspratling/STEAL/"
+  }
+},
+{
   "model": "stats.backbone",
   "pk": 1,
   "fields": {
@@ -20828,6 +20843,32 @@
     "m_parameters": 58.2,
     "paper": "https://arxiv.org/abs/2512.01059v1",
     "github": "https://github.com/AnanthaPadmanaban-KrishnaKumar/parameter-efficient-vit-mlps",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4996,
+  "fields": {
+    "source_record": null,
+    "name": "STEAL-9-3-15-exp",
+    "family": 1823,
+    "m_parameters": 27.6,
+    "paper": "https://arxiv.org/abs/2611.27811v1",
+    "github": "",
+    "fps_measurements": []
+  }
+},
+{
+  "model": "stats.backbone",
+  "pk": 4997,
+  "fields": {
+    "source_record": null,
+    "name": "STEAL-7-3-40-exp",
+    "family": 1823,
+    "m_parameters": 26.3,
+    "paper": "https://arxiv.org/abs/2611.27811v1",
+    "github": "",
     "fps_measurements": []
   }
 },
@@ -34620,6 +34661,38 @@
     "pretrain_resolution": 224,
     "pretrain_epochs": 300.0,
     "paper": "https://arxiv.org/abs/2512.01059v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4717,
+  "fields": {
+    "source_record": null,
+    "name": "STEAL-9-3-15-exp-IN1k",
+    "backbone": 4996,
+    "family": 1823,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 100.0,
+    "paper": "https://arxiv.org/abs/2611.27811v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.pretrainedbackbone",
+  "pk": 4718,
+  "fields": {
+    "source_record": null,
+    "name": "STEAL-7-3-40-exp-IN1k",
+    "backbone": 4997,
+    "family": 1823,
+    "pretrain_dataset": 1,
+    "pretrain_method": "Supervised",
+    "pretrain_resolution": 224,
+    "pretrain_epochs": 200.0,
+    "paper": "https://arxiv.org/abs/2611.27811v1",
     "github": ""
   }
 },
@@ -67233,6 +67306,48 @@
     "top_5": 95.52,
     "gflops": 11.3,
     "paper": "https://arxiv.org/abs/2512.01059v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6251,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4717,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 68.6,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2611.27811v1",
+    "github": ""
+  }
+},
+{
+  "model": "stats.classificationresult",
+  "pk": 6252,
+  "fields": {
+    "source_record": null,
+    "pretrained_backbone": 4718,
+    "dataset": 1,
+    "resolution": 224,
+    "fine_tune_dataset": null,
+    "fine_tune_epochs": null,
+    "fine_tune_resolution": null,
+    "intermediate_fine_tune_dataset": null,
+    "intermediate_fine_tune_epochs": null,
+    "intermediate_fine_tune_resolution": null,
+    "top_1": 69.04,
+    "top_5": null,
+    "gflops": null,
+    "paper": "https://arxiv.org/abs/2611.27811v1",
     "github": ""
   }
 },
